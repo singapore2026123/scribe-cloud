@@ -27,7 +27,10 @@
  .actions{display:flex;gap:8px;margin-left:auto;align-items:center;flex-wrap:wrap}
  .state{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
  .dot{width:9px;height:9px;border-radius:50%;background:#9AA8B2}.dot.on{background:var(--signal)}.dot.busy{background:var(--warn)}
- .feed{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+ .feed{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative}
+ #swapbtn{position:absolute;left:50%;top:42px;transform:translate(-50%,-50%);z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:19px;cursor:pointer;box-shadow:0 2px 10px rgba(20,32,43,.18);padding:0}
+ #swapbtn:hover{background:var(--paper)}
+ .boxlang{font:inherit;font-size:14px;font-weight:600;padding:5px 9px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink)}
  .pane{background:var(--surface);border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;min-height:50vh;overflow:hidden}
  .phead{padding:12px 16px;border-bottom:1px solid var(--line);font-weight:700;display:flex;gap:10px;align-items:center}
  .pbody{padding:14px 17px;overflow-y:auto;flex:1;font-size:17px;line-height:1.6} .pbody p{margin:0 0 10px}
@@ -63,15 +66,6 @@
 <!-- APP -->
 <main id="app" class="view hidden">
  <section class="controls">
-  <label class="field"><span>Spoken language</span>
-   <select id="lang"><option value="ja">Japanese</option><option value="en">English</option>
-    <option value="ms">Malay</option><option value="my">Burmese</option>
-    <option value="zh">Chinese</option><option value="ta">Tamil</option></select></label>
-  <button class="ghost" id="swapbtn" title="Swap spoken &harr; translation (and the text)" onclick="window.scribe.swap()" style="align-self:flex-end;padding:9px 13px;font-size:16px">&#8644;</button>
-  <label class="field"><span>Translate to</span>
-   <select id="target"><option value="off">Off</option><option value="en" selected>English</option>
-    <option value="zh-CN">Chinese</option><option value="ms">Malay</option><option value="ta">Tamil</option>
-    <option value="ja">Japanese</option><option value="my">Burmese</option></select></label>
   <label class="field"><span>Source</span>
    <select id="source"><option value="mic">Microphone</option><option value="system">System / tab audio</option></select></label>
   <label class="field"><span>Mode</span>
@@ -90,10 +84,17 @@
  </section>
  <div class="view">
   <div class="feed">
-   <section class="pane"><div class="phead">Original<button class="ghost" style="margin-left:auto;padding:5px 11px;font-size:12px" onclick="window.scribe.copyBox('srcbox')">Copy</button></div>
+   <section class="pane"><div class="phead">
+     <select id="lang" class="boxlang" title="Spoken language"><option value="ja">Japanese</option><option value="en">English</option>
+      <option value="ms">Malay</option><option value="my">Burmese</option><option value="zh">Chinese</option><option value="ta">Tamil</option></select>
+     <button class="ghost" style="margin-left:auto;padding:5px 11px;font-size:12px" onclick="window.scribe.copyBox('srcbox')">Copy</button></div>
     <div class="pbody" id="srcbox"><p class="hint">Pick a language and press Start.</p></div></section>
-   <section class="pane"><div class="phead"><span id="enhead">Translation</span><button class="ghost" style="margin-left:auto;padding:5px 11px;font-size:12px" onclick="window.scribe.copyBox('enbox')">Copy</button></div>
+   <section class="pane"><div class="phead">
+     <select id="target" class="boxlang" title="Translate to"><option value="off">Off (no translation)</option><option value="en" selected>English</option>
+      <option value="zh-CN">Chinese</option><option value="ms">Malay</option><option value="ta">Tamil</option><option value="ja">Japanese</option><option value="my">Burmese</option></select>
+     <button class="ghost" style="margin-left:auto;padding:5px 11px;font-size:12px" onclick="window.scribe.copyBox('enbox')">Copy</button></div>
     <div class="pbody" id="enbox"></div></section>
+   <button id="swapbtn" title="Swap languages &amp; text" onclick="window.scribe.swap()">&#8644;</button>
   </div>
   <div id="hist"><div style="font-weight:700;margin:6px 0 12px">Your saved sessions</div><div id="histlist"><p class="hint">Loading…</p></div></div>
  </div>

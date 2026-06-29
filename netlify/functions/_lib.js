@@ -5,25 +5,34 @@ export const LANG = {
   vi: "Vietnamese", hi: "Hindi", fr: "French",
 };
 
-const MODEL = () => process.env.GEMINI_MODEL || "gemini-2.0-flash";
+const MODEL = () => process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
-export function hasKey() { return !!process.env.GEMINI_API_KEY; }
+// All configured keys (add GEMINI_API_KEY_2 / _3 / _4 in Netlify to multiply free-tier quota).
+function keys() {
+  return [process.env.GEMINI_API_KEY, process.env.GEMINI_API_KEY_2,
+          process.env.GEMINI_API_KEY_3, process.env.GEMINI_API_KEY_4].filter(Boolean);
+}
 
-// Call Gemini generateContent with retry on transient 429/503. Returns parsed JSON response.
-export async function geminiCall(body, tries = 3) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL()}:generateContent?key=${process.env.GEMINI_API_KEY}`;
-  for (let i = 0; i < tries; i++) {
-    const r = await fetch(url, {
-      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body),
-    });
-    if ((r.status === 429 || r.status === 503) && i < tries - 1) {
-      await new Promise((s) => setTimeout(s, 1500 * (i + 1)));
-      continue;
+export function hasKey() { return keys().length > 0; }
+
+// Call Gemini, ROTATING keys on quota: 429 -> next key; 503 (overloaded) -> retry once on the same key.
+export async function geminiCall(body) {
+  const ks = keys();
+  if (!ks.length) throw new Error("no GEMINI_API_KEY configured");
+  let lastErr;
+  for (const key of ks) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL()}:generateContent?key=${key}`;
+    for (let i = 0; i < 2; i++) {
+      const r = await fetch(url, {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body),
+      });
+      if (r.ok) return r.json();
+      if (r.status === 429) { lastErr = new Error("gemini 429 (quota)"); break; }        // exhausted -> next key
+      if (r.status === 503 && i < 1) { await new Promise((s) => setTimeout(s, 1200)); continue; }  // overloaded -> retry once
+      lastErr = new Error(`gemini ${r.status}: ${(await r.text()).slice(0, 150)}`); break;
     }
-    if (!r.ok) throw new Error(`gemini ${r.status}: ${(await r.text()).slice(0, 200)}`);
-    return r.json();
   }
-  throw new Error("gemini retry exhausted (quota?)");
+  throw lastErr || new Error("gemini failed");
 }
 
 export function geminiText(data) {

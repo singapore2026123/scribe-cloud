@@ -27,7 +27,7 @@ function addLine(raw, translation, speaker) {
   const h = $("srcbox").querySelector(".hint"); if (h) h.remove();
   const l = { raw, translation: translation || "", speaker }; lines.push(l); renderLine(l);
 }
-function setEnHead() { const t = $("target"); $("enhead").textContent = t.value === "off" ? "Translation (off)" : "Translation — " + t.options[t.selectedIndex].textContent; }
+function setEnHead() { const h = $("enhead"); if (!h) return; const t = $("target"); h.textContent = t.value === "off" ? "Translation (off)" : "Translation — " + t.options[t.selectedIndex].textContent; }
 function rerender() {
   $("srcbox").innerHTML = ""; $("enbox").innerHTML = "";
   if (!lines.length) { $("srcbox").innerHTML = '<p class="hint">Pick a language and press Start.</p>'; return; }
