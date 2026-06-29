@@ -67,12 +67,17 @@
    <select id="lang"><option value="ja">Japanese</option><option value="en">English</option>
     <option value="ms">Malay</option><option value="my">Burmese</option>
     <option value="zh">Chinese</option><option value="ta">Tamil</option></select></label>
-  <label class="field"><span>Mode</span>
-   <select id="mode"><option value="live">Live (browser)</option><option value="record">Record &rarr; transcribe</option></select></label>
+  <button class="ghost" id="swapbtn" title="Swap spoken &harr; translation (and the text)" onclick="window.scribe.swap()" style="align-self:flex-end;padding:9px 13px;font-size:16px">&#8644;</button>
   <label class="field"><span>Translate to</span>
    <select id="target"><option value="off">Off</option><option value="en" selected>English</option>
     <option value="zh-CN">Chinese</option><option value="ms">Malay</option><option value="ta">Tamil</option>
     <option value="ja">Japanese</option><option value="my">Burmese</option></select></label>
+  <label class="field"><span>Source</span>
+   <select id="source"><option value="mic">Microphone</option><option value="system">System / tab audio</option></select></label>
+  <label class="field"><span>Mode</span>
+   <select id="mode"><option value="live">Live (browser)</option><option value="record">Record &rarr; transcribe</option></select></label>
+  <label class="field"><span>Export as</span>
+   <select id="fmt"><option value="word">Word</option><option value="pdf">PDF</option></select></label>
   <div class="actions">
    <span class="state"><span class="dot" id="dot"></span><span id="stxt">Ready</span></span>
    <button class="ghost" onclick="window.scribe.save()">Save</button>

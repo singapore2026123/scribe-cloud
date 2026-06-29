@@ -28,6 +28,20 @@ function addLine(raw, translation, speaker) {
   const l = { raw, translation: translation || "", speaker }; lines.push(l); renderLine(l);
 }
 function setEnHead() { const t = $("target"); $("enhead").textContent = t.value === "off" ? "Translation (off)" : "Translation — " + t.options[t.selectedIndex].textContent; }
+function rerender() {
+  $("srcbox").innerHTML = ""; $("enbox").innerHTML = "";
+  if (!lines.length) { $("srcbox").innerHTML = '<p class="hint">Pick a language and press Start.</p>'; return; }
+  lines.forEach(renderLine);
+}
+function swap() {                                  // DeepL-style: flip spoken<->translation languages AND the text
+  const t2l = { "zh-CN": "zh", ja: "ja", en: "en", ms: "ms", my: "my", ta: "ta" };
+  const l2t = { zh: "zh-CN", ja: "ja", en: "en", ms: "ms", my: "my", ta: "ta" };
+  const L = $("lang").value, T = $("target").value, nl = t2l[T];
+  if (!nl) return setState('Set "Translate to" to a spoken language (JA/ZH/MS/MY/EN/TA) to swap', false);
+  lines.forEach((l) => { const r = l.raw; l.raw = l.translation; l.translation = r; });
+  $("lang").value = nl; if (l2t[L]) $("target").value = l2t[L];
+  setEnHead(); rerender();
+}
 
 // ---------- auth ----------
 async function boot() {
@@ -102,13 +116,27 @@ function stopBrowser() { running = false; if (webrec) { try { webrec.onend = nul
 
 // ---------- record -> Gemini ----------
 async function startRecord() {
+  const source = $("source").value;
   let stream;
-  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
-  catch { setState("Microphone blocked — allow mic access", false); running = false; return; }
-  recChunks = []; mediaRec = new MediaRecorder(stream);
+  try {
+    stream = source === "system"
+      ? await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })   // user picks tab/screen + "Share audio"
+      : await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch {
+    setState(source === "system" ? "Screen/tab share cancelled or blocked" : "Microphone blocked — allow mic access", false);
+    running = false; return;
+  }
+  const aud = stream.getAudioTracks();
+  if (!aud.length) {
+    stream.getTracks().forEach((t) => t.stop());
+    setState('No audio captured — when sharing a tab/screen you must tick "Share tab audio"', false);
+    running = false; return;
+  }
+  recChunks = []; mediaRec = new MediaRecorder(new MediaStream(aud));   // audio only (ignore the video track)
   mediaRec.ondataavailable = (e) => { if (e.data.size) recChunks.push(e.data); };
   mediaRec.onstop = async () => { stream.getTracks().forEach((t) => t.stop()); await processRecording(); };
-  mediaRec.start(); setState("recording — press Stop when done", true, false);
+  mediaRec.start();
+  setState(source === "system" ? "recording tab/system audio — press Stop when done" : "recording — press Stop when done", true, false);
 }
 async function processRecording() {
   setState("transcribing (cloud)…", true, true);
@@ -151,6 +179,7 @@ function b64ToBlob(b64, type) { const bin = atob(b64), a = new Uint8Array(bin.le
 function start() {
   setEnHead(); clearBoxes();
   if ($("mode").value === "record") { running = true; startRecord(); return; }
+  if ($("source").value === "system") { setState("System/tab audio works in Record mode only — switch Mode to Record.", false); return; }
   if ($("lang").value === "my") setState("Tip: Burmese live is weak — use Record mode. Listening…", true, false);
   running = true; startBrowser();
 }
@@ -231,7 +260,13 @@ async function exportDoc() {
   } catch {}
   const rows = lines.map((l) => `${l.translation ? `<p>${esc(l.translation)}</p>` : ""}${l.raw ? `<p style="color:#666;font-size:13px">${esc(l.raw)}</p>` : ""}`).join("");
   const html = `<html><head><meta charset="utf-8"><title>Scribe notes</title></head><body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.6">${notesHtml}<h2>Full Transcript</h2>${rows}</body></html>`;
-  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" })); a.download = "scribe-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
+  if (($("fmt") || {}).value === "pdf") {
+    const w = window.open("", "_blank");
+    if (!w) return setState("Allow pop-ups to export PDF", false);
+    w.document.write(html); w.document.close(); w.focus(); w.print();
+  } else {
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" })); a.download = "scribe-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
+  }
 }
 function mdToHtml(md) {
   return (md || "").split(/\r?\n/).map((ln) => {
@@ -249,5 +284,5 @@ function clear() {
   $("srcbox").innerHTML = '<p class="hint">Cleared. Pick a language and press Start.</p>';
   setState("Ready", false);
 }
-window.scribe = { signIn, signUp, logout, start, stop, save, clear, notes, copyNotes, copyBox, exportDoc };
+window.scribe = { signIn, signUp, logout, start, stop, save, clear, swap, notes, copyNotes, copyBox, exportDoc };
 boot();
