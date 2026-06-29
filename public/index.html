@@ -75,7 +75,6 @@
   <div class="actions">
    <span class="state"><span class="dot" id="dot"></span><span id="stxt">Ready</span></span>
    <button class="ghost" onclick="window.scribe.save()">Save</button>
-   <button class="ghost" onclick="window.scribe.clear()">Clear</button>
    <button class="ghost" onclick="window.scribe.notes()">Notes</button>
    <button class="ghost" onclick="window.scribe.exportDoc()">Export</button>
    <button id="stop" onclick="window.scribe.stop()" disabled>Stop</button>
@@ -87,13 +86,15 @@
    <section class="pane"><div class="phead">
      <select id="lang" class="boxlang" title="Spoken language"><option value="ja">Japanese</option><option value="en">English</option>
       <option value="ms">Malay</option><option value="my">Burmese</option><option value="zh">Chinese</option><option value="ta">Tamil</option></select>
-     <button class="ghost" style="margin-left:auto;padding:5px 11px;font-size:12px" onclick="window.scribe.copyBox('srcbox')">Copy</button></div>
-    <div class="pbody" id="srcbox"><p class="hint">Pick a language and press Start.</p></div></section>
+     <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('srcbox')">Clear</button>
+     <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('srcbox')">Copy</button></div>
+    <div class="pbody" id="srcbox" contenteditable="true" spellcheck="false"><p class="hint">Pick a language and press Start.</p></div></section>
    <section class="pane"><div class="phead">
      <select id="target" class="boxlang" title="Translate to"><option value="off">Off (no translation)</option><option value="en" selected>English</option>
       <option value="zh-CN">Chinese</option><option value="ms">Malay</option><option value="ta">Tamil</option><option value="ja">Japanese</option><option value="my">Burmese</option></select>
-     <button class="ghost" style="margin-left:auto;padding:5px 11px;font-size:12px" onclick="window.scribe.copyBox('enbox')">Copy</button></div>
-    <div class="pbody" id="enbox"></div></section>
+     <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('enbox')">Clear</button>
+     <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('enbox')">Copy</button></div>
+    <div class="pbody" id="enbox" contenteditable="true" spellcheck="false"></div></section>
    <button id="swapbtn" title="Swap languages &amp; text" onclick="window.scribe.swap()">&#8644;</button>
   </div>
   <div id="hist"><div style="font-weight:700;margin:6px 0 12px">Your saved sessions</div><div id="histlist"><p class="hint">Loading…</p></div></div>

@@ -17,6 +17,8 @@ function setState(txt, on, busy) {
 }
 function esc(t) { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
 function clearBoxes() { lines = []; lastWavB64 = null; $("srcbox").innerHTML = ""; $("enbox").innerHTML = ""; }
+function boxLines(id) { return [...$(id).querySelectorAll("p")].filter((p) => !p.classList.contains("hint") && p.id !== "interim").map((p) => p.textContent.trim()).filter(Boolean); }
+function clearBox(id) { $(id).innerHTML = id === "srcbox" ? '<p class="hint">Cleared.</p>' : ""; setState("Cleared " + (id === "srcbox" ? "original" : "translation"), false); }
 function renderLine(l) {
   const lbl = (l.speaker != null) ? `Speaker ${l.speaker + 1}: ` : "";
   const ps = document.createElement("p"); ps.textContent = lbl + (l.raw || ""); $("srcbox").appendChild(ps);
@@ -38,9 +40,13 @@ function swap() {                                  // DeepL-style: flip spoken<-
   const l2t = { zh: "zh-CN", ja: "ja", en: "en", ms: "ms", my: "my", ta: "ta" };
   const L = $("lang").value, T = $("target").value, nl = t2l[T];
   if (!nl) return setState('Set "Translate to" to a spoken language (JA/ZH/MS/MY/EN/TA) to swap', false);
-  lines.forEach((l) => { const r = l.raw; l.raw = l.translation; l.translation = r; });
+  const src = boxLines("srcbox"), en = boxLines("enbox");   // read current text from the boxes
   $("lang").value = nl; if (l2t[L]) $("target").value = l2t[L];
-  setEnHead(); rerender();
+  $("srcbox").innerHTML = ""; $("enbox").innerHTML = "";
+  en.forEach((t) => { const p = document.createElement("p"); p.textContent = t; $("srcbox").appendChild(p); });
+  src.forEach((t) => { const p = document.createElement("p"); p.textContent = t; $("enbox").appendChild(p); });
+  if (!en.length) $("srcbox").innerHTML = '<p class="hint">Pick a language and press Start.</p>';
+  setEnHead();
 }
 
 // ---------- auth ----------
@@ -190,7 +196,8 @@ function stop() {
 
 // ---------- Supabase persistence ----------
 async function save() {
-  if (!lines.length) return setState("Nothing to save", false);
+  const src = boxLines("srcbox"), en = boxLines("enbox");
+  if (!src.length && !en.length) return setState("Nothing to save", false);
   setState("saving…", true, true);
   let audio_path = null;
   if (lastWavB64) {
@@ -203,7 +210,8 @@ async function save() {
     src_lang: $("lang").value, target_lang: $("target").value, audio_path,
   }).select().single();
   if (error) return setState("Save failed: " + error.message, false);
-  const rows = lines.map((l, i) => ({ session_id: sess.id, user_id: user.id, idx: i, speaker: l.speaker ?? null, raw: l.raw || "", translation: l.translation || "" }));
+  const n = Math.max(src.length, en.length), rows = [];
+  for (let i = 0; i < n; i++) rows.push({ session_id: sess.id, user_id: user.id, idx: i, raw: src[i] || "", translation: en[i] || "" });
   const { error: e2 } = await sb.from("lines").insert(rows);
   setState(e2 ? "Saved session, lines failed: " + e2.message : "Saved ✓", false);
   loadHistory();
@@ -236,7 +244,7 @@ async function delSession(id) {
 
 // ---------- notes / export ----------
 async function notes() {
-  const text = lines.map((l) => (l.speaker != null ? `Speaker ${l.speaker + 1}: ` : "") + (l.raw || "")).filter(Boolean).join("\n");
+  const text = boxLines("srcbox").join("\n");
   if (!text.trim()) return setState("Nothing to summarize", false);
   setState("generating notes…", true, true);
   try {
@@ -251,14 +259,15 @@ function copyBox(id) {
   navigator.clipboard.writeText(t); setState("Copied", false);
 }
 async function exportDoc() {
-  if (!lines.length) return setState("Nothing to export", false);
+  const src = boxLines("srcbox"), en = boxLines("enbox");
+  if (!src.length && !en.length) return setState("Nothing to export", false);
   let notesHtml = "";
   try {
-    const text = lines.map((l) => l.raw).filter(Boolean).join("\n");
-    const d = await (await fetch("/api/notes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: text, target: $("target").value }) })).json();
+    const d = await (await fetch("/api/notes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: src.join("\n"), target: $("target").value }) })).json();
     if (d.notes) notesHtml = mdToHtml(d.notes);
   } catch {}
-  const rows = lines.map((l) => `${l.translation ? `<p>${esc(l.translation)}</p>` : ""}${l.raw ? `<p style="color:#666;font-size:13px">${esc(l.raw)}</p>` : ""}`).join("");
+  const n = Math.max(src.length, en.length); let rows = "";
+  for (let i = 0; i < n; i++) rows += `${en[i] ? `<p>${esc(en[i])}</p>` : ""}${src[i] ? `<p style="color:#666;font-size:13px">${esc(src[i])}</p>` : ""}`;
   const html = `<html><head><meta charset="utf-8"><title>Scribe notes</title></head><body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.6">${notesHtml}<h2>Full Transcript</h2>${rows}</body></html>`;
   if (($("fmt") || {}).value === "pdf") {
     const w = window.open("", "_blank");
@@ -278,11 +287,5 @@ function mdToHtml(md) {
 }
 
 // expose for inline handlers
-function clear() {
-  if (running) return setState("Stop first, then Clear", false);
-  clearBoxes();
-  $("srcbox").innerHTML = '<p class="hint">Cleared. Pick a language and press Start.</p>';
-  setState("Ready", false);
-}
-window.scribe = { signIn, signUp, logout, start, stop, save, clear, swap, notes, copyNotes, copyBox, exportDoc };
+window.scribe = { signIn, signUp, logout, start, stop, save, clearBox, swap, notes, copyNotes, copyBox, exportDoc };
 boot();
