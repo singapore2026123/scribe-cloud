@@ -243,5 +243,11 @@ function mdToHtml(md) {
 }
 
 // expose for inline handlers
-window.scribe = { signIn, signUp, logout, start, stop, save, notes, copyNotes, copyBox, exportDoc };
+function clear() {
+  if (running) return setState("Stop first, then Clear", false);
+  clearBoxes();
+  $("srcbox").innerHTML = '<p class="hint">Cleared. Pick a language and press Start.</p>';
+  setState("Ready", false);
+}
+window.scribe = { signIn, signUp, logout, start, stop, save, clear, notes, copyNotes, copyBox, exportDoc };
 boot();
