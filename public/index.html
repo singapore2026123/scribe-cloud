@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scribe Cloud</title>
+<style>
+ :root{--paper:#EEF2F4;--surface:#fff;--ink:#14202B;--muted:#5C6B78;--line:#DCE3E7;--signal:#0F766E;--warn:#C2622A}
+ *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,Segoe UI,system-ui,sans-serif}
+ .bar{display:flex;align-items:center;gap:14px;padding:14px 22px;background:var(--surface);border-bottom:1px solid var(--line)}
+ .mark{font-weight:800;font-size:21px} .mark b{color:var(--signal)}
+ .tag{font-size:12px;color:var(--muted)} .spacer{margin-left:auto}
+ .who{font-size:13px;color:var(--muted)}
+ button{font:inherit;font-size:14px;font-weight:600;padding:9px 15px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+ button:disabled{opacity:.45;cursor:default} .ghost{font-weight:500;color:var(--muted)}
+ #start{background:var(--signal);border-color:var(--signal);color:#fff} #stop{border-color:var(--warn);color:var(--warn)}
+ input,select{font:inherit;font-size:14px;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+ .view{max-width:1180px;margin:0 auto;padding:22px}
+ /* login */
+ #login{max-width:420px;margin:9vh auto;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px}
+ #login h1{font-size:22px;margin:0 0 4px} #login p{color:var(--muted);margin:0 0 18px;font-size:14px}
+ #login input{width:100%;margin-bottom:10px} #login button{width:100%}
+ .status{font-size:13px;color:var(--muted);margin-top:10px;min-height:18px}
+ /* app */
+ .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;padding:14px 22px;background:var(--surface);border-bottom:1px solid var(--line)}
+ .field{display:flex;flex-direction:column;gap:5px} .field>span{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+ .actions{display:flex;gap:8px;margin-left:auto;align-items:center;flex-wrap:wrap}
+ .state{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+ .dot{width:9px;height:9px;border-radius:50%;background:#9AA8B2}.dot.on{background:var(--signal)}.dot.busy{background:var(--warn)}
+ .feed{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+ .pane{background:var(--surface);border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;min-height:50vh;overflow:hidden}
+ .phead{padding:12px 16px;border-bottom:1px solid var(--line);font-weight:700;display:flex;gap:10px;align-items:center}
+ .pbody{padding:14px 17px;overflow-y:auto;flex:1;font-size:17px;line-height:1.6} .pbody p{margin:0 0 10px}
+ .hint{color:var(--muted);font-style:italic;font-size:14px}
+ #hist{margin-top:22px} .hrow{border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin-bottom:9px;background:var(--surface)}
+ .modal{display:none;position:fixed;inset:0;background:rgba(20,32,43,.45);z-index:50;align-items:center;justify-content:center}
+ .modal>div{background:#fff;max-width:780px;width:92%;max-height:86vh;display:flex;flex-direction:column;border-radius:14px;padding:20px 22px}
+ #notesBody{white-space:pre-wrap;overflow:auto;font-size:14px;line-height:1.7}
+ .hidden{display:none!important}
+</style>
+</head>
+<body>
+<header class="bar">
+ <div><div class="mark">Scrib<b>e</b> Cloud</div><div class="tag">Multilingual care-record transcription &amp; translation</div></div>
+ <div class="spacer"></div>
+ <span class="who" id="who"></span>
+ <button class="ghost hidden" id="logout" onclick="window.scribe.logout()">Sign out</button>
+</header>
+
+<!-- LOGIN -->
+<section id="login">
+ <h1>Sign in</h1>
+ <p>Enter your email and we'll send a magic sign-in link.</p>
+ <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+ <button id="loginbtn" onclick="window.scribe.login()">Send magic link</button>
+ <div class="status" id="loginstatus"></div>
+</section>
+
+<!-- APP -->
+<main id="app" class="view hidden">
+ <section class="controls">
+  <label class="field"><span>Spoken language</span>
+   <select id="lang"><option value="ja">Japanese</option><option value="en">English</option>
+    <option value="ms">Malay</option><option value="my">Burmese</option>
+    <option value="zh">Chinese</option><option value="ta">Tamil</option></select></label>
+  <label class="field"><span>Mode</span>
+   <select id="mode"><option value="live">Live (browser)</option><option value="record">Record &rarr; transcribe</option></select></label>
+  <label class="field"><span>Translate to</span>
+   <select id="target"><option value="off">Off</option><option value="en" selected>English</option>
+    <option value="zh-CN">Chinese</option><option value="ms">Malay</option><option value="ta">Tamil</option>
+    <option value="ja">Japanese</option><option value="my">Burmese</option></select></label>
+  <div class="actions">
+   <span class="state"><span class="dot" id="dot"></span><span id="stxt">Ready</span></span>
+   <button class="ghost" onclick="window.scribe.save()">Save</button>
+   <button class="ghost" onclick="window.scribe.notes()">Notes</button>
+   <button class="ghost" onclick="window.scribe.exportDoc()">Export</button>
+   <button id="stop" onclick="window.scribe.stop()" disabled>Stop</button>
+   <button id="start" onclick="window.scribe.start()">Start</button>
+  </div>
+ </section>
+ <div class="view">
+  <div class="feed">
+   <section class="pane"><div class="phead">Original<button class="ghost" style="margin-left:auto;padding:5px 11px;font-size:12px" onclick="window.scribe.copyBox('srcbox')">Copy</button></div>
+    <div class="pbody" id="srcbox"><p class="hint">Pick a language and press Start.</p></div></section>
+   <section class="pane"><div class="phead"><span id="enhead">Translation</span><button class="ghost" style="margin-left:auto;padding:5px 11px;font-size:12px" onclick="window.scribe.copyBox('enbox')">Copy</button></div>
+    <div class="pbody" id="enbox"></div></section>
+  </div>
+  <div id="hist"><div style="font-weight:700;margin:6px 0 12px">Your saved sessions</div><div id="histlist"><p class="hint">Loading…</p></div></div>
+ </div>
+</main>
+
+<div class="modal" id="notesModal"><div>
+ <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px"><b style="font-size:19px">Meeting Notes</b>
+  <button class="ghost" style="margin-left:auto" onclick="window.scribe.copyNotes()">Copy</button>
+  <button class="ghost" onclick="document.getElementById('notesModal').style.display='none'">Close</button></div>
+ <div id="notesBody"></div></div></div>
+
+<script type="module" src="/app.js"></script>
+</body>
+</html>

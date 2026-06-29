@@ -1,0 +1,8 @@
+{
+  "name": "scribe-cloud",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Scribe Cloud - multilingual care-record transcription/translation web app (Netlify + Supabase + Gemini)",
+  "type": "module",
+  "engines": { "node": ">=20" }
+}

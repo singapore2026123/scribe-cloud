@@ -1,0 +1,19 @@
+# Netlify config for Scribe Cloud
+[build]
+  publish = "public"               # static web app
+  functions = "netlify/functions"  # serverless API (Gemini broker; key stays server-side)
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Pretty API paths: /api/transcribe -> /.netlify/functions/transcribe
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
