@@ -50,9 +50,13 @@
 <!-- LOGIN -->
 <section id="login">
  <h1>Sign in</h1>
- <p>Enter your email and we'll send a magic sign-in link.</p>
+ <p>Sign in with your email and password. First time? Click <b>Create account</b>.</p>
  <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
- <button id="loginbtn" onclick="window.scribe.login()">Send magic link</button>
+ <input id="password" type="password" placeholder="Password (min 6 characters)" autocomplete="current-password">
+ <div style="display:flex;gap:8px">
+  <button id="signinbtn" onclick="window.scribe.signIn()" style="flex:1">Sign in</button>
+  <button class="ghost" onclick="window.scribe.signUp()" style="flex:1">Create account</button>
+ </div>
  <div class="status" id="loginstatus"></div>
 </section>
 

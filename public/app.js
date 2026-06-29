@@ -51,13 +51,22 @@ function setLogged(session) {
   $("who").textContent = user ? user.email : "";
   if (user) loadHistory();
 }
-async function login() {
-  const email = $("email").value.trim();
-  if (!email) return ($("loginstatus").textContent = "Enter your email.");
-  $("loginbtn").disabled = true; $("loginstatus").textContent = "Sending…";
-  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin } });
-  $("loginbtn").disabled = false;
-  $("loginstatus").textContent = error ? ("Error: " + error.message) : "Check your email for the sign-in link.";
+async function signIn() {
+  const email = $("email").value.trim(), password = $("password").value;
+  if (!email || !password) return ($("loginstatus").textContent = "Enter your email and password.");
+  $("loginstatus").textContent = "Signing in…";
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) $("loginstatus").textContent = "Error: " + error.message;   // onAuthStateChange shows the app on success
+}
+async function signUp() {
+  const email = $("email").value.trim(), password = $("password").value;
+  if (!email || password.length < 6) return ($("loginstatus").textContent = "Enter your email and a password (min 6 characters).");
+  $("loginstatus").textContent = "Creating account…";
+  const { data, error } = await sb.auth.signUp({ email, password });
+  if (error) return ($("loginstatus").textContent = "Error: " + error.message);
+  $("loginstatus").textContent = data.session
+    ? "Account created — signing you in…"
+    : "Account created. Confirm via email if prompted, otherwise click Sign in.";
 }
 async function logout() { await sb.auth.signOut(); clearBoxes(); }
 
@@ -234,5 +243,5 @@ function mdToHtml(md) {
 }
 
 // expose for inline handlers
-window.scribe = { login, logout, start, stop, save, notes, copyNotes, copyBox, exportDoc };
+window.scribe = { signIn, signUp, logout, start, stop, save, notes, copyNotes, copyBox, exportDoc };
 boot();
