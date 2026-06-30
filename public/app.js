@@ -8,6 +8,7 @@ const WSLANG = { ja: "ja-JP", en: "en-US", ms: "ms-MY", my: "my-MM", zh: "zh-CN"
 let sb = null, user = null, asrUrl = "";
 let running = false, webrec = null, mediaRec = null, recChunks = [], lastWavB64 = null, lastNotes = "";
 let lines = [];   // [{raw, translation, speaker?}]
+let liveStream = null, liveCtx = null, liveSrc = null, liveProc = null, liveBuf = [], liveBufLen = 0, liveSeq = 0;
 
 // ---------- UI helpers ----------
 function setState(txt, on, busy) {
@@ -121,6 +122,62 @@ async function translateLast(text, lang, target) {
 }
 function stopBrowser() { running = false; if (webrec) { try { webrec.onend = null; webrec.stop(); } catch {} webrec = null; } setState("Ready", false); }
 
+// ---------- live (chunked -> Space): replaces Web Speech. Works for mic AND system/tab audio, every language, no Gemini ----------
+async function startLive() {
+  const source = $("source").value;
+  let stream;
+  try {
+    stream = source === "system"
+      ? await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })   // pick a tab/screen + tick "Share audio"
+      : await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch { setState(source === "system" ? "Screen/tab share cancelled or blocked" : "Microphone blocked — allow mic access", false); running = false; return; }
+  const aud = stream.getAudioTracks();
+  if (!aud.length) { stream.getTracks().forEach((t) => t.stop()); setState('No audio captured — when sharing a tab/screen you must tick "Share tab audio"', false); running = false; return; }
+  if (!asrUrl) { stream.getTracks().forEach((t) => t.stop()); setState("Transcription engine not configured (SCRIBE_ASR_URL).", false); running = false; return; }
+  liveStream = stream;
+  liveCtx = new (window.AudioContext || window.webkitAudioContext)();
+  try { await liveCtx.resume(); } catch {}
+  liveSrc = liveCtx.createMediaStreamSource(new MediaStream(aud));
+  liveProc = liveCtx.createScriptProcessor(4096, 1, 1);
+  liveBuf = []; liveBufLen = 0; liveSeq = 0;
+  liveProc.onaudioprocess = (e) => {
+    if (!running) return;
+    liveBuf.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+    liveBufLen += e.inputBuffer.length;
+    if (liveBufLen >= 8 * liveCtx.sampleRate) flushLive();   // ~8s chunks
+  };
+  liveSrc.connect(liveProc); liveProc.connect(liveCtx.destination);
+  setState("listening — transcribing every ~8s…", true, false);
+}
+function flushLive() {
+  if (!liveBufLen) return;
+  const merged = new Float32Array(liveBufLen); let o = 0;
+  for (const b of liveBuf) { merged.set(b, o); o += b.length; }
+  const sr = liveCtx ? liveCtx.sampleRate : 48000;
+  liveBuf = []; liveBufLen = 0;
+  const ratio = sr / 16000, outLen = Math.floor(merged.length / ratio), out = new Float32Array(outLen);
+  for (let i = 0; i < outLen; i++) out[i] = merged[Math.floor(i * ratio)];
+  transcribeChunkLive(encodeWavB64(out, 16000), ++liveSeq);
+}
+async function transcribeChunkLive(b64, n) {
+  const src = $("lang").value, target = $("target").value;
+  try {
+    const d = await (await fetch(asrUrl.replace(/\/+$/, "") + "/transcribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: b64, src, target }) })).json();
+    if ((d.transcript || "").trim() || (d.translation || "").trim()) addLine(d.transcript || "", d.translation || "");
+    else if (running) setState(`listening… (chunk ${n}: no speech)`, true, false);
+  } catch (e) { if (running) setState(`listening… (chunk ${n} error: ${e.message})`, true, false); }
+}
+function stopLive() {
+  running = false;
+  flushLive();   // queue the final partial chunk — Stop halts capture only, transcription keeps finishing
+  try { if (liveProc) { liveProc.onaudioprocess = null; liveProc.disconnect(); } } catch {}
+  try { if (liveSrc) liveSrc.disconnect(); } catch {}
+  try { if (liveStream) liveStream.getTracks().forEach((t) => t.stop()); } catch {}
+  try { if (liveCtx) liveCtx.close(); } catch {}
+  liveProc = liveSrc = liveStream = liveCtx = null;
+  setState("capture stopped — finishing transcription…", false);
+}
+
 // ---------- record -> Gemini ----------
 async function startRecord() {
   const source = $("source").value;
@@ -151,8 +208,8 @@ async function processRecording() {
     const blob = new Blob(recChunks, { type: recChunks[0]?.type || "audio/webm" });
     lastWavB64 = await blobToWav16kB64(blob);
     let d;
-    if (src === "my" && asrUrl) {   // Burmese -> call the public Space directly (no Netlify 10s timeout)
-      setState("transcribing on local Burmese model (first run loads the model — up to a minute)…", true, true);
+    if (asrUrl) {   // all languages -> the public Space directly (free/unlimited, no Gemini, no Netlify 10s timeout)
+      setState("transcribing on the Scribe model (first run loads it — up to a minute)…", true, true);
       const r = await fetch(asrUrl.replace(/\/+$/, "") + "/transcribe", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ audio: lastWavB64, src, target }),
@@ -197,13 +254,11 @@ function b64ToBlob(b64, type) { const bin = atob(b64), a = new Uint8Array(bin.le
 function start() {
   setEnHead(); clearBoxes();
   if ($("mode").value === "record") { running = true; startRecord(); return; }
-  if ($("source").value === "system") { setState("System/tab audio works in Record mode only — switch Mode to Record.", false); return; }
-  if ($("lang").value === "my") setState("Tip: Burmese live is weak — use Record mode. Listening…", true, false);
-  running = true; startBrowser();
+  running = true; startLive();   // chunked capture -> Space (all languages, mic or tab, no Web Speech / no Gemini)
 }
 function stop() {
   if ($("mode").value === "record") { if (mediaRec && mediaRec.state !== "inactive") mediaRec.stop(); running = false; $("stop").disabled = true; return; }
-  stopBrowser();
+  stopLive();
 }
 
 // ---------- Supabase persistence ----------

@@ -14,7 +14,7 @@ LANG = {"en": "eng", "ja": "jpn", "zh": "cmn", "zh-CN": "cmn", "ms": "zsm",
 # legitimately repeat short sequences, so those same settings force WRONG characters ->
 # decode them with beam search and no forced anti-repeat instead.
 GEN_MY = dict(no_repeat_ngram_size=3, repetition_penalty=1.3, max_new_tokens=256, num_beams=1)
-GEN_DEFAULT = dict(max_new_tokens=256, num_beams=5)
+GEN_DEFAULT = dict(max_new_tokens=256, num_beams=1)   # greedy, no forced anti-repeat (that corrupted JA/ZH); fast for live
 
 
 def _gen(lang_code):
