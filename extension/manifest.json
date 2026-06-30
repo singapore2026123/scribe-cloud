@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Scribe Tab Audio",
+  "version": "0.1.0",
+  "description": "Capture the current browser tab's audio (no screen-share) and transcribe + translate it with Scribe.",
+  "permissions": ["tabCapture", "offscreen", "tabs", "storage"],
+  "host_permissions": [
+    "https://singapore2026123-scribe-burmese-asr.hf.space/*",
+    "https://kanamic-scribe.netlify.app/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_popup": "popup.html", "default_title": "Scribe Tab Audio" }
+}

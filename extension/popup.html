@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+ body{font-family:Segoe UI,system-ui,sans-serif;width:340px;margin:0;padding:12px;color:#14202B}
+ h1{font-size:15px;margin:0 0 8px} h1 b{color:#0F766E}
+ .row{display:flex;gap:8px;margin-bottom:8px}
+ select{flex:1;font:inherit;font-size:13px;padding:6px 8px;border:1px solid #DCE3E7;border-radius:6px;background:#fff}
+ button{font:inherit;font-size:13px;font-weight:600;padding:8px 12px;border-radius:7px;border:1px solid #DCE3E7;background:#fff;cursor:pointer}
+ #start{flex:1;background:#0F766E;border-color:#0F766E;color:#fff} #stop{flex:1;border-color:#C2622A;color:#C2622A}
+ button:disabled{opacity:.45;cursor:default}
+ .status{font-size:12px;color:#5C6B78;margin:6px 0;min-height:16px}
+ .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#5C6B78;display:flex;align-items:center;gap:8px;margin-top:6px}
+ .box{border:1px solid #DCE3E7;border-radius:8px;padding:8px 10px;min-height:46px;font-size:14px;line-height:1.5;white-space:pre-wrap;margin-top:4px}
+ .copy{font-size:10px;padding:2px 7px;font-weight:500;color:#5C6B78}
+</style></head>
+<body>
+ <h1>Scrib<b>e</b> — Tab Audio</h1>
+ <div class="row">
+  <select id="lang"><option value="my">Burmese</option><option value="ja">Japanese</option><option value="en">English</option><option value="ms">Malay</option><option value="zh">Chinese</option><option value="ta">Tamil</option></select>
+  <select id="target"><option value="en">&rarr; English</option><option value="off">No translation</option><option value="ja">&rarr; Japanese</option><option value="zh-CN">&rarr; Chinese</option><option value="ms">&rarr; Malay</option><option value="my">&rarr; Burmese</option></select>
+ </div>
+ <div class="row"><button id="start">Start</button><button id="stop" disabled>Stop</button></div>
+ <div class="status" id="status">Open a tab playing audio, then press Start.</div>
+ <div class="lbl">Original <button class="copy" id="copysrc">Copy</button></div>
+ <div class="box" id="src"></div>
+ <div class="lbl">Translation</div>
+ <div class="box" id="tr"></div>
+ <script src="popup.js"></script>
+</body></html>
