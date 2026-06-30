@@ -11,14 +11,15 @@ translates via Scribe: **Burmese → your HF Space (SeamlessM4T)**, other langua
 
 ## Use
 1. Open the tab that's playing audio (a video, a call, etc.).
-2. Click the **Scribe Tab Audio** icon → choose **Spoken language** + **Translate to**.
-3. **Start** → it begins capturing that tab (no share dialog). You can switch to the tab and let it play.
-4. Click the icon again → **Stop** → the transcript + translation appear (and persist if you reopen the popup).
+2. Click the **Scribe** toolbar icon → a **side panel** opens (stays open while you watch the tab).
+3. Choose **Spoken language** + **Translate to** → **Start** (no share dialog).
+4. Lines of transcription + translation stream in **every ~8 s** as the tab plays.
+5. **Stop** when done; **Copy** grabs the originals.
 
 Notes:
-- The tab stays audible while capturing.
-- First Burmese transcription wakes the Space (~30 s, one-time); then ~14 s.
-- Recording continues even if the popup closes; reopen it and press **Stop**.
+- **Near-real-time, ~8 s chunks** (not word-by-word). Good for JA/ZH/MS/EN.
+- **Burmese lags** — the Space takes ~14 s/clip, so it trails behind live audio (it's the free trade-off).
+- The tab stays audible while capturing; chunk boundaries may clip a word.
 
 ## How it connects
 `tabCapture → record → WAV → POST`:

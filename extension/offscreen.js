@@ -1,43 +1,50 @@
-// Captures the tab audio (via the streamId), records it, and on stop transcribes via the Scribe backends.
+// Captures tab audio and transcribes it in rolling ~8s chunks (near-real-time), streaming results to the panel.
 const SPACE_URL = "https://singapore2026123-scribe-burmese-asr.hf.space/transcribe";   // Burmese (SeamlessM4T)
 const NETLIFY_TRANSCRIBE = "https://kanamic-scribe.netlify.app/api/transcribe";        // others (Gemini)
+const CHUNK_SEC = 8;
 
-let rec = null, chunks = [], audioCtx = null, cfg = {};
+let ctx = null, srcNode = null, proc = null, stream = null;
+let cfg = {}, buf = [], bufLen = 0, running = false;
 
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.target !== "offscreen") return;
-  if (msg.type === "offscreen-start") startCapture(msg.streamId, msg.lang, msg.target);
-  else if (msg.type === "offscreen-stop") stopCapture();
+  if (msg.type === "offscreen-start") start(msg.streamId, msg.lang, msg.target);
+  else if (msg.type === "offscreen-stop") stop();
 });
 
-async function startCapture(streamId, lang, target) {
-  cfg = { lang, target };
-  let stream;
+async function start(streamId, lang, target) {
+  cfg = { lang, target }; buf = []; bufLen = 0; running = true;
   try {
     stream = await navigator.mediaDevices.getUserMedia({
       audio: { mandatory: { chromeMediaSource: "tab", chromeMediaSourceId: streamId } },
     });
-  } catch (e) { return report("status", "capture failed: " + e.message); }
-  audioCtx = new AudioContext();                                   // keep the tab audible while capturing
-  audioCtx.createMediaStreamSource(stream).connect(audioCtx.destination);
-  chunks = [];
-  rec = new MediaRecorder(stream);
-  rec.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
-  rec.onstop = async () => {
-    stream.getTracks().forEach((t) => t.stop());
-    if (audioCtx) { audioCtx.close(); audioCtx = null; }
-    await transcribe();
+  } catch (e) { return panel("status", "capture failed: " + e.message); }
+  ctx = new AudioContext();
+  srcNode = ctx.createMediaStreamSource(stream);
+  srcNode.connect(ctx.destination);                          // keep the tab audible
+  proc = ctx.createScriptProcessor(4096, 1, 1);
+  proc.onaudioprocess = (e) => {
+    if (!running) return;
+    buf.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+    bufLen += e.inputBuffer.length;
+    if (bufLen >= CHUNK_SEC * ctx.sampleRate) flush();
   };
-  rec.start();
+  srcNode.connect(proc); proc.connect(ctx.destination);
+  panel("status", `listening — transcribing every ${CHUNK_SEC}s…`);
 }
 
-function stopCapture() { if (rec && rec.state !== "inactive") rec.stop(); }
+function flush() {
+  if (bufLen === 0) return;
+  const merged = new Float32Array(bufLen);
+  let o = 0; for (const b of buf) { merged.set(b, o); o += b.length; }
+  const sr = ctx ? ctx.sampleRate : 48000;
+  buf = []; bufLen = 0;
+  const b64 = encodeWavB64(resampleTo16k(merged, sr), 16000);
+  transcribeChunk(b64);
+}
 
-async function transcribe() {
-  report("status", "transcribing…");
+async function transcribeChunk(b64) {
   try {
-    const blob = new Blob(chunks, { type: chunks[0]?.type || "audio/webm" });
-    const b64 = await blobToWav16kB64(blob);
     const { lang: src, target } = cfg;
     let d;
     if (src === "my") {
@@ -45,28 +52,27 @@ async function transcribe() {
     } else {
       d = await (await fetch(NETLIFY_TRANSCRIBE, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: b64, mime: "audio/wav", src, target }) })).json();
     }
-    report("result", "done", { transcript: d.transcript || "", translation: d.translation || "", error: d.error || "" });
-  } catch (e) { report("status", "error: " + e.message); }
+    if ((d.transcript || "").trim() || (d.translation || "").trim())
+      panel("line", "", { transcript: d.transcript || "", translation: d.translation || "" });
+  } catch (e) { /* skip a failed chunk; keep streaming */ }
 }
 
-function report(type, status, result) {
-  const payload = { status };
-  if (type === "result") { payload.result = result; payload.recording = false; }
-  chrome.storage.local.set(payload);
-  chrome.runtime.sendMessage({ target: "popup", type, status, result }).catch(() => {});
+function stop() {
+  running = false;
+  flush();                                                   // transcribe the final partial chunk
+  try { if (proc) { proc.onaudioprocess = null; proc.disconnect(); } } catch {}
+  try { if (srcNode) srcNode.disconnect(); } catch {}
+  try { if (stream) stream.getTracks().forEach((t) => t.stop()); } catch {}
+  try { if (ctx) ctx.close(); } catch {}
+  proc = srcNode = stream = ctx = null;
+  panel("status", "stopped");
 }
 
-// ---- WAV (16k mono) encoder ----
-async function blobToWav16kB64(blob) {
-  const ab = await blob.arrayBuffer();
-  const ac = new (window.AudioContext || window.webkitAudioContext)();
-  const buf = await ac.decodeAudioData(ab);
-  const len = buf.length, ch = buf.numberOfChannels, mono = new Float32Array(len);
-  for (let c = 0; c < ch; c++) { const dd = buf.getChannelData(c); for (let i = 0; i < len; i++) mono[i] += dd[i] / ch; }
-  const ratio = buf.sampleRate / 16000, outLen = Math.floor(len / ratio), out = new Float32Array(outLen);
-  for (let i = 0; i < outLen; i++) out[i] = mono[Math.floor(i * ratio)];
-  ac.close();
-  return encodeWavB64(out, 16000);
+function resampleTo16k(samples, sr) {
+  if (sr === 16000) return samples;
+  const ratio = sr / 16000, outLen = Math.floor(samples.length / ratio), out = new Float32Array(outLen);
+  for (let i = 0; i < outLen; i++) out[i] = samples[Math.floor(i * ratio)];
+  return out;
 }
 function encodeWavB64(samples, sr) {
   const buffer = new ArrayBuffer(44 + samples.length * 2), view = new DataView(buffer);
@@ -79,3 +85,4 @@ function encodeWavB64(samples, sr) {
   let bin = ""; const bytes = new Uint8Array(buffer); for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
   return btoa(bin);
 }
+function panel(type, status, line) { chrome.runtime.sendMessage({ target: "panel", type, status, line }).catch(() => {}); }
