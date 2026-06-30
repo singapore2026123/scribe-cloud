@@ -3,7 +3,7 @@
   "name": "Scribe Tab Audio",
   "version": "0.2.0",
   "description": "Live transcription + translation of the current tab's audio (no screen-share) in a side panel. Scribe.",
-  "permissions": ["tabCapture", "offscreen", "tabs", "storage", "sidePanel"],
+  "permissions": ["tabCapture", "offscreen", "tabs", "storage", "sidePanel", "activeTab"],
   "host_permissions": [
     "https://singapore2026123-scribe-burmese-asr.hf.space/*",
     "https://kanamic-scribe.netlify.app/*"

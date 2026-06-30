@@ -1,6 +1,9 @@
-// Clicking the toolbar icon opens the side panel.
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true }).catch(() => {});
+// Clicking the toolbar icon: open the side panel AND remember THIS tab as the capture target
+// (the click grants activeTab on it, which tabCapture needs). Capture stays bound to it even if you switch tabs.
+let captureTabId = null;
+chrome.action.onClicked.addListener(async (tab) => {
+  captureTabId = (tab && tab.id) || null;
+  try { await chrome.sidePanel.open({ tabId: tab.id }); } catch (e) {}
 });
 
 async function ensureOffscreen() {
@@ -17,9 +20,10 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   (async () => {
     try {
       if (msg.type === "start") {
-        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        if (!tab) return sendResponse({ ok: false, error: "no active tab" });
-        const streamId = await chrome.tabCapture.getMediaStreamId({ targetTabId: tab.id });
+        let tabId = captureTabId;
+        if (tabId == null) { const [t] = await chrome.tabs.query({ active: true, currentWindow: true }); tabId = t && t.id; }
+        if (tabId == null) return sendResponse({ ok: false, error: "no tab — click the Scribe icon on the page first" });
+        const streamId = await chrome.tabCapture.getMediaStreamId({ targetTabId: tabId });
         await ensureOffscreen();
         chrome.runtime.sendMessage({ target: "offscreen", type: "offscreen-start", streamId, lang: msg.lang, target: msg.target });
         sendResponse({ ok: true });
