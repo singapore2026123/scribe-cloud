@@ -19,7 +19,7 @@ function setState(txt, on, busy) {
 function esc(t) { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
 function clearBoxes() { lines = []; lastWavB64 = null; $("srcbox").innerHTML = ""; $("enbox").innerHTML = ""; }
 function boxLines(id) { return [...$(id).querySelectorAll("p")].filter((p) => !p.classList.contains("hint") && p.id !== "interim").map((p) => p.textContent.trim()).filter(Boolean); }
-function clearBox(id) { $(id).innerHTML = id === "srcbox" ? '<p class="hint">Cleared.</p>' : ""; setState("Cleared " + (id === "srcbox" ? "original" : "translation"), false); }
+function clearBox() { lines = []; lastWavB64 = null; $("srcbox").innerHTML = '<p class="hint">Cleared.</p>'; $("enbox").innerHTML = ""; setState("Cleared", false); }   // either Clear button wipes both boxes
 function renderLine(l) {
   const lbl = (l.speaker != null) ? `Speaker ${l.speaker + 1}: ` : "";
   const ps = document.createElement("p"); ps.textContent = lbl + (l.raw || ""); $("srcbox").appendChild(ps);
@@ -63,7 +63,7 @@ async function boot() {
   asrUrl = cfg.asrUrl || "";   // public Burmese ASR Space — browser calls it directly (dodges Netlify timeout)
   const { data: { session } } = await sb.auth.getSession();
   setLogged(session);
-  sb.auth.onAuthStateChange((_e, s) => setLogged(s));
+  sb.auth.onAuthStateChange((event, s) => { if (event === "PASSWORD_RECOVERY") return promptNewPassword(); setLogged(s); });
   setEnHead(); $("target").addEventListener("change", setEnHead);
 }
 function setLogged(session) {
@@ -92,6 +92,19 @@ async function signUp() {
     : "Account created. Confirm via email if prompted, otherwise click Sign in.";
 }
 async function logout() { await sb.auth.signOut(); clearBoxes(); }
+async function resetPassword() {
+  const email = $("email").value.trim();
+  if (!email) return ($("loginstatus").textContent = "Enter your email above, then click Forgot password.");
+  $("loginstatus").textContent = "Sending reset email…";
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.href.split("#")[0] });
+  $("loginstatus").textContent = error ? "Error: " + error.message : "Reset email sent — open the link in it, then you'll be asked for a new password.";
+}
+async function promptNewPassword() {
+  const pw = window.prompt("Enter a new password (min 6 characters):");
+  if (!pw || pw.length < 6) { $("loginstatus").textContent = "Password reset cancelled (min 6 characters)."; return; }
+  const { error } = await sb.auth.updateUser({ password: pw });
+  $("loginstatus").textContent = error ? "Reset failed: " + error.message : "Password updated — you're signed in.";
+}
 
 // ---------- live (Web Speech) ----------
 function startBrowser() {
@@ -134,7 +147,6 @@ async function startLive() {
   } catch { setState(source === "system" ? "Screen/tab share cancelled or blocked" : "Microphone blocked — allow mic access", false); running = false; return; }
   const aud = stream.getAudioTracks();
   if (!aud.length) { stream.getTracks().forEach((t) => t.stop()); setState('No audio captured — when sharing a tab/screen you must tick "Share tab audio"', false); running = false; return; }
-  if (!asrUrl) { stream.getTracks().forEach((t) => t.stop()); setState("Transcription engine not configured (SCRIBE_ASR_URL).", false); running = false; return; }
   liveStream = stream;
   liveCtx = new (window.AudioContext || window.webkitAudioContext)();
   try { await liveCtx.resume(); } catch {}
@@ -160,12 +172,16 @@ function flushLive() {
   for (let i = 0; i < outLen; i++) out[i] = merged[Math.floor(i * ratio)];
   transcribeChunkLive(encodeWavB64(out, 16000), ++liveSeq);
 }
+function asrEndpoint(src) {   // Burmese -> HF Space (SeamlessM4T); others -> Cloudflare Pages Function (Workers AI Whisper)
+  return src === "my" ? (asrUrl ? asrUrl.replace(/\/+$/, "") + "/transcribe" : "") : "/transcribe";
+}
 async function transcribeChunkLive(b64, n) {
-  const src = $("lang").value, target = $("target").value;
+  const src = $("lang").value, target = $("target").value, url = asrEndpoint(src);
+  if (!url) { if (running) setState("Burmese engine not configured (SCRIBE_ASR_URL).", true, false); return; }
   try {
-    const d = await (await fetch(asrUrl.replace(/\/+$/, "") + "/transcribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: b64, src, target }) })).json();
+    const d = await (await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: b64, src, target }) })).json();
     if ((d.transcript || "").trim() || (d.translation || "").trim()) addLine(d.transcript || "", d.translation || "");
-    else if (running) setState(`listening… (chunk ${n}: no speech)`, true, false);
+    else if (running) setState(`listening… (chunk ${n}: no speech${d.error ? " — " + d.error : ""})`, true, false);
   } catch (e) { if (running) setState(`listening… (chunk ${n} error: ${e.message})`, true, false); }
 }
 function stopLive() {
@@ -208,18 +224,10 @@ async function processRecording() {
   try {
     const blob = new Blob(recChunks, { type: recChunks[0]?.type || "audio/webm" });
     lastWavB64 = await blobToWav16kB64(blob);
-    let d;
-    if (asrUrl) {   // all languages -> the public Space directly (free/unlimited, no Gemini, no Netlify 10s timeout)
-      setState("transcribing on the Scribe model (first run loads it — up to a minute)…", true, true);
-      const r = await fetch(asrUrl.replace(/\/+$/, "") + "/transcribe", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ audio: lastWavB64, src, target }),
-      });
-      d = await r.json();
-    } else {
-      setState("transcribing (cloud)…", true, true);
-      d = await (await fetch("/api/transcribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: lastWavB64, mime: "audio/wav", src, target }) })).json();
-    }
+    const url = asrEndpoint(src);
+    if (!url) { setState("Burmese engine not configured (SCRIBE_ASR_URL).", false); return; }
+    setState(src === "my" ? "transcribing Burmese on the Space (first run loads the model)…" : "transcribing…", true, true);
+    const d = await (await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: lastWavB64, src, target }) })).json();
     if (d.transcript) addLine(d.transcript, d.translation || "");
     else setState("No speech / " + (d.error || "empty"), false);
   } catch (e) { setState("Transcribe failed: " + e.message, false); return; }
@@ -326,17 +334,12 @@ function copyBox(id) {
   const t = [...$(id).querySelectorAll("p")].filter((p) => !p.classList.contains("hint")).map((p) => p.textContent).join("\n");
   navigator.clipboard.writeText(t); setState("Copied", false);
 }
-async function exportDoc() {
+function exportDoc() {
   const src = boxLines("srcbox"), en = boxLines("enbox");
   if (!src.length && !en.length) return setState("Nothing to export", false);
-  let notesHtml = "";
-  try {
-    const d = await (await fetch("/api/notes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: src.join("\n"), target: $("target").value }) })).json();
-    if (d.notes) notesHtml = mdToHtml(d.notes);
-  } catch {}
   const n = Math.max(src.length, en.length); let rows = "";
   for (let i = 0; i < n; i++) rows += `${en[i] ? `<p>${esc(en[i])}</p>` : ""}${src[i] ? `<p style="color:#666;font-size:13px">${esc(src[i])}</p>` : ""}`;
-  const html = `<html><head><meta charset="utf-8"><title>Scribe notes</title></head><body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.6">${notesHtml}<h2>Full Transcript</h2>${rows}</body></html>`;
+  const html = `<html><head><meta charset="utf-8"><title>Scribe transcript</title></head><body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.6"><h2>Scribe — Transcript &amp; Translation</h2>${rows}</body></html>`;
   if (($("fmt") || {}).value === "pdf") {
     const w = window.open("", "_blank");
     if (!w) return setState("Allow pop-ups to export PDF", false);
@@ -355,5 +358,5 @@ function mdToHtml(md) {
 }
 
 // expose for inline handlers
-window.scribe = { signIn, signUp, logout, start, stop, save, clearBox, swap, notes, copyNotes, copyBox, exportDoc };
+window.scribe = { signIn, signUp, logout, resetPassword, start, stop, save, clearBox, swap, copyBox, exportDoc };
 boot();

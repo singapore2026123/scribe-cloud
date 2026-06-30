@@ -6,7 +6,7 @@
   "permissions": ["tabCapture", "offscreen", "tabs", "storage", "sidePanel", "activeTab"],
   "host_permissions": [
     "https://singapore2026123-scribe-burmese-asr.hf.space/*",
-    "https://kanamic-scribe.netlify.app/*"
+    "https://*.pages.dev/*"
   ],
   "background": { "service_worker": "background.js" },
   "action": { "default_title": "Scribe — open live side panel" }

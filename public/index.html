@@ -60,6 +60,7 @@
   <button id="signinbtn" onclick="window.scribe.signIn()" style="flex:1">Sign in</button>
   <button class="ghost" onclick="window.scribe.signUp()" style="flex:1">Create account</button>
  </div>
+ <div style="text-align:center;margin-top:8px"><button class="ghost" onclick="window.scribe.resetPassword()" style="font-size:13px">Forgot password?</button></div>
  <div class="status" id="loginstatus"></div>
 </section>
 
@@ -75,7 +76,6 @@
   <div class="actions">
    <span class="state"><span class="dot" id="dot"></span><span id="stxt">Ready</span></span>
    <button class="ghost" onclick="window.scribe.save()">Save</button>
-   <button class="ghost" onclick="window.scribe.notes()">Notes</button>
    <button class="ghost" onclick="window.scribe.exportDoc()">Export</button>
    <button id="stop" onclick="window.scribe.stop()" disabled>Stop</button>
    <button id="start" onclick="window.scribe.start()">Start</button>
@@ -100,12 +100,6 @@
   <div id="hist"><div style="font-weight:700;margin:6px 0 12px">Your saved sessions</div><div id="histlist"><p class="hint">Loading…</p></div></div>
  </div>
 </main>
-
-<div class="modal" id="notesModal"><div>
- <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px"><b style="font-size:19px">Meeting Notes</b>
-  <button class="ghost" style="margin-left:auto" onclick="window.scribe.copyNotes()">Copy</button>
-  <button class="ghost" onclick="document.getElementById('notesModal').style.display='none'">Close</button></div>
- <div id="notesBody"></div></div></div>
 
 <script type="module" src="./app.js"></script>
 </body>

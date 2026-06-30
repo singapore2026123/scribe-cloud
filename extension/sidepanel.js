@@ -15,15 +15,10 @@ function addLine(transcript, translation) {
   if (transcript) { const p = document.createElement("p"); p.className = "o"; p.textContent = transcript; $("srcbox").appendChild(p); $("srcbox").scrollTop = $("srcbox").scrollHeight; }
   if (translation) { const p = document.createElement("p"); p.className = "t"; p.textContent = translation; $("enbox").appendChild(p); $("enbox").scrollTop = $("enbox").scrollHeight; }
 }
-function clearBox(id) {
-  if (id === "srcbox") {                          // clearing the original also clears its translation
-    $("srcbox").innerHTML = '<p class="hint">Cleared.</p>';
-    $("enbox").innerHTML = "";
-    setStatus("Cleared original + translation");
-  } else {
-    $("enbox").innerHTML = "";
-    setStatus("Cleared translation");
-  }
+function clearBox() {                              // either Clear button wipes both boxes
+  $("srcbox").innerHTML = '<p class="hint">Cleared.</p>';
+  $("enbox").innerHTML = "";
+  setStatus("Cleared all");
 }
 function copyBox(id) { navigator.clipboard.writeText(boxLines(id).join("\n")); setStatus("Copied"); }
 

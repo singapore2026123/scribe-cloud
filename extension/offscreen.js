@@ -1,5 +1,6 @@
 // Captures tab audio and transcribes it in rolling ~8s chunks (near-real-time), streaming results to the panel.
-const SPACE_URL = "https://singapore2026123-scribe-burmese-asr.hf.space/transcribe";   // all languages (SeamlessM4T, free/unlimited)
+const SPACE_URL = "https://singapore2026123-scribe-burmese-asr.hf.space/transcribe";   // Burmese (SeamlessM4T)
+const CF_URL = "https://scribe-cloud.pages.dev/transcribe";                            // others (Cloudflare Workers AI Whisper — fast/accurate)
 const CHUNK_SEC = 8;
 
 let ctx = null, srcNode = null, proc = null, stream = null;
@@ -48,8 +49,9 @@ async function transcribeChunk(b64, n) {
   pending++;
   try {
     const { lang: src, target } = cfg;
-    // All languages go to the free, unlimited SeamlessM4T Space — no Gemini, no quota.
-    const d = await (await fetch(SPACE_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: b64, src, target }) })).json();
+    // Burmese -> SeamlessM4T Space; everything else -> Cloudflare Workers AI Whisper. No Gemini, no quota.
+    const url = src === "my" ? SPACE_URL : CF_URL;
+    const d = await (await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: b64, src, target }) })).json();
     if ((d.transcript || "").trim() || (d.translation || "").trim())
       panel("line", "", { transcript: d.transcript || "", translation: d.translation || "" });
     else
