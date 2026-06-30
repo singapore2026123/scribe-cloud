@@ -18,17 +18,22 @@ async function ensureOffscreen() {
   return false;
 }
 
+// Make sure the icon click fires onClicked (we open the panel ourselves) rather than auto-opening it.
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: false }).catch(() => {});
+});
+
 chrome.action.onClicked.addListener(async (tab) => {
   try { await chrome.sidePanel.open({ tabId: tab.id }); } catch (e) {}
   try {
     if (tab && tab.url && /^https?:/i.test(tab.url)) {
       const streamId = await chrome.tabCapture.getMediaStreamId({ targetTabId: tab.id });   // valid invocation here
-      await chrome.storage.session.set({ streamId, capError: "", capTitle: tab.title || "" });
+      await chrome.storage.session.set({ streamId, capError: "", status: "✓ Tab ready: " + (tab.title || "tab").slice(0, 40) + " — pick language & Start" });
     } else {
-      await chrome.storage.session.set({ streamId: "", capError: "Open a normal web page (not a chrome:// page), then click the Scribe icon there." });
+      await chrome.storage.session.set({ streamId: "", capError: "Open a normal web page (not chrome://) and click the Scribe icon there.", status: "✗ Not a web page — open YouTube etc. and click the Scribe icon there." });
     }
   } catch (e) {
-    await chrome.storage.session.set({ streamId: "", capError: e.message });
+    await chrome.storage.session.set({ streamId: "", capError: e.message, status: "✗ capture setup error: " + e.message });
   }
 });
 

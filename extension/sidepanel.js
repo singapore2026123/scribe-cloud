@@ -28,3 +28,9 @@ chrome.runtime.onMessage.addListener((msg) => {
     $("feed").appendChild(d); $("feed").scrollTop = $("feed").scrollHeight;
   }
 });
+
+// Live status from the icon-click (proves whether onClicked fired and grabbed the tab stream).
+chrome.storage.onChanged.addListener((ch, area) => {
+  if (area === "session" && ch.status) $("status").textContent = ch.status.newValue;
+});
+(async () => { const s = await chrome.storage.session.get(["status"]); if (s && s.status) $("status").textContent = s.status; })();
