@@ -4,13 +4,30 @@ import { LANG, hasKey, geminiCall, geminiText, json } from "./_lib.js";
 
 export default async (req) => {
   if (req.method !== "POST") return json({ error: "POST only" }, 405);
-  if (!hasKey()) return json({ transcript: "", translation: "", error: "GEMINI_API_KEY not set" }, 500);
 
   let payload;
   try { payload = await req.json(); } catch { return json({ error: "bad JSON" }, 400); }
   const { audio, mime = "audio/wav", src = "my", target = "en" } = payload || {};
   if (!audio) return json({ transcript: "", translation: "" });
 
+  // Burmese -> self-hosted SeamlessM4T Space (free, unlimited, no Gemini quota) when SCRIBE_ASR_URL is set.
+  const ASR_URL = process.env.SCRIBE_ASR_URL;
+  if (ASR_URL && src === "my") {
+    try {
+      const r = await fetch(ASR_URL.replace(/\/+$/, "") + "/transcribe", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ audio, src, target }),
+      });
+      if (r.ok) {
+        const d = await r.json();
+        if ((d.transcript || "").trim())
+          return json({ transcript: d.transcript.trim(), translation: (d.translation || "").trim() });
+      }
+    } catch { /* fall through to Gemini */ }
+  }
+
+  // Gemini path (non-Burmese, or fallback if the Space is unavailable).
+  if (!hasKey()) return json({ transcript: "", translation: "", error: "no ASR backend (set SCRIBE_ASR_URL or GEMINI_API_KEY)" }, 500);
   const srcName = LANG[src] || "the spoken language";
   const tgtName = target && target !== "off" ? (LANG[target] || "English") : null;
   const prompt =

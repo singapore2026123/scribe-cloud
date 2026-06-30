@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+transformers>=4.40
+sentencepiece
+soundfile
+librosa
+numpy
