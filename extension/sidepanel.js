@@ -16,8 +16,14 @@ function addLine(transcript, translation) {
   if (translation) { const p = document.createElement("p"); p.className = "t"; p.textContent = translation; $("enbox").appendChild(p); $("enbox").scrollTop = $("enbox").scrollHeight; }
 }
 function clearBox(id) {
-  $(id).innerHTML = id === "srcbox" ? '<p class="hint">Cleared.</p>' : "";
-  setStatus("Cleared " + (id === "srcbox" ? "original" : "translation"));
+  if (id === "srcbox") {                          // clearing the original also clears its translation
+    $("srcbox").innerHTML = '<p class="hint">Cleared.</p>';
+    $("enbox").innerHTML = "";
+    setStatus("Cleared original + translation");
+  } else {
+    $("enbox").innerHTML = "";
+    setStatus("Cleared translation");
+  }
 }
 function copyBox(id) { navigator.clipboard.writeText(boxLines(id).join("\n")); setStatus("Copied"); }
 
