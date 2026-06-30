@@ -6,9 +6,14 @@ const CHUNK_SEC = 8;
 let ctx = null, srcNode = null, proc = null, stream = null;
 let cfg = {}, buf = [], bufLen = 0, running = false, seq = 0;
 
+let lastTs = 0;
+async function checkJob() {
+  const { job } = await chrome.storage.session.get(["job"]);
+  if (job && job.ts && job.ts !== lastTs && !running) { lastTs = job.ts; start(job.streamId, job.lang, job.target); }
+}
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.target !== "offscreen") return;
-  if (msg.type === "offscreen-start") start(msg.streamId, msg.lang, msg.target);
+  if (msg.type === "offscreen-go") checkJob();
   else if (msg.type === "offscreen-stop") stop();
 });
 
@@ -91,5 +96,6 @@ function encodeWavB64(samples, sr) {
 }
 function panel(type, status, line) { chrome.runtime.sendMessage({ target: "panel", type, status, line }).catch(() => {}); }
 
-// tell the service worker we're loaded so it sends the queued start job (fixes the create-then-message race)
-chrome.runtime.sendMessage({ type: "offscreen-ready" }).catch(() => {});
+// On load: report it + pick up any pending job from storage (robust to the create-then-message race & SW restarts).
+panel("status", "offscreen loaded — starting capture…");
+checkJob();

@@ -1,15 +1,6 @@
-// Configure the side panel on worker start: register the path globally + ensure the icon click
-// reaches onClicked (so we can grab the tab stream there) instead of auto-opening the panel.
+// Side panel config on worker start: register path + make icon clicks reach onClicked.
 chrome.sidePanel.setOptions({ path: "sidepanel.html", enabled: true }).catch(() => {});
 chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: false }).catch(() => {});
-
-let pendingStart = null;   // start job waiting for the offscreen doc to load (avoids a message race)
-
-function flushPending() {
-  if (!pendingStart) return;
-  const j = pendingStart; pendingStart = null;
-  chrome.runtime.sendMessage({ target: "offscreen", type: "offscreen-start", streamId: j.streamId, lang: j.lang, target: j.target });
-}
 
 async function ensureOffscreen() {
   if (await chrome.offscreen.hasDocument()) return true;
@@ -21,8 +12,8 @@ async function ensureOffscreen() {
   return false;
 }
 
-// Icon click: open the panel SYNCHRONOUSLY (preserves the user gesture), then grab the tab's
-// audio stream id here (this is the valid tabCapture invocation) and stash it for Start.
+// Icon click = the valid tabCapture invocation. Open the panel synchronously (preserve gesture),
+// then grab the tab stream id and stash it.
 chrome.action.onClicked.addListener((tab) => {
   console.log("[Scribe] onClicked", tab && tab.url);
   chrome.sidePanel.open({ tabId: tab.id }).catch((e) => console.log("[Scribe] open error", e));
@@ -42,19 +33,19 @@ chrome.action.onClicked.addListener((tab) => {
 
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   if (msg.target === "offscreen" || msg.target === "panel") return;
-  if (msg.type === "offscreen-ready") { flushPending(); return; }
   (async () => {
     try {
       if (msg.type === "start") {
         const { streamId, capError } = await chrome.storage.session.get(["streamId", "capError"]);
         if (!streamId) return sendResponse({ ok: false, error: capError || "Click the Scribe icon on the tab you want first." });
-        pendingStart = { streamId, lang: msg.lang, target: msg.target };
-        const existed = await ensureOffscreen();
-        if (existed) flushPending();
+        // Hand the job off via storage (survives the worker sleeping + the offscreen still loading), then poke the offscreen.
+        await chrome.storage.session.set({ job: { streamId, lang: msg.lang, target: msg.target, ts: Date.now() } });
+        await ensureOffscreen();
+        chrome.runtime.sendMessage({ target: "offscreen", type: "offscreen-go" }).catch(() => {});
         sendResponse({ ok: true });
       } else if (msg.type === "stop") {
         chrome.runtime.sendMessage({ target: "offscreen", type: "offscreen-stop" });
-        await chrome.storage.session.set({ streamId: "" });
+        await chrome.storage.session.set({ streamId: "", job: null });
         sendResponse({ ok: true });
       }
     } catch (e) { sendResponse({ ok: false, error: e.message }); }
