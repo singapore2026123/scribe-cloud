@@ -10,7 +10,15 @@ from fastapi import FastAPI, Request
 
 LANG = {"en": "eng", "ja": "jpn", "zh": "cmn", "zh-CN": "cmn", "ms": "zsm",
         "my": "mya", "ta": "tam", "ko": "kor", "th": "tha", "id": "ind", "vi": "vie", "hi": "hin", "fr": "fra"}
-GEN = dict(no_repeat_ngram_size=3, repetition_penalty=1.3, max_new_tokens=256, num_beams=1)
+# Burmese loops badly -> aggressive anti-repeat. Other languages (esp. Japanese/Chinese)
+# legitimately repeat short sequences, so those same settings force WRONG characters ->
+# decode them with beam search and no forced anti-repeat instead.
+GEN_MY = dict(no_repeat_ngram_size=3, repetition_penalty=1.3, max_new_tokens=256, num_beams=1)
+GEN_DEFAULT = dict(max_new_tokens=256, num_beams=5)
+
+
+def _gen(lang_code):
+    return GEN_MY if lang_code == "mya" else GEN_DEFAULT
 
 app = FastAPI()
 # Allow the browser (Netlify site) to call this Space directly, cross-origin.
@@ -57,12 +65,12 @@ async def transcribe(req: Request):
     raws, trs = [], []
     for ch in _chunks(data):
         inp = proc(audio=ch, sampling_rate=16000, return_tensors="pt")
-        asr = model.generate(**inp, tgt_lang=s, generate_speech=False, **GEN)
+        asr = model.generate(**inp, tgt_lang=s, generate_speech=False, **_gen(s))
         cr = proc.decode(asr[0].tolist()[0], skip_special_tokens=True).strip()
         if cr:
             raws.append(cr)
         if t and target != "off" and t != s:
-            tr = model.generate(**inp, tgt_lang=t, generate_speech=False, **GEN)
+            tr = model.generate(**inp, tgt_lang=t, generate_speech=False, **_gen(t))
             ct = proc.decode(tr[0].tolist()[0], skip_special_tokens=True).strip()
             if ct:
                 trs.append(ct)
