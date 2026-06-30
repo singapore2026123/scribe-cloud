@@ -1,26 +1,70 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
 <style>
- body{font-family:Segoe UI,system-ui,sans-serif;margin:0;padding:12px;color:#14202B}
- h1{font-size:15px;margin:0 0 10px} h1 b{color:#0F766E}
- .row{display:flex;gap:8px;margin-bottom:8px}
- select{flex:1;font:inherit;font-size:13px;padding:6px 8px;border:1px solid #DCE3E7;border-radius:6px;background:#fff}
- button{font:inherit;font-size:13px;font-weight:600;padding:8px 10px;border-radius:7px;border:1px solid #DCE3E7;background:#fff;cursor:pointer}
- #start{flex:1;background:#0F766E;border-color:#0F766E;color:#fff} #stop{flex:1;border-color:#C2622A;color:#C2622A}
+ :root{--paper:#EEF2F4;--surface:#fff;--ink:#14202B;--muted:#5C6B78;--line:#DCE3E7;--signal:#0F766E;--warn:#C2622A}
+ *{box-sizing:border-box}
+ body{font-family:Inter,Segoe UI,system-ui,sans-serif;margin:0;padding:10px;color:var(--ink);background:var(--paper)}
+ h1{font-size:15px;margin:0 0 8px} h1 b{color:var(--signal)}
+ .row{display:flex;gap:6px;margin-bottom:8px;align-items:center}
+ select,button{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink)}
+ select{padding:6px 7px} button{padding:7px 9px;font-weight:600;cursor:pointer}
  button:disabled{opacity:.45;cursor:default}
- .status{font-size:12px;color:#5C6B78;margin:6px 0;min-height:16px}
- #feed{margin-top:6px}
- .line{border-bottom:1px solid #EEF2F4;padding:8px 0}
- .o{font-size:15px;line-height:1.45} .t{font-size:13px;color:#5C6B78;margin-top:2px}
+ #start{flex:1;background:var(--signal);border-color:var(--signal);color:#fff}
+ #stop{flex:1;border-color:var(--warn);color:var(--warn)}
+ #fmt{padding:7px 6px} .mini{padding:4px 8px;font-size:12px;font-weight:500;color:var(--muted)}
+ .status{font-size:12px;color:var(--muted);margin:6px 0;min-height:16px}
+ .panes{position:relative}
+ .pane{background:var(--surface);border:1px solid var(--line);border-radius:11px;overflow:hidden;margin-bottom:8px}
+ .phead{display:flex;gap:6px;align-items:center;padding:7px 9px;border-bottom:1px solid var(--line)}
+ .boxlang{flex:0 0 auto;font-weight:600}
+ .pbody{padding:9px 11px;min-height:24vh;max-height:38vh;overflow-y:auto;font-size:15px;line-height:1.5}
+ .pbody p{margin:0 0 7px} .pbody p.t{color:var(--muted)}
+ .hint{color:var(--muted);font-style:italic}
+ #swapbtn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;width:38px;height:38px;border-radius:50%;
+          background:var(--surface);color:var(--ink);font-size:17px;cursor:pointer;box-shadow:0 2px 9px rgba(20,32,43,.2);padding:0}
+ #swapbtn:hover{background:var(--paper)}
 </style></head>
 <body>
  <h1>Scrib<b>e</b> — Live Tab Audio</h1>
+
  <div class="row">
-  <select id="lang"><option value="my">Burmese</option><option value="ja">Japanese</option><option value="en">English</option><option value="ms">Malay</option><option value="zh">Chinese</option><option value="ta">Tamil</option><option value="ko">Korean</option><option value="th">Thai</option><option value="id">Indonesian</option><option value="vi">Vietnamese</option><option value="hi">Hindi</option><option value="fr">French</option></select>
-  <select id="target"><option value="en">&rarr; English</option><option value="off">No translation</option><option value="zh-CN">&rarr; Chinese</option><option value="ms">&rarr; Malay</option><option value="ta">&rarr; Tamil</option><option value="ja">&rarr; Japanese</option><option value="my">&rarr; Burmese</option><option value="ko">&rarr; Korean</option><option value="th">&rarr; Thai</option><option value="id">&rarr; Indonesian</option><option value="vi">&rarr; Vietnamese</option><option value="hi">&rarr; Hindi</option><option value="fr">&rarr; French</option></select>
+  <button id="start">Start</button>
+  <button id="stop" disabled>Stop</button>
+  <select id="fmt" title="Export format"><option value="word">Word</option><option value="pdf">PDF</option></select>
+  <button id="export" class="mini" title="Export transcript + translation">Export</button>
  </div>
- <div class="row"><button id="start">Start</button><button id="stop" disabled>Stop</button><button id="copy" title="Copy original">Copy</button></div>
- <div class="status" id="status">Pick a language &rarr; Start. Lines appear ~every 8 s. (Open this panel from a normal web page, not a chrome:// page.)</div>
- <div id="feed"></div>
+ <div class="status" id="status">Click the Scribe icon on a web page (e.g. YouTube), pick a language &rarr; Start. Lines stream in ~every 8 s.</div>
+
+ <div class="panes">
+  <section class="pane">
+   <div class="phead">
+    <select id="lang" class="boxlang" title="Spoken language">
+     <option value="my">Burmese</option><option value="ja">Japanese</option><option value="en">English</option>
+     <option value="ms">Malay</option><option value="zh">Chinese</option><option value="ta">Tamil</option>
+     <option value="ko">Korean</option><option value="th">Thai</option><option value="id">Indonesian</option>
+     <option value="vi">Vietnamese</option><option value="hi">Hindi</option><option value="fr">French</option></select>
+    <button id="clearSrc" class="mini" style="margin-left:auto">Clear</button>
+    <button id="copySrc" class="mini">Copy</button>
+   </div>
+   <div class="pbody" id="srcbox" contenteditable="true" spellcheck="false"><p class="hint">Pick a language &rarr; Start.</p></div>
+  </section>
+
+  <section class="pane">
+   <div class="phead">
+    <select id="target" class="boxlang" title="Translate to">
+     <option value="en" selected>&rarr; English</option><option value="off">No translation</option>
+     <option value="zh-CN">&rarr; Chinese</option><option value="ms">&rarr; Malay</option><option value="ta">&rarr; Tamil</option>
+     <option value="ja">&rarr; Japanese</option><option value="my">&rarr; Burmese</option><option value="ko">&rarr; Korean</option>
+     <option value="th">&rarr; Thai</option><option value="id">&rarr; Indonesian</option><option value="vi">&rarr; Vietnamese</option>
+     <option value="hi">&rarr; Hindi</option><option value="fr">&rarr; French</option></select>
+    <button id="clearEn" class="mini" style="margin-left:auto">Clear</button>
+    <button id="copyEn" class="mini">Copy</button>
+   </div>
+   <div class="pbody" id="enbox" contenteditable="true" spellcheck="false"></div>
+  </section>
+
+  <button id="swapbtn" title="Swap languages &amp; text">&#8644;</button>
+ </div>
+
  <script src="sidepanel.js"></script>
 </body></html>
