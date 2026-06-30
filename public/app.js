@@ -53,9 +53,10 @@ function swap() {                                  // DeepL-style: flip spoken<-
 // ---------- auth ----------
 async function boot() {
   let cfg;
-  try { cfg = await (await fetch("/api/config")).json(); } catch { cfg = {}; }
+  // Static config (no serverless needed — all values are public; anon key is protected by RLS).
+  try { cfg = await (await fetch(new URL("config.json", import.meta.url))).json(); } catch { cfg = {}; }
   if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) {
-    $("loginstatus").textContent = "Server not configured — set SUPABASE_URL, SUPABASE_ANON_KEY (and GEMINI_API_KEY) in Netlify env.";
+    $("loginstatus").textContent = "Config missing — set supabaseUrl + supabaseAnonKey in public/config.json.";
     return;
   }
   sb = createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
