@@ -106,37 +106,7 @@ async function promptNewPassword() {
   $("loginstatus").textContent = error ? "Reset failed: " + error.message : "Password updated — you're signed in.";
 }
 
-// ---------- live (Web Speech) ----------
-function startBrowser() {
-  const SR = window.webkitSpeechRecognition || window.SpeechRecognition;
-  if (!SR) { setState("Web Speech not supported in this browser", false); return; }
-  const lang = $("lang").value, target = $("target").value;
-  function mk() {
-    const rec = new SR(); rec.lang = WSLANG[lang] || "en-US"; rec.continuous = true; rec.interimResults = true;
-    rec.onresult = (e) => {
-      for (let i = e.resultIndex; i < e.results.length; i++) {
-        const r = e.results[i];
-        if (r.isFinal) { const t = (r[0].transcript || "").trim(); if (t) { addLine(t, ""); translateLast(t, lang, target); } }
-      }
-      if (running) setState("listening (browser)", true, false);
-    };
-    rec.onerror = (ev) => { if (ev.error === "not-allowed" || ev.error === "service-not-allowed") { setState("Microphone blocked — allow mic access", false); running = false; } };
-    rec.onend = () => { if (running) setTimeout(() => { if (running) try { webrec.start(); } catch { try { webrec = mk(); webrec.start(); } catch {} } }, 300); };
-    return rec;
-  }
-  webrec = mk();
-  try { webrec.start(); setState("listening (browser)", true, false); } catch { setState("Start failed", false); running = false; }
-}
-async function translateLast(text, lang, target) {
-  if (target === "off") return;
-  try {
-    const d = await (await fetch("/api/translate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, src: lang, target }) })).json();
-    if (d.translation) { const l = lines.find((x) => x.raw === text && !x.translation); if (l) { l.translation = d.translation; const pe = document.createElement("p"); pe.textContent = d.translation; $("enbox").appendChild(pe); $("enbox").scrollTop = $("enbox").scrollHeight; } }
-  } catch {}
-}
-function stopBrowser() { running = false; if (webrec) { try { webrec.onend = null; webrec.stop(); } catch {} webrec = null; } setState("Ready", false); }
-
-// ---------- live (chunked -> Space): replaces Web Speech. Works for mic AND system/tab audio, every language, no Gemini ----------
+// ---------- live (chunked -> Space/Cloudflare): mic AND system/tab audio, every language, no Gemini ----------
 async function startLive() {
   const source = $("source").value;
   let stream;
@@ -318,18 +288,7 @@ async function delSession(id) {
   await sb.from("sessions").delete().eq("id", id); loadHistory();
 }
 
-// ---------- notes / export ----------
-async function notes() {
-  const text = boxLines("srcbox").join("\n");
-  if (!text.trim()) return setState("Nothing to summarize", false);
-  setState("generating notes…", true, true);
-  try {
-    const d = await (await fetch("/api/notes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: text, target: $("target").value }) })).json();
-    if (d.notes) { lastNotes = d.notes; $("notesBody").textContent = d.notes; $("notesModal").style.display = "flex"; setState("Notes ready", false); }
-    else setState("Notes unavailable: " + (d.error || "quota"), false);
-  } catch (e) { setState("Notes failed: " + e.message, false); }
-}
-function copyNotes() { navigator.clipboard.writeText(lastNotes || ""); }
+// ---------- export ----------
 function copyBox(id) {
   const t = [...$(id).querySelectorAll("p")].filter((p) => !p.classList.contains("hint")).map((p) => p.textContent).join("\n");
   navigator.clipboard.writeText(t); setState("Copied", false);
@@ -345,16 +304,9 @@ function exportDoc() {
     if (!w) return setState("Allow pop-ups to export PDF", false);
     w.document.write(html); w.document.close(); w.focus(); w.print();
   } else {
-    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" })); a.download = "scribe-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" })); a.download = "scribe-transcript.doc"; a.click(); URL.revokeObjectURL(a.href);
   }
-}
-function mdToHtml(md) {
-  return (md || "").split(/\r?\n/).map((ln) => {
-    if (/^\s*##\s+/.test(ln)) return `<h2>${esc(ln.replace(/^\s*##\s+/, ""))}</h2>`;
-    if (/^\s*[-*]\s+/.test(ln)) return `<li>${esc(ln.replace(/^\s*[-*]\s+/, ""))}</li>`;
-    if (/^\s*$/.test(ln)) return "";
-    return `<p>${esc(ln)}</p>`;
-  }).join("");
+  setState("Exported", false);
 }
 
 // expose for inline handlers

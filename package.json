@@ -2,7 +2,7 @@
   "name": "scribe-cloud",
   "version": "0.1.0",
   "private": true,
-  "description": "Scribe Cloud - multilingual care-record transcription/translation web app (Netlify + Supabase + Gemini)",
+  "description": "Scribe Cloud - multilingual care-record transcription/translation web app (Cloudflare Worker + Workers AI + Supabase; Burmese via HF Space)",
   "type": "module",
   "engines": { "node": ">=20" }
 }
