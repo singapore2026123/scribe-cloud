@@ -2,14 +2,16 @@
 chrome.sidePanel.setOptions({ path: "sidepanel.html", enabled: true }).catch(() => {});
 chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: false }).catch(() => {});
 
-async function ensureOffscreen() {
-  if (await chrome.offscreen.hasDocument()) return true;
+// (Re)create the offscreen doc with the job baked into its URL — no messaging/storage race.
+async function startOffscreen(streamId, lang, target) {
+  if (await chrome.offscreen.hasDocument()) await chrome.offscreen.closeDocument();
+  const u = "offscreen.html?streamId=" + encodeURIComponent(streamId) +
+            "&lang=" + encodeURIComponent(lang) + "&target=" + encodeURIComponent(target);
   await chrome.offscreen.createDocument({
-    url: "offscreen.html",
+    url: u,
     reasons: ["USER_MEDIA"],
     justification: "Capture the active tab's audio for live transcription.",
   });
-  return false;
 }
 
 // Icon click = the valid tabCapture invocation. Open the panel synchronously (preserve gesture),
@@ -38,14 +40,11 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
       if (msg.type === "start") {
         const { streamId, capError } = await chrome.storage.session.get(["streamId", "capError"]);
         if (!streamId) return sendResponse({ ok: false, error: capError || "Click the Scribe icon on the tab you want first." });
-        // Hand the job off via storage (survives the worker sleeping + the offscreen still loading), then poke the offscreen.
-        await chrome.storage.session.set({ job: { streamId, lang: msg.lang, target: msg.target, ts: Date.now() } });
-        await ensureOffscreen();
-        chrome.runtime.sendMessage({ target: "offscreen", type: "offscreen-go" }).catch(() => {});
+        await startOffscreen(streamId, msg.lang, msg.target);
         sendResponse({ ok: true });
       } else if (msg.type === "stop") {
-        chrome.runtime.sendMessage({ target: "offscreen", type: "offscreen-stop" });
-        await chrome.storage.session.set({ streamId: "", job: null });
+        chrome.runtime.sendMessage({ target: "offscreen", type: "offscreen-stop" }).catch(() => {});
+        await chrome.storage.session.set({ streamId: "" });
         sendResponse({ ok: true });
       }
     } catch (e) { sendResponse({ ok: false, error: e.message }); }

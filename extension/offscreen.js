@@ -6,15 +6,9 @@ const CHUNK_SEC = 8;
 let ctx = null, srcNode = null, proc = null, stream = null;
 let cfg = {}, buf = [], bufLen = 0, running = false, seq = 0;
 
-let lastTs = 0;
-async function checkJob() {
-  const { job } = await chrome.storage.session.get(["job"]);
-  if (job && job.ts && job.ts !== lastTs && !running) { lastTs = job.ts; start(job.streamId, job.lang, job.target); }
-}
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.target !== "offscreen") return;
-  if (msg.type === "offscreen-go") checkJob();
-  else if (msg.type === "offscreen-stop") stop();
+  if (msg.type === "offscreen-stop") stop();
 });
 
 async function start(streamId, lang, target) {
@@ -25,6 +19,7 @@ async function start(streamId, lang, target) {
     });
   } catch (e) { return panel("status", "capture failed: " + e.message); }
   ctx = new AudioContext();
+  try { await ctx.resume(); } catch {}
   srcNode = ctx.createMediaStreamSource(stream);
   srcNode.connect(ctx.destination);                          // keep the tab audible
   proc = ctx.createScriptProcessor(4096, 1, 1);
@@ -96,6 +91,12 @@ function encodeWavB64(samples, sr) {
 }
 function panel(type, status, line) { chrome.runtime.sendMessage({ target: "panel", type, status, line }).catch(() => {}); }
 
-// On load: report it + pick up any pending job from storage (robust to the create-then-message race & SW restarts).
-panel("status", "offscreen loaded — starting capture…");
-checkJob();
+// On load: read the job from this document's URL (set by background at creation) and start.
+const _p = new URLSearchParams(location.search);
+const _streamId = _p.get("streamId"), _lang = _p.get("lang"), _target = _p.get("target");
+if (_streamId) {
+  panel("status", "offscreen: got job (" + _lang + ") — requesting tab audio…");
+  start(_streamId, _lang, _target);
+} else {
+  panel("status", "offscreen loaded but no job in URL");
+}
