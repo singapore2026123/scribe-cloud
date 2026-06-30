@@ -5,3 +5,8 @@ node_modules/
 .netlify/
 .DS_Store
 *.log
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example

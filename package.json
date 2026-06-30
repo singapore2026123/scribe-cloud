@@ -4,5 +4,14 @@
   "private": true,
   "description": "Scribe Cloud - multilingual care-record transcription/translation web app (Netlify + Supabase + Gemini)",
   "type": "module",
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "wrangler": "^4.105.0"
+  },
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
+  }
 }
