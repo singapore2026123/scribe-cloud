@@ -5,7 +5,7 @@ const $ = (id) => document.getElementById(id);
 const LANGNAME = { ja: "Japanese", en: "English", ms: "Malay", my: "Burmese", zh: "Chinese", ta: "Tamil" };
 const WSLANG = { ja: "ja-JP", en: "en-US", ms: "ms-MY", my: "my-MM", zh: "zh-CN", ta: "ta-IN" };
 
-let sb = null, user = null;
+let sb = null, user = null, asrUrl = "";
 let running = false, webrec = null, mediaRec = null, recChunks = [], lastWavB64 = null, lastNotes = "";
 let lines = [];   // [{raw, translation, speaker?}]
 
@@ -58,6 +58,7 @@ async function boot() {
     return;
   }
   sb = createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+  asrUrl = cfg.asrUrl || "";   // public Burmese ASR Space — browser calls it directly (dodges Netlify timeout)
   const { data: { session } } = await sb.auth.getSession();
   setLogged(session);
   sb.auth.onAuthStateChange((_e, s) => setLogged(s));
@@ -145,11 +146,22 @@ async function startRecord() {
   setState(source === "system" ? "recording tab/system audio — press Stop when done" : "recording — press Stop when done", true, false);
 }
 async function processRecording() {
-  setState("transcribing (cloud)…", true, true);
+  const src = $("lang").value, target = $("target").value;
   try {
     const blob = new Blob(recChunks, { type: recChunks[0]?.type || "audio/webm" });
     lastWavB64 = await blobToWav16kB64(blob);
-    const d = await (await fetch("/api/transcribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: lastWavB64, mime: "audio/wav", src: $("lang").value, target: $("target").value }) })).json();
+    let d;
+    if (src === "my" && asrUrl) {   // Burmese -> call the public Space directly (no Netlify 10s timeout)
+      setState("transcribing on local Burmese model (first run loads the model — up to a minute)…", true, true);
+      const r = await fetch(asrUrl.replace(/\/+$/, "") + "/transcribe", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ audio: lastWavB64, src, target }),
+      });
+      d = await r.json();
+    } else {
+      setState("transcribing (cloud)…", true, true);
+      d = await (await fetch("/api/transcribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: lastWavB64, mime: "audio/wav", src, target }) })).json();
+    }
     if (d.transcript) addLine(d.transcript, d.translation || "");
     else setState("No speech / " + (d.error || "empty"), false);
   } catch (e) { setState("Transcribe failed: " + e.message, false); return; }

@@ -2,6 +2,8 @@ fastapi
 uvicorn[standard]
 transformers>=4.40
 sentencepiece
+tiktoken
+protobuf
 soundfile
 librosa
 numpy
