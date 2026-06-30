@@ -6,7 +6,7 @@
   "permissions": ["tabCapture", "offscreen", "tabs", "storage", "sidePanel", "activeTab"],
   "host_permissions": [
     "https://singapore2026123-scribe-burmese-asr.hf.space/*",
-    "https://*.pages.dev/*"
+    "https://scribe-cloud.singapore2026123.workers.dev/*"
   ],
   "background": { "service_worker": "background.js" },
   "action": { "default_title": "Scribe — open live side panel" }

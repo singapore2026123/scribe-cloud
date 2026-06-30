@@ -1,6 +1,6 @@
 // Captures tab audio and transcribes it in rolling ~8s chunks (near-real-time), streaming results to the panel.
 const SPACE_URL = "https://singapore2026123-scribe-burmese-asr.hf.space/transcribe";   // Burmese (SeamlessM4T)
-const CF_URL = "https://scribe-cloud.pages.dev/transcribe";                            // others (Cloudflare Workers AI Whisper — fast/accurate)
+const CF_URL = "https://scribe-cloud.singapore2026123.workers.dev/transcribe";         // others (Cloudflare Workers AI Whisper — fast/accurate)
 const CHUNK_SEC = 8;
 
 let ctx = null, srcNode = null, proc = null, stream = null;
