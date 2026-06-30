@@ -4,7 +4,7 @@ const NETLIFY_TRANSCRIBE = "https://kanamic-scribe.netlify.app/api/transcribe"; 
 const CHUNK_SEC = 8;
 
 let ctx = null, srcNode = null, proc = null, stream = null;
-let cfg = {}, buf = [], bufLen = 0, running = false;
+let cfg = {}, buf = [], bufLen = 0, running = false, seq = 0;
 
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.target !== "offscreen") return;
@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener((msg) => {
 });
 
 async function start(streamId, lang, target) {
-  cfg = { lang, target }; buf = []; bufLen = 0; running = true;
+  cfg = { lang, target }; buf = []; bufLen = 0; running = true; seq = 0;
   try {
     stream = await navigator.mediaDevices.getUserMedia({
       audio: { mandatory: { chromeMediaSource: "tab", chromeMediaSourceId: streamId } },
@@ -39,11 +39,13 @@ function flush() {
   let o = 0; for (const b of buf) { merged.set(b, o); o += b.length; }
   const sr = ctx ? ctx.sampleRate : 48000;
   buf = []; bufLen = 0;
+  const n = ++seq;
+  panel("status", `transcribing chunk ${n}…`);
   const b64 = encodeWavB64(resampleTo16k(merged, sr), 16000);
-  transcribeChunk(b64);
+  transcribeChunk(b64, n);
 }
 
-async function transcribeChunk(b64) {
+async function transcribeChunk(b64, n) {
   try {
     const { lang: src, target } = cfg;
     let d;
@@ -54,7 +56,9 @@ async function transcribeChunk(b64) {
     }
     if ((d.transcript || "").trim() || (d.translation || "").trim())
       panel("line", "", { transcript: d.transcript || "", translation: d.translation || "" });
-  } catch (e) { /* skip a failed chunk; keep streaming */ }
+    else
+      panel("status", `chunk ${n}: no speech${d.error ? " — " + d.error : ""}`);
+  } catch (e) { panel("status", `chunk ${n} error: ${e.message}`); }
 }
 
 function stop() {
@@ -86,3 +90,6 @@ function encodeWavB64(samples, sr) {
   return btoa(bin);
 }
 function panel(type, status, line) { chrome.runtime.sendMessage({ target: "panel", type, status, line }).catch(() => {}); }
+
+// tell the service worker we're loaded so it sends the queued start job (fixes the create-then-message race)
+chrome.runtime.sendMessage({ type: "offscreen-ready" }).catch(() => {});
