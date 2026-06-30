@@ -24,7 +24,10 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.action.onClicked.addListener(async (tab) => {
-  try { await chrome.sidePanel.open({ tabId: tab.id }); } catch (e) {}
+  try {
+    await chrome.sidePanel.setOptions({ tabId: tab.id, path: "sidepanel.html", enabled: true });
+    await chrome.sidePanel.open({ tabId: tab.id });
+  } catch (e) {}
   try {
     if (tab && tab.url && /^https?:/i.test(tab.url)) {
       const streamId = await chrome.tabCapture.getMediaStreamId({ targetTabId: tab.id });   // valid invocation here

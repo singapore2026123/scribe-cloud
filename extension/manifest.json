@@ -9,6 +9,5 @@
     "https://kanamic-scribe.netlify.app/*"
   ],
   "background": { "service_worker": "background.js" },
-  "action": { "default_title": "Scribe — open live side panel" },
-  "side_panel": { "default_path": "sidepanel.html" }
+  "action": { "default_title": "Scribe — open live side panel" }
 }
