@@ -1,6 +1,9 @@
-// tabCapture MUST be tied to the icon-click invocation. So we grab the stream id HERE (on click),
-// stash it in session storage (survives the service worker going inactive), and consume it at Start.
-let pendingStart = null;
+// Configure the side panel on worker start: register the path globally + ensure the icon click
+// reaches onClicked (so we can grab the tab stream there) instead of auto-opening the panel.
+chrome.sidePanel.setOptions({ path: "sidepanel.html", enabled: true }).catch(() => {});
+chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: false }).catch(() => {});
+
+let pendingStart = null;   // start job waiting for the offscreen doc to load (avoids a message race)
 
 function flushPending() {
   if (!pendingStart) return;
@@ -18,26 +21,23 @@ async function ensureOffscreen() {
   return false;
 }
 
-// Make sure the icon click fires onClicked (we open the panel ourselves) rather than auto-opening it.
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: false }).catch(() => {});
-});
-
-chrome.action.onClicked.addListener(async (tab) => {
-  try {
-    await chrome.sidePanel.setOptions({ tabId: tab.id, path: "sidepanel.html", enabled: true });
-    await chrome.sidePanel.open({ tabId: tab.id });
-  } catch (e) {}
-  try {
-    if (tab && tab.url && /^https?:/i.test(tab.url)) {
-      const streamId = await chrome.tabCapture.getMediaStreamId({ targetTabId: tab.id });   // valid invocation here
-      await chrome.storage.session.set({ streamId, capError: "", status: "✓ Tab ready: " + (tab.title || "tab").slice(0, 40) + " — pick language & Start" });
-    } else {
-      await chrome.storage.session.set({ streamId: "", capError: "Open a normal web page (not chrome://) and click the Scribe icon there.", status: "✗ Not a web page — open YouTube etc. and click the Scribe icon there." });
+// Icon click: open the panel SYNCHRONOUSLY (preserves the user gesture), then grab the tab's
+// audio stream id here (this is the valid tabCapture invocation) and stash it for Start.
+chrome.action.onClicked.addListener((tab) => {
+  console.log("[Scribe] onClicked", tab && tab.url);
+  chrome.sidePanel.open({ tabId: tab.id }).catch((e) => console.log("[Scribe] open error", e));
+  (async () => {
+    try {
+      if (tab && tab.url && /^https?:/i.test(tab.url)) {
+        const streamId = await chrome.tabCapture.getMediaStreamId({ targetTabId: tab.id });
+        await chrome.storage.session.set({ streamId, capError: "", status: "✓ Tab ready: " + (tab.title || "tab").slice(0, 40) + " — pick language & Start" });
+      } else {
+        await chrome.storage.session.set({ streamId: "", capError: "Open a normal web page (not chrome://) and click the Scribe icon there.", status: "✗ Not a web page — open e.g. YouTube and click the Scribe icon there." });
+      }
+    } catch (e) {
+      await chrome.storage.session.set({ streamId: "", capError: e.message, status: "✗ capture setup error: " + e.message });
     }
-  } catch (e) {
-    await chrome.storage.session.set({ streamId: "", capError: e.message, status: "✗ capture setup error: " + e.message });
-  }
+  })();
 });
 
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
@@ -54,7 +54,7 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
         sendResponse({ ok: true });
       } else if (msg.type === "stop") {
         chrome.runtime.sendMessage({ target: "offscreen", type: "offscreen-stop" });
-        await chrome.storage.session.set({ streamId: "" });   // consumed; require a fresh icon-click next time
+        await chrome.storage.session.set({ streamId: "" });
         sendResponse({ ok: true });
       }
     } catch (e) { sendResponse({ ok: false, error: e.message }); }
