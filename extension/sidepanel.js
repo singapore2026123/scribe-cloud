@@ -2,6 +2,7 @@ const $ = (id) => document.getElementById(id);
 function rec(on) { $("start").disabled = on; $("stop").disabled = !on; }
 function esc(t) { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
 function setStatus(t) { $("status").textContent = t; }
+const NOTES_URL = "https://scribe-cloud.singapore2026123.workers.dev/notes";   // Workers AI meeting notes
 
 // Spoken<->translation language code maps (for swap), covering all 12 languages.
 const T2L = { en: "en", "zh-CN": "zh", ms: "ms", ta: "ta", ja: "ja", my: "my", ko: "ko", th: "th", id: "id", vi: "vi", hi: "hi", fr: "fr" };
@@ -34,23 +35,29 @@ function swap() {                                  // flip spoken<->translation 
   setStatus("Swapped languages & text");
 }
 
-function exportDoc() {                             // no Gemini — just the captured transcript + translation
+async function exportDoc() {                       // meeting notes (Workers AI) + transcript -> Word, like the web app
   const src = boxLines("srcbox"), en = boxLines("enbox");
   if (!src.length && !en.length) return setStatus("Nothing to export");
+  setStatus("generating meeting notes for export…");
+  let notesHtml = "";
+  try {
+    const d = await (await fetch(NOTES_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: src.join("\n") }) })).json();
+    if (d.notes) notesHtml = mdToHtml(d.notes);
+  } catch (_) { /* notes best-effort; still export the transcript */ }
   const n = Math.max(src.length, en.length); let rows = "";
   for (let i = 0; i < n; i++) rows += (en[i] ? `<p>${esc(en[i])}</p>` : "") + (src[i] ? `<p style="color:#666;font-size:13px">${esc(src[i])}</p>` : "");
-  const html = `<html><head><meta charset="utf-8"><title>Scribe transcript</title></head>
-    <body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.6">
-    <h2>Scribe — Transcript &amp; Translation</h2>${rows}</body></html>`;
-  if ($("fmt").value === "pdf") {
-    const w = window.open("", "_blank");
-    if (!w) return setStatus("Allow pop-ups to export PDF");
-    w.document.write(html); w.document.close(); w.focus(); w.print();
-  } else {
-    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" }));
-    a.download = "scribe-transcript.doc"; a.click(); URL.revokeObjectURL(a.href);
-  }
-  setStatus("Exported");
+  const html = `<html><head><meta charset="utf-8"><title>Meeting Notes</title></head><body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.6">${notesHtml ? notesHtml + "<hr>" : ""}<h2>Full Transcript</h2>${rows}</body></html>`;
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" }));
+  a.download = "meeting-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
+  setStatus(notesHtml ? "Exported meeting notes + transcript" : "Notes unavailable — exported transcript only");
+}
+function mdToHtml(md) {
+  return (md || "").split(/\r?\n/).map((ln) => {
+    if (/^\s*##\s+/.test(ln)) return `<h2>${esc(ln.replace(/^\s*##\s+/, ""))}</h2>`;
+    if (/^\s*[-*]\s+/.test(ln)) return `<li>${esc(ln.replace(/^\s*[-*]\s+/, ""))}</li>`;
+    if (/^\s*$/.test(ln)) return "";
+    return `<p>${esc(ln)}</p>`;
+  }).join("");
 }
 
 // ---------- start / stop ----------
