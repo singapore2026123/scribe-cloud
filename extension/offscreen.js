@@ -1,6 +1,5 @@
 // Captures tab audio and transcribes it in rolling ~8s chunks (near-real-time), streaming results to the panel.
-const SPACE_URL = "https://singapore2026123-scribe-burmese-asr.hf.space/transcribe";   // Burmese (SeamlessM4T)
-const NETLIFY_TRANSCRIBE = "https://kanamic-scribe.netlify.app/api/transcribe";        // others (Gemini)
+const SPACE_URL = "https://singapore2026123-scribe-burmese-asr.hf.space/transcribe";   // all languages (SeamlessM4T, free/unlimited)
 const CHUNK_SEC = 8;
 
 let ctx = null, srcNode = null, proc = null, stream = null;
@@ -48,12 +47,8 @@ function flush() {
 async function transcribeChunk(b64, n) {
   try {
     const { lang: src, target } = cfg;
-    let d;
-    if (src === "my") {
-      d = await (await fetch(SPACE_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: b64, src, target }) })).json();
-    } else {
-      d = await (await fetch(NETLIFY_TRANSCRIBE, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: b64, mime: "audio/wav", src, target }) })).json();
-    }
+    // All languages go to the free, unlimited SeamlessM4T Space — no Gemini, no quota.
+    const d = await (await fetch(SPACE_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: b64, src, target }) })).json();
     if ((d.transcript || "").trim() || (d.translation || "").trim())
       panel("line", "", { transcript: d.transcript || "", translation: d.translation || "" });
     else
