@@ -3,7 +3,7 @@ const SPACE_URL = "https://singapore2026123-scribe-burmese-asr.hf.space/transcri
 const CHUNK_SEC = 8;
 
 let ctx = null, srcNode = null, proc = null, stream = null;
-let cfg = {}, buf = [], bufLen = 0, running = false, seq = 0;
+let cfg = {}, buf = [], bufLen = 0, running = false, seq = 0, pending = 0;
 
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.target !== "offscreen") return;
@@ -45,6 +45,7 @@ function flush() {
 }
 
 async function transcribeChunk(b64, n) {
+  pending++;
   try {
     const { lang: src, target } = cfg;
     // All languages go to the free, unlimited SeamlessM4T Space — no Gemini, no quota.
@@ -54,17 +55,23 @@ async function transcribeChunk(b64, n) {
     else
       panel("status", `chunk ${n}: no speech${d.error ? " — " + d.error : ""}`);
   } catch (e) { panel("status", `chunk ${n} error: ${e.message}`); }
+  finally {
+    pending--;
+    // Stop only halts capture — report when the last in-flight chunk finishes processing.
+    if (!running) panel("status", pending > 0 ? `capture stopped — ${pending} chunk(s) still transcribing…` : "done — all captured audio transcribed");
+  }
 }
 
 function stop() {
   running = false;
-  flush();                                                   // transcribe the final partial chunk
+  flush();                                                   // queue the final partial chunk for transcription
+  // Stop AUDIO CAPTURE only — any chunks already captured keep transcribing/translating in the background.
   try { if (proc) { proc.onaudioprocess = null; proc.disconnect(); } } catch {}
   try { if (srcNode) srcNode.disconnect(); } catch {}
   try { if (stream) stream.getTracks().forEach((t) => t.stop()); } catch {}
   try { if (ctx) ctx.close(); } catch {}
   proc = srcNode = stream = ctx = null;
-  panel("status", "stopped");
+  panel("status", pending > 0 ? `capture stopped — ${pending} chunk(s) still transcribing…` : "stopped");
 }
 
 function resampleTo16k(samples, sr) {
