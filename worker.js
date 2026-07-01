@@ -65,17 +65,19 @@ async function transcribe(request, env) {
   }
 }
 
+const LNAME = { en: "English", ja: "Japanese", "zh-CN": "Chinese", zh: "Chinese", ms: "Malay", ta: "Tamil", my: "Burmese", off: "English" };
 async function notes(request, env) {
   try {
-    const { transcript } = await request.json();
+    const { transcript, target } = await request.json();
     if (!transcript || !String(transcript).trim()) return j({ notes: "" });
     if (!env.AI) return j({ notes: "", error: "Workers AI binding 'AI' is not configured on this Worker" });
+    const lang = LNAME[target] || "English";
     const r = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
       messages: [
-        { role: "system", content: "You are a clinical scribe. From the care-record transcript, write concise meeting notes using these markdown headings exactly: ## Summary, ## Key Points, ## Decisions, ## Action Items. Be faithful to the transcript and do not invent details. Keep it brief." },
-        { role: "user", content: String(transcript).slice(0, 6000) },
+        { role: "system", content: `You are an expert meeting-notes assistant. From the transcript below, write clear, well-structured meeting notes in ${lang}, in Markdown, with these sections (omit a section only if nothing applies):\n## Summary\n## Key Discussion Points\n## Decisions\n## Action Items\n## Next Steps\nFor Action Items use "- [owner if mentioned] task (due if mentioned)". Be factual, do not invent, and cover the ENTIRE transcript.` },
+        { role: "user", content: String(transcript).slice(0, 16000) },
       ],
-      max_tokens: 1024,
+      max_tokens: 2048,
     });
     return j({ notes: (r.response || "").trim() });
   } catch (e) {

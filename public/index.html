@@ -84,13 +84,13 @@
    <section class="pane"><div class="phead">
      <select id="lang" class="boxlang" title="Spoken language"><option value="ja">Japanese</option><option value="en">English</option>
       <option value="ms">Malay</option><option value="my">Burmese</option><option value="zh">Chinese</option><option value="ta">Tamil</option></select>
-     <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('srcbox')">Clear</button>
+     <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('srcbox')" title="Clear both boxes">&times;</button>
      <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('srcbox')">Copy</button></div>
     <div class="pbody" id="srcbox" contenteditable="true" spellcheck="false"><p class="hint">Pick a language and press Start.</p></div></section>
    <section class="pane"><div class="phead">
      <select id="target" class="boxlang" title="Translate to"><option value="off">Off (no translation)</option><option value="en" selected>English</option>
       <option value="zh-CN">Chinese</option><option value="ms">Malay</option><option value="ta">Tamil</option><option value="ja">Japanese</option><option value="my">Burmese</option></select>
-     <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('enbox')">Clear</button>
+     <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('enbox')" title="Clear both boxes">&times;</button>
      <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('enbox')">Copy</button></div>
     <div class="pbody" id="enbox" contenteditable="true" spellcheck="false"></div></section>
    <button id="swapbtn" title="Swap languages &amp; text" onclick="window.scribe.swap()">&#8644;</button>
