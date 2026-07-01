@@ -2,6 +2,7 @@ const $ = (id) => document.getElementById(id);
 function rec(on) { $("start").disabled = on; $("stop").disabled = !on; }
 function esc(t) { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
 function setStatus(t) { $("status").textContent = t; }
+const NOTES_URL = "https://scribe-cloud.singapore2026123.workers.dev/notes";   // Workers AI organised notes
 
 // Spoken<->translation language code maps (for swap), covering all 12 languages.
 const T2L = { en: "en", "zh-CN": "zh", ms: "ms", ta: "ta", ja: "ja", my: "my", ko: "ko", th: "th", id: "id", vi: "vi", hi: "hi", fr: "fr" };
@@ -37,9 +38,15 @@ function swap() {                                  // flip spoken<->translation 
   setStatus("Swapped languages & text");
 }
 
-function exportDoc() {   // each block = translated paragraph, original underneath — organised like notes -> Word
+async function exportDoc() {   // Genspark-style organised notes (AI) on top, then full record: translated para + original underneath -> Word
   const src = boxLines("srcbox"), en = boxLines("enbox");
   if (!src.length && !en.length) return setStatus("Nothing to export");
+  setStatus("organising notes…");
+  let notesHtml = "";
+  try {
+    const d = await (await fetch(NOTES_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: src.join("\n"), target: $("target").value }) })).json();
+    if (d.notes) notesHtml = mdToHtml(d.notes);
+  } catch (_) { /* notes best-effort; still export the full record */ }
   const n = Math.max(src.length, en.length); let blocks = "";
   for (let i = 0; i < n; i++) blocks +=
     `<div style="margin:0 0 15px;padding:0 0 12px;border-bottom:1px solid #eee">` +
@@ -47,11 +54,20 @@ function exportDoc() {   // each block = translated paragraph, original undernea
     (src[i] ? `<p style="margin:0;color:#667;font-size:13px">${esc(src[i])}</p>` : "") +
     `</div>`;
   const html = `<html><head><meta charset="utf-8"><title>Meeting Notes</title></head>` +
-    `<body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.5">` +
-    `<h1 style="font-size:20px;margin:0 0 12px">Meeting Notes</h1>${blocks}</body></html>`;
+    `<body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.55">` +
+    (notesHtml ? notesHtml + `<hr style="margin:26px 0">` : "") +
+    `<h2>Full Record</h2>${blocks}</body></html>`;
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" }));
   a.download = "meeting-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
-  setStatus("Exported meeting notes");
+  setStatus(notesHtml ? "Exported organised notes + full record" : "Notes unavailable — exported full record only");
+}
+function mdToHtml(md) {
+  return (md || "").split(/\r?\n/).map((ln) => {
+    if (/^\s*#{1,3}\s+/.test(ln)) return `<h3 style="margin:16px 0 6px">${esc(ln.replace(/^\s*#{1,3}\s+/, ""))}</h3>`;
+    if (/^\s*[-*]\s+/.test(ln)) return `<li style="margin-left:18px">${esc(ln.replace(/^\s*[-*]\s+/, ""))}</li>`;
+    if (/^\s*$/.test(ln)) return "";
+    return `<p>${esc(ln)}</p>`;
+  }).join("");
 }
 
 // ---------- start / stop ----------

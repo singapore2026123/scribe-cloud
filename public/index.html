@@ -35,19 +35,26 @@
  .phead{padding:12px 16px;border-bottom:1px solid var(--line);font-weight:700;display:flex;gap:10px;align-items:center}
  .pbody{padding:14px 17px;overflow-y:auto;flex:1;font-size:17px;line-height:1.6} .pbody p{margin:0 0 10px}
  .hint{color:var(--muted);font-style:italic;font-size:14px}
- #hist{margin-top:22px} .hrow{border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin-bottom:9px;background:var(--surface)}
+ /* sidebar library */
+ .appwrap{display:flex;align-items:stretch;min-height:calc(100vh - 58px)}
+ .sidebar{flex:0 0 252px;width:252px;border-right:1px solid var(--line);background:var(--surface);padding:16px 14px;overflow-y:auto}
+ .mainpane{flex:1;min-width:0;overflow-y:auto}
+ .mainpane .view{max-width:none;padding:18px 22px}
+ .prof{display:flex;gap:10px;align-items:center;padding:0 0 14px;border-bottom:1px solid var(--line);margin-bottom:14px}
+ .pavatar{width:38px;height:38px;border-radius:50%;background:var(--signal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex:0 0 auto}
+ .pname{font-size:13px;word-break:break-all;margin-bottom:4px}
+ .libttl{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:2px 0 10px}
+ .hrow{border:1px solid var(--line);border-radius:10px;padding:9px 11px;margin-bottom:8px;background:var(--surface);font-size:13px}
+ .hrow button{font-size:12px;padding:5px 9px;margin-top:6px}
+ @media(max-width:820px){.appwrap{flex-direction:column}.sidebar{flex:auto;width:auto;border-right:none;border-bottom:1px solid var(--line)}.feed{grid-template-columns:1fr!important}}
  .modal{display:none;position:fixed;inset:0;background:rgba(20,32,43,.45);z-index:50;align-items:center;justify-content:center}
  .modal>div{background:#fff;max-width:780px;width:92%;max-height:86vh;display:flex;flex-direction:column;border-radius:14px;padding:20px 22px}
- #notesBody{white-space:pre-wrap;overflow:auto;font-size:14px;line-height:1.7}
  .hidden{display:none!important}
 </style>
 </head>
 <body>
 <header class="bar">
  <div><div class="mark">Scrib<b>e</b> Cloud</div><div class="tag">Multilingual care-record transcription &amp; translation</div></div>
- <div class="spacer"></div>
- <span class="who" id="who"></span>
- <button class="ghost hidden" id="logout" onclick="window.scribe.logout()">Sign out</button>
 </header>
 
 <!-- LOGIN -->
@@ -65,37 +72,47 @@
 </section>
 
 <!-- APP -->
-<main id="app" class="view hidden">
- <section class="controls">
-  <label class="field"><span>Source</span>
-   <select id="source"><option value="mic">Microphone</option><option value="system">System / tab audio</option></select></label>
-  <label class="field"><span>Mode</span>
-   <select id="mode"><option value="live">Live (browser)</option><option value="record">Record &rarr; transcribe</option></select></label>
-  <div class="actions">
-   <span class="state"><span class="dot" id="dot"></span><span id="stxt">Ready</span></span>
-   <button class="ghost" onclick="window.scribe.save()">Save</button>
-   <button class="ghost" onclick="window.scribe.exportDoc()" title="Export meeting notes + transcript as a Word document">Export (Word)</button>
-   <button id="stop" onclick="window.scribe.stop()" disabled>Stop</button>
-   <button id="start" onclick="window.scribe.start()">Start</button>
+<main id="app" class="appwrap hidden">
+ <aside class="sidebar">
+  <div class="prof">
+   <div class="pavatar" id="pavatar"></div>
+   <div><div class="pname" id="who"></div>
+    <button class="ghost" id="logout" onclick="window.scribe.logout()" style="padding:5px 10px;font-size:12px">Sign out</button></div>
   </div>
- </section>
- <div class="view">
-  <div class="feed">
-   <section class="pane"><div class="phead">
-     <select id="lang" class="boxlang" title="Spoken language"><option value="ja">Japanese</option><option value="en">English</option>
-      <option value="ms">Malay</option><option value="my">Burmese</option><option value="zh">Chinese</option><option value="ta">Tamil</option></select>
-     <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('srcbox')" title="Clear both boxes">&times;</button>
-     <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('srcbox')">Copy</button></div>
-    <div class="pbody" id="srcbox" contenteditable="true" spellcheck="false"><p class="hint">Pick a language and press Start.</p></div></section>
-   <section class="pane"><div class="phead">
-     <select id="target" class="boxlang" title="Translate to"><option value="off">Off (no translation)</option><option value="en" selected>English</option>
-      <option value="zh-CN">Chinese</option><option value="ms">Malay</option><option value="ta">Tamil</option><option value="ja">Japanese</option><option value="my">Burmese</option></select>
-     <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('enbox')" title="Clear both boxes">&times;</button>
-     <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('enbox')">Copy</button></div>
-    <div class="pbody" id="enbox" contenteditable="true" spellcheck="false"></div></section>
-   <button id="swapbtn" title="Swap languages &amp; text" onclick="window.scribe.swap()">&#8644;</button>
+  <div class="libttl">Library &mdash; saved sessions</div>
+  <div id="histlist"><p class="hint">Loading&hellip;</p></div>
+ </aside>
+ <div class="mainpane">
+  <section class="controls">
+   <label class="field"><span>Source</span>
+    <select id="source"><option value="mic">Microphone</option><option value="system">System / tab audio</option></select></label>
+   <label class="field"><span>Mode</span>
+    <select id="mode"><option value="live">Live (browser)</option><option value="record">Record &rarr; transcribe</option></select></label>
+   <div class="actions">
+    <span class="state"><span class="dot" id="dot"></span><span id="stxt">Ready</span></span>
+    <button class="ghost" onclick="window.scribe.save()">Save</button>
+    <button class="ghost" onclick="window.scribe.exportDoc()" title="Export organised notes + full transcript as a Word document">Export (Word)</button>
+    <button id="stop" onclick="window.scribe.stop()" disabled>Stop</button>
+    <button id="start" onclick="window.scribe.start()">Start</button>
+   </div>
+  </section>
+  <div class="view">
+   <div class="feed">
+    <section class="pane"><div class="phead">
+      <select id="lang" class="boxlang" title="Spoken language"><option value="ja">Japanese</option><option value="en">English</option>
+       <option value="ms">Malay</option><option value="my">Burmese</option><option value="zh">Chinese</option><option value="ta">Tamil</option></select>
+      <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('srcbox')" title="Clear both boxes">&times;</button>
+      <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('srcbox')">Copy</button></div>
+     <div class="pbody" id="srcbox" contenteditable="true" spellcheck="false"><p class="hint">Pick a language and press Start.</p></div></section>
+    <section class="pane"><div class="phead">
+      <select id="target" class="boxlang" title="Translate to"><option value="off">Off (no translation)</option><option value="en" selected>English</option>
+       <option value="zh-CN">Chinese</option><option value="ms">Malay</option><option value="ta">Tamil</option><option value="ja">Japanese</option><option value="my">Burmese</option></select>
+      <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('enbox')" title="Clear both boxes">&times;</button>
+      <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('enbox')">Copy</button></div>
+     <div class="pbody" id="enbox" contenteditable="true" spellcheck="false"></div></section>
+    <button id="swapbtn" title="Swap languages &amp; text" onclick="window.scribe.swap()">&#8644;</button>
+   </div>
   </div>
-  <div id="hist"><div style="font-weight:700;margin:6px 0 12px">Your saved sessions</div><div id="histlist"><p class="hint">Loading…</p></div></div>
  </div>
 </main>
 

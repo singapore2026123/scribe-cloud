@@ -75,8 +75,8 @@ function setLogged(session) {
   user = session?.user || null;
   $("login").classList.toggle("hidden", !!user);
   $("app").classList.toggle("hidden", !user);
-  $("logout").classList.toggle("hidden", !user);
   $("who").textContent = user ? user.email : "";
+  if ($("pavatar")) $("pavatar").textContent = user && user.email ? user.email[0].toUpperCase() : "";
   if (user) loadHistory();
 }
 async function signIn() {
@@ -304,9 +304,15 @@ function copyBox(id) {
   const t = [...$(id).querySelectorAll("p")].filter((p) => !p.classList.contains("hint")).map((p) => p.textContent).join("\n");
   navigator.clipboard.writeText(t); setState("Copied", false);
 }
-function exportDoc() {   // each block = full translated paragraph, original underneath — organised like notes -> Word
+async function exportDoc() {   // Genspark-style organised notes (AI) on top, then the full record: translated para + original underneath -> Word
   const src = boxLines("srcbox"), en = boxLines("enbox");
   if (!src.length && !en.length) return setState("Nothing to export", false);
+  setState("organising notes…", true, true);
+  let notesHtml = "";
+  try {
+    const d = await (await fetch("/notes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: src.join("\n"), target: $("target").value }) })).json();
+    if (d.notes) notesHtml = mdToHtml(d.notes);
+  } catch (_) { /* notes best-effort; still export the full record */ }
   const n = Math.max(src.length, en.length); let blocks = "";
   for (let i = 0; i < n; i++) blocks +=
     `<div style="margin:0 0 15px;padding:0 0 12px;border-bottom:1px solid #eee">` +
@@ -314,12 +320,20 @@ function exportDoc() {   // each block = full translated paragraph, original und
     (src[i] ? `<p style="margin:0;color:#667;font-size:13px">${esc(src[i])}</p>` : "") +
     `</div>`;
   const html = `<html><head><meta charset="utf-8"><title>Meeting Notes</title></head>` +
-    `<body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.5">` +
-    `<h1 style="font-size:20px;margin:0 0 4px">Meeting Notes</h1>` +
-    `<p style="color:#888;font-size:12px;margin:0 0 16px">${esc(new Date().toLocaleString())}</p>${blocks}</body></html>`;
+    `<body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.55">` +
+    (notesHtml ? notesHtml + `<hr style="margin:26px 0">` : "") +
+    `<h2>Full Record</h2><p style="color:#888;font-size:12px;margin:0 0 14px">${esc(new Date().toLocaleString())}</p>${blocks}</body></html>`;
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" }));
   a.download = "meeting-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
-  setState("Exported meeting notes", false);
+  setState(notesHtml ? "Exported organised notes + full record" : "Notes unavailable — exported full record only", false);
+}
+function mdToHtml(md) {
+  return (md || "").split(/\r?\n/).map((ln) => {
+    if (/^\s*#{1,3}\s+/.test(ln)) return `<h3 style="margin:16px 0 6px">${esc(ln.replace(/^\s*#{1,3}\s+/, ""))}</h3>`;
+    if (/^\s*[-*]\s+/.test(ln)) return `<li style="margin-left:18px">${esc(ln.replace(/^\s*[-*]\s+/, ""))}</li>`;
+    if (/^\s*$/.test(ln)) return "";
+    return `<p>${esc(ln)}</p>`;
+  }).join("");
 }
 
 // --- undo/redo for the editable boxes (Ctrl+Z / Ctrl+Y / Ctrl+Shift+Z) — covers typing, streamed lines, Clear & swap ---

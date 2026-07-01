@@ -76,7 +76,7 @@ async function notes(request, env) {
     const lang = LNAME[target] || "English";
     const r = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
       messages: [
-        { role: "system", content: `You are an expert meeting-notes assistant. From the transcript below, write clear, well-structured meeting notes in ${lang}, in Markdown, with these sections (omit a section only if nothing applies):\n## Summary\n## Key Discussion Points\n## Decisions\n## Action Items\n## Next Steps\nFor Action Items use "- [owner if mentioned] task (due if mentioned)". Be factual, do not invent, and cover the ENTIRE transcript.` },
+        { role: "system", content: `You are an expert notes assistant like Genspark. From the transcript below, produce COMPREHENSIVE, well-organised notes in ${lang}, in Markdown. Cover the ENTIRE transcript thoroughly — do not omit topics or summarise away detail. Structure with ## headings: start with "## Overview", then group the content into several topical sections with descriptive headings, then "## Key Points" (bulleted), "## Decisions", "## Action Items" (use "- [owner if mentioned] task (due if mentioned)"), and "## Next Steps". Be detailed and faithful; do not invent.` },
         { role: "user", content: String(transcript).slice(0, 16000) },
       ],
       max_tokens: 2048,
