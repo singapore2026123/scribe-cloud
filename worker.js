@@ -34,6 +34,8 @@ function applyGlossary(text, lang) {
 // Care-term prompts to bias Whisper toward correct in-domain vocabulary (best-effort).
 const PROMPTS = {
   ja: "医療・介護記録。用語：気管吸引、口腔吸引、清潔操作、実務者研修、医療的ケア、耳鼻咽喉科、点眼、難聴、感音難聴、鼓室形成術、副鼻腔、言語聴覚士、人工内耳、留置術、経管栄養、清拭、部分浴、移乗介助、排便、循環器内科、不整脈、心房細動、弁置換術、末梢動脈疾患、経カテーテル。",
+  zh: "医疗护理记录。术语：气管吸引、口腔吸引、清洁操作、鼻胃管喂食、管饲、翻身、口腔护理、导尿管、褥疮、误吸、血压、脉搏、体温、血氧饱和度、血糖、失智症、糖尿病、高血压、中风、吸入性肺炎、便秘、跌倒、护理员、护士、言语治疗师、生命体征。",
+  ms: "Rekod penjagaan perubatan. Istilah: sedutan trakea, sedutan mulut, teknik aseptik, pemakanan tiub, tukar kedudukan, penjagaan mulut, kateter kencing, luka baring, aspirasi, tekanan darah, nadi, suhu badan, ketepuan oksigen, gula darah, demensia, kencing manis, darah tinggi, strok, radang paru-paru aspirasi, sembelit, jatuh, penjaga, jururawat, tanda vital.",
 };
 
 const j = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: { "Content-Type": "application/json", ...CORS } });

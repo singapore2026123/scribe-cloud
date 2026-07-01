@@ -1,0 +1,51 @@
+english,ja,zh,ms,ta,my,category
+tracheal suction,気管吸引,气管吸引,sedutan trakea,,,procedure
+oral suction,口腔吸引,口腔吸引,sedutan mulut,,,procedure
+nasogastric tube feeding,経鼻経管栄養,鼻胃管喂食,pemakanan tiub nasogastrik,,,procedure
+tube feeding,経管栄養,管饲,pemakanan melalui tiub,,,procedure
+bathing,入浴,洗澡,mandi,,,procedure
+partial bath,部分浴,局部清洗,mandi separa,,,procedure
+body wiping,清拭,擦身,lap badan,,,procedure
+clean technique,清潔操作,清洁操作,teknik aseptik,,,procedure
+transfer assistance,移乗介助,转移协助,bantuan pemindahan,,,procedure
+repositioning,体位変換,翻身,tukar kedudukan,,,procedure
+oral care,口腔ケア,口腔护理,penjagaan mulut,,,procedure
+urinary catheter,尿道カテーテル,导尿管,kateter kencing,,,procedure
+wound care,創傷ケア,伤口护理,penjagaan luka,,,procedure
+pressure ulcer,褥瘡,褥疮,luka baring,,,condition
+diaper change,おむつ交換,换尿布,tukar lampin,,,procedure
+toileting assistance,排泄介助,如厕协助,bantuan ke tandas,,,procedure
+eye drops,点眼,滴眼药,titis mata,,,procedure
+medication administration,服薬介助,给药,pemberian ubat,,,procedure
+oxygen therapy,酸素療法,氧疗,terapi oksigen,,,procedure
+aspiration,誤嚥,误吸,aspirasi,,,condition
+blood pressure,血圧,血压,tekanan darah,,,vital
+pulse,脈拍,脉搏,nadi,,,vital
+body temperature,体温,体温,suhu badan,,,vital
+respiration rate,呼吸数,呼吸频率,kadar pernafasan,,,vital
+oxygen saturation,酸素飽和度,血氧饱和度,ketepuan oksigen,,,vital
+blood sugar,血糖,血糖,gula darah,,,vital
+dementia,認知症,失智症,demensia,,,condition
+diabetes,糖尿病,糖尿病,kencing manis,,,condition
+hypertension,高血圧,高血压,darah tinggi,,,condition
+stroke,脳卒中,中风,strok,,,condition
+aspiration pneumonia,誤嚥性肺炎,吸入性肺炎,radang paru-paru aspirasi,,,condition
+constipation,便秘,便秘,sembelit,,,condition
+dehydration,脱水,脱水,dehidrasi,,,condition
+fall,転倒,跌倒,jatuh,,,condition
+fracture,骨折,骨折,patah tulang,,,condition
+urinary tract infection,尿路感染症,尿路感染,jangkitan saluran kencing,,,condition
+caregiver,介護士,护理员,penjaga,,,role
+nurse,看護師,护士,jururawat,,,role
+doctor,医師,医生,doktor,,,role
+physiotherapist,理学療法士,物理治疗师,ahli fisioterapi,,,role
+speech therapist,言語聴覚士,言语治疗师,ahli terapi pertuturan,,,role
+pharmacist,薬剤師,药剂师,ahli farmasi,,,role
+medication,薬,药物,ubat,,,record
+prescription,処方箋,处方,preskripsi,,,record
+allergy,アレルギー,过敏,alahan,,,record
+appointment,予約,预约,temu janji,,,record
+admission,入院,入院,kemasukan hospital,,,record
+discharge,退院,出院,keluar hospital,,,record
+care plan,ケアプラン,护理计划,pelan penjagaan,,,record
+vital signs,バイタルサイン,生命体征,tanda vital,,,record
