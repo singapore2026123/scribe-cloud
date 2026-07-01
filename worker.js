@@ -8,6 +8,13 @@ const CORS = {
 };
 // Whisper/m2m100 use ISO-639-1 codes; our target "zh-CN" -> "zh".
 const M2M = { en: "en", ja: "ja", "zh-CN": "zh", zh: "zh", ms: "ms", ta: "ta", ko: "ko", th: "th", id: "id", vi: "vi", hi: "hi", fr: "fr", my: "my" };
+// Google Translate free endpoint — no key, NO daily budget, good quality (same engine the desktop app used).
+const GT = { en: "en", ja: "ja", zh: "zh-CN", "zh-CN": "zh-CN", ms: "ms", ta: "ta", my: "my", ko: "ko", th: "th", id: "id", vi: "vi", hi: "hi", fr: "fr" };
+async function gtranslate(text, src, tgt) {
+  const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" + (GT[src] || "auto") + "&tl=" + GT[tgt] + "&dt=t&q=" + encodeURIComponent(text);
+  const data = await (await fetch(url)).json();
+  return (data[0] || []).map((seg) => (seg && seg[0]) || "").join("").trim();
+}
 
 // Care-term glossary (from the desktop glossary_ja.csv) — deterministic wrong->correct fixes for JA medical
 // terms. Applied in order; only replaces known non-word errors. Extend as Cloudflare-Whisper errors surface.
@@ -55,10 +62,9 @@ async function transcribe(request, env) {
     const transcript = applyGlossary((asr.text || "").trim(), src);
 
     let translation = "";
-    if (transcript && target && target !== "off" && M2M[target] && M2M[target] !== M2M[src]) {
-      try {   // fast/cheap MT for live (one lightweight call); the LLM is reserved for the export summary only
-        const tr = await env.AI.run("@cf/meta/m2m100-1.2b", { text: transcript, source_lang: M2M[src] || "en", target_lang: M2M[target] });
-        translation = (tr.translated_text || "").trim();
+    if (transcript && target && target !== "off" && GT[target] && GT[target] !== GT[src]) {
+      try {   // Google Translate free endpoint — no budget, good quality; keeps Workers AI usage to Whisper only
+        translation = await gtranslate(transcript, src, target);
       } catch (_) { /* translation best-effort; keep the transcript */ }
     }
     return j({ transcript, translation });
