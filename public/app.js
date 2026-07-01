@@ -8,7 +8,10 @@ const WSLANG = { ja: "ja-JP", en: "en-US", ms: "ms-MY", my: "my-MM", zh: "zh-CN"
 let sb = null, user = null, asrUrl = "";
 let running = false, webrec = null, mediaRec = null, recChunks = [], lastWavB64 = null, lastNotes = "";
 let lines = [];   // [{raw, translation, speaker?}]
-let liveStream = null, liveCtx = null, liveSrc = null, liveProc = null, liveBuf = [], liveBufLen = 0, liveSeq = 0;
+let liveStream = null, liveCtx = null, liveSrc = null, liveProc = null, liveBuf = [], liveBufLen = 0, liveSeq = 0, liveSil = 0, liveSpeech = false;
+// Pause-based chunking: end a chunk at a natural silence so each chunk is a whole utterance/sentence
+// (coherent transcription + translation), not an arbitrary time slice. MAX_SEC caps continuous speech.
+const SIL_THRESH = 0.008, SIL_HOLD = 0.7, MIN_SEC = 2.0, MAX_SEC = 16.0;
 
 // ---------- UI helpers ----------
 function setState(txt, on, busy) {
@@ -122,15 +125,21 @@ async function startLive() {
   try { await liveCtx.resume(); } catch {}
   liveSrc = liveCtx.createMediaStreamSource(new MediaStream(aud));
   liveProc = liveCtx.createScriptProcessor(4096, 1, 1);
-  liveBuf = []; liveBufLen = 0; liveSeq = 0;
+  liveBuf = []; liveBufLen = 0; liveSeq = 0; liveSil = 0; liveSpeech = false;
   liveProc.onaudioprocess = (e) => {
     if (!running) return;
-    liveBuf.push(new Float32Array(e.inputBuffer.getChannelData(0)));
-    liveBufLen += e.inputBuffer.length;
-    if (liveBufLen >= 8 * liveCtx.sampleRate) flushLive();   // ~8s chunks
+    const data = e.inputBuffer.getChannelData(0);
+    liveBuf.push(new Float32Array(data));
+    liveBufLen += data.length;
+    let sum = 0; for (let i = 0; i < data.length; i++) sum += data[i] * data[i];
+    const rms = Math.sqrt(sum / data.length), sr = liveCtx.sampleRate;
+    if (rms >= SIL_THRESH) { liveSpeech = true; liveSil = 0; } else { liveSil += data.length; }
+    const secs = liveBufLen / sr, sil = liveSil / sr;
+    if (liveSpeech && secs >= MIN_SEC && sil >= SIL_HOLD) { flushLive(); liveSil = 0; liveSpeech = false; }
+    else if (secs >= MAX_SEC) { if (liveSpeech) flushLive(); else { liveBuf = []; liveBufLen = 0; } liveSil = 0; liveSpeech = false; }   // drop pure-silence buffers
   };
   liveSrc.connect(liveProc); liveProc.connect(liveCtx.destination);
-  setState("listening — transcribing every ~8s…", true, false);
+  setState("listening — chunks end at natural pauses…", true, false);
 }
 function flushLive() {
   if (!liveBufLen) return;

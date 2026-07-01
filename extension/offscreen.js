@@ -1,10 +1,15 @@
 // Captures tab audio and transcribes it in rolling ~8s chunks (near-real-time), streaming results to the panel.
 const SPACE_URL = "https://singapore2026123-scribe-burmese-asr.hf.space/transcribe";   // Burmese (SeamlessM4T)
 const CF_URL = "https://scribe-cloud.singapore2026123.workers.dev/transcribe";         // others (Cloudflare Workers AI Whisper — fast/accurate)
-const CHUNK_SEC = 8;
+// Pause-based chunking: end a chunk at a natural silence so each chunk is a whole utterance/sentence (coherent
+// transcription + translation), not an arbitrary time slice. MAX_SEC caps continuous speech.
+const SIL_THRESH = 0.008;   // RMS below this = silence
+const SIL_HOLD = 0.7;       // seconds of trailing silence that ends a chunk
+const MIN_SEC = 2.0;        // don't cut speech shorter than this
+const MAX_SEC = 16.0;       // hard cap so nonstop speech still flushes
 
 let ctx = null, srcNode = null, proc = null, stream = null;
-let cfg = {}, buf = [], bufLen = 0, running = false, seq = 0, pending = 0;
+let cfg = {}, buf = [], bufLen = 0, running = false, seq = 0, pending = 0, silN = 0, hadSpeech = false;
 
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.target !== "offscreen") return;
@@ -12,7 +17,7 @@ chrome.runtime.onMessage.addListener((msg) => {
 });
 
 async function start(streamId, lang, target) {
-  cfg = { lang, target }; buf = []; bufLen = 0; running = true; seq = 0;
+  cfg = { lang, target }; buf = []; bufLen = 0; running = true; seq = 0; silN = 0; hadSpeech = false;
   try {
     stream = await navigator.mediaDevices.getUserMedia({
       audio: { mandatory: { chromeMediaSource: "tab", chromeMediaSourceId: streamId } },
@@ -25,12 +30,18 @@ async function start(streamId, lang, target) {
   proc = ctx.createScriptProcessor(4096, 1, 1);
   proc.onaudioprocess = (e) => {
     if (!running) return;
-    buf.push(new Float32Array(e.inputBuffer.getChannelData(0)));
-    bufLen += e.inputBuffer.length;
-    if (bufLen >= CHUNK_SEC * ctx.sampleRate) flush();
+    const data = e.inputBuffer.getChannelData(0);
+    buf.push(new Float32Array(data));
+    bufLen += data.length;
+    let sum = 0; for (let i = 0; i < data.length; i++) sum += data[i] * data[i];
+    const rms = Math.sqrt(sum / data.length), sr = ctx.sampleRate;
+    if (rms >= SIL_THRESH) { hadSpeech = true; silN = 0; } else { silN += data.length; }
+    const secs = bufLen / sr, sil = silN / sr;
+    if (hadSpeech && secs >= MIN_SEC && sil >= SIL_HOLD) { flush(); silN = 0; hadSpeech = false; }
+    else if (secs >= MAX_SEC) { if (hadSpeech) flush(); else { buf = []; bufLen = 0; } silN = 0; hadSpeech = false; }   // drop pure-silence buffers
   };
   srcNode.connect(proc); proc.connect(ctx.destination);
-  panel("status", `listening — transcribing every ${CHUNK_SEC}s…`);
+  panel("status", "listening — chunks end at natural pauses…");
 }
 
 function flush() {
