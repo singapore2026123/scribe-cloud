@@ -167,7 +167,7 @@ async function transcribeChunkLive(b64, n) {
   } catch (e) { if (running) setState(`listening… (chunk ${n} error: ${e.message})`, true, false); }
   finally {
     livePending--;
-    if (autoExport && !running && livePending === 0) { autoExport = false; organiseOnStop(); }   // organise + show once the last chunk lands
+    if (!running && livePending === 0) setState("Stopped", false);
   }
 }
 function stopLive() {
@@ -178,10 +178,8 @@ function stopLive() {
   try { if (liveStream) liveStream.getTracks().forEach((t) => t.stop()); } catch {}
   try { if (liveCtx) liveCtx.close(); } catch {}
   liveProc = liveSrc = liveStream = liveCtx = null;
-  // Meeting flow: capture stops, remaining chunks finish, then auto-ORGANISE (show notes) — no download.
-  autoExport = true;
-  if (livePending === 0) { autoExport = false; organiseOnStop(); }
-  else setState(`capture stopped — finishing ${livePending} chunk(s), then organising…`, false);
+  // Stop = capture only; remaining chunks keep transcribing. No auto-organise/notes popup — user clicks Export.
+  setState(livePending ? `capture stopped — finishing ${livePending} chunk(s)…` : "Stopped", false);
 }
 async function organiseOnStop() {
   const src = boxLines("srcbox");
@@ -337,16 +335,14 @@ async function exportDoc() {   // Genspark-style organised notes (AI) on top, th
     } catch (_) { /* notes best-effort; still export the full record */ }
   }
   const notesHtml = notesMd ? mdToHtml(notesMd) : "";
-  const n = Math.max(src.length, en.length); let blocks = "";
-  for (let i = 0; i < n; i++) blocks +=
-    `<div style="margin:0 0 15px;padding:0 0 12px;border-bottom:1px solid #eee">` +
-    (en[i] ? `<p style="margin:0 0 4px;font-size:15px">${esc(en[i])}</p>` : "") +
-    (src[i] ? `<p style="margin:0;color:#667;font-size:13px">${esc(src[i])}</p>` : "") +
-    `</div>`;
+  const enBlock = en.map((t) => `<p style="margin:0 0 9px;font-size:15px">${esc(t)}</p>`).join("");
+  const srcBlock = src.map((t) => `<p style="margin:0 0 9px;color:#667;font-size:13px">${esc(t)}</p>`).join("");
+  let body = notesHtml ? notesHtml + `<hr style="margin:26px 0">` : "";
+  if (enBlock) body += `<h2>Translated text</h2>${enBlock}`;
+  if (srcBlock) body += `<h2 style="margin-top:24px">Original text</h2>${srcBlock}`;
   const html = `<html><head><meta charset="utf-8"><title>Meeting Notes</title></head>` +
     `<body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.55">` +
-    (notesHtml ? notesHtml + `<hr style="margin:26px 0">` : "") +
-    `<h2>Full Record</h2><p style="color:#888;font-size:12px;margin:0 0 14px">${esc(new Date().toLocaleString())}</p>${blocks}</body></html>`;
+    `<p style="color:#888;font-size:12px;margin:0 0 14px">${esc(new Date().toLocaleString())}</p>${body}</body></html>`;
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" }));
   a.download = "meeting-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
   setState(notesHtml ? "Exported organised notes + full record" : "Notes unavailable — exported full record only", false);

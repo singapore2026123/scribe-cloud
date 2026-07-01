@@ -55,10 +55,17 @@ async function transcribe(request, env) {
     const transcript = applyGlossary((asr.text || "").trim(), src);
 
     let translation = "";
-    if (transcript && target && target !== "off" && M2M[target] && M2M[target] !== M2M[src]) {
+    if (transcript && target && target !== "off" && LNAME[target] && M2M[target] !== M2M[src]) {
       try {
-        const tr = await env.AI.run("@cf/meta/m2m100-1.2b", { text: transcript, source_lang: M2M[src] || "en", target_lang: M2M[target] });
-        translation = (tr.translated_text || "").trim();
+        // LLM translation — more fluent + context-aware than m2m100, which was "off sometimes".
+        const tr = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+          messages: [
+            { role: "system", content: `You are a professional medical/eldercare interpreter. Translate the user's text into ${LNAME[target]}. Output ONLY the translation — no quotes, no notes, no romanisation, no explanation. Preserve clinical meaning exactly.` },
+            { role: "user", content: transcript },
+          ],
+          max_tokens: 512,
+        });
+        translation = (tr.response || "").trim();
       } catch (_) { /* translation best-effort; keep the transcript */ }
     }
     return j({ transcript, translation });

@@ -47,16 +47,13 @@ async function exportDoc() {   // Genspark-style organised notes (AI) on top, th
     const d = await (await fetch(NOTES_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: src.join("\n"), target: $("target").value }) })).json();
     if (d.notes) notesHtml = mdToHtml(d.notes);
   } catch (_) { /* notes best-effort; still export the full record */ }
-  const n = Math.max(src.length, en.length); let blocks = "";
-  for (let i = 0; i < n; i++) blocks +=
-    `<div style="margin:0 0 15px;padding:0 0 12px;border-bottom:1px solid #eee">` +
-    (en[i] ? `<p style="margin:0 0 4px;font-size:15px">${esc(en[i])}</p>` : "") +
-    (src[i] ? `<p style="margin:0;color:#667;font-size:13px">${esc(src[i])}</p>` : "") +
-    `</div>`;
+  const enBlock = en.map((t) => `<p style="margin:0 0 9px;font-size:15px">${esc(t)}</p>`).join("");
+  const srcBlock = src.map((t) => `<p style="margin:0 0 9px;color:#667;font-size:13px">${esc(t)}</p>`).join("");
+  let bodyHtml = notesHtml ? notesHtml + `<hr style="margin:26px 0">` : "";
+  if (enBlock) bodyHtml += `<h2>Translated text</h2>${enBlock}`;
+  if (srcBlock) bodyHtml += `<h2 style="margin-top:24px">Original text</h2>${srcBlock}`;
   const html = `<html><head><meta charset="utf-8"><title>Meeting Notes</title></head>` +
-    `<body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.55">` +
-    (notesHtml ? notesHtml + `<hr style="margin:26px 0">` : "") +
-    `<h2>Full Record</h2>${blocks}</body></html>`;
+    `<body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.55">${bodyHtml}</body></html>`;
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" }));
   a.download = "meeting-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
   setStatus(notesHtml ? "Exported organised notes + full record" : "Notes unavailable — exported full record only");
