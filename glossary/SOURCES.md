@@ -9,7 +9,8 @@
 - **Burmese (my)** — filled where the term exists in the project's native-sourced `Care-Term-Glossary-MM-MS-DRAFT`
   (bathing, partial bath, body wiping, transfer, blood pressure, pulse, body temperature, oxygen saturation,
   medication, vital signs). Remaining `my` cells pending.
-- **Tamil (ta)** — PENDING a sourced pass. Do NOT fill from guesswork.
+- **Tamil (ta)** — filled from standard Tamil clinical vocabulary + sourced common terms; compound/technical
+  entries are flagged with **(?)** for native review before clinical use.
 
 ## Authoritative sources to use for the Tamil (and Chinese verification) pass
 - Commission for Scientific & Technical Terminology, Govt. of India — Tamil Medical Science glossary:

@@ -20,7 +20,7 @@ function setState(txt, on, busy) {
   $("start").disabled = on; $("stop").disabled = !on; running = on;
 }
 function esc(t) { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
-function clearBoxes() { lines = []; lastWavB64 = null; $("srcbox").innerHTML = ""; $("enbox").innerHTML = ""; }
+function clearBoxes() { lines = []; lastWavB64 = null; lastNotes = ""; $("srcbox").innerHTML = ""; $("enbox").innerHTML = ""; }
 function boxLines(id) { return [...$(id).querySelectorAll("p")].filter((p) => !p.classList.contains("hint") && p.id !== "interim").map((p) => p.textContent.trim()).filter(Boolean); }
 function clearBox() { snap(); lines = []; lastWavB64 = null; $("srcbox").innerHTML = '<p class="hint">Cleared.</p>'; $("enbox").innerHTML = ""; setState("Cleared", false); }   // either Clear button wipes both boxes (undoable)
 function renderLine(l) {
@@ -167,7 +167,7 @@ async function transcribeChunkLive(b64, n) {
   } catch (e) { if (running) setState(`listening… (chunk ${n} error: ${e.message})`, true, false); }
   finally {
     livePending--;
-    if (autoExport && !running && livePending === 0) { autoExport = false; exportDoc(); }   // organise + Word once the last chunk lands
+    if (autoExport && !running && livePending === 0) { autoExport = false; organiseOnStop(); }   // organise + show once the last chunk lands
   }
 }
 function stopLive() {
@@ -178,11 +178,24 @@ function stopLive() {
   try { if (liveStream) liveStream.getTracks().forEach((t) => t.stop()); } catch {}
   try { if (liveCtx) liveCtx.close(); } catch {}
   liveProc = liveSrc = liveStream = liveCtx = null;
-  // Meeting flow: capture stops, remaining chunks finish, then auto-organise + produce the Word doc.
+  // Meeting flow: capture stops, remaining chunks finish, then auto-ORGANISE (show notes) — no download.
   autoExport = true;
-  if (livePending === 0) { autoExport = false; exportDoc(); }
+  if (livePending === 0) { autoExport = false; organiseOnStop(); }
   else setState(`capture stopped — finishing ${livePending} chunk(s), then organising…`, false);
 }
+async function organiseOnStop() {
+  const src = boxLines("srcbox");
+  if (!src.length && !boxLines("enbox").length) { setState("Stopped", false); return; }
+  setState("organising meeting notes…", true, true);
+  try {
+    const d = await (await fetch("/notes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: src.join("\n"), target: $("target").value }) })).json();
+    lastNotes = d.notes || "";
+  } catch (_) { lastNotes = ""; }
+  $("notesBody").innerHTML = lastNotes ? mdToHtml(lastNotes) : '<p class="hint">Notes unavailable — you can still Export the full record.</p>';
+  $("notesModal").style.display = "flex";
+  setState(lastNotes ? "Meeting organised — review, then Export" : "Stopped — notes unavailable", false);
+}
+function copyNotes() { navigator.clipboard.writeText(lastNotes || ""); setState("Notes copied", false); }
 
 // ---------- record -> Gemini ----------
 async function startRecord() {
@@ -315,12 +328,15 @@ function copyBox(id) {
 async function exportDoc() {   // Genspark-style organised notes (AI) on top, then the full record: translated para + original underneath -> Word
   const src = boxLines("srcbox"), en = boxLines("enbox");
   if (!src.length && !en.length) return setState("Nothing to export", false);
-  setState("organising notes…", true, true);
-  let notesHtml = "";
-  try {
-    const d = await (await fetch("/notes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: src.join("\n"), target: $("target").value }) })).json();
-    if (d.notes) notesHtml = mdToHtml(d.notes);
-  } catch (_) { /* notes best-effort; still export the full record */ }
+  let notesMd = lastNotes;
+  if (!notesMd) {   // organise now if Stop hasn't already done it
+    setState("organising notes…", true, true);
+    try {
+      const d = await (await fetch("/notes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: src.join("\n"), target: $("target").value }) })).json();
+      notesMd = lastNotes = d.notes || "";
+    } catch (_) { /* notes best-effort; still export the full record */ }
+  }
+  const notesHtml = notesMd ? mdToHtml(notesMd) : "";
   const n = Math.max(src.length, en.length); let blocks = "";
   for (let i = 0; i < n; i++) blocks +=
     `<div style="margin:0 0 15px;padding:0 0 12px;border-bottom:1px solid #eee">` +
@@ -360,5 +376,5 @@ document.addEventListener("keydown", (ev) => {
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 
 // expose for inline handlers
-window.scribe = { signIn, signUp, logout, resetPassword, start, stop, save, clearBox, swap, copyBox, exportDoc, toggleSidebar };
+window.scribe = { signIn, signUp, logout, resetPassword, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar };
 boot();

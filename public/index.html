@@ -120,6 +120,13 @@
  </div>
 </main>
 
+<div class="modal" id="notesModal"><div>
+ <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px"><b style="font-size:19px">Meeting Notes</b>
+  <button class="ghost" style="margin-left:auto" onclick="window.scribe.exportDoc()">Export (Word)</button>
+  <button class="ghost" onclick="window.scribe.copyNotes()">Copy</button>
+  <button class="ghost" onclick="document.getElementById('notesModal').style.display='none'">Close</button></div>
+ <div id="notesBody" style="overflow:auto;font-size:14px;line-height:1.7"></div></div></div>
+
 <script type="module" src="./app.js"></script>
 </body>
 </html>
