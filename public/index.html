@@ -37,10 +37,13 @@
  .hint{color:var(--muted);font-style:italic;font-size:14px}
  /* sidebar library */
  .appwrap{display:flex;align-items:stretch;min-height:calc(100vh - 58px)}
- .sidebar{flex:0 0 252px;width:252px;border-right:1px solid var(--line);background:var(--surface);padding:16px 14px;overflow-y:auto}
+ .sidebar{flex:0 0 252px;width:252px;border-right:1px solid var(--line);background:var(--surface);padding:16px 14px;display:flex;flex-direction:column;overflow:hidden}
+ .appwrap.sb-collapsed .sidebar{display:none}
+ .sblib{flex:1;overflow-y:auto;min-height:0}
  .mainpane{flex:1;min-width:0;overflow-y:auto}
  .mainpane .view{max-width:none;padding:18px 22px}
- .prof{display:flex;gap:10px;align-items:center;padding:0 0 14px;border-bottom:1px solid var(--line);margin-bottom:14px}
+ .sbtoggle{padding:9px 12px;font-size:16px;line-height:1}
+ .prof{display:flex;gap:10px;align-items:center;padding:14px 0 0;border-top:1px solid var(--line)}
  .pavatar{width:38px;height:38px;border-radius:50%;background:var(--signal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex:0 0 auto}
  .pname{font-size:13px;word-break:break-all;margin-bottom:4px}
  .libttl{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:2px 0 10px}
@@ -74,16 +77,17 @@
 <!-- APP -->
 <main id="app" class="appwrap hidden">
  <aside class="sidebar">
+  <div class="libttl">Library &mdash; saved sessions</div>
+  <div class="sblib"><div id="histlist"><p class="hint">Loading&hellip;</p></div></div>
   <div class="prof">
    <div class="pavatar" id="pavatar"></div>
    <div><div class="pname" id="who"></div>
     <button class="ghost" id="logout" onclick="window.scribe.logout()" style="padding:5px 10px;font-size:12px">Sign out</button></div>
   </div>
-  <div class="libttl">Library &mdash; saved sessions</div>
-  <div id="histlist"><p class="hint">Loading&hellip;</p></div>
  </aside>
  <div class="mainpane">
   <section class="controls">
+   <button class="ghost sbtoggle" onclick="window.scribe.toggleSidebar()" title="Show/hide library">&#9776;</button>
    <label class="field"><span>Source</span>
     <select id="source"><option value="mic">Microphone</option><option value="system">System / tab audio</option></select></label>
    <label class="field"><span>Mode</span>

@@ -3,11 +3,11 @@ tracheal suction,気管吸引,气管吸引,sedutan trakea,,,procedure
 oral suction,口腔吸引,口腔吸引,sedutan mulut,,,procedure
 nasogastric tube feeding,経鼻経管栄養,鼻胃管喂食,pemakanan tiub nasogastrik,,,procedure
 tube feeding,経管栄養,管饲,pemakanan melalui tiub,,,procedure
-bathing,入浴,洗澡,mandi,,,procedure
-partial bath,部分浴,局部清洗,mandi separa,,,procedure
-body wiping,清拭,擦身,lap badan,,,procedure
+bathing,入浴,洗澡,mandi,,ရေချိုးခြင်း,procedure
+partial bath,部分浴,局部清洗,mandi separa,,တစ်စိတ်တစ်ပိုင်း ရေချိုးခြင်း,procedure
+body wiping,清拭,擦身,lap badan,,ကိုယ်သုတ်ပေးခြင်း,procedure
 clean technique,清潔操作,清洁操作,teknik aseptik,,,procedure
-transfer assistance,移乗介助,转移协助,bantuan pemindahan,,,procedure
+transfer assistance,移乗介助,转移协助,bantuan pemindahan,,ရွှေ့ပြောင်းကူညီခြင်း,procedure
 repositioning,体位変換,翻身,tukar kedudukan,,,procedure
 oral care,口腔ケア,口腔护理,penjagaan mulut,,,procedure
 urinary catheter,尿道カテーテル,导尿管,kateter kencing,,,procedure
@@ -19,11 +19,11 @@ eye drops,点眼,滴眼药,titis mata,,,procedure
 medication administration,服薬介助,给药,pemberian ubat,,,procedure
 oxygen therapy,酸素療法,氧疗,terapi oksigen,,,procedure
 aspiration,誤嚥,误吸,aspirasi,,,condition
-blood pressure,血圧,血压,tekanan darah,,,vital
-pulse,脈拍,脉搏,nadi,,,vital
-body temperature,体温,体温,suhu badan,,,vital
+blood pressure,血圧,血压,tekanan darah,,သွေးပေါင်ချိန်,vital
+pulse,脈拍,脉搏,kadar nadi,,နှလုံးခုန်နှုန်း,vital
+body temperature,体温,体温,suhu badan,,ကိုယ်အပူချိန်,vital
 respiration rate,呼吸数,呼吸频率,kadar pernafasan,,,vital
-oxygen saturation,酸素飽和度,血氧饱和度,ketepuan oksigen,,,vital
+oxygen saturation,酸素飽和度,血氧饱和度,ketepuan oksigen,,အောက်ဆီဂျင် ပြည့်ဝမှု,vital
 blood sugar,血糖,血糖,gula darah,,,vital
 dementia,認知症,失智症,demensia,,,condition
 diabetes,糖尿病,糖尿病,kencing manis,,,condition
@@ -41,11 +41,11 @@ doctor,医師,医生,doktor,,,role
 physiotherapist,理学療法士,物理治疗师,ahli fisioterapi,,,role
 speech therapist,言語聴覚士,言语治疗师,ahli terapi pertuturan,,,role
 pharmacist,薬剤師,药剂师,ahli farmasi,,,role
-medication,薬,药物,ubat,,,record
+medication,薬,药物,ubat,,ဆေး,record
 prescription,処方箋,处方,preskripsi,,,record
 allergy,アレルギー,过敏,alahan,,,record
 appointment,予約,预约,temu janji,,,record
 admission,入院,入院,kemasukan hospital,,,record
 discharge,退院,出院,keluar hospital,,,record
 care plan,ケアプラン,护理计划,pelan penjagaan,,,record
-vital signs,バイタルサイン,生命体征,tanda vital,,,record
+vital signs,バイタルサイン,生命体征,tanda vital,,သက်ရှင်လက္ခဏာ,record

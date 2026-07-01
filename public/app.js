@@ -8,7 +8,7 @@ const WSLANG = { ja: "ja-JP", en: "en-US", ms: "ms-MY", my: "my-MM", zh: "zh-CN"
 let sb = null, user = null, asrUrl = "";
 let running = false, webrec = null, mediaRec = null, recChunks = [], lastWavB64 = null, lastNotes = "";
 let lines = [];   // [{raw, translation, speaker?}]
-let liveStream = null, liveCtx = null, liveSrc = null, liveProc = null, liveBuf = [], liveBufLen = 0, liveSeq = 0, liveSil = 0, liveSpeech = false;
+let liveStream = null, liveCtx = null, liveSrc = null, liveProc = null, liveBuf = [], liveBufLen = 0, liveSeq = 0, liveSil = 0, liveSpeech = false, livePending = 0, autoExport = false;
 // Pause-based chunking: end a chunk at a natural silence so each chunk is a whole utterance/sentence
 // (coherent transcription + translation), not an arbitrary time slice. MAX_SEC caps continuous speech.
 const SIL_THRESH = 0.008, SIL_HOLD = 0.7, MIN_SEC = 2.0, MAX_SEC = 16.0;
@@ -77,7 +77,7 @@ function setLogged(session) {
   $("app").classList.toggle("hidden", !user);
   $("who").textContent = user ? user.email : "";
   if ($("pavatar")) $("pavatar").textContent = user && user.email ? user.email[0].toUpperCase() : "";
-  if (user) loadHistory();
+  if (user) { try { if (localStorage.getItem("sbCollapsed") === "1") $("app").classList.add("sb-collapsed"); } catch {} loadHistory(); }
 }
 async function signIn() {
   const email = $("email").value.trim(), password = $("password").value;
@@ -159,11 +159,16 @@ function asrEndpoint(src) {   // Burmese -> HF Space (SeamlessM4T); others -> Cl
 async function transcribeChunkLive(b64, n) {
   const src = $("lang").value, target = $("target").value, url = asrEndpoint(src);
   if (!url) { if (running) setState("Burmese engine not configured (SCRIBE_ASR_URL).", true, false); return; }
+  livePending++;
   try {
     const d = await (await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: b64, src, target }) })).json();
     if ((d.transcript || "").trim() || (d.translation || "").trim()) addLine(d.transcript || "", d.translation || "");
     else if (running) setState(`listening… (chunk ${n}: no speech${d.error ? " — " + d.error : ""})`, true, false);
   } catch (e) { if (running) setState(`listening… (chunk ${n} error: ${e.message})`, true, false); }
+  finally {
+    livePending--;
+    if (autoExport && !running && livePending === 0) { autoExport = false; exportDoc(); }   // organise + Word once the last chunk lands
+  }
 }
 function stopLive() {
   running = false;
@@ -173,7 +178,10 @@ function stopLive() {
   try { if (liveStream) liveStream.getTracks().forEach((t) => t.stop()); } catch {}
   try { if (liveCtx) liveCtx.close(); } catch {}
   liveProc = liveSrc = liveStream = liveCtx = null;
-  setState("capture stopped — finishing transcription…", false);
+  // Meeting flow: capture stops, remaining chunks finish, then auto-organise + produce the Word doc.
+  autoExport = true;
+  if (livePending === 0) { autoExport = false; exportDoc(); }
+  else setState(`capture stopped — finishing ${livePending} chunk(s), then organising…`, false);
 }
 
 // ---------- record -> Gemini ----------
@@ -349,6 +357,8 @@ document.addEventListener("keydown", (ev) => {
 });
 ["srcbox", "enbox"].forEach((id) => { const el = $(id); if (el) { let t; el.addEventListener("input", () => { clearTimeout(t); t = setTimeout(snap, 400); }); } });
 
+function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
+
 // expose for inline handlers
-window.scribe = { signIn, signUp, logout, resetPassword, start, stop, save, clearBox, swap, copyBox, exportDoc };
+window.scribe = { signIn, signUp, logout, resetPassword, start, stop, save, clearBox, swap, copyBox, exportDoc, toggleSidebar };
 boot();

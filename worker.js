@@ -68,20 +68,43 @@ async function transcribe(request, env) {
 }
 
 const LNAME = { en: "English", ja: "Japanese", "zh-CN": "Chinese", zh: "Chinese", ms: "Malay", ta: "Tamil", my: "Burmese", off: "English" };
+const NOTES_MODEL = "@cf/meta/llama-3.1-8b-instruct";
 async function notes(request, env) {
   try {
     const { transcript, target } = await request.json();
-    if (!transcript || !String(transcript).trim()) return j({ notes: "" });
+    const text = String(transcript || "").trim();
+    if (!text) return j({ notes: "" });
     if (!env.AI) return j({ notes: "", error: "Workers AI binding 'AI' is not configured on this Worker" });
     const lang = LNAME[target] || "English";
-    const r = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+    const genSys = `You are an expert notes assistant like Genspark. From the meeting content below, produce COMPREHENSIVE, well-organised meeting notes in ${lang}, in Markdown. Cover EVERYTHING — do not omit topics or summarise away detail. Structure with ## headings: start with "## Overview", then group into several topical sections with descriptive headings, then "## Key Points" (bulleted), "## Decisions", "## Action Items" (use "- [owner if mentioned] task (due if mentioned)"), and "## Next Steps". Be detailed and faithful; do not invent.`;
+
+    // Long meetings: map (bullet each segment) -> reduce (organise), so notes cover the WHOLE transcript.
+    const CHUNK = 9000;
+    let source = text;
+    if (text.length > CHUNK * 1.4) {
+      const parts = [];
+      for (let i = 0; i < text.length && parts.length < 12; i += CHUNK) parts.push(text.slice(i, i + CHUNK));
+      const partials = [];
+      for (const p of parts) {
+        const r = await env.AI.run(NOTES_MODEL, {
+          messages: [
+            { role: "system", content: `Summarise this meeting transcript segment into concise factual bullet points in ${lang}, capturing every topic, decision, and action item. Keep all distinct points.` },
+            { role: "user", content: p },
+          ],
+          max_tokens: 1024,
+        });
+        partials.push((r.response || "").trim());
+      }
+      source = partials.join("\n");
+    }
+    const r2 = await env.AI.run(NOTES_MODEL, {
       messages: [
-        { role: "system", content: `You are an expert notes assistant like Genspark. From the transcript below, produce COMPREHENSIVE, well-organised notes in ${lang}, in Markdown. Cover the ENTIRE transcript thoroughly — do not omit topics or summarise away detail. Structure with ## headings: start with "## Overview", then group the content into several topical sections with descriptive headings, then "## Key Points" (bulleted), "## Decisions", "## Action Items" (use "- [owner if mentioned] task (due if mentioned)"), and "## Next Steps". Be detailed and faithful; do not invent.` },
-        { role: "user", content: String(transcript).slice(0, 16000) },
+        { role: "system", content: genSys },
+        { role: "user", content: source.slice(0, 14000) },
       ],
       max_tokens: 2048,
     });
-    return j({ notes: (r.response || "").trim() });
+    return j({ notes: (r2.response || "").trim() });
   } catch (e) {
     return j({ notes: "", error: e.message });
   }
