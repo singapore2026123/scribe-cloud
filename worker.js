@@ -12,8 +12,16 @@ const M2M = { en: "en", ja: "ja", "zh-CN": "zh", zh: "zh", ms: "ms", ta: "ta", k
 const GT = { en: "en", ja: "ja", zh: "zh-CN", "zh-CN": "zh-CN", ms: "ms", ta: "ta", my: "my", ko: "ko", th: "th", id: "id", vi: "vi", hi: "hi", fr: "fr" };
 async function gtranslate(text, src, tgt) {
   const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" + (GT[src] || "auto") + "&tl=" + GT[tgt] + "&dt=t&q=" + encodeURIComponent(text);
-  const data = await (await fetch(url)).json();
+  const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)", "Accept": "application/json" } });
+  if (!res.ok) return "";
+  const data = await res.json();
   return (data[0] || []).map((seg) => (seg && seg[0]) || "").join("").trim();
+}
+// Whisper hallucinates these on silence/non-speech (YouTube training artifact) — drop chunks that are just these.
+const HALLUC = ["ご視聴ありがとうございました", "ご視聴ありがとうございます", "ご清聴ありがとうございました", "最後までご視聴いただきありがとうございました", "チャンネル登録をお願いします", "thank you for watching", "thanks for watching", "please subscribe", "thank you"];
+function stripHalluc(t) {
+  const n = t.replace(/[。．.!！?？、\s]+$/g, "").trim().toLowerCase();
+  return HALLUC.some((h) => n === h.toLowerCase()) ? "" : t;
 }
 
 // Care-term glossary (from the desktop glossary_ja.csv) — deterministic wrong->correct fixes for JA medical
@@ -59,13 +67,19 @@ async function transcribe(request, env) {
     try { asr = await env.AI.run("@cf/openai/whisper-large-v3-turbo", prompt ? { ...base, initial_prompt: prompt } : base); }
     catch (_) { asr = await env.AI.run("@cf/openai/whisper-large-v3-turbo", base); }   // biasing is best-effort
 
-    const transcript = applyGlossary((asr.text || "").trim(), src);
+    let transcript = applyGlossary((asr.text || "").trim(), src);
+    transcript = stripHalluc(transcript);
+    if (!transcript) return j({ transcript: "", translation: "" });
 
     let translation = "";
-    if (transcript && target && target !== "off" && GT[target] && GT[target] !== GT[src]) {
-      try {   // Google Translate free endpoint — no budget, good quality; keeps Workers AI usage to Whisper only
-        translation = await gtranslate(transcript, src, target);
-      } catch (_) { /* translation best-effort; keep the transcript */ }
+    if (target && target !== "off" && GT[target] && GT[target] !== GT[src]) {
+      try { translation = await gtranslate(transcript, src, target); } catch (_) {}   // Google Translate (no budget)
+      if (!translation) {   // fallback so translation ALWAYS appears (rarely fires -> keeps Workers AI budget light)
+        try {
+          const tr = await env.AI.run("@cf/meta/m2m100-1.2b", { text: transcript, source_lang: M2M[src] || "en", target_lang: M2M[target] });
+          translation = (tr.translated_text || "").trim();
+        } catch (_) {}
+      }
     }
     return j({ transcript, translation });
   } catch (e) {
