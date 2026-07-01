@@ -1,38 +1,64 @@
-"""Scribe Burmese ASR microservice — SeamlessM4T v2 (transcribe + translate) behind FastAPI.
-Portable: this same container runs on HF Spaces (free CPU), Cloud Run, Fly.io, etc.
+"""Scribe ASR microservice (Burmese).
+Primary: Dolphin-small (DataoceanAI) — fast + accurate Burmese ASR (the desktop app's Burmese engine).
+Fallback: SeamlessM4T v2 — if Dolphin can't load/run. Translation via Google Translate (free, no budget).
+Non-Burmese languages are handled by Cloudflare Whisper, not here.
 POST /transcribe  {audio: <base64 WAV>, src: "my", target: "en"}  ->  {transcript, translation}
 """
-import base64, io
+import base64, io, os, re, json, tempfile, urllib.parse, urllib.request
 import numpy as np
 import soundfile as sf
 import librosa
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 
+# SeamlessM4T language codes (fallback path only).
 LANG = {"en": "eng", "ja": "jpn", "zh": "cmn", "zh-CN": "cmn", "ms": "zsm",
         "my": "mya", "ta": "tam", "ko": "kor", "th": "tha", "id": "ind", "vi": "vie", "hi": "hin", "fr": "fra"}
-# Burmese loops badly -> aggressive anti-repeat. Other languages (esp. Japanese/Chinese)
-# legitimately repeat short sequences, so those same settings force WRONG characters ->
-# decode them with beam search and no forced anti-repeat instead.
 GEN_MY = dict(no_repeat_ngram_size=3, repetition_penalty=1.3, max_new_tokens=256, num_beams=1)
-GEN_DEFAULT = dict(max_new_tokens=256, num_beams=1)   # greedy, no forced anti-repeat (that corrupted JA/ZH); fast for live
+GEN_DEFAULT = dict(max_new_tokens=256, num_beams=1)
+def _gen(c): return GEN_MY if c == "mya" else GEN_DEFAULT
 
-
-def _gen(lang_code):
-    return GEN_MY if lang_code == "mya" else GEN_DEFAULT
+# Google Translate free endpoint (no key, no budget) — used to translate the Burmese transcript.
+GT = {"en": "en", "ja": "ja", "zh": "zh-CN", "zh-CN": "zh-CN", "ms": "ms", "ta": "ta",
+      "my": "my", "ko": "ko", "th": "th", "id": "id", "vi": "vi", "hi": "hi", "fr": "fr"}
+def _gtranslate(text, sl, tl):
+    if not text or not tl:
+        return ""
+    url = ("https://translate.googleapis.com/translate_a/single?client=gtx&sl=%s&tl=%s&dt=t&q=%s"
+           % (GT.get(sl, "auto"), GT.get(tl, tl), urllib.parse.quote(text)))
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    data = json.loads(urllib.request.urlopen(req, timeout=15).read().decode("utf-8"))
+    return "".join(seg[0] for seg in data[0] if seg and seg[0]).strip()
 
 app = FastAPI()
-# Allow the browser (Netlify site) to call this Space directly, cross-origin.
-from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
-STATE = {"proc": None, "model": None}
+
+STATE = {"proc": None, "model": None, "dolphin": None}
+DTOK = re.compile(r"<[^>]*>")   # strip Dolphin control tokens like <my><MM><asr><notimestamp>
 
 
-def _model():
+def _seamless():
     if STATE["model"] is None:
         from transformers import AutoProcessor, SeamlessM4Tv2Model
         STATE["proc"] = AutoProcessor.from_pretrained("facebook/seamless-m4t-v2-large")
         STATE["model"] = SeamlessM4Tv2Model.from_pretrained("facebook/seamless-m4t-v2-large")
     return STATE["proc"], STATE["model"]
+
+
+def _dolphin_model():
+    if STATE["dolphin"] is None:
+        import dolphin
+        STATE["dolphin"] = dolphin.load_model("small", device="cpu")   # ~1.4 GB
+    return STATE["dolphin"]
+
+
+def _dolphin_asr(data16k):
+    import dolphin
+    tmp = os.path.join(tempfile.gettempdir(), "scribe_mm.wav")
+    sf.write(tmp, data16k, 16000, subtype="PCM_16")
+    res = dolphin.transcribe(_dolphin_model(), tmp, lang_sym="my", region_sym="MM")
+    txt = DTOK.sub("", res.text if hasattr(res, "text") else str(res)).strip()
+    return txt.split(" ⁇ ")[-1].strip()   # drop any prompt prefix (⁇) if present
 
 
 def _chunks(a, sr=16000, max_sec=18.0):
@@ -42,7 +68,7 @@ def _chunks(a, sr=16000, max_sec=18.0):
 
 @app.get("/")
 def health():
-    return {"ok": True, "model": "facebook/seamless-m4t-v2-large", "loaded": STATE["model"] is not None}
+    return {"ok": True, "engine": "dolphin+seamless", "dolphin_loaded": STATE["dolphin"] is not None}
 
 
 @app.post("/transcribe")
@@ -53,13 +79,32 @@ async def transcribe(req: Request):
     target = body.get("target", "en")
     if not b64:
         return {"transcript": "", "translation": ""}
-    proc, model = _model()
     data, sr = sf.read(io.BytesIO(base64.b64decode(b64)), dtype="float32")
     if data.ndim > 1:
         data = data.mean(axis=1)
     if sr != 16000:
         data = librosa.resample(data, orig_sr=sr, target_sr=16000)
     data = data.astype(np.float32)
+
+    # Burmese -> Dolphin (primary) + Google Translate. Falls through to SeamlessM4T if Dolphin fails.
+    if src == "my":
+        transcript = ""
+        try:
+            transcript = _dolphin_asr(data)
+        except Exception:
+            transcript = ""
+        if transcript:
+            translation = ""
+            if target and target != "off" and target != "my":
+                try:
+                    translation = _gtranslate(transcript, "my", target)
+                except Exception:
+                    translation = ""
+            return {"transcript": transcript, "translation": translation}
+        # Dolphin unavailable/empty -> fall back to SeamlessM4T below.
+
+    # SeamlessM4T fallback (Burmese if Dolphin failed, or any other language that still reaches the Space).
+    proc, model = _seamless()
     s = LANG.get(src, "mya")
     t = LANG.get(target)
     raws, trs = [], []

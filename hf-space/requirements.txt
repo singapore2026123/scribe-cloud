@@ -7,3 +7,5 @@ protobuf
 soundfile
 librosa
 numpy
+dataoceanai-dolphin
+torchaudio
