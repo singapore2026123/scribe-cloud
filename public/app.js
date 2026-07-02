@@ -196,7 +196,7 @@ async function startLive() {
   try {
     stream = source === "system"
       ? await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })   // pick a tab/screen + tick "Share audio"
-      : await navigator.mediaDevices.getUserMedia({ audio: true });
+      : await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
   } catch { setState(source === "system" ? "Screen/tab share cancelled or blocked" : "Microphone blocked — allow mic access", false); running = false; return; }
   const aud = stream.getAudioTracks();
   if (!aud.length) { stream.getTracks().forEach((t) => t.stop()); setState('No audio captured — when sharing a tab/screen you must tick "Share tab audio"', false); running = false; return; }
@@ -297,7 +297,7 @@ async function startRecord() {
   try {
     stream = source === "system"
       ? await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })   // user picks tab/screen + "Share audio"
-      : await navigator.mediaDevices.getUserMedia({ audio: true });
+      : await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
   } catch {
     setState(source === "system" ? "Screen/tab share cancelled or blocked" : "Microphone blocked — allow mic access", false);
     running = false; return;
