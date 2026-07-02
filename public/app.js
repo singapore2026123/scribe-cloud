@@ -153,8 +153,8 @@ function flushLive() {
   for (let i = 0; i < outLen; i++) out[i] = merged[Math.floor(i * ratio)];
   transcribeChunkLive(encodeWavB64(out, 16000), ++liveSeq);
 }
-function asrEndpoint(src) {   // Burmese -> HF Space (SeamlessM4T); others -> Cloudflare Pages Function (Workers AI Whisper)
-  return src === "my" ? (asrUrl ? asrUrl.replace(/\/+$/, "") + "/transcribe" : "") : "/transcribe";
+function asrEndpoint(src) {   // Burmese & Tamil -> HF Space (Dolphin); others -> Cloudflare Worker (Workers AI Whisper)
+  return (src === "my" || src === "ta") ? (asrUrl ? asrUrl.replace(/\/+$/, "") + "/transcribe" : "") : "/transcribe";
 }
 async function transcribeChunkLive(b64, n) {
   const src = $("lang").value, target = $("target").value, url = asrEndpoint(src);
@@ -227,7 +227,7 @@ async function processRecording() {
     lastWavB64 = await blobToWav16kB64(blob);
     const url = asrEndpoint(src);
     if (!url) { setState("Burmese engine not configured (SCRIBE_ASR_URL).", false); return; }
-    setState(src === "my" ? "transcribing Burmese on the Space (first run loads the model)…" : "transcribing…", true, true);
+    setState((src === "my" || src === "ta") ? "transcribing on the Space (first run loads the model)…" : "transcribing…", true, true);
     const d = await (await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: lastWavB64, src, target }) })).json();
     if (d.transcript) addLine(d.transcript, d.translation || "");
     else setState("No speech / " + (d.error || "empty"), false);
@@ -428,7 +428,7 @@ document.addEventListener("keydown", (ev) => {
 ["srcbox", "enbox"].forEach((id) => { const el = $(id); if (el) { let t; el.addEventListener("input", () => { clearTimeout(t); t = setTimeout(snap, 400); }); } });
 
 // Burmese runs on the slow Space -> Live lags; auto-switch to Record (whole-clip, one call). Others default to Live.
-if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = $("lang").value === "my" ? "record" : "live"; });
+if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = ($("lang").value === "my" || $("lang").value === "ta") ? "record" : "live"; });
 
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 

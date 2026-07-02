@@ -1,8 +1,8 @@
-"""Scribe Burmese ASR microservice.
-Primary: Dolphin-small (DataoceanAI) — the desktop app's Burmese engine (fast + accurate).
-Fallback: SeamlessM4T v2 if Dolphin can't load/run. Translation via Google Translate (free, no budget).
-Non-Burmese languages are handled by Cloudflare Whisper, not here.
-POST /transcribe  {audio: <base64 WAV>, src: "my", target: "en"}  ->  {transcript, translation}
+"""Scribe Burmese + Tamil ASR microservice.
+Primary: Dolphin-small (DataoceanAI) — language-specialised ASR for Burmese (my/MM) and Tamil (ta/IN),
+far better than generic Whisper on these two. Fallback: SeamlessM4T v2 if Dolphin can't load/run.
+Translation via Google Translate (free, no budget). Other languages are handled by Cloudflare Whisper, not here.
+POST /transcribe  {audio: <base64 WAV>, src: "my"|"ta", target: "en"}  ->  {transcript, translation}
 """
 import base64, io, os, re, json, tempfile, urllib.parse, urllib.request
 import numpy as np
@@ -102,11 +102,11 @@ def _dolphin_model():
     return STATE["dolphin"]
 
 
-def _dolphin_asr(data16k):
+def _dolphin_asr(data16k, lang_sym="my", region_sym="MM"):
     import dolphin
-    tmp = os.path.join(tempfile.gettempdir(), "scribe_mm.wav")
+    tmp = os.path.join(tempfile.gettempdir(), "scribe_%s.wav" % lang_sym)
     sf.write(tmp, data16k, 16000, subtype="PCM_16")
-    res = dolphin.transcribe(_dolphin_model(), tmp, lang_sym="my", region_sym="MM")
+    res = dolphin.transcribe(_dolphin_model(), tmp, lang_sym=lang_sym, region_sym=region_sym)
     txt = DTOK.sub("", res.text if hasattr(res, "text") else str(res)).strip()
     return txt.split(" ⁇ ")[-1].strip()
 
@@ -147,19 +147,21 @@ async def transcribe(req: Request):
         data = librosa.resample(data, orig_sr=sr, target_sr=16000)
     data = data.astype(np.float32)
 
-    # Burmese -> Dolphin (primary) + Google Translate; falls back to SeamlessM4T if Dolphin fails.
-    if src == "my":
+    # Burmese & Tamil -> Dolphin (primary, language-specialised) + Google Translate; falls back to SeamlessM4T.
+    if src in ("my", "ta"):
+        lang_sym, region_sym = ("my", "MM") if src == "my" else ("ta", "IN")
         transcript = ""
         try:
-            transcript = _dolphin_asr(data)
+            transcript = _dolphin_asr(data, lang_sym, region_sym)
         except Exception:
             transcript = ""
-        if transcript:
+        if src == "my" and transcript:
             transcript = normalize_burmese_numbers(apply_glossary_mm(transcript))   # snap terms + numbers->digits
+        if transcript:
             translation = ""
-            if target and target != "off" and target != "my":
+            if target and target != "off" and target != src:
                 try:
-                    translation = _gtranslate(transcript, "my", target)
+                    translation = _gtranslate(transcript, src, target)
                 except Exception:
                     translation = ""
             return {"transcript": transcript, "translation": translation}
