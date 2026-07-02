@@ -40,19 +40,31 @@ function rerender() {
   if (!lines.length) { $("srcbox").innerHTML = '<p class="hint">Pick a language and press Start.</p>'; return; }
   lines.forEach(renderLine);
 }
-function swap() {                                  // DeepL-style: flip spoken<->translation languages AND the text
+async function translateText(text, sl, tl) {      // one line -> the Worker's Google-Translate endpoint
+  if (!text || !tl || tl === "off") return "";
+  try {
+    const r = await fetch("/translate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, sl, tl }) });
+    const d = await r.json();
+    return d.translation || "";
+  } catch { return ""; }
+}
+async function swap() {                            // flip spoken<->translation languages AND re-translate in the new direction
   snap();
   const t2l = { "zh-CN": "zh", ja: "ja", en: "en", ms: "ms", my: "my", ta: "ta" };
   const l2t = { zh: "zh-CN", ja: "ja", en: "en", ms: "ms", my: "my", ta: "ta" };
   const L = $("lang").value, T = $("target").value, nl = t2l[T];
   if (!nl) return setState('Set "Translate to" to a spoken language (JA/ZH/MS/MY/EN/TA) to swap', false);
-  const src = boxLines("srcbox"), en = boxLines("enbox");   // read current text from the boxes
-  $("lang").value = nl; if (l2t[L]) $("target").value = l2t[L];
-  $("srcbox").innerHTML = ""; $("enbox").innerHTML = "";
-  en.forEach((t) => { const p = document.createElement("p"); p.textContent = t; $("srcbox").appendChild(p); });
-  src.forEach((t) => { const p = document.createElement("p"); p.textContent = t; $("enbox").appendChild(p); });
-  if (!en.length) $("srcbox").innerHTML = '<p class="hint">Pick a language and press Start.</p>';
+  const en = boxLines("enbox");                    // the current translation becomes the new source text
+  const newTarget = l2t[L] || "en";               // the old spoken language becomes the new translation target
+  $("lang").value = nl; $("target").value = newTarget;
+  $("srcbox").innerHTML = ""; $("enbox").innerHTML = ""; lines = [];
   setEnHead();
+  if (!en.length) { $("srcbox").innerHTML = '<p class="hint">Pick a language and press Start.</p>'; return; }
+  en.forEach((t) => { const p = document.createElement("p"); p.textContent = t; $("srcbox").appendChild(p); });
+  setState("translating…", true, true);
+  const outs = await Promise.all(en.map((t) => translateText(t, nl, newTarget)));   // re-translate back into the flipped direction
+  en.forEach((t, i) => { const p = document.createElement("p"); p.textContent = outs[i] || ""; $("enbox").appendChild(p); lines.push({ raw: t, translation: outs[i] || "" }); });
+  setState("Swapped & translated", false);
 }
 
 // ---------- auth ----------

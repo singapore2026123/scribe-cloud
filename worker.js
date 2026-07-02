@@ -196,9 +196,28 @@ async function deleteAccount(request, env) {
   return j({ ok: true });
 }
 
+// Standalone text translation (used by the swap button to re-translate in the flipped direction).
+async function translate(request, env) {
+  try {
+    const { text, sl, tl } = await request.json();
+    if (!text || !tl || tl === "off") return j({ translation: "" });
+    let out = "";
+    try { out = await gtranslate(text, sl || "auto", tl); } catch (_) {}
+    if (!out && env.AI && M2M[tl]) {
+      try { const r = await env.AI.run("@cf/meta/m2m100-1.2b", { text, source_lang: M2M[sl] || "en", target_lang: M2M[tl] }); out = r.translated_text || ""; } catch (_) {}
+    }
+    return j({ translation: out });
+  } catch (e) { return j({ error: e.message }, 500); }
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === "/translate") {
+      if (request.method === "OPTIONS") return new Response(null, { headers: CORS });
+      if (request.method === "POST") return translate(request, env);
+      return j({ error: "POST only" }, 405);
+    }
     if (url.pathname === "/transcribe") {
       if (request.method === "OPTIONS") return new Response(null, { headers: CORS });
       if (request.method === "POST") return transcribe(request, env);
