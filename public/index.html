@@ -92,14 +92,16 @@
 <body>
 <header class="bar">
  <div><div class="mark" onclick="window.scribe.closeDoc()" style="cursor:pointer" title="Home">Scrib<b>e</b> Cloud</div><div class="tag" data-i18n="tagline">Multilingual care-record transcription &amp; translation</div></div>
+ <button id="authbtn" class="ghost" style="margin-left:auto" onclick="window.scribe.openLogin()" data-i18n="btn_signin">Sign in</button>
 </header>
 
-<!-- LOGIN -->
-<section id="login">
- <h1 data-i18n="signin_h">Sign in</h1>
- <p data-i18n="signin_p">Sign in with your email and password. First time? Click Create account.</p>
- <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
- <input id="password" type="password" data-i18n-ph="ph_password" placeholder="Password (min 6 characters)" autocomplete="current-password">
+<!-- LOGIN (modal — Scribe is usable without an account; this is opened from the corner button) -->
+<div class="modal" id="loginModal"><div style="max-width:420px;width:92%">
+ <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px"><h1 style="font-size:22px;margin:0;flex:1" data-i18n="signin_h">Sign in</h1>
+  <button class="ghost" onclick="document.getElementById('loginModal').style.display='none'" data-i18n="btn_close">Close</button></div>
+ <p style="color:var(--muted);margin:0 0 14px;font-size:14px" data-i18n="signin_p">Sign in with your email and password. First time? Click Create account.</p>
+ <input id="email" type="email" placeholder="you@example.com" autocomplete="email" style="width:100%;margin-bottom:10px">
+ <input id="password" type="password" data-i18n-ph="ph_password" placeholder="Password (min 6 characters)" autocomplete="current-password" style="width:100%;margin-bottom:10px">
  <div style="display:flex;gap:8px">
   <button id="signinbtn" onclick="window.scribe.signIn()" style="flex:1" data-i18n="btn_signin">Sign in</button>
   <button class="ghost" onclick="window.scribe.signUp()" style="flex:1" data-i18n="btn_createacct">Create account</button>
@@ -110,14 +112,14 @@
   <input id="otpcode" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="6-digit code" style="flex:1">
   <button onclick="window.scribe.verifyOtp()" data-i18n="btn_verify">Verify</button>
  </div>
-</section>
+</div></div>
 
 <!-- APP -->
-<main id="app" class="appwrap hidden">
+<main id="app" class="appwrap">
  <aside class="sidebar">
   <div class="libhead"><span class="libttl" style="margin:0;flex:1" data-i18n="lib_title">Library</span><button class="ghost mini" onclick="window.scribe.delSelected()" title="Delete ticked documents" data-i18n="btn_delsel">Delete sel.</button><button class="ghost mini" onclick="window.scribe.newFolder()" data-i18n="btn_addfolder">+ Folder</button></div>
   <div class="sblib"><div id="histlist"><p class="hint" data-i18n="loading">Loading&hellip;</p></div></div>
-  <div class="prof">
+  <div class="prof" id="prof">
    <div class="pavatar" id="pavatar" onclick="window.scribe.openSettings()" style="cursor:pointer" title="Account & settings"></div>
    <div style="flex:1;min-width:0"><div class="pname" id="who" onclick="window.scribe.openSettings()" style="cursor:pointer" title="Account & settings"></div>
     <label style="display:none"><select id="uilang-hidden">

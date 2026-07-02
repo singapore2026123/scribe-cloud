@@ -85,12 +85,16 @@ async function boot() {
 }
 function setLogged(session) {
   user = session?.user || null;
-  $("login").classList.toggle("hidden", !!user);
-  $("app").classList.toggle("hidden", !user);
+  $("app").classList.remove("hidden");                                 // Scribe is usable without an account (guest mode)
+  const lm = document.getElementById("loginModal"); if (lm) lm.style.display = "none";
+  if ($("authbtn")) $("authbtn").classList.toggle("hidden", !!user);   // corner "Sign in" shows only for guests
+  if ($("prof")) $("prof").classList.toggle("hidden", !user);          // sidebar profile shows only when signed in
   $("who").textContent = user ? user.email : "";
   if ($("pavatar")) $("pavatar").textContent = user && user.email ? user.email[0].toUpperCase() : "";
-  if (user) { try { if (localStorage.getItem("sbCollapsed") === "1") $("app").classList.add("sb-collapsed"); } catch {} loadLibrary(); }
+  try { if (localStorage.getItem("sbCollapsed") === "1") $("app").classList.add("sb-collapsed"); } catch {}
+  loadLibrary();
 }
+function openLogin() { const m = document.getElementById("loginModal"); if (m) m.style.display = "flex"; if ($("loginstatus")) $("loginstatus").textContent = ""; }
 async function signIn() {
   const email = $("email").value.trim(), password = $("password").value;
   if (!email || !password) return ($("loginstatus").textContent = "Enter your email and password.");
@@ -375,11 +379,13 @@ function docWrap(bodyHtml, title) {
 }
 function defaultTitle() { return `${LANGNAME[$("lang").value] || "Session"} — ${new Date().toLocaleString()}`; }
 async function saveDocument(title, bodyHtml) {
+  if (!user) return false;   // guests can export/download but not save to the cloud library
   const { error } = await sb.from("documents").insert({ user_id: user.id, title, html: bodyHtml, folder_id: null });
   if (error) { setState("Save failed: " + error.message, false); return false; }
   loadLibrary(); return true;
 }
 async function save() {   // save current transcript as an organised-notes document (no download)
+  if (!user) { setState("Sign in to save to your library.", false); return openLogin(); }
   const body = await buildDocBody();
   if (!body) return setState("Nothing to save", false);
   setState("organising + saving…", true, true);
@@ -387,6 +393,7 @@ async function save() {   // save current transcript as an organised-notes docum
 }
 async function loadLibrary() {
   const box = $("histlist"); if (!box) return;
+  if (!user) { box.innerHTML = '<p class="hint">Sign in (top-right) to save and view your documents.</p>'; return; }
   const [{ data: folders }, { data: docs }] = await Promise.all([
     sb.from("folders").select("id,name,created_at").order("created_at"),
     sb.from("documents").select("id,title,folder_id,created_at").order("created_at", { ascending: false }),   // by date MADE
@@ -487,8 +494,8 @@ async function exportDoc() {   // organise -> download Word AND auto-save to the
   const title = defaultTitle();
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([docWrap(body, title)], { type: "application/msword" }));
   a.download = "meeting-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
-  await saveDocument(title, body);
-  setState("Exported + saved to library ✓", false);
+  if (user) { await saveDocument(title, body); setState("Exported + saved to library ✓", false); }
+  else setState("Exported ✓ (sign in to also save it to your library)", false);
 }
 function mdToHtml(md) {
   return (md || "").split(/\r?\n/).map((ln) => {
@@ -518,5 +525,5 @@ if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = ($
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 
 // expose for inline handlers
-window.scribe = { signIn, signUp, verifyOtp, logout, resetPassword, openSettings, changeEmail, verifyEmailChange, changePassword, deleteAccount, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, saveDocEdits, downloadDoc, delSelected };
+window.scribe = { signIn, signUp, verifyOtp, logout, resetPassword, openLogin, openSettings, changeEmail, verifyEmailChange, changePassword, deleteAccount, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, saveDocEdits, downloadDoc, delSelected };
 boot();
