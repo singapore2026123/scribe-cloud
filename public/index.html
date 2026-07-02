@@ -42,7 +42,7 @@
  .sblib{flex:1;overflow-y:auto;min-height:0}
  .mainpane{flex:1;min-width:0;overflow-y:auto}
  .mainpane .view{max-width:none;padding:18px 22px}
- .sbtoggle{padding:9px 12px;font-size:16px;line-height:1}
+ .sbtoggle{padding:9px 12px;font-size:16px;line-height:1} .sb-close{display:none}
  .prof{display:flex;gap:10px;align-items:center;padding:14px 0 0;border-top:1px solid var(--line)}
  .pavatar{width:38px;height:38px;border-radius:50%;background:var(--signal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex:0 0 auto}
  .pname{font-size:13px;word-break:break-all;margin-bottom:4px}
@@ -51,6 +51,7 @@
  .hrow button{font-size:12px;padding:5px 9px;margin-top:6px}
  @media(max-width:820px){
   .bar{padding:12px 16px}
+  .sb-close{display:inline-block}
   .appwrap{flex-direction:column}
   .sidebar{flex:0 0 auto;width:auto;max-height:40vh;border-right:none;border-bottom:1px solid var(--line)}
   .mainpane .view{padding:14px}
@@ -117,7 +118,7 @@
 <!-- APP -->
 <main id="app" class="appwrap">
  <aside class="sidebar">
-  <div class="libhead"><span class="libttl" style="margin:0;flex:1" data-i18n="lib_title">Library</span><button class="ghost mini" onclick="window.scribe.delSelected()" title="Delete ticked documents" data-i18n="btn_delsel">Delete sel.</button><button class="ghost mini" onclick="window.scribe.newFolder()" data-i18n="btn_addfolder">+ Folder</button></div>
+  <div class="libhead"><span class="libttl" style="margin:0;flex:1" data-i18n="lib_title">Library</span><button class="ghost mini" onclick="window.scribe.delSelected()" title="Delete ticked documents" data-i18n="btn_delsel">Delete sel.</button><button class="ghost mini" onclick="window.scribe.newFolder()" data-i18n="btn_addfolder">+ Folder</button><button class="ghost mini sb-close" onclick="window.scribe.toggleSidebar()" title="Collapse">&times;</button></div>
   <div class="sblib"><div id="histlist"><p class="hint" data-i18n="loading">Loading&hellip;</p></div></div>
   <div class="prof" id="prof">
    <div class="pavatar" id="pavatar" onclick="window.scribe.openSettings()" style="cursor:pointer" title="Account & settings"></div>

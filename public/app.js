@@ -91,7 +91,7 @@ function setLogged(session) {
   if ($("prof")) $("prof").classList.toggle("hidden", !user);          // sidebar profile shows only when signed in
   $("who").textContent = user ? user.email : "";
   if ($("pavatar")) $("pavatar").textContent = user && user.email ? user.email[0].toUpperCase() : "";
-  try { if (localStorage.getItem("sbCollapsed") === "1") $("app").classList.add("sb-collapsed"); } catch {}
+  try { const pref = localStorage.getItem("sbCollapsed"); $("app").classList.toggle("sb-collapsed", pref === "1" || (pref === null && window.innerWidth <= 820)); } catch {}   // collapsed by default on mobile
   loadLibrary();
 }
 function openLogin() { const m = document.getElementById("loginModal"); if (m) m.style.display = "flex"; if ($("loginstatus")) $("loginstatus").textContent = ""; }
@@ -363,15 +363,30 @@ async function maybeAutosave() {   // save once per session in the SAME organise
   const { error } = await sb.from("documents").insert({ user_id: user.id, title: defaultTitle(), html: body, folder_id: null });
   if (!error) { loadLibrary(); setState("Auto-saved to library", false); }
 }
-async function buildDocBody() {   // organised-notes HTML body (translation notes first, then original); null if empty
+async function organiseNotes(enLines, srcLines, tgt, src) {   // genspark layout: translated notes on top, original below
+  const enNotes = enLines.length ? await notesFor(enLines.join("\n"), tgt) : "";
+  const srcNotes = srcLines.length ? await notesFor(srcLines.join("\n"), src) : "";
+  let body = "";
+  if (enLines.length) body += `<h2>Notes — Translation</h2>` + (enNotes ? mdToHtml(enNotes) : enLines.map((t) => `<p>${esc(t)}</p>`).join(""));
+  if (srcLines.length) body += `<hr style="margin:28px 0"><h2>Notes — Original</h2>` + (srcNotes ? mdToHtml(srcNotes) : srcLines.map((t) => `<p style="color:#667">${esc(t)}</p>`).join(""));
+  return body;
+}
+async function buildDocBody() {   // organised-notes HTML body from the live boxes; null if empty
   const src = boxLines("srcbox"), en = boxLines("enbox");
   if (!src.length && !en.length) return null;
-  const enNotes = en.length ? await notesFor(en.join("\n"), $("target").value) : "";
-  const srcNotes = src.length ? await notesFor(src.join("\n"), $("lang").value) : "";
-  let body = "";
-  if (en.length) body += `<h2>Notes — Translation</h2>` + (enNotes ? mdToHtml(enNotes) : en.map((t) => `<p>${esc(t)}</p>`).join(""));
-  if (src.length) body += `<hr style="margin:28px 0"><h2>Notes — Original</h2>` + (srcNotes ? mdToHtml(srcNotes) : src.map((t) => `<p style="color:#667">${esc(t)}</p>`).join(""));
-  return body;
+  return organiseNotes(en, src, $("target").value, $("lang").value);
+}
+function extractSections(html) {   // pull the translation-section and original-section text out of a stored doc body
+  const d = document.createElement("div"); d.innerHTML = html || "";
+  const en = [], src = []; let orig = false;
+  for (const n of d.childNodes) {
+    if (n.nodeType !== 1) continue;
+    const tag = n.tagName.toLowerCase(), txt = (n.textContent || "").trim();
+    if (tag === "h2") { orig = /original/i.test(txt); continue; }   // 2nd heading ("… Original") flips to the original section
+    if (tag === "hr" || !txt) continue;
+    (orig ? src : en).push(txt);
+  }
+  return { en, src };
 }
 function docWrap(bodyHtml, title) {
   return `<html><head><meta charset="utf-8"><title>${esc(title || "Meeting Notes")}</title></head>` +
@@ -470,9 +485,17 @@ async function saveDocEdits() {
   const { error } = await sb.from("documents").update({ title: $("docTitle").value, html: $("docBody").innerHTML }).eq("id", currentDocId);
   setState(error ? "Save failed: " + error.message : "Document saved ✓", false); loadLibrary();
 }
-function downloadDoc() {
-  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([docWrap($("docBody").innerHTML, $("docTitle").value)], { type: "application/msword" }));
-  a.download = ($("docTitle").value || "document").replace(/[^\w.-]+/g, "_") + ".doc"; a.click(); URL.revokeObjectURL(a.href);
+async function downloadDoc() {
+  const title = $("docTitle").value || "document";
+  let body = $("docBody").innerHTML;
+  if (!/Notes —/.test(body)) {   // older/raw saved doc -> reorganise into the genspark layout (translated notes on top, original below)
+    setState("organising notes…", true, true);
+    const { en, src } = extractSections(body);
+    if (en.length || src.length) { const b = await organiseNotes(en, src, $("target").value, $("lang").value); if (b) body = b; }
+    setState("Ready", false);
+  }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([docWrap(body, title)], { type: "application/msword" }));
+  a.download = title.replace(/[^\w.-]+/g, "_") + ".doc"; a.click(); URL.revokeObjectURL(a.href);
 }
 
 // ---------- export ----------
