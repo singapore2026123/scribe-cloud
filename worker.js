@@ -80,8 +80,13 @@ async function transcribe(request, env) {
     const base = { audio, language: src, task: "transcribe" };
     const prompt = PROMPTS[src];
     let asr;
-    try { asr = await env.AI.run("@cf/openai/whisper-large-v3-turbo", { ...base, vad_filter: true, ...(prompt ? { initial_prompt: prompt } : {}) }); }
-    catch (_) { asr = await env.AI.run("@cf/openai/whisper-large-v3-turbo", base); }   // vad_filter/biasing best-effort
+    const M = "@cf/openai/whisper-large-v3-turbo";
+    const withPrompt = prompt ? { ...base, initial_prompt: prompt } : base;
+    try { asr = await env.AI.run(M, { ...withPrompt, vad_filter: true }); }   // best: biasing + VAD
+    catch (_) {
+      try { asr = await env.AI.run(M, withPrompt); }                          // keep biasing if VAD param unsupported
+      catch (_2) { asr = await env.AI.run(M, base); }                         // last resort
+    }
 
     let transcript = collapseRepeats(applyGlossary((asr.text || "").trim(), src));
     transcript = stripHalluc(transcript);

@@ -325,10 +325,10 @@ async function loadLibrary() {
   box.innerHTML = "";
   const render = (d) => {
     const el = document.createElement("div"); el.className = "hrow doc"; el.draggable = true;
-    el.innerHTML = `<input type="checkbox" class="docsel" data-id="${d.id}" title="Select"><span class="doctitle">${esc(d.title)}</span> <span class="hint">${new Date(d.created_at).toLocaleDateString()}</span>
-      <span class="docacts"><button class="ghost mini" data-o>Open</button><button class="ghost mini" data-r>✎</button><button class="ghost mini" data-x>✕</button></span>`;
+    el.innerHTML = `<input type="checkbox" class="docsel" data-id="${d.id}" title="Select"><span class="doctitle" title="Open">${esc(d.title)}</span> <span class="hint">${new Date(d.created_at).toLocaleDateString()}</span>
+      <span class="docacts"><button class="ghost mini" data-r>✎</button><button class="ghost mini" data-x>✕</button></span>`;
     el.addEventListener("dragstart", (e) => e.dataTransfer.setData("text/id", d.id));
-    el.querySelector("[data-o]").onclick = () => openDoc(d.id);
+    el.querySelector(".doctitle").onclick = () => openDoc(d.id);
     el.querySelector("[data-r]").onclick = () => renameDoc(d.id, d.title);
     el.querySelector("[data-x]").onclick = () => delDoc(d.id);
     return el;

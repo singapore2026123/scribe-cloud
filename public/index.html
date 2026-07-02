@@ -56,7 +56,7 @@
  .fhead{display:flex;align-items:center;gap:6px;font-size:13px;margin-bottom:4px}
  .rootzone{min-height:36px}
  .doc{display:flex;align-items:center;gap:6px;cursor:grab}
- .doctitle{font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .doctitle{font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
  .docacts{display:flex;gap:2px} .mini{padding:3px 6px;font-size:11px;font-weight:500}
  #docview{display:flex;flex-direction:column;height:calc(100vh - 170px)}
  .docbar{display:flex;gap:8px;align-items:center;margin-bottom:10px}
@@ -69,7 +69,7 @@
 </head>
 <body>
 <header class="bar">
- <div><div class="mark">Scrib<b>e</b> Cloud</div><div class="tag">Multilingual care-record transcription &amp; translation</div></div>
+ <div><div class="mark" onclick="window.scribe.closeDoc()" style="cursor:pointer" title="Home">Scrib<b>e</b> Cloud</div><div class="tag">Multilingual care-record transcription &amp; translation</div></div>
 </header>
 
 <!-- LOGIN -->
