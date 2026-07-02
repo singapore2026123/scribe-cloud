@@ -245,8 +245,24 @@ async function transcribeChunkLive(b64, n) {
   } catch (e) { if (running) setState(`listening… (chunk ${n} error: ${e.message})`, true, false); }
   finally {
     livePending--;
-    if (!running && livePending === 0) { setState("Stopped", false); maybeAutosave(); }
+    if (!running && livePending === 0) finishLive();
   }
+}
+async function finishLive() {   // all live chunks done: re-translate the full transcript coherently, then autosave
+  await retranslateAll();
+  maybeAutosave();
+}
+async function retranslateAll() {   // Live mode translates fragments; re-translate whole sentences so EN->JA (etc.) meaning is correct
+  const target = $("target").value, srcLang = $("lang").value;
+  const norm = (x) => (x === "zh-CN" ? "zh" : x);
+  if (target === "off" || norm(target) === norm(srcLang)) return;
+  const full = boxLines("srcbox").join(" ").replace(/\s+/g, " ").trim();
+  if (!full) return;
+  const sentences = full.match(/[^.!?。！？]+[.!?。！？]*/g) || [full];   // split on sentence boundaries (Whisper punctuates)
+  setState("finalising translation…", true, true);
+  const outs = (await Promise.all(sentences.map((s) => translateText(s.trim(), srcLang, target)))).filter(Boolean);
+  if (outs.length) { $("enbox").innerHTML = ""; outs.forEach((o) => { const p = document.createElement("p"); p.textContent = o; $("enbox").appendChild(p); }); }
+  setState("Stopped", false);
 }
 function stopLive() {
   running = false;
@@ -258,7 +274,7 @@ function stopLive() {
   liveProc = liveSrc = liveStream = liveCtx = null;
   // Stop = capture only; remaining chunks keep transcribing. No auto-organise/notes popup — user clicks Export.
   setState(livePending ? `capture stopped — finishing ${livePending} chunk(s)…` : "Stopped", false);
-  if (livePending === 0) maybeAutosave();
+  if (livePending === 0) finishLive();
 }
 async function organiseOnStop() {
   const src = boxLines("srcbox");
