@@ -1,6 +1,6 @@
-"""Scribe Burmese + Tamil + Chinese ASR microservice.
-Primary: Dolphin-small (DataoceanAI) — language-specialised ASR for Burmese (my/MM), Tamil (ta/IN) and
-Chinese Mandarin (zh/CN; Dolphin is a Chinese-specialist model). Fallback: SeamlessM4T v2 if Dolphin can't load/run.
+"""Scribe Burmese + Tamil ASR microservice.
+Primary: Dolphin-small (DataoceanAI) — language-specialised ASR for Burmese (my/MM) and Tamil (ta/IN),
+far better than generic Whisper on these two. Fallback: SeamlessM4T v2 if Dolphin can't load/run.
 Translation via Google Translate (free, no budget). Other languages are handled by Cloudflare Whisper, not here.
 POST /transcribe  {audio: <base64 WAV>, src: "my"|"ta", target: "en"}  ->  {transcript, translation}
 """
@@ -147,8 +147,8 @@ async def transcribe(req: Request):
         data = librosa.resample(data, orig_sr=sr, target_sr=16000)
     data = data.astype(np.float32)
 
-    # Burmese, Tamil & Chinese -> Dolphin (primary, language-specialised) + Google Translate; falls back to SeamlessM4T.
-    _LR = {"my": ("my", "MM"), "ta": ("ta", "IN"), "zh": ("zh", "CN"), "zh-CN": ("zh", "CN")}
+    # Burmese & Tamil -> Dolphin (primary, language-specialised) + Google Translate; falls back to SeamlessM4T.
+    _LR = {"my": ("my", "MM"), "ta": ("ta", "IN")}
     if src in _LR:
         lang_sym, region_sym = _LR[src]
         transcript = ""
