@@ -323,29 +323,29 @@ function copyBox(id) {
   const t = [...$(id).querySelectorAll("p")].filter((p) => !p.classList.contains("hint")).map((p) => p.textContent).join("\n");
   navigator.clipboard.writeText(t); setState("Copied", false);
 }
-async function exportDoc() {   // Genspark-style organised notes (AI) on top, then the full record: translated para + original underneath -> Word
+async function notesFor(text, tgt) {   // organised (Genspark-style) notes for `text`, written in language `tgt`
+  if (!text.trim()) return "";
+  try {
+    const d = await (await fetch("/notes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: text, target: tgt }) })).json();
+    return d.notes || "";
+  } catch (_) { return ""; }
+}
+async function exportDoc() {   // Organised notes: ALL translated-language notes first, then ALL original-language notes below
   const src = boxLines("srcbox"), en = boxLines("enbox");
   if (!src.length && !en.length) return setState("Nothing to export", false);
-  let notesMd = lastNotes;
-  if (!notesMd) {   // organise now if Stop hasn't already done it
-    setState("organising notes…", true, true);
-    try {
-      const d = await (await fetch("/notes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: src.join("\n"), target: $("target").value }) })).json();
-      notesMd = lastNotes = d.notes || "";
-    } catch (_) { /* notes best-effort; still export the full record */ }
-  }
-  const notesHtml = notesMd ? mdToHtml(notesMd) : "";
-  const enBlock = en.map((t) => `<p style="margin:0 0 9px;font-size:15px">${esc(t)}</p>`).join("");
-  const srcBlock = src.map((t) => `<p style="margin:0 0 9px;color:#667;font-size:13px">${esc(t)}</p>`).join("");
-  let body = notesHtml ? notesHtml + `<hr style="margin:26px 0">` : "";
-  if (enBlock) body += `<h2>Translated text</h2>${enBlock}`;
-  if (srcBlock) body += `<h2 style="margin-top:24px">Original text</h2>${srcBlock}`;
+  setState("organising notes…", true, true);
+  const enNotes = en.length ? await notesFor(en.join("\n"), $("target").value) : "";
+  const srcNotes = src.length ? await notesFor(src.join("\n"), $("lang").value) : "";
+  lastNotes = [enNotes, srcNotes].filter(Boolean).join("\n\n");
+  let body = "";
+  if (en.length) body += `<h2>Notes — Translation</h2>` + (enNotes ? mdToHtml(enNotes) : en.map((t) => `<p>${esc(t)}</p>`).join(""));
+  if (src.length) body += `<hr style="margin:28px 0"><h2>Notes — Original</h2>` + (srcNotes ? mdToHtml(srcNotes) : src.map((t) => `<p style="color:#667">${esc(t)}</p>`).join(""));
   const html = `<html><head><meta charset="utf-8"><title>Meeting Notes</title></head>` +
     `<body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.55">` +
     `<p style="color:#888;font-size:12px;margin:0 0 14px">${esc(new Date().toLocaleString())}</p>${body}</body></html>`;
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" }));
   a.download = "meeting-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
-  setState(notesHtml ? "Exported organised notes + full record" : "Notes unavailable — exported full record only", false);
+  setState((enNotes || srcNotes) ? "Exported organised notes (translation, then original)" : "Notes unavailable — exported text", false);
 }
 function mdToHtml(md) {
   return (md || "").split(/\r?\n/).map((ln) => {
