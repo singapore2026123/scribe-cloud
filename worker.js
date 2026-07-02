@@ -18,20 +18,44 @@ async function gtranslate(text, src, tgt) {
   return (data[0] || []).map((seg) => (seg && seg[0]) || "").join("").trim();
 }
 // Whisper hallucinates these on silence/non-speech (YouTube training artifact) — drop chunks that are just these.
-const HALLUC = ["ご視聴ありがとうございました", "ご視聴ありがとうございます", "ご清聴ありがとうございました", "最後までご視聴いただきありがとうございました", "チャンネル登録をお願いします", "以上で終わります", "以上で終わります。", "これで終わります", "本日は以上です",
-  "thank you for watching", "thanks for watching", "please subscribe", "thank you",
-  "terima kasih", "terima kasih kerana menonton", "terima kasih kerana menonton video ini",
-  "谢谢观看", "感谢观看", "谢谢大家观看", "请订阅", "请点赞订阅", "谢谢大家",
-  "请点赞订阅转发打赏支持明镜与点点栏目", "请不吝点赞订阅转发打赏支持明镜与点点栏目"];
+const HALLUC = [
+  // Japanese
+  "ご視聴ありがとうございました", "ご視聴ありがとうございます", "ご清聴ありがとうございました", "最後までご視聴いただきありがとうございました",
+  "チャンネル登録をお願いします", "以上で終わります", "以上で終わります。", "これで終わります", "本日は以上です", "ありがとうございました", "おわり", "終わり", "次回もお楽しみに",
+  // English
+  "thank you for watching", "thanks for watching", "thank you for watching!", "thanks for watching!", "please subscribe", "please like and subscribe",
+  "like and subscribe", "don't forget to subscribe", "see you next time", "see you in the next video", "thank you", "thank you.", "you", "bye", "bye bye", "the end",
+  "subtitles by the amara.org community", "transcription by castingwords",
+  // Malay / Indonesian
+  "terima kasih", "terima kasih kerana menonton", "terima kasih kerana menonton video ini", "jangan lupa like dan subscribe", "sampai jumpa", "sampai jumpa lagi", "terima kasih telah menonton",
+  // Chinese
+  "谢谢观看", "感谢观看", "谢谢大家观看", "请订阅", "请点赞订阅", "谢谢大家", "谢谢", "下次见", "再见", "我们下期再见", "完",
+  "请点赞订阅转发打赏支持明镜与点点栏目", "请不吝点赞订阅转发打赏支持明镜与点点栏目",
+  // Tamil
+  "நன்றி", "பார்த்ததற்கு நன்றி", "வீடியோவைப் பார்த்ததற்கு நன்றி", "சந்தா செலுத்துங்கள்",
+  // Korean
+  "시청해주셔서 감사합니다", "시청해 주셔서 감사합니다", "구독과 좋아요 부탁드립니다", "감사합니다", "다음에 또 만나요",
+  // Thai
+  "ขอบคุณที่รับชม", "ขอบคุณครับ", "ขอบคุณค่ะ", "อย่าลืมกดไลค์กดแชร์",
+  // Vietnamese
+  "cảm ơn các bạn đã xem", "cảm ơn đã theo dõi", "hãy đăng ký kênh", "hẹn gặp lại",
+  // Hindi
+  "देखने के लिए धन्यवाद", "सब्सक्राइब करें", "धन्यवाद",
+  // French
+  "merci d'avoir regardé", "merci", "abonnez-vous", "sous-titres réalisés par la communauté d'amara.org", "n'oubliez pas de vous abonner"];
 // YouTube-style like/subscribe hallucination markers — if a chunk contains any, it's a hallucination (never in care speech).
-const HALLUC_MARK = ["明镜", "点点栏目", "打赏", "点赞", "订阅", "转发", "字幕组", "subscribe to", "like and subscribe"];
+const HALLUC_MARK = ["明镜", "点点栏目", "打赏", "点赞", "订阅", "转发", "字幕组", "字幕由", "amara.org", "castingwords", "subscribe to", "like and subscribe", "구독", "좋아요 부탁", "กดไลค์กดแชร์", "đăng ký kênh"];
 // Unambiguous hallucination phrases removed INLINE (they appear mid-chunk alongside real text; not plausible care speech).
 const HALLUC_PHRASE = ["ご視聴ありがとうございました", "ご視聴ありがとうございます", "ご清聴ありがとうございました",
-  "最後までご視聴いただきありがとうございました", "チャンネル登録をお願いします", "以上で終わります", "これで終わります",
-  "thanks for watching", "thank you for watching", "please subscribe",
-  "terima kasih kerana menonton video ini", "terima kasih kerana menonton",
+  "最後までご視聴いただきありがとうございました", "チャンネル登録をお願いします", "以上で終わります", "これで終わります", "本日は以上です",
+  "thanks for watching", "thank you for watching", "please like and subscribe", "please subscribe", "don't forget to subscribe",
+  "subtitles by the amara.org community",
+  "terima kasih kerana menonton video ini", "terima kasih kerana menonton", "jangan lupa like dan subscribe",
   "请点赞订阅转发打赏支持明镜与点点栏目", "请不吝点赞订阅转发打赏支持明镜与点点栏目",
-  "谢谢观看", "感谢观看", "谢谢大家观看", "请点赞订阅", "请订阅"];
+  "谢谢观看", "感谢观看", "谢谢大家观看", "请点赞订阅", "请订阅",
+  "시청해주셔서 감사합니다", "구독과 좋아요 부탁드립니다",
+  "ขอบคุณที่รับชม", "cảm ơn các bạn đã xem", "hãy đăng ký kênh",
+  "देखने के लिए धन्यवाद", "merci d'avoir regardé", "sous-titres réalisés par la communauté d'amara.org", "n'oubliez pas de vous abonner"];
 function stripHalluc(t) {
   for (const h of HALLUC_PHRASE) t = t.split(h).join(" ");   // strip embedded hallucination phrases, keep real text
   t = t.replace(/\s+/g, " ").replace(/\s*([。．、,!！?？])\s*/g, "$1").replace(/。+/g, "。").trim();
