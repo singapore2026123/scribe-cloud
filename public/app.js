@@ -397,10 +397,15 @@ async function loadLibrary() {
     const el = document.createElement("div"); el.className = "hrow doc"; el.draggable = true;
     el.innerHTML = `<input type="checkbox" class="docsel" data-id="${d.id}" title="Select"><span class="doctitle" title="Open">${esc(d.title)}</span> <span class="hint">${new Date(d.created_at).toLocaleDateString()}</span>
       <span class="docacts"><button class="ghost mini" data-r>✎</button><button class="ghost mini" data-x>✕</button></span>`;
-    el.addEventListener("dragstart", (e) => e.dataTransfer.setData("text/id", d.id));
-    el.querySelector(".doctitle").onclick = () => openDoc(d.id);
-    el.querySelector("[data-r]").onclick = () => renameDoc(d.id, d.title);
-    el.querySelector("[data-x]").onclick = () => delDoc(d.id);
+    let moved = false;
+    el.addEventListener("dragstart", (e) => { moved = true; e.dataTransfer.setData("text/id", d.id); });
+    el.addEventListener("dragend", () => setTimeout(() => (moved = false), 0));
+    el.addEventListener("click", (e) => {                        // whole row opens (bigger target, works on touch)
+      if (moved || e.target.closest(".docsel,[data-r],[data-x]")) return;   // ignore drags + row controls
+      openDoc(d.id);
+    });
+    el.querySelector("[data-r]").onclick = (e) => { e.stopPropagation(); renameDoc(d.id, d.title); };
+    el.querySelector("[data-x]").onclick = (e) => { e.stopPropagation(); delDoc(d.id); };
     return el;
   };
   const drop = (el, fid) => {
@@ -445,8 +450,10 @@ async function delSelected() {   // multi-select delete — one confirmation for
 }
 async function renameDoc(id, cur) { const t = prompt("Title:", cur); if (t == null) return; await sb.from("documents").update({ title: t }).eq("id", id); loadLibrary(); }
 async function openDoc(id) {
+  setState("Opening…", true, true);
   const { data, error } = await sb.from("documents").select("title,html").eq("id", id).single();
-  if (error || !data) return setState("Open failed", false);
+  if (error || !data) return setState("Open failed: " + (error ? error.message : "not found"), false);
+  setState("Ready", false);
   currentDocId = id; $("docTitle").value = data.title; $("docBody").innerHTML = data.html;
   $("feedwrap").classList.add("hidden"); $("docview").classList.remove("hidden");
 }
