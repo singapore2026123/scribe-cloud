@@ -18,7 +18,10 @@ async function gtranslate(text, src, tgt) {
   return (data[0] || []).map((seg) => (seg && seg[0]) || "").join("").trim();
 }
 // Whisper hallucinates these on silence/non-speech (YouTube training artifact) — drop chunks that are just these.
-const HALLUC = ["ご視聴ありがとうございました", "ご視聴ありがとうございます", "ご清聴ありがとうございました", "最後までご視聴いただきありがとうございました", "チャンネル登録をお願いします", "thank you for watching", "thanks for watching", "please subscribe", "thank you"];
+const HALLUC = ["ご視聴ありがとうございました", "ご視聴ありがとうございます", "ご清聴ありがとうございました", "最後までご視聴いただきありがとうございました", "チャンネル登録をお願いします",
+  "thank you for watching", "thanks for watching", "please subscribe", "thank you",
+  "terima kasih", "terima kasih kerana menonton", "terima kasih kerana menonton video ini",
+  "谢谢观看", "感谢观看", "谢谢大家观看", "请订阅", "请点赞订阅", "谢谢大家"];
 function stripHalluc(t) {
   const n = t.replace(/[。．.!！?？、\s]+$/g, "").trim().toLowerCase();
   return HALLUC.some((h) => n === h.toLowerCase()) ? "" : t;
@@ -88,7 +91,7 @@ async function transcribe(request, env) {
 }
 
 const LNAME = { en: "English", ja: "Japanese", "zh-CN": "Chinese", zh: "Chinese", ms: "Malay", ta: "Tamil", my: "Burmese", off: "English" };
-const NOTES_MODEL = "@cf/meta/llama-3.1-8b-instruct";
+const NOTES_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";   // base 3.1-8b-instruct was deprecated 2026-05-30; -fast stays active
 async function notes(request, env) {
   try {
     const { transcript, target } = await request.json();
