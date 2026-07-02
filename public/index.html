@@ -49,7 +49,26 @@
  .libttl{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:2px 0 10px}
  .hrow{border:1px solid var(--line);border-radius:10px;padding:9px 11px;margin-bottom:8px;background:var(--surface);font-size:13px}
  .hrow button{font-size:12px;padding:5px 9px;margin-top:6px}
- @media(max-width:820px){.appwrap{flex-direction:column}.sidebar{flex:auto;width:auto;border-right:none;border-bottom:1px solid var(--line)}.feed{grid-template-columns:1fr!important}}
+ @media(max-width:820px){
+  .bar{padding:12px 16px}
+  .appwrap{flex-direction:column}
+  .sidebar{flex:0 0 auto;width:auto;max-height:40vh;border-right:none;border-bottom:1px solid var(--line)}
+  .mainpane .view{padding:14px}
+  .controls{padding:12px 16px;gap:10px}
+  .actions{width:100%;margin-left:0;justify-content:flex-start}
+  .feed{grid-template-columns:1fr!important}
+  .pane{height:auto;min-height:42vh}
+  #swapbtn{position:static;transform:none;display:block;margin:6px auto;width:40px;height:40px}
+  #docview{height:auto;min-height:60vh}
+ }
+ @media(max-width:560px){
+  .bar{flex-wrap:wrap;gap:6px} .mark{font-size:19px} .tag{font-size:11px;flex-basis:100%}
+  .field{flex:1 1 44%} .field>select{width:100%}
+  .actions{gap:6px} .actions>button{flex:1 1 auto}
+  input,select,.boxlang{font-size:16px}   /* >=16px stops iOS zoom-on-focus */
+  .pbody{font-size:16px} .view{padding:12px}
+  #login{margin:5vh auto;padding:22px;border-radius:14px}
+ }
  .libhead{display:flex;align-items:center;gap:8px;margin:2px 0 10px}
  .folder{border:1px solid var(--line);border-radius:9px;padding:6px;margin-bottom:8px}
  .folder.dragover,.rootzone.dragover{outline:2px dashed var(--signal);outline-offset:2px;border-radius:9px}
@@ -69,71 +88,74 @@
 </head>
 <body>
 <header class="bar">
- <div><div class="mark" onclick="window.scribe.closeDoc()" style="cursor:pointer" title="Home">Scrib<b>e</b> Cloud</div><div class="tag">Multilingual care-record transcription &amp; translation</div></div>
+ <div><div class="mark" onclick="window.scribe.closeDoc()" style="cursor:pointer" title="Home">Scrib<b>e</b> Cloud</div><div class="tag" data-i18n="tagline">Multilingual care-record transcription &amp; translation</div></div>
 </header>
 
 <!-- LOGIN -->
 <section id="login">
- <h1>Sign in</h1>
- <p>Sign in with your email and password. First time? Click <b>Create account</b>.</p>
+ <h1 data-i18n="signin_h">Sign in</h1>
+ <p data-i18n="signin_p">Sign in with your email and password. First time? Click Create account.</p>
  <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
- <input id="password" type="password" placeholder="Password (min 6 characters)" autocomplete="current-password">
+ <input id="password" type="password" data-i18n-ph="ph_password" placeholder="Password (min 6 characters)" autocomplete="current-password">
  <div style="display:flex;gap:8px">
-  <button id="signinbtn" onclick="window.scribe.signIn()" style="flex:1">Sign in</button>
-  <button class="ghost" onclick="window.scribe.signUp()" style="flex:1">Create account</button>
+  <button id="signinbtn" onclick="window.scribe.signIn()" style="flex:1" data-i18n="btn_signin">Sign in</button>
+  <button class="ghost" onclick="window.scribe.signUp()" style="flex:1" data-i18n="btn_createacct">Create account</button>
  </div>
- <div style="text-align:center;margin-top:8px"><button class="ghost" onclick="window.scribe.resetPassword()" style="font-size:13px">Forgot password?</button></div>
+ <div style="text-align:center;margin-top:8px"><button class="ghost" onclick="window.scribe.resetPassword()" style="font-size:13px" data-i18n="btn_forgot">Forgot password?</button></div>
  <div class="status" id="loginstatus"></div>
 </section>
 
 <!-- APP -->
 <main id="app" class="appwrap hidden">
  <aside class="sidebar">
-  <div class="libhead"><span class="libttl" style="margin:0;flex:1">Library</span><button class="ghost mini" onclick="window.scribe.delSelected()" title="Delete ticked documents">Delete sel.</button><button class="ghost mini" onclick="window.scribe.newFolder()">+ Folder</button></div>
-  <div class="sblib"><div id="histlist"><p class="hint">Loading&hellip;</p></div></div>
+  <div class="libhead"><span class="libttl" style="margin:0;flex:1" data-i18n="lib_title">Library</span><button class="ghost mini" onclick="window.scribe.delSelected()" title="Delete ticked documents" data-i18n="btn_delsel">Delete sel.</button><button class="ghost mini" onclick="window.scribe.newFolder()" data-i18n="btn_addfolder">+ Folder</button></div>
+  <div class="sblib"><div id="histlist"><p class="hint" data-i18n="loading">Loading&hellip;</p></div></div>
   <div class="prof">
    <div class="pavatar" id="pavatar"></div>
-   <div><div class="pname" id="who"></div>
-    <button class="ghost" id="logout" onclick="window.scribe.logout()" style="padding:5px 10px;font-size:12px">Sign out</button></div>
+   <div style="flex:1;min-width:0"><div class="pname" id="who"></div>
+    <label style="display:none"><select id="uilang-hidden">
+      <option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option>
+      <option value="ms">Bahasa Melayu</option><option value="ta">தமிழ்</option><option value="my">မြန်မာ</option></select></label>
+    <div style="display:flex;gap:6px;align-items:center"><button class="ghost" onclick="document.getElementById('settingsModal').style.display='flex'" title="Settings" aria-label="Settings" style="padding:5px 9px;font-size:16px;line-height:1">&#9881;</button><button class="ghost" id="logout" onclick="window.scribe.logout()" style="padding:5px 10px;font-size:12px" data-i18n="btn_signout">Sign out</button></div></div>
   </div>
  </aside>
  <div class="mainpane">
   <section class="controls">
    <button class="ghost sbtoggle" onclick="window.scribe.toggleSidebar()" title="Show/hide library">&#9776;</button>
-   <label class="field"><span>Source</span>
-    <select id="source"><option value="mic">Microphone</option><option value="system">System / tab audio</option></select></label>
-   <label class="field"><span>Mode</span>
-    <select id="mode"><option value="live">Live (browser)</option><option value="record">Record &rarr; transcribe</option></select></label>
+   <label class="field"><span data-i18n="lbl_source">Source</span>
+    <select id="source"><option value="mic" data-i18n="opt_mic">Microphone</option><option value="system" data-i18n="opt_system">System / tab audio</option></select></label>
+   <label class="field"><span data-i18n="lbl_mode">Mode</span>
+    <select id="mode"><option value="live" data-i18n="opt_live">Live (browser)</option><option value="record" data-i18n="opt_record">Record &rarr; transcribe</option></select></label>
    <div class="actions">
-    <span class="state"><span class="dot" id="dot"></span><span id="stxt">Ready</span></span>
-    <button class="ghost" onclick="window.scribe.save()">Save</button>
-    <button class="ghost" onclick="window.scribe.exportDoc()" title="Export organised notes + full transcript as a Word document">Export (Word)</button>
-    <button id="stop" onclick="window.scribe.stop()" disabled>Stop</button>
-    <button id="start" onclick="window.scribe.start()">Start</button>
+    <span class="state"><span class="dot" id="dot"></span><span id="stxt" data-i18n="state_ready">Ready</span></span>
+    <button class="ghost" onclick="window.scribe.save()" data-i18n="btn_save">Save</button>
+    <button class="ghost" onclick="window.scribe.exportDoc()" title="Export organised notes + full transcript as a Word document" data-i18n="btn_export">Export (Word)</button>
+    <button id="stop" onclick="window.scribe.stop()" disabled data-i18n="btn_stop">Stop</button>
+    <button id="start" onclick="window.scribe.start()" data-i18n="btn_start">Start</button>
    </div>
   </section>
   <div class="view">
    <div id="feedwrap"><div class="feed">
     <section class="pane"><div class="phead">
-      <select id="lang" class="boxlang" title="Spoken language"><option value="ja">Japanese</option><option value="en">English</option>
-       <option value="ms">Malay</option><option value="my">Burmese</option><option value="zh">Chinese</option><option value="ta">Tamil</option></select>
+      <select id="lang" class="boxlang" title="Spoken language"><option value="ja" data-i18n="lang_ja">Japanese</option><option value="en" data-i18n="lang_en">English</option>
+       <option value="ms" data-i18n="lang_ms">Malay</option><option value="my" data-i18n="lang_my">Burmese</option><option value="zh" data-i18n="lang_zh">Chinese</option><option value="ta" data-i18n="lang_ta">Tamil</option></select>
       <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('srcbox')" title="Clear both boxes">&times;</button>
-      <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('srcbox')">Copy</button></div>
-     <div class="pbody" id="srcbox" contenteditable="true" spellcheck="false"><p class="hint">Pick a language and press Start.</p></div></section>
+      <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('srcbox')" data-i18n="btn_copy">Copy</button></div>
+     <div class="pbody" id="srcbox" contenteditable="true" spellcheck="false"><p class="hint" data-i18n="box_hint_start">Pick a language and press Start.</p></div></section>
     <section class="pane"><div class="phead">
-      <select id="target" class="boxlang" title="Translate to"><option value="off">Off (no translation)</option><option value="en" selected>English</option>
-       <option value="zh-CN">Chinese</option><option value="ms">Malay</option><option value="ta">Tamil</option><option value="ja">Japanese</option><option value="my">Burmese</option></select>
+      <select id="target" class="boxlang" title="Translate to"><option value="off" data-i18n="opt_off">Off (no translation)</option><option value="en" selected data-i18n="lang_en">English</option>
+       <option value="zh-CN" data-i18n="lang_zh">Chinese</option><option value="ms" data-i18n="lang_ms">Malay</option><option value="ta" data-i18n="lang_ta">Tamil</option><option value="ja" data-i18n="lang_ja">Japanese</option><option value="my" data-i18n="lang_my">Burmese</option></select>
       <button class="ghost" style="margin-left:auto;padding:5px 10px;font-size:12px" onclick="window.scribe.clearBox('enbox')" title="Clear both boxes">&times;</button>
-      <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('enbox')">Copy</button></div>
+      <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('enbox')" data-i18n="btn_copy">Copy</button></div>
      <div class="pbody" id="enbox" contenteditable="true" spellcheck="false"></div></section>
     <button id="swapbtn" title="Swap languages &amp; text" onclick="window.scribe.swap()">&#8644;</button>
    </div></div>
    <div id="docview" class="hidden">
     <div class="docbar">
-     <input id="docTitle" placeholder="Document title">
-     <button class="ghost" onclick="window.scribe.saveDocEdits()">Save</button>
-     <button class="ghost" onclick="window.scribe.downloadDoc()">Download (Word)</button>
-     <button class="ghost" onclick="window.scribe.closeDoc()">Close</button>
+     <input id="docTitle" data-i18n-ph="doc_title_ph" placeholder="Document title">
+     <button class="ghost" onclick="window.scribe.saveDocEdits()" data-i18n="btn_save">Save</button>
+     <button class="ghost" onclick="window.scribe.downloadDoc()" data-i18n="btn_download">Download (Word)</button>
+     <button class="ghost" onclick="window.scribe.closeDoc()" data-i18n="btn_close">Close</button>
     </div>
     <div id="docBody" class="docbody" contenteditable="true" spellcheck="false"></div>
    </div>
@@ -142,12 +164,57 @@
 </main>
 
 <div class="modal" id="notesModal"><div>
- <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px"><b style="font-size:19px">Meeting Notes</b>
-  <button class="ghost" style="margin-left:auto" onclick="window.scribe.exportDoc()">Export (Word)</button>
-  <button class="ghost" onclick="window.scribe.copyNotes()">Copy</button>
-  <button class="ghost" onclick="document.getElementById('notesModal').style.display='none'">Close</button></div>
+ <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px"><b style="font-size:19px" data-i18n="notes_title">Meeting Notes</b>
+  <button class="ghost" style="margin-left:auto" onclick="window.scribe.exportDoc()" data-i18n="btn_export">Export (Word)</button>
+  <button class="ghost" onclick="window.scribe.copyNotes()" data-i18n="btn_copy">Copy</button>
+  <button class="ghost" onclick="document.getElementById('notesModal').style.display='none'" data-i18n="btn_close">Close</button></div>
  <div id="notesBody" style="overflow:auto;font-size:14px;line-height:1.7"></div></div></div>
 
+<div class="modal" id="settingsModal"><div>
+ <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><b style="font-size:19px" data-i18n="settings_title">Settings</b>
+  <button class="ghost" style="margin-left:auto" onclick="document.getElementById('settingsModal').style.display='none'" data-i18n="btn_close">Close</button></div>
+ <label class="field"><span data-i18n="lbl_displaylang">Display language</span>
+  <select id="uilang" onchange="window.i18n.set(this.value)">
+   <option value="en">English</option><option value="ja">日本語</option><option value="zh">中文</option>
+   <option value="ms">Bahasa Melayu</option><option value="ta">தமிழ்</option><option value="my">မြန်မာ</option></select></label>
+</div></div>
+
+<script>
+/* Display-language i18n. Auto-detects navigator.language; a Display-language selector overrides + persists. */
+(function () {
+  var I18N = {
+    en: { settings_title: "Settings", tagline: "Multilingual care-record transcription & translation", signin_h: "Sign in", signin_p: "Sign in with your email and password. First time? Click Create account.", ph_password: "Password (min 6 characters)", btn_signin: "Sign in", btn_createacct: "Create account", btn_forgot: "Forgot password?", lib_title: "Library", btn_delsel: "Delete sel.", btn_addfolder: "+ Folder", loading: "Loading…", btn_signout: "Sign out", lbl_source: "Source", opt_mic: "Microphone", opt_system: "System / tab audio", lbl_mode: "Mode", opt_live: "Live (browser)", opt_record: "Record → transcribe", state_ready: "Ready", btn_save: "Save", btn_export: "Export (Word)", btn_stop: "Stop", btn_start: "Start", box_hint_start: "Pick a language and press Start.", btn_copy: "Copy", opt_off: "Off (no translation)", doc_title_ph: "Document title", btn_download: "Download (Word)", btn_close: "Close", notes_title: "Meeting Notes", lbl_displaylang: "Display language", lang_ja: "Japanese", lang_en: "English", lang_ms: "Malay", lang_my: "Burmese", lang_zh: "Chinese", lang_ta: "Tamil" },
+    ja: { settings_title: "設定", tagline: "多言語ケア記録の文字起こしと翻訳", signin_h: "サインイン", signin_p: "メールアドレスとパスワードでサインインしてください。初めての方は「アカウント作成」をクリック。", ph_password: "パスワード（6文字以上）", btn_signin: "サインイン", btn_createacct: "アカウント作成", btn_forgot: "パスワードをお忘れですか？", lib_title: "ライブラリ", btn_delsel: "選択を削除", btn_addfolder: "＋ フォルダ", loading: "読み込み中…", btn_signout: "サインアウト", lbl_source: "入力", opt_mic: "マイク", opt_system: "システム / タブ音声", lbl_mode: "モード", opt_live: "ライブ（ブラウザ）", opt_record: "録音 → 文字起こし", state_ready: "準備完了", btn_save: "保存", btn_export: "エクスポート（Word）", btn_stop: "停止", btn_start: "開始", box_hint_start: "言語を選んで「開始」を押してください。", btn_copy: "コピー", opt_off: "オフ（翻訳なし）", doc_title_ph: "ドキュメント名", btn_download: "ダウンロード（Word）", btn_close: "閉じる", notes_title: "会議メモ", lbl_displaylang: "表示言語", lang_ja: "日本語", lang_en: "英語", lang_ms: "マレー語", lang_my: "ビルマ語", lang_zh: "中国語", lang_ta: "タミル語" },
+    zh: { settings_title: "设置", tagline: "多语言护理记录转录与翻译", signin_h: "登录", signin_p: "使用您的电子邮箱和密码登录。首次使用？请点击“创建账户”。", ph_password: "密码（至少6个字符）", btn_signin: "登录", btn_createacct: "创建账户", btn_forgot: "忘记密码？", lib_title: "资料库", btn_delsel: "删除所选", btn_addfolder: "＋ 文件夹", loading: "加载中…", btn_signout: "退出登录", lbl_source: "输入源", opt_mic: "麦克风", opt_system: "系统 / 标签页音频", lbl_mode: "模式", opt_live: "实时（浏览器）", opt_record: "录制 → 转录", state_ready: "就绪", btn_save: "保存", btn_export: "导出（Word）", btn_stop: "停止", btn_start: "开始", box_hint_start: "选择语言并点击“开始”。", btn_copy: "复制", opt_off: "关闭（不翻译）", doc_title_ph: "文档标题", btn_download: "下载（Word）", btn_close: "关闭", notes_title: "会议记录", lbl_displaylang: "显示语言", lang_ja: "日语", lang_en: "英语", lang_ms: "马来语", lang_my: "缅甸语", lang_zh: "中文", lang_ta: "泰米尔语" },
+    ms: { settings_title: "Tetapan", tagline: "Transkripsi & terjemahan rekod penjagaan berbilang bahasa", signin_h: "Log masuk", signin_p: "Log masuk dengan e-mel dan kata laluan anda. Kali pertama? Klik Cipta akaun.", ph_password: "Kata laluan (min 6 aksara)", btn_signin: "Log masuk", btn_createacct: "Cipta akaun", btn_forgot: "Lupa kata laluan?", lib_title: "Pustaka", btn_delsel: "Padam pilihan", btn_addfolder: "＋ Folder", loading: "Memuatkan…", btn_signout: "Log keluar", lbl_source: "Sumber", opt_mic: "Mikrofon", opt_system: "Audio sistem / tab", lbl_mode: "Mod", opt_live: "Langsung (pelayar)", opt_record: "Rakam → transkripsi", state_ready: "Sedia", btn_save: "Simpan", btn_export: "Eksport (Word)", btn_stop: "Berhenti", btn_start: "Mula", box_hint_start: "Pilih bahasa dan tekan Mula.", btn_copy: "Salin", opt_off: "Mati (tiada terjemahan)", doc_title_ph: "Tajuk dokumen", btn_download: "Muat turun (Word)", btn_close: "Tutup", notes_title: "Nota Mesyuarat", lbl_displaylang: "Bahasa paparan", lang_ja: "Jepun", lang_en: "Inggeris", lang_ms: "Melayu", lang_my: "Burma", lang_zh: "Cina", lang_ta: "Tamil" },
+    ta: { settings_title: "அமைப்புகள்", tagline: "பன்மொழி பராமரிப்பு பதிவு படியெடுத்தல் & மொழிபெயர்ப்பு", signin_h: "உள்நுழைக", signin_p: "உங்கள் மின்னஞ்சல் மற்றும் கடவுச்சொல்லுடன் உள்நுழையவும். முதல் முறையா? 'கணக்கை உருவாக்கு' என்பதை அழுத்தவும்.", ph_password: "கடவுச்சொல் (குறைந்தது 6 எழுத்துகள்)", btn_signin: "உள்நுழைக", btn_createacct: "கணக்கை உருவாக்கு", btn_forgot: "கடவுச்சொல்லை மறந்துவிட்டீர்களா?", lib_title: "நூலகம்", btn_delsel: "தேர்ந்தெடுத்ததை நீக்கு", btn_addfolder: "＋ கோப்புறை", loading: "ஏற்றுகிறது…", btn_signout: "வெளியேறு", lbl_source: "மூலம்", opt_mic: "மைக்ரோஃபோன்", opt_system: "கணினி / தாவல் ஒலி", lbl_mode: "பயன்முறை", opt_live: "நேரடி (உலாவி)", opt_record: "பதிவு → படியெடு", state_ready: "தயார்", btn_save: "சேமி", btn_export: "ஏற்றுமதி (Word)", btn_stop: "நிறுத்து", btn_start: "தொடங்கு", box_hint_start: "மொழியைத் தேர்ந்தெடுத்து தொடங்கு அழுத்தவும்.", btn_copy: "நகலெடு", opt_off: "அணை (மொழிபெயர்ப்பு இல்லை)", doc_title_ph: "ஆவணத் தலைப்பு", btn_download: "பதிவிறக்கு (Word)", btn_close: "மூடு", notes_title: "கூட்டக் குறிப்புகள்", lbl_displaylang: "காட்சி மொழி", lang_ja: "ஜப்பானியம்", lang_en: "ஆங்கிலம்", lang_ms: "மலாய்", lang_my: "பர்மியம்", lang_zh: "சீனம்", lang_ta: "தமிழ்" },
+    my: { settings_title: "ဆက်တင်များ", tagline: "ဘာသာစုံ ပြုစုစောင့်ရှောက်မှုမှတ်တမ်း စာသားပြောင်းခြင်းနှင့် ဘာသာပြန်ခြင်း", signin_h: "ဝင်ရောက်ရန်", signin_p: "သင့်အီးမေးလ်နှင့် စကားဝှက်ဖြင့် ဝင်ရောက်ပါ။ ပထမဆုံးအကြိမ်လား? 'အကောင့်ဖွင့်ရန်' ကိုနှိပ်ပါ။", ph_password: "စကားဝှက် (အနည်းဆုံး ၆ လုံး)", btn_signin: "ဝင်ရောက်ရန်", btn_createacct: "အကောင့်ဖွင့်ရန်", btn_forgot: "စကားဝှက်မေ့နေပါသလား?", lib_title: "စာကြည့်တိုက်", btn_delsel: "ရွေးထားသည်ကို ဖျက်ရန်", btn_addfolder: "＋ ဖိုင်တွဲ", loading: "ဖွင့်နေသည်…", btn_signout: "ထွက်ရန်", lbl_source: "အရင်းအမြစ်", opt_mic: "မိုက်ခရိုဖုန်း", opt_system: "စနစ် / တက်ဘ် အသံ", lbl_mode: "မုဒ်", opt_live: "တိုက်ရိုက် (ဘရောက်ဇာ)", opt_record: "အသံသွင်း → စာသားပြောင်း", state_ready: "အသင့်", btn_save: "သိမ်းရန်", btn_export: "ထုတ်ယူရန် (Word)", btn_stop: "ရပ်ရန်", btn_start: "စတင်ရန်", box_hint_start: "ဘာသာစကားရွေးပြီး စတင်ရန် ကိုနှိပ်ပါ။", btn_copy: "ကူးရန်", opt_off: "ပိတ် (ဘာသာပြန်မထား)", doc_title_ph: "စာရွက်စာတမ်း ခေါင်းစဉ်", btn_download: "ဒေါင်းလုဒ် (Word)", btn_close: "ပိတ်ရန်", notes_title: "အစည်းအဝေး မှတ်စု", lbl_displaylang: "ပြသမည့်ဘာသာ", lang_ja: "ဂျပန်", lang_en: "အင်္ဂလိပ်", lang_ms: "မလေး", lang_my: "မြန်မာ", lang_zh: "တရုတ်", lang_ta: "တမီးလ်" }
+  };
+  var SUPPORTED = ["en", "ja", "zh", "ms", "ta", "my"];
+  function pick() {
+    var s = null;
+    try { s = localStorage.getItem("scribe_uilang"); } catch (e) {}
+    if (s && SUPPORTED.indexOf(s) >= 0) return s;
+    var b = (navigator.language || "en").toLowerCase(), base = b.split("-")[0];
+    if (base === "zh") return "zh";
+    return SUPPORTED.indexOf(base) >= 0 ? base : "en";
+  }
+  function apply(lang) {
+    var d = I18N[lang] || I18N.en;
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { var k = el.getAttribute("data-i18n"); if (d[k] != null) el.textContent = d[k]; });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { var k = el.getAttribute("data-i18n-ph"); if (d[k] != null) el.setAttribute("placeholder", d[k]); });
+    var sel = document.getElementById("uilang"); if (sel) sel.value = lang;
+  }
+  window.i18n = {
+    t: function (k) { var d = I18N[pick()] || I18N.en; return d[k] != null ? d[k] : (I18N.en[k] || k); },
+    apply: apply, current: pick,
+    set: function (lang) { try { localStorage.setItem("scribe_uilang", lang); } catch (e) {} apply(lang); }
+  };
+  function boot() { apply(pick()); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+})();
+</script>
 <script type="module" src="./app.js"></script>
 </body>
 </html>
