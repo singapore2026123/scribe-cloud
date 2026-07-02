@@ -172,6 +172,30 @@ async function notes(request, env) {
   }
 }
 
+// Self-service account deletion: verify the caller's Supabase JWT, then admin-delete the user + their data.
+// Requires env vars SUPABASE_URL, SUPABASE_ANON_KEY (public) and SECRET SUPABASE_SERVICE_ROLE (never sent to the client).
+async function deleteAccount(request, env) {
+  const base = (env.SUPABASE_URL || "").replace(/\/+$/, ""), service = env.SUPABASE_SERVICE_ROLE, anon = env.SUPABASE_ANON_KEY;
+  if (!base || !service || !anon) return j({ error: "Account deletion is not configured on the server (missing SUPABASE_URL / SUPABASE_ANON_KEY / SUPABASE_SERVICE_ROLE)." }, 500);
+  const token = (request.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "").trim();
+  if (!token) return j({ error: "Not authenticated" }, 401);
+  let uid;
+  try {
+    const u = await fetch(base + "/auth/v1/user", { headers: { apikey: anon, Authorization: "Bearer " + token } });
+    if (!u.ok) return j({ error: "Invalid or expired session" }, 401);
+    uid = (await u.json()).id;
+  } catch (e) { return j({ error: "Auth check failed: " + e.message }, 502); }
+  if (!uid) return j({ error: "Could not resolve user" }, 401);
+  const admin = { apikey: service, Authorization: "Bearer " + service, "Content-Type": "application/json" };
+  try {
+    await fetch(base + "/rest/v1/documents?user_id=eq." + uid, { method: "DELETE", headers: admin });   // clean data first
+    await fetch(base + "/rest/v1/folders?user_id=eq." + uid, { method: "DELETE", headers: admin });
+    const d = await fetch(base + "/auth/v1/admin/users/" + uid, { method: "DELETE", headers: admin });
+    if (!d.ok) return j({ error: "Delete failed: " + (await d.text()).slice(0, 200) }, 502);
+  } catch (e) { return j({ error: "Delete failed: " + e.message }, 502); }
+  return j({ ok: true });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -184,6 +208,11 @@ export default {
       if (request.method === "OPTIONS") return new Response(null, { headers: CORS });
       if (request.method === "POST") return notes(request, env);
       return j({ error: "POST only" }, 405);
+    }
+    if (url.pathname === "/account") {
+      if (request.method === "OPTIONS") return new Response(null, { headers: { ...CORS, "Access-Control-Allow-Methods": "DELETE, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Authorization" } });
+      if (request.method === "DELETE") return deleteAccount(request, env);
+      return j({ error: "DELETE only" }, 405);
     }
     return env.ASSETS.fetch(request);   // everything else -> static site in public/
   },

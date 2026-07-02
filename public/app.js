@@ -86,17 +86,75 @@ async function signIn() {
   const { error } = await sb.auth.signInWithPassword({ email, password });
   if (error) $("loginstatus").textContent = "Error: " + error.message;   // onAuthStateChange shows the app on success
 }
+let otpEmail = "";   // email awaiting a 6-digit OTP (signup)
 async function signUp() {
   const email = $("email").value.trim(), password = $("password").value;
   if (!email || password.length < 6) return ($("loginstatus").textContent = "Enter your email and a password (min 6 characters).");
   $("loginstatus").textContent = "Creating account…";
   const { data, error } = await sb.auth.signUp({ email, password });
   if (error) return ($("loginstatus").textContent = "Error: " + error.message);
-  $("loginstatus").textContent = data.session
-    ? "Account created — signing you in…"
-    : "Account created. Confirm via email if prompted, otherwise click Sign in.";
+  if (data.session) return ($("loginstatus").textContent = "Account created — signing you in…");   // confirmations off
+  otpEmail = email;
+  $("otprow").classList.remove("hidden");
+  $("otpcode").value = ""; $("otpcode").focus();
+  $("loginstatus").textContent = "We emailed a 6-digit code to " + email + ". Enter it to verify.";
+}
+async function verifyOtp() {   // verify the signup 6-digit code on the login screen
+  const token = ($("otpcode").value || "").trim();
+  if (!/^\d{6}$/.test(token)) return ($("loginstatus").textContent = "Enter the 6-digit code from the email.");
+  $("loginstatus").textContent = "Verifying…";
+  const { error } = await sb.auth.verifyOtp({ email: otpEmail, token, type: "signup" });
+  if (error) return ($("loginstatus").textContent = "Error: " + error.message);
+  $("otprow").classList.add("hidden");   // onAuthStateChange signs the user in
 }
 async function logout() { await sb.auth.signOut(); clearBoxes(); }
+// ---------- account management (Settings modal) ----------
+function openSettings() {
+  if (user && $("acctEmail")) $("acctEmail").textContent = user.email;
+  if ($("acctStatus")) $("acctStatus").textContent = "";
+  const m = document.getElementById("settingsModal"); if (m) m.style.display = "flex";
+}
+async function changeEmail() {
+  const email = ($("newEmail").value || "").trim();
+  if (!email) return ($("acctStatus").textContent = "Enter the new email address.");
+  $("acctStatus").textContent = "Sending a 6-digit code to " + email + "…";
+  const { error } = await sb.auth.updateUser({ email });
+  if (error) return ($("acctStatus").textContent = "Error: " + error.message);
+  otpEmail = email;
+  $("acctOtprow").classList.remove("hidden");
+  $("acctStatus").textContent = "Enter the 6-digit code sent to " + email + ".";
+}
+async function verifyEmailChange() {
+  const token = ($("acctOtp").value || "").trim();
+  if (!/^\d{6}$/.test(token)) return ($("acctStatus").textContent = "Enter the 6-digit code.");
+  $("acctStatus").textContent = "Verifying…";
+  const { error } = await sb.auth.verifyOtp({ email: otpEmail, token, type: "email_change" });
+  if (error) return ($("acctStatus").textContent = "Error: " + error.message);
+  $("acctOtprow").classList.add("hidden"); $("newEmail").value = "";
+  $("acctStatus").textContent = "Email updated ✓";
+  const { data } = await sb.auth.getUser();
+  if (data && data.user) { user = data.user; $("who").textContent = user.email; if ($("acctEmail")) $("acctEmail").textContent = user.email; }
+}
+async function changePassword() {
+  const pw = window.prompt("Enter a new password (min 6 characters):");
+  if (!pw || pw.length < 6) return ($("acctStatus").textContent = "Password change cancelled (min 6 characters).");
+  const { error } = await sb.auth.updateUser({ password: pw });
+  $("acctStatus").textContent = error ? "Error: " + error.message : "Password updated ✓";
+}
+async function deleteAccount() {
+  if (!confirm("Delete your account and all its data? This cannot be undone.")) return;
+  if (!confirm("Are you absolutely sure? This permanently deletes your account and every saved document.")) return;
+  $("acctStatus").textContent = "Deleting account…";
+  const { data: { session } } = await sb.auth.getSession();
+  try {
+    const r = await fetch("/account", { method: "DELETE", headers: { Authorization: "Bearer " + (session ? session.access_token : "") } });
+    const jd = await r.json().catch(() => ({}));
+    if (!r.ok || jd.error) return ($("acctStatus").textContent = "Error: " + (jd.error || ("HTTP " + r.status)));
+  } catch (e) { return ($("acctStatus").textContent = "Error: " + e.message); }
+  await sb.auth.signOut();
+  document.getElementById("settingsModal").style.display = "none";
+  clearBoxes();
+}
 async function resetPassword() {
   const email = $("email").value.trim();
   if (!email) return ($("loginstatus").textContent = "Enter your email above, then click Forgot password.");
@@ -433,5 +491,5 @@ if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = ($
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 
 // expose for inline handlers
-window.scribe = { signIn, signUp, logout, resetPassword, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, saveDocEdits, downloadDoc, delSelected };
+window.scribe = { signIn, signUp, verifyOtp, logout, resetPassword, openSettings, changeEmail, verifyEmailChange, changePassword, deleteAccount, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, saveDocEdits, downloadDoc, delSelected };
 boot();

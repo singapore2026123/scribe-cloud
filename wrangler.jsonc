@@ -3,5 +3,11 @@
   "main": "worker.js",
   "compatibility_date": "2025-06-01",
   "assets": { "directory": "./public", "binding": "ASSETS" },
-  "ai": { "binding": "AI" }
+  "ai": { "binding": "AI" },
+  // Public Supabase values for the /account delete endpoint. The service_role key is a SECRET:
+  //   npx wrangler secret put SUPABASE_SERVICE_ROLE   (paste the service_role key from Supabase → Settings → API)
+  "vars": {
+    "SUPABASE_URL": "https://dwtgfejfctnavwhftdky.supabase.co",
+    "SUPABASE_ANON_KEY": "sb_publishable_ORDyCuWp0p8ZHU1wiId5YA_4Z2Dahhi"
+  }
 }
