@@ -28,6 +28,59 @@ def _gtranslate(text, sl, tl):
     data = json.loads(urllib.request.urlopen(req, timeout=15).read().decode("utf-8"))
     return "".join(seg[0] for seg in data[0] if seg and seg[0]).strip()
 
+# --- Burmese term-snapping: deterministic wrong->correct fixes observed in Dolphin output (safe: non-word wrongs) ---
+GLOSSARY_MM = [
+    ("ကတင်", "ကုတင်"), ("လယ်ကြောင်း", "လည်ချောင်း"), ("ပရိထိန်း", "ဘရိတ်ထိန်း"),
+    ("ဘီးတက်ကုလား", "ဘီးတပ်ကုလား"), ("မင်းမကျန်", "မေ့မကျန်"), ("မြက်စင်း", "မျက်စဉ်း"),
+    ("ခက်ပေးခဲ့", "ခတ်ပေးခဲ့"), ("ကိုပူချိန်", "ကိုယ်အပူချိန်"), ("သွေးပေောင်", "သွေးပေါင်"),
+    ("မြစ်နေသဖြင့်", "မြင့်နေသဖြင့်"), ("အောင်ောက်စီဂျင်", "အောက်ဆီဂျင်"),
+]
+def apply_glossary_mm(t):
+    for w, c in GLOSSARY_MM:
+        if w in t:
+            t = t.replace(w, c)
+    return t
+
+# --- Burmese number-words -> digits (fixes vitals; conservative: leaves garbled/unknown tokens as-is) ---
+_BN_DIG = {"သုည": 0, "တစ်": 1, "နှစ်": 2, "သုံး": 3, "လေး": 4, "ငါး": 5, "ခြောက်": 6, "ခုနစ်": 7, "ခုနှစ်": 7, "ရှစ်": 8, "ကိုး": 9}
+_BN_MUL = {"ဆယ်": 10, "ရာ": 100, "ထောင်": 1000}
+_BN_TOKENS = sorted(list(_BN_DIG) + list(_BN_MUL) + ["ဒသမ", "ရာခိုင်နှုန်း"], key=len, reverse=True)
+def _bn_value(words):
+    total = 0; cur = 0
+    for w in words:
+        if w in _BN_DIG:
+            cur += _BN_DIG[w]
+        elif w in _BN_MUL:
+            cur = (cur or 1) * _BN_MUL[w]; total += cur; cur = 0
+    return total + cur
+def normalize_burmese_numbers(text):
+    out = []; i = 0; n = len(text)
+    def match_at(p):
+        for tk in _BN_TOKENS:
+            if text.startswith(tk, p):
+                return tk
+        return None
+    while i < n:
+        tk = match_at(i)
+        if tk is None or tk == "ရာခိုင်နှုန်း":   # ရာခိုင်နှုန်း (percent word) is emitted literally, not parsed
+            out.append(tk if tk == "ရာခိုင်နှုန်း" else text[i]); i += len(tk) if tk else 1
+            continue
+        run = []
+        while i < n:
+            m = match_at(i)
+            if m is None or m == "ရာခိုင်နှုန်း":
+                break
+            run.append(m); i += len(m)
+        parts = [[]]
+        for w in run:
+            if w == "ဒသမ":
+                parts.append([])
+            else:
+                parts[-1].append(w)
+        nums = [str(_bn_value(p)) for p in parts if p]
+        out.append(".".join(nums) if nums else "".join(run))
+    return "".join(out)
+
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 STATE = {"proc": None, "model": None, "dolphin": None}
@@ -91,6 +144,7 @@ async def transcribe(req: Request):
         except Exception:
             transcript = ""
         if transcript:
+            transcript = normalize_burmese_numbers(apply_glossary_mm(transcript))   # snap terms + numbers->digits
             translation = ""
             if target and target != "off" and target != "my":
                 try:
