@@ -50,6 +50,18 @@
  .hrow{border:1px solid var(--line);border-radius:10px;padding:9px 11px;margin-bottom:8px;background:var(--surface);font-size:13px}
  .hrow button{font-size:12px;padding:5px 9px;margin-top:6px}
  @media(max-width:820px){.appwrap{flex-direction:column}.sidebar{flex:auto;width:auto;border-right:none;border-bottom:1px solid var(--line)}.feed{grid-template-columns:1fr!important}}
+ .libhead{display:flex;align-items:center;gap:8px;margin:2px 0 10px}
+ .folder{border:1px solid var(--line);border-radius:9px;padding:6px;margin-bottom:8px}
+ .folder.dragover,.rootzone.dragover{outline:2px dashed var(--signal);outline-offset:2px;border-radius:9px}
+ .fhead{display:flex;align-items:center;gap:6px;font-size:13px;margin-bottom:4px}
+ .rootzone{min-height:36px}
+ .doc{display:flex;align-items:center;gap:6px;cursor:grab}
+ .doctitle{font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .docacts{display:flex;gap:2px} .mini{padding:3px 6px;font-size:11px;font-weight:500}
+ #docview{display:flex;flex-direction:column;height:calc(100vh - 170px)}
+ .docbar{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+ #docTitle{flex:1;font-weight:600}
+ .docbody{flex:1;overflow-y:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:20px 24px;line-height:1.6}
  .modal{display:none;position:fixed;inset:0;background:rgba(20,32,43,.45);z-index:50;align-items:center;justify-content:center}
  .modal>div{background:#fff;max-width:780px;width:92%;max-height:86vh;display:flex;flex-direction:column;border-radius:14px;padding:20px 22px}
  .hidden{display:none!important}
@@ -77,7 +89,7 @@
 <!-- APP -->
 <main id="app" class="appwrap hidden">
  <aside class="sidebar">
-  <div class="libttl">Library &mdash; saved sessions</div>
+  <div class="libhead"><span class="libttl" style="margin:0;flex:1">Library</span><button class="ghost mini" onclick="window.scribe.newFolder()">+ Folder</button></div>
   <div class="sblib"><div id="histlist"><p class="hint">Loading&hellip;</p></div></div>
   <div class="prof">
    <div class="pavatar" id="pavatar"></div>
@@ -101,7 +113,7 @@
    </div>
   </section>
   <div class="view">
-   <div class="feed">
+   <div id="feedwrap"><div class="feed">
     <section class="pane"><div class="phead">
       <select id="lang" class="boxlang" title="Spoken language"><option value="ja">Japanese</option><option value="en">English</option>
        <option value="ms">Malay</option><option value="my">Burmese</option><option value="zh">Chinese</option><option value="ta">Tamil</option></select>
@@ -115,6 +127,15 @@
       <button class="ghost" style="padding:5px 10px;font-size:12px" onclick="window.scribe.copyBox('enbox')">Copy</button></div>
      <div class="pbody" id="enbox" contenteditable="true" spellcheck="false"></div></section>
     <button id="swapbtn" title="Swap languages &amp; text" onclick="window.scribe.swap()">&#8644;</button>
+   </div></div>
+   <div id="docview" class="hidden">
+    <div class="docbar">
+     <input id="docTitle" placeholder="Document title">
+     <button class="ghost" onclick="window.scribe.saveDocEdits()">Save</button>
+     <button class="ghost" onclick="window.scribe.downloadDoc()">Download (Word)</button>
+     <button class="ghost" onclick="window.scribe.closeDoc()">Close</button>
+    </div>
+    <div id="docBody" class="docbody" contenteditable="true" spellcheck="false"></div>
    </div>
   </div>
  </div>

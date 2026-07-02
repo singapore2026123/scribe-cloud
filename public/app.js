@@ -77,7 +77,7 @@ function setLogged(session) {
   $("app").classList.toggle("hidden", !user);
   $("who").textContent = user ? user.email : "";
   if ($("pavatar")) $("pavatar").textContent = user && user.email ? user.email[0].toUpperCase() : "";
-  if (user) { try { if (localStorage.getItem("sbCollapsed") === "1") $("app").classList.add("sb-collapsed"); } catch {} loadHistory(); }
+  if (user) { try { if (localStorage.getItem("sbCollapsed") === "1") $("app").classList.add("sb-collapsed"); } catch {} loadLibrary(); }
 }
 async function signIn() {
   const email = $("email").value.trim(), password = $("password").value;
@@ -270,52 +270,91 @@ function stop() {
   stopLive();
 }
 
-// ---------- Supabase persistence ----------
-async function save() {
+// ---------- Library: exported documents + folders (Supabase) ----------
+let currentDocId = null;
+async function buildDocBody() {   // organised-notes HTML body (translation notes first, then original); null if empty
   const src = boxLines("srcbox"), en = boxLines("enbox");
-  if (!src.length && !en.length) return setState("Nothing to save", false);
-  setState("saving…", true, true);
-  let audio_path = null;
-  if (lastWavB64) {
-    const path = `${user.id}/${Date.now()}.wav`;
-    const up = await sb.storage.from("recordings").upload(path, b64ToBlob(lastWavB64, "audio/wav"), { contentType: "audio/wav" });
-    if (!up.error) audio_path = path;
-  }
-  const { data: sess, error } = await sb.from("sessions").insert({
-    user_id: user.id, title: `${LANGNAME[$("lang").value] || ""} — ${new Date().toLocaleString()}`,
-    src_lang: $("lang").value, target_lang: $("target").value, audio_path,
-  }).select().single();
-  if (error) return setState("Save failed: " + error.message, false);
-  const n = Math.max(src.length, en.length), rows = [];
-  for (let i = 0; i < n; i++) rows.push({ session_id: sess.id, user_id: user.id, idx: i, raw: src[i] || "", translation: en[i] || "" });
-  const { error: e2 } = await sb.from("lines").insert(rows);
-  setState(e2 ? "Saved session, lines failed: " + e2.message : "Saved ✓", false);
-  loadHistory();
+  if (!src.length && !en.length) return null;
+  const enNotes = en.length ? await notesFor(en.join("\n"), $("target").value) : "";
+  const srcNotes = src.length ? await notesFor(src.join("\n"), $("lang").value) : "";
+  let body = "";
+  if (en.length) body += `<h2>Notes — Translation</h2>` + (enNotes ? mdToHtml(enNotes) : en.map((t) => `<p>${esc(t)}</p>`).join(""));
+  if (src.length) body += `<hr style="margin:28px 0"><h2>Notes — Original</h2>` + (srcNotes ? mdToHtml(srcNotes) : src.map((t) => `<p style="color:#667">${esc(t)}</p>`).join(""));
+  return body;
 }
-async function loadHistory() {
-  const { data, error } = await sb.from("sessions").select("id,title,created_at").order("created_at", { ascending: false }).limit(50);
-  const box = $("histlist");
-  if (error) { box.innerHTML = `<p class="hint">${esc(error.message)}</p>`; return; }
-  if (!data.length) { box.innerHTML = '<p class="hint">No saved sessions yet.</p>'; return; }
+function docWrap(bodyHtml, title) {
+  return `<html><head><meta charset="utf-8"><title>${esc(title || "Meeting Notes")}</title></head>` +
+    `<body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.55">${bodyHtml}</body></html>`;
+}
+function defaultTitle() { return `${LANGNAME[$("lang").value] || "Session"} — ${new Date().toLocaleString()}`; }
+async function saveDocument(title, bodyHtml) {
+  const { error } = await sb.from("documents").insert({ user_id: user.id, title, html: bodyHtml, folder_id: null });
+  if (error) { setState("Save failed: " + error.message, false); return false; }
+  loadLibrary(); return true;
+}
+async function save() {   // save current transcript as an organised-notes document (no download)
+  const body = await buildDocBody();
+  if (!body) return setState("Nothing to save", false);
+  setState("organising + saving…", true, true);
+  if (await saveDocument(defaultTitle(), body)) setState("Saved to library ✓", false);
+}
+async function loadLibrary() {
+  const box = $("histlist"); if (!box) return;
+  const [{ data: folders }, { data: docs }] = await Promise.all([
+    sb.from("folders").select("id,name,created_at").order("created_at"),
+    sb.from("documents").select("id,title,folder_id,created_at").order("created_at", { ascending: false }),   // by date MADE
+  ]);
+  const fols = folders || [], list = docs || [];
   box.innerHTML = "";
-  for (const s of data) {
-    const d = document.createElement("div"); d.className = "hrow";
-    d.innerHTML = `<b>${esc(s.title)}</b> <span class="hint">${new Date(s.created_at).toLocaleString()}</span><br>
-      <button class="ghost" data-open="${s.id}">Open</button> <button class="ghost" data-del="${s.id}">Delete</button>`;
-    box.appendChild(d);
+  const render = (d) => {
+    const el = document.createElement("div"); el.className = "hrow doc"; el.draggable = true;
+    el.innerHTML = `<span class="doctitle">${esc(d.title)}</span> <span class="hint">${new Date(d.created_at).toLocaleDateString()}</span>
+      <span class="docacts"><button class="ghost mini" data-o>Open</button><button class="ghost mini" data-r>✎</button><button class="ghost mini" data-x>✕</button></span>`;
+    el.addEventListener("dragstart", (e) => e.dataTransfer.setData("text/id", d.id));
+    el.querySelector("[data-o]").onclick = () => openDoc(d.id);
+    el.querySelector("[data-r]").onclick = () => renameDoc(d.id, d.title);
+    el.querySelector("[data-x]").onclick = () => delDoc(d.id);
+    return el;
+  };
+  const drop = (el, fid) => {
+    el.addEventListener("dragover", (e) => { e.preventDefault(); el.classList.add("dragover"); });
+    el.addEventListener("dragleave", () => el.classList.remove("dragover"));
+    el.addEventListener("drop", (e) => { e.preventDefault(); el.classList.remove("dragover"); const id = e.dataTransfer.getData("text/id"); if (id) moveDoc(id, fid); });
+  };
+  for (const f of fols) {
+    const fel = document.createElement("div"); fel.className = "folder";
+    fel.innerHTML = `<div class="fhead">&#128193; <b>${esc(f.name)}</b> <button class="ghost mini" data-df>&times;</button></div>`;
+    fel.querySelector("[data-df]").onclick = () => delFolder(f.id);
+    drop(fel, f.id);
+    list.filter((d) => d.folder_id === f.id).forEach((d) => fel.appendChild(render(d)));
+    box.appendChild(fel);
   }
-  box.querySelectorAll("[data-open]").forEach((b) => b.onclick = () => openSession(b.dataset.open));
-  box.querySelectorAll("[data-del]").forEach((b) => b.onclick = () => delSession(b.dataset.del));
+  const root = document.createElement("div"); root.className = "rootzone"; drop(root, null);
+  const rootDocs = list.filter((d) => !d.folder_id);
+  if (!fols.length && !rootDocs.length) root.innerHTML = '<p class="hint">No saved documents yet — click Export or Save.</p>';
+  rootDocs.forEach((d) => root.appendChild(render(d)));
+  box.appendChild(root);
 }
-async function openSession(id) {
-  const { data } = await sb.from("lines").select("raw,translation,speaker,idx").eq("session_id", id).order("idx");
-  clearBoxes();
-  (data || []).forEach((l) => addLine(l.raw, l.translation, l.speaker ?? undefined));
-  window.scrollTo({ top: 0, behavior: "smooth" });
+async function newFolder() { const name = prompt("Folder name:", "New folder"); if (!name) return; await sb.from("folders").insert({ user_id: user.id, name }); loadLibrary(); }
+async function delFolder(id) { if (!confirm("Delete folder? (its documents move to the top level)")) return; await sb.from("folders").delete().eq("id", id); loadLibrary(); }
+async function moveDoc(id, fid) { await sb.from("documents").update({ folder_id: fid }).eq("id", id); loadLibrary(); }
+async function delDoc(id) { if (!confirm("Delete this document?")) return; await sb.from("documents").delete().eq("id", id); if (currentDocId === id) closeDoc(); loadLibrary(); }
+async function renameDoc(id, cur) { const t = prompt("Title:", cur); if (t == null) return; await sb.from("documents").update({ title: t }).eq("id", id); loadLibrary(); }
+async function openDoc(id) {
+  const { data, error } = await sb.from("documents").select("title,html").eq("id", id).single();
+  if (error || !data) return setState("Open failed", false);
+  currentDocId = id; $("docTitle").value = data.title; $("docBody").innerHTML = data.html;
+  $("feedwrap").classList.add("hidden"); $("docview").classList.remove("hidden");
 }
-async function delSession(id) {
-  if (!confirm("Delete this session?")) return;
-  await sb.from("sessions").delete().eq("id", id); loadHistory();
+function closeDoc() { currentDocId = null; $("docview").classList.add("hidden"); $("feedwrap").classList.remove("hidden"); }
+async function saveDocEdits() {
+  if (!currentDocId) return;
+  const { error } = await sb.from("documents").update({ title: $("docTitle").value, html: $("docBody").innerHTML }).eq("id", currentDocId);
+  setState(error ? "Save failed: " + error.message : "Document saved ✓", false); loadLibrary();
+}
+function downloadDoc() {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([docWrap($("docBody").innerHTML, $("docTitle").value)], { type: "application/msword" }));
+  a.download = ($("docTitle").value || "document").replace(/[^\w.-]+/g, "_") + ".doc"; a.click(); URL.revokeObjectURL(a.href);
 }
 
 // ---------- export ----------
@@ -330,22 +369,15 @@ async function notesFor(text, tgt) {   // organised (Genspark-style) notes for `
     return d.notes || "";
   } catch (_) { return ""; }
 }
-async function exportDoc() {   // Organised notes: ALL translated-language notes first, then ALL original-language notes below
-  const src = boxLines("srcbox"), en = boxLines("enbox");
-  if (!src.length && !en.length) return setState("Nothing to export", false);
+async function exportDoc() {   // organise -> download Word AND auto-save to the library (title editable in the sidebar)
   setState("organising notes…", true, true);
-  const enNotes = en.length ? await notesFor(en.join("\n"), $("target").value) : "";
-  const srcNotes = src.length ? await notesFor(src.join("\n"), $("lang").value) : "";
-  lastNotes = [enNotes, srcNotes].filter(Boolean).join("\n\n");
-  let body = "";
-  if (en.length) body += `<h2>Notes — Translation</h2>` + (enNotes ? mdToHtml(enNotes) : en.map((t) => `<p>${esc(t)}</p>`).join(""));
-  if (src.length) body += `<hr style="margin:28px 0"><h2>Notes — Original</h2>` + (srcNotes ? mdToHtml(srcNotes) : src.map((t) => `<p style="color:#667">${esc(t)}</p>`).join(""));
-  const html = `<html><head><meta charset="utf-8"><title>Meeting Notes</title></head>` +
-    `<body style="font-family:Segoe UI,Arial;max-width:760px;margin:24px auto;line-height:1.55">` +
-    `<p style="color:#888;font-size:12px;margin:0 0 14px">${esc(new Date().toLocaleString())}</p>${body}</body></html>`;
-  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html], { type: "application/msword" }));
+  const body = await buildDocBody();
+  if (!body) return setState("Nothing to export", false);
+  const title = defaultTitle();
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([docWrap(body, title)], { type: "application/msword" }));
   a.download = "meeting-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
-  setState((enNotes || srcNotes) ? "Exported organised notes (translation, then original)" : "Notes unavailable — exported text", false);
+  await saveDocument(title, body);
+  setState("Exported + saved to library ✓", false);
 }
 function mdToHtml(md) {
   return (md || "").split(/\r?\n/).map((ln) => {
@@ -372,5 +404,5 @@ document.addEventListener("keydown", (ev) => {
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 
 // expose for inline handlers
-window.scribe = { signIn, signUp, logout, resetPassword, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar };
+window.scribe = { signIn, signUp, logout, resetPassword, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, saveDocEdits, downloadDoc };
 boot();

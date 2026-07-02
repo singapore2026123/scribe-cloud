@@ -27,7 +27,29 @@ create table if not exists public.lines (
 create index if not exists lines_session_idx on public.lines(session_id, idx);
 create index if not exists sessions_user_idx on public.sessions(user_id, created_at desc);
 
+-- Saved exported documents (organised notes) + folders for the library sidebar.
+create table if not exists public.folders (
+  id         uuid primary key default gen_random_uuid(),
+  user_id    uuid not null references auth.users(id) on delete cascade,
+  name       text not null default 'New folder',
+  created_at timestamptz not null default now()
+);
+create table if not exists public.documents (
+  id         uuid primary key default gen_random_uuid(),
+  user_id    uuid not null references auth.users(id) on delete cascade,
+  title      text not null default 'Untitled',
+  folder_id  uuid references public.folders(id) on delete set null,   -- null = root
+  html       text not null default '',                                -- the exported notes (editable)
+  created_at timestamptz not null default now()                       -- ordering key (date MADE, not edited)
+);
+create index if not exists documents_user_idx on public.documents(user_id, created_at desc);
+
 -- ============ ROW-LEVEL SECURITY ============
+alter table public.folders   enable row level security;
+alter table public.documents enable row level security;
+create policy "own folders"   on public.folders   for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "own documents" on public.documents for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
 alter table public.sessions enable row level security;
 alter table public.lines    enable row level security;
 
