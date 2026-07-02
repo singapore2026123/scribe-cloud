@@ -33,9 +33,23 @@ function stripHalluc(t) {
   return t;
 }
 function collapseRepeats(t) {   // Whisper degeneration guard: collapse looped tokens/phrases (e.g. "洗衣洗衣…", "laundry laundry…")
-  if (!t) return t;
-  t = t.replace(/(\S{1,24}?)(?:\s+\1){2,}/g, "$1");   // whitespace-separated token repeated 3+ times
-  t = t.replace(/(.{1,10}?)\1{3,}/g, "$1");           // contiguous short sequence repeated 4+ times
+  if (!t) return t;                       // linear scan — NO backreference regex (those ReDoS on long loops)
+  if (t.length > 8000) t = t.slice(0, 8000);
+  const words = t.split(/\s+/);           // collapse 3+ consecutive identical space-separated tokens -> keep 1
+  const w = [];
+  for (const tok of words) { const n = w.length; if (!(n >= 1 && w[n - 1] === tok)) w.push(tok); }
+  t = w.join(" ");
+  for (let L = 1; L <= 8; L++) {          // collapse a 1..8-char unit repeated 4+ times contiguously -> keep 1
+    let i = 0, out = "";
+    while (i < t.length) {
+      const unit = t.substr(i, L);
+      if (unit.length < L) { out += t.slice(i); break; }
+      let c = 1;
+      while (t.substr(i + c * L, L) === unit) c++;
+      if (c >= 4) { out += unit; i += c * L; } else { out += t[i]; i++; }
+    }
+    t = out;
+  }
   return t.trim();
 }
 
@@ -82,11 +96,8 @@ async function transcribe(request, env) {
     let asr;
     const M = "@cf/openai/whisper-large-v3-turbo";
     const withPrompt = prompt ? { ...base, initial_prompt: prompt } : base;
-    try { asr = await env.AI.run(M, { ...withPrompt, vad_filter: true }); }   // best: biasing + VAD
-    catch (_) {
-      try { asr = await env.AI.run(M, withPrompt); }                          // keep biasing if VAD param unsupported
-      catch (_2) { asr = await env.AI.run(M, base); }                         // last resort
-    }
+    try { asr = await env.AI.run(M, withPrompt); }   // biasing prompt
+    catch (_) { asr = await env.AI.run(M, base); }   // fallback without prompt
 
     let transcript = collapseRepeats(applyGlossary((asr.text || "").trim(), src));
     transcript = stripHalluc(transcript);
