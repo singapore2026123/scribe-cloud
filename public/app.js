@@ -1,5 +1,6 @@
 // Scribe Cloud — browser app. Auth (Supabase) + live (Web Speech) + record (Gemini) + storage + notes.
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import NoSleep from "https://esm.sh/nosleep.js";   // keeps the screen awake on mobile (Wake Lock API + video fallback)
 
 const $ = (id) => document.getElementById(id);
 const LANGNAME = { ja: "Japanese", en: "English", ms: "Malay", my: "Burmese", zh: "Chinese", ta: "Tamil" };
@@ -330,12 +331,12 @@ function encodeWavB64(samples, sr) {
 function b64ToBlob(b64, type) { const bin = atob(b64), a = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i); return new Blob([a], { type }); }
 
 // ---------- start/stop ----------
-let wakeLock = null;
-async function acquireWake() {   // keep the screen awake while capturing (mobile + desktop)
-  try { if ("wakeLock" in navigator) wakeLock = await navigator.wakeLock.request("screen"); } catch (_) {}
+let noSleep = null;
+function acquireWake() {   // keep the screen awake while capturing — must be triggered by the Start click (user gesture)
+  try { if (!noSleep) noSleep = new NoSleep(); noSleep.enable(); } catch (_) {}
 }
-function releaseWake() { try { if (wakeLock) { wakeLock.release(); wakeLock = null; } } catch (_) {} }
-document.addEventListener("visibilitychange", () => { if (running && document.visibilityState === "visible") acquireWake(); });   // re-acquire after tab-switch
+function releaseWake() { try { if (noSleep) noSleep.disable(); } catch (_) {} }
+document.addEventListener("visibilitychange", () => { if (running && document.visibilityState === "visible") acquireWake(); });
 function start() {
   setEnHead(); clearBoxes(); autosaved = false;
   acquireWake();
