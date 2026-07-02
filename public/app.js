@@ -427,6 +427,9 @@ document.addEventListener("keydown", (ev) => {
 });
 ["srcbox", "enbox"].forEach((id) => { const el = $(id); if (el) { let t; el.addEventListener("input", () => { clearTimeout(t); t = setTimeout(snap, 400); }); } });
 
+// Burmese runs on the slow Space -> Live lags; auto-switch to Record (whole-clip, one call). Others default to Live.
+if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = $("lang").value === "my" ? "record" : "live"; });
+
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 
 // expose for inline handlers
