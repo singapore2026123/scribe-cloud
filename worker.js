@@ -32,6 +32,12 @@ function stripHalluc(t) {
   if (HALLUC_MARK.some((m) => low.includes(m))) return "";
   return t;
 }
+function collapseRepeats(t) {   // Whisper degeneration guard: collapse looped tokens/phrases (e.g. "洗衣洗衣…", "laundry laundry…")
+  if (!t) return t;
+  t = t.replace(/(\S{1,24}?)(?:\s+\1){2,}/g, "$1");   // whitespace-separated token repeated 3+ times
+  t = t.replace(/(.{1,10}?)\1{3,}/g, "$1");           // contiguous short sequence repeated 4+ times
+  return t.trim();
+}
 
 // Care-term glossary (from the desktop glossary_ja.csv) — deterministic wrong->correct fixes for JA medical
 // terms. Applied in order; only replaces known non-word errors. Extend as Cloudflare-Whisper errors surface.
@@ -74,10 +80,10 @@ async function transcribe(request, env) {
     const base = { audio, language: src, task: "transcribe" };
     const prompt = PROMPTS[src];
     let asr;
-    try { asr = await env.AI.run("@cf/openai/whisper-large-v3-turbo", prompt ? { ...base, initial_prompt: prompt } : base); }
-    catch (_) { asr = await env.AI.run("@cf/openai/whisper-large-v3-turbo", base); }   // biasing is best-effort
+    try { asr = await env.AI.run("@cf/openai/whisper-large-v3-turbo", { ...base, vad_filter: true, ...(prompt ? { initial_prompt: prompt } : {}) }); }
+    catch (_) { asr = await env.AI.run("@cf/openai/whisper-large-v3-turbo", base); }   // vad_filter/biasing best-effort
 
-    let transcript = applyGlossary((asr.text || "").trim(), src);
+    let transcript = collapseRepeats(applyGlossary((asr.text || "").trim(), src));
     transcript = stripHalluc(transcript);
     if (!transcript) return j({ transcript: "", translation: "" });
 
