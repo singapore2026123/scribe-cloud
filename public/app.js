@@ -167,7 +167,7 @@ async function transcribeChunkLive(b64, n) {
   } catch (e) { if (running) setState(`listening… (chunk ${n} error: ${e.message})`, true, false); }
   finally {
     livePending--;
-    if (!running && livePending === 0) setState("Stopped", false);
+    if (!running && livePending === 0) { setState("Stopped", false); maybeAutosave(); }
   }
 }
 function stopLive() {
@@ -180,6 +180,7 @@ function stopLive() {
   liveProc = liveSrc = liveStream = liveCtx = null;
   // Stop = capture only; remaining chunks keep transcribing. No auto-organise/notes popup — user clicks Export.
   setState(livePending ? `capture stopped — finishing ${livePending} chunk(s)…` : "Stopped", false);
+  if (livePending === 0) maybeAutosave();
 }
 async function organiseOnStop() {
   const src = boxLines("srcbox");
@@ -232,6 +233,7 @@ async function processRecording() {
     else setState("No speech / " + (d.error || "empty"), false);
   } catch (e) { setState("Transcribe failed: " + e.message, false); return; }
   setState("Ready", false);
+  maybeAutosave();
 }
 
 // ---------- audio encoding ----------
@@ -261,7 +263,7 @@ function b64ToBlob(b64, type) { const bin = atob(b64), a = new Uint8Array(bin.le
 
 // ---------- start/stop ----------
 function start() {
-  setEnHead(); clearBoxes();
+  setEnHead(); clearBoxes(); autosaved = false;
   if ($("mode").value === "record") { running = true; startRecord(); return; }
   running = true; startLive();   // chunked capture -> Space (all languages, mic or tab, no Web Speech / no Gemini)
 }
@@ -271,7 +273,22 @@ function stop() {
 }
 
 // ---------- Library: exported documents + folders (Supabase) ----------
-let currentDocId = null;
+let currentDocId = null, autosaved = false;
+function rawDocBody() {   // plain transcript+translation (no AI notes) — for silent autosave
+  const src = boxLines("srcbox"), en = boxLines("enbox");
+  if (!src.length && !en.length) return null;
+  let body = "";
+  if (en.length) body += `<h2>Translation</h2>` + en.map((t) => `<p>${esc(t)}</p>`).join("");
+  if (src.length) body += `<hr style="margin:24px 0"><h2>Original</h2>` + src.map((t) => `<p style="color:#667">${esc(t)}</p>`).join("");
+  return body;
+}
+async function maybeAutosave() {   // silently save the transcription once per session (no download, no AI-notes call)
+  if (autosaved || !user) return;
+  const body = rawDocBody(); if (!body) return;
+  autosaved = true;
+  const { error } = await sb.from("documents").insert({ user_id: user.id, title: defaultTitle(), html: body, folder_id: null });
+  if (!error) { loadLibrary(); setState("Auto-saved to library", false); }
+}
 async function buildDocBody() {   // organised-notes HTML body (translation notes first, then original); null if empty
   const src = boxLines("srcbox"), en = boxLines("enbox");
   if (!src.length && !en.length) return null;
