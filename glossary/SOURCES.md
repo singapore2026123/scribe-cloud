@@ -19,6 +19,18 @@
 - Preply — Tamil medical terminology guide: https://preply.com/en/blog/tamil-medical-terminology/
 - Lexicool — Tamil medical/health/personal-care dictionary: https://www.lexicool.com/online-dictionary.asp?FSP=A31C25
 
+## Comprehensive per-language glossaries (medical + everyday)
+`japanese-glossary.csv`, `chinese-glossary.csv`, `malay-glossary.csv`, `tamil-glossary.csv` — each combines a
+`medical` block + an `everyday` block, columns `english,<lang>,category`. Sourced from Learn Entry
+(`healthcare-in-<lang>` for medical, `verbs-in-<lang>` for everyday).
+
+**Quality caveat — read before wiring into the app:** the Learn Entry everyday pages are auto-generated and
+frequently give the wrong sense (a noun where a verb is meant, e.g. MS `patient→sabar`, ZH `bear→熊`, TA
+`would→என்று`). Every such row is flagged with a trailing **(?)** in the native cell. Treat `(?)` rows as
+review-required and do NOT feed them into ASR biasing or the correction map until a native speaker confirms them.
+Common everyday words (be/have/go…) don't improve ASR anyway — Whisper/Google Translate already handle them; the
+real accuracy levers are the domain/**medical** terms (biasing) and observed `wrong -> correct` pairs.
+
 ## Notes
 - Terms remain human-reviewable (native review recommended before clinical use).
 - ASR-correction pairs (observed `wrong -> correct`) live separately in `worker.js` (GLOSSARY) + `glossary_ja.csv`;
