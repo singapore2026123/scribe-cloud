@@ -1,0 +1,42 @@
+english,burmese,note
+doctor,ဆရာဝန်,
+nurse,သူနာပြု,
+dentist,သွားဆရာဝန်,
+patient,လူနာ,
+hospital,ဆေးရုံ,project
+clinic,ဆေးခန်း,
+disease,ရောဂါ,
+medical,ဆေးဘက်ဆိုင်ရာ,
+medicine,ဆေး,project
+tablet,တက်ဘလက်,
+anaesthetic,ထုံဆေး,
+injection,ဆေးထိုး,project
+bandage,ပတ်တီး,
+pain,နာကျင်မှု,
+fever,ဖျားခြင်း,
+cough,ချောင်းဆိုး,
+bleed,သွေးထွက်,
+wound,အနာ,
+swelling,ရောင်ရမ်းခြင်း,
+cramp,ကြွက်တက်ခြင်း,
+fracture,ကျိုး,
+amputation,ဖြတ်တောက်ခြင်း,
+blind,မျက်စိကန်းသော,
+diabetes,ဆီးချိုရောဂါ,
+depression,စိတ်ဓာတ်ကျခြင်း,
+mental,စိတ်ပိုင်းဆိုင်ရာ,
+debility,အားနည်းခြင်း,
+cure,ပျောက်ကင်းသည်,
+abdominal,ဝမ်းဗိုက်,
+pregnancy,ကိုယ်ဝန်,
+abortion,ကိုယ်ဝန်ဖျက်ချခြင်း,
+alcohol,အရက်,
+temperature,အပူချိန်,
+blood pressure,သွေးပေါင်ချိန်,project
+pulse,နှလုံးခုန်နှုန်း,project
+oxygen saturation,အောက်ဆီဂျင် ပြည့်ဝမှု,project
+bathing,ရေချိုးခြင်း,project
+body wiping,ကိုယ်သုတ်ပေးခြင်း,project
+partial bath,တစ်စိတ်တစ်ပိုင်း ရေချိုးခြင်း,project
+transfer assistance,ရွှေ့ပြောင်းကူညီခြင်း,project
+vital signs,သက်ရှင်လက္ခဏာ,project
