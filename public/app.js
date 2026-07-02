@@ -82,6 +82,10 @@ async function boot() {
   setLogged(session);
   sb.auth.onAuthStateChange((event, s) => { if (event === "PASSWORD_RECOVERY") return promptNewPassword(); setLogged(s); });
   setEnHead(); $("target").addEventListener("change", setEnHead);
+  if (window.matchMedia && window.matchMedia("(max-width:820px)").matches) {   // mobile: mic only — screen/tab-audio capture isn't supported on mobile browsers
+    const sys = document.querySelector('#source option[value="system"]'); if (sys) sys.remove();
+    $("source").value = "mic";
+  }
 }
 function setLogged(session) {
   user = session?.user || null;
