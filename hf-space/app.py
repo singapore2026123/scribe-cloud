@@ -116,6 +116,17 @@ def _chunks(a, sr=16000, max_sec=18.0):
     return [a] if len(a) <= n else [a[i:i + n] for i in range(0, len(a), n)]
 
 
+@app.on_event("startup")
+def _prewarm():   # load Dolphin in the background at boot so the first request isn't blocked by the ~1.4GB load
+    import threading
+    def _load():
+        try:
+            _dolphin_model()
+        except Exception:
+            pass
+    threading.Thread(target=_load, daemon=True).start()
+
+
 @app.get("/")
 def health():
     return {"ok": True, "engine": "dolphin+seamless", "dolphin_loaded": STATE["dolphin"] is not None}
