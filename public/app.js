@@ -356,10 +356,10 @@ function rawDocBody() {   // plain transcript+translation (no AI notes) — for 
   if (src.length) body += `<hr style="margin:24px 0"><h2>Original</h2>` + src.map((t) => `<p style="color:#667">${esc(t)}</p>`).join("");
   return body;
 }
-async function maybeAutosave() {   // silently save the transcription once per session (no download, no AI-notes call)
+async function maybeAutosave() {   // save once per session in the SAME organised format as Export (no download)
   if (autosaved || !user) return;
-  const body = rawDocBody(); if (!body) return;
   autosaved = true;
+  const body = await buildDocBody(); if (!body) return;   // genspark layout: translated notes on top, original below
   const { error } = await sb.from("documents").insert({ user_id: user.id, title: defaultTitle(), html: body, folder_id: null });
   if (!error) { loadLibrary(); setState("Auto-saved to library", false); }
 }
@@ -494,8 +494,7 @@ async function exportDoc() {   // organise -> download Word AND auto-save to the
   const title = defaultTitle();
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([docWrap(body, title)], { type: "application/msword" }));
   a.download = "meeting-notes.doc"; a.click(); URL.revokeObjectURL(a.href);
-  if (user) { await saveDocument(title, body); setState("Exported + saved to library ✓", false); }
-  else setState("Exported ✓ (sign in to also save it to your library)", false);
+  setState("Exported (Word) ✓", false);   // download only — the session is already auto-saved to the library on Stop
 }
 function mdToHtml(md) {
   return (md || "").split(/\r?\n/).map((ln) => {
