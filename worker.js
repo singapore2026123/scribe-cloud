@@ -21,10 +21,16 @@ async function gtranslate(text, src, tgt) {
 const HALLUC = ["ご視聴ありがとうございました", "ご視聴ありがとうございます", "ご清聴ありがとうございました", "最後までご視聴いただきありがとうございました", "チャンネル登録をお願いします",
   "thank you for watching", "thanks for watching", "please subscribe", "thank you",
   "terima kasih", "terima kasih kerana menonton", "terima kasih kerana menonton video ini",
-  "谢谢观看", "感谢观看", "谢谢大家观看", "请订阅", "请点赞订阅", "谢谢大家"];
+  "谢谢观看", "感谢观看", "谢谢大家观看", "请订阅", "请点赞订阅", "谢谢大家",
+  "请点赞订阅转发打赏支持明镜与点点栏目", "请不吝点赞订阅转发打赏支持明镜与点点栏目"];
+// YouTube-style like/subscribe hallucination markers — if a chunk contains any, it's a hallucination (never in care speech).
+const HALLUC_MARK = ["明镜", "点点栏目", "打赏", "点赞", "订阅", "转发", "字幕组", "subscribe to", "like and subscribe"];
 function stripHalluc(t) {
-  const n = t.replace(/[。．.!！?？、\s]+$/g, "").trim().toLowerCase();
-  return HALLUC.some((h) => n === h.toLowerCase()) ? "" : t;
+  const low = t.toLowerCase();
+  const n = low.replace(/[。．.!！?？、\s]+$/g, "").trim();
+  if (HALLUC.some((h) => n === h.toLowerCase())) return "";
+  if (HALLUC_MARK.some((m) => low.includes(m))) return "";
+  return t;
 }
 
 // Care-term glossary (from the desktop glossary_ja.csv) — deterministic wrong->correct fixes for JA medical
