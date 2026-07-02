@@ -44,7 +44,7 @@ const HALLUC = [
   // French
   "merci d'avoir regardé", "merci", "abonnez-vous", "sous-titres réalisés par la communauté d'amara.org", "n'oubliez pas de vous abonner"];
 // YouTube-style like/subscribe hallucination markers — if a chunk contains any, it's a hallucination (never in care speech).
-const HALLUC_MARK = ["明镜", "点点栏目", "打赏", "点赞", "订阅", "转发", "字幕组", "字幕由", "amara.org", "castingwords", "subscribe to", "like and subscribe", "구독", "좋아요 부탁", "กดไลค์กดแชร์", "đăng ký kênh"];
+const HALLUC_MARK = ["明镜", "点点栏目", "打赏", "点赞", "订阅", "转发", "字幕组", "字幕由", "amara.org", "castingwords", "subscribe to", "like and subscribe", "구독", "좋아요 부탁", "กดไลค์กดแชร์", "đăng ký kênh", "yoyo television", "television series exclusive"];
 // Unambiguous hallucination phrases removed INLINE (they appear mid-chunk alongside real text; not plausible care speech).
 const HALLUC_PHRASE = ["ご視聴ありがとうございました", "ご視聴ありがとうございます", "ご清聴ありがとうございました",
   "最後までご視聴いただきありがとうございました", "チャンネル登録をお願いします", "以上で終わります", "これで終わります", "本日は以上です",
