@@ -408,12 +408,20 @@ async function loadLibrary() {
     el.addEventListener("dragleave", () => el.classList.remove("dragover"));
     el.addEventListener("drop", (e) => { e.preventDefault(); el.classList.remove("dragover"); const id = e.dataTransfer.getData("text/id"); if (id) moveDoc(id, fid); });
   };
+  let openF = new Set();   // remember which folders are expanded (loadLibrary re-runs after every drag/delete)
+  try { openF = new Set(JSON.parse(localStorage.getItem("openFolders") || "[]")); } catch {}
+  const saveOpen = () => { try { localStorage.setItem("openFolders", JSON.stringify([...openF])); } catch {} };
   for (const f of fols) {
-    const fel = document.createElement("div"); fel.className = "folder";
-    fel.innerHTML = `<div class="fhead">&#128193; <b>${esc(f.name)}</b> <button class="ghost mini" data-df>&times;</button></div>`;
-    fel.querySelector("[data-df]").onclick = () => delFolder(f.id);
+    const fel = document.createElement("div"); fel.className = "folder" + (openF.has(f.id) ? " open" : "");
+    fel.innerHTML = `<div class="fhead"><span class="fcaret">&#9656;</span>&#128193; <b>${esc(f.name)}</b> <button class="ghost mini" data-df style="margin-left:auto">&times;</button></div><div class="fdocs"></div>`;
+    fel.querySelector(".fhead").onclick = (e) => { if (e.target.closest("[data-df]")) return; const o = fel.classList.toggle("open"); if (o) openF.add(f.id); else openF.delete(f.id); saveOpen(); };
+    fel.querySelector("[data-df]").onclick = (e) => { e.stopPropagation(); delFolder(f.id); };
     drop(fel, f.id);
-    list.filter((d) => d.folder_id === f.id).forEach((d) => fel.appendChild(render(d)));
+    fel.addEventListener("drop", () => { openF.add(f.id); saveOpen(); });   // auto-open the folder you dropped into
+    const fdocs = fel.querySelector(".fdocs");
+    const inside = list.filter((d) => d.folder_id === f.id);
+    inside.forEach((d) => fdocs.appendChild(render(d)));
+    if (!inside.length) fdocs.innerHTML = '<p class="hint" style="margin:2px 0 0">Empty — drag documents here.</p>';
     box.appendChild(fel);
   }
   const root = document.createElement("div"); root.className = "rootzone"; drop(root, null);
