@@ -325,7 +325,7 @@ async function loadLibrary() {
   box.innerHTML = "";
   const render = (d) => {
     const el = document.createElement("div"); el.className = "hrow doc"; el.draggable = true;
-    el.innerHTML = `<span class="doctitle">${esc(d.title)}</span> <span class="hint">${new Date(d.created_at).toLocaleDateString()}</span>
+    el.innerHTML = `<input type="checkbox" class="docsel" data-id="${d.id}" title="Select"><span class="doctitle">${esc(d.title)}</span> <span class="hint">${new Date(d.created_at).toLocaleDateString()}</span>
       <span class="docacts"><button class="ghost mini" data-o>Open</button><button class="ghost mini" data-r>✎</button><button class="ghost mini" data-x>✕</button></span>`;
     el.addEventListener("dragstart", (e) => e.dataTransfer.setData("text/id", d.id));
     el.querySelector("[data-o]").onclick = () => openDoc(d.id);
@@ -356,6 +356,15 @@ async function newFolder() { const name = prompt("Folder name:", "New folder"); 
 async function delFolder(id) { if (!confirm("Delete folder? (its documents move to the top level)")) return; await sb.from("folders").delete().eq("id", id); loadLibrary(); }
 async function moveDoc(id, fid) { await sb.from("documents").update({ folder_id: fid }).eq("id", id); loadLibrary(); }
 async function delDoc(id) { if (!confirm("Delete this document?")) return; await sb.from("documents").delete().eq("id", id); if (currentDocId === id) closeDoc(); loadLibrary(); }
+async function delSelected() {   // multi-select delete — one confirmation for the whole batch
+  const ids = [...document.querySelectorAll(".docsel:checked")].map((c) => c.dataset.id);
+  if (!ids.length) return setState("Tick the documents to delete first", false);
+  if (!confirm(`Delete ${ids.length} selected document(s)?`)) return;
+  const { error } = await sb.from("documents").delete().in("id", ids);
+  if (error) return setState("Delete failed: " + error.message, false);
+  if (currentDocId && ids.includes(currentDocId)) closeDoc();
+  loadLibrary(); setState(`Deleted ${ids.length} document(s)`, false);
+}
 async function renameDoc(id, cur) { const t = prompt("Title:", cur); if (t == null) return; await sb.from("documents").update({ title: t }).eq("id", id); loadLibrary(); }
 async function openDoc(id) {
   const { data, error } = await sb.from("documents").select("title,html").eq("id", id).single();
@@ -421,5 +430,5 @@ document.addEventListener("keydown", (ev) => {
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 
 // expose for inline handlers
-window.scribe = { signIn, signUp, logout, resetPassword, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, saveDocEdits, downloadDoc };
+window.scribe = { signIn, signUp, logout, resetPassword, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, saveDocEdits, downloadDoc, delSelected };
 boot();
