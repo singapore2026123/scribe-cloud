@@ -81,7 +81,7 @@ async function boot() {
   const { data: { session } } = await sb.auth.getSession();
   setLogged(session);
   sb.auth.onAuthStateChange((event, s) => { if (event === "PASSWORD_RECOVERY") return promptNewPassword(); setLogged(s); });
-  setEnHead(); $("target").addEventListener("change", setEnHead);
+  setEnHead(); $("target").addEventListener("change", () => { setEnHead(); if (!running) retranslateAll("Re-translated ✓"); });   // changing target re-translates existing text
   if (window.matchMedia && window.matchMedia("(max-width:820px)").matches) {   // mobile: mic only — screen/tab-audio capture isn't supported on mobile browsers
     const sys = document.querySelector('#source option[value="system"]'); if (sys) sys.remove();
     $("source").value = "mic";
@@ -231,8 +231,8 @@ function flushLive() {
   for (let i = 0; i < outLen; i++) out[i] = merged[Math.floor(i * ratio)];
   transcribeChunkLive(encodeWavB64(out, 16000), ++liveSeq);
 }
-function asrEndpoint(src) {   // Burmese & Tamil -> HF Space (Dolphin); others (incl. Chinese) -> Cloudflare Worker (Workers AI Whisper)
-  return (src === "my" || src === "ta") ? (asrUrl ? asrUrl.replace(/\/+$/, "") + "/transcribe" : "") : "/transcribe";
+function asrEndpoint(src) {   // Burmese, Tamil & Chinese -> HF Space (Dolphin); others -> Cloudflare Worker (Workers AI Whisper)
+  return (src === "my" || src === "ta" || src === "zh") ? (asrUrl ? asrUrl.replace(/\/+$/, "") + "/transcribe" : "") : "/transcribe";
 }
 async function transcribeChunkLive(b64, n) {
   const src = $("lang").value, target = $("target").value, url = asrEndpoint(src);
@@ -252,17 +252,17 @@ async function finishLive() {   // all live chunks done: re-translate the full t
   await retranslateAll();
   maybeAutosave();
 }
-async function retranslateAll() {   // Live mode translates fragments; re-translate whole sentences so EN->JA (etc.) meaning is correct
+async function retranslateAll(doneMsg) {   // re-translate the whole transcript by full sentences (used on Stop AND when the target language changes)
   const target = $("target").value, srcLang = $("lang").value;
   const norm = (x) => (x === "zh-CN" ? "zh" : x);
   if (target === "off" || norm(target) === norm(srcLang)) return;
   const full = boxLines("srcbox").join(" ").replace(/\s+/g, " ").trim();
   if (!full) return;
   const sentences = full.match(/[^.!?。！？]+[.!?。！？]*/g) || [full];   // split on sentence boundaries (Whisper punctuates)
-  setState("finalising translation…", true, true);
+  setState("translating…", true, true);
   const outs = (await Promise.all(sentences.map((s) => translateText(s.trim(), srcLang, target)))).filter(Boolean);
   if (outs.length) { $("enbox").innerHTML = ""; outs.forEach((o) => { const p = document.createElement("p"); p.textContent = o; $("enbox").appendChild(p); }); }
-  setState("Stopped", false);
+  setState(doneMsg || "Stopped", false);
 }
 function stopLive() {
   running = false;
@@ -321,7 +321,7 @@ async function processRecording() {
     lastWavB64 = await blobToWav16kB64(blob);
     const url = asrEndpoint(src);
     if (!url) { setState("Burmese engine not configured (SCRIBE_ASR_URL).", false); return; }
-    setState((src === "my" || src === "ta") ? "transcribing on the Space (first run loads the model)…" : "transcribing…", true, true);
+    setState((src === "my" || src === "ta" || src === "zh") ? "transcribing on the Space (first run loads the model)…" : "transcribing…", true, true);
     const d = await (await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: lastWavB64, src, target }) })).json();
     if (d.transcript) addLine(d.transcript, d.translation || "");
     else setState("No speech / " + (d.error || "empty"), false);
@@ -562,7 +562,7 @@ document.addEventListener("keydown", (ev) => {
 ["srcbox", "enbox"].forEach((id) => { const el = $(id); if (el) { let t; el.addEventListener("input", () => { clearTimeout(t); t = setTimeout(snap, 400); }); } });
 
 // Burmese runs on the slow Space -> Live lags; auto-switch to Record (whole-clip, one call). Others default to Live.
-if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = (["my", "ta"].includes($("lang").value)) ? "record" : "live"; });
+if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = (["my", "ta", "zh"].includes($("lang").value)) ? "record" : "live"; });
 
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 
