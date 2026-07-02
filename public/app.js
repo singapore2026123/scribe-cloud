@@ -106,26 +106,13 @@ async function signIn() {
   const { error } = await sb.auth.signInWithPassword({ email, password });
   if (error) $("loginstatus").textContent = "Error: " + error.message;   // onAuthStateChange shows the app on success
 }
-let otpEmail = "";   // email awaiting a 6-digit OTP (signup)
 async function signUp() {
   const email = $("email").value.trim(), password = $("password").value;
   if (!email || password.length < 6) return ($("loginstatus").textContent = "Enter your email and a password (min 6 characters).");
   $("loginstatus").textContent = "Creating account…";
   const { data, error } = await sb.auth.signUp({ email, password });
   if (error) return ($("loginstatus").textContent = "Error: " + error.message);
-  if (data.session) return ($("loginstatus").textContent = "Account created — signing you in…");   // confirmations off
-  otpEmail = email;
-  $("otprow").classList.remove("hidden");
-  $("otpcode").value = ""; $("otpcode").focus();
-  $("loginstatus").textContent = "We emailed a 6-digit code to " + email + ". Enter it to verify.";
-}
-async function verifyOtp() {   // verify the signup 6-digit code on the login screen
-  const token = ($("otpcode").value || "").trim();
-  if (!/^\d{6}$/.test(token)) return ($("loginstatus").textContent = "Enter the 6-digit code from the email.");
-  $("loginstatus").textContent = "Verifying…";
-  const { error } = await sb.auth.verifyOtp({ email: otpEmail, token, type: "signup" });
-  if (error) return ($("loginstatus").textContent = "Error: " + error.message);
-  $("otprow").classList.add("hidden");   // onAuthStateChange signs the user in
+  $("loginstatus").textContent = data.session ? "Account created — signing you in…" : "Account created. If email confirmation is enabled, check your inbox, then Sign in.";
 }
 async function logout() { await sb.auth.signOut(); clearBoxes(); }
 // ---------- account management (Settings modal) ----------
@@ -137,23 +124,10 @@ function openSettings() {
 async function changeEmail() {
   const email = ($("newEmail").value || "").trim();
   if (!email) return ($("acctStatus").textContent = "Enter the new email address.");
-  $("acctStatus").textContent = "Sending a 6-digit code to " + email + "…";
+  $("acctStatus").textContent = "Updating…";
   const { error } = await sb.auth.updateUser({ email });
-  if (error) return ($("acctStatus").textContent = "Error: " + error.message);
-  otpEmail = email;
-  $("acctOtprow").classList.remove("hidden");
-  $("acctStatus").textContent = "Enter the 6-digit code sent to " + email + ".";
-}
-async function verifyEmailChange() {
-  const token = ($("acctOtp").value || "").trim();
-  if (!/^\d{6}$/.test(token)) return ($("acctStatus").textContent = "Enter the 6-digit code.");
-  $("acctStatus").textContent = "Verifying…";
-  const { error } = await sb.auth.verifyOtp({ email: otpEmail, token, type: "email_change" });
-  if (error) return ($("acctStatus").textContent = "Error: " + error.message);
-  $("acctOtprow").classList.add("hidden"); $("newEmail").value = "";
-  $("acctStatus").textContent = "Email updated ✓";
-  const { data } = await sb.auth.getUser();
-  if (data && data.user) { user = data.user; $("who").textContent = user.email; if ($("acctEmail")) $("acctEmail").textContent = user.email; }
+  $("acctStatus").textContent = error ? "Error: " + error.message : "Confirmation sent to the new address — open the link there to finish.";
+  if (!error) $("newEmail").value = "";
 }
 async function changePassword() {
   const pw = window.prompt("Enter a new password (min 6 characters):");
@@ -356,12 +330,20 @@ function encodeWavB64(samples, sr) {
 function b64ToBlob(b64, type) { const bin = atob(b64), a = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i); return new Blob([a], { type }); }
 
 // ---------- start/stop ----------
+let wakeLock = null;
+async function acquireWake() {   // keep the screen awake while capturing (mobile + desktop)
+  try { if ("wakeLock" in navigator) wakeLock = await navigator.wakeLock.request("screen"); } catch (_) {}
+}
+function releaseWake() { try { if (wakeLock) { wakeLock.release(); wakeLock = null; } } catch (_) {} }
+document.addEventListener("visibilitychange", () => { if (running && document.visibilityState === "visible") acquireWake(); });   // re-acquire after tab-switch
 function start() {
   setEnHead(); clearBoxes(); autosaved = false;
+  acquireWake();
   if ($("mode").value === "record") { running = true; startRecord(); return; }
   running = true; startLive();   // chunked capture -> Space (all languages, mic or tab, no Web Speech / no Gemini)
 }
 function stop() {
+  releaseWake();
   if ($("mode").value === "record") { if (mediaRec && mediaRec.state !== "inactive") mediaRec.stop(); running = false; $("stop").disabled = true; return; }
   stopLive();
 }
@@ -567,5 +549,5 @@ if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = ([
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 
 // expose for inline handlers
-window.scribe = { signIn, signUp, verifyOtp, logout, resetPassword, openLogin, openSettings, changeEmail, verifyEmailChange, changePassword, deleteAccount, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, saveDocEdits, downloadDoc, delSelected };
+window.scribe = { signIn, signUp, logout, resetPassword, openLogin, openSettings, changeEmail, changePassword, deleteAccount, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, saveDocEdits, downloadDoc, delSelected };
 boot();

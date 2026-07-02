@@ -110,10 +110,6 @@
  </div>
  <div style="text-align:center;margin-top:8px"><button class="ghost" onclick="window.scribe.resetPassword()" style="font-size:13px" data-i18n="btn_forgot">Forgot password?</button></div>
  <div class="status" id="loginstatus"></div>
- <div id="otprow" class="hidden" style="margin-top:10px;display:flex;gap:8px">
-  <input id="otpcode" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="6-digit code" style="flex:1">
-  <button onclick="window.scribe.verifyOtp()" data-i18n="btn_verify">Verify</button>
- </div>
 </div></div>
 
 <!-- APP -->
@@ -190,7 +186,6 @@
   <div style="display:flex;flex-direction:column;gap:8px">
    <input id="newEmail" type="email" data-i18n-ph="new_email_ph" placeholder="New email address">
    <button class="ghost" onclick="window.scribe.changeEmail()" data-i18n="btn_change_email">Change email</button>
-   <div id="acctOtprow" class="hidden" style="display:flex;gap:6px"><input id="acctOtp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="6-digit code" style="flex:1"><button class="ghost" onclick="window.scribe.verifyEmailChange()" data-i18n="btn_verify">Verify</button></div>
    <button class="ghost" onclick="window.scribe.changePassword()" data-i18n="btn_change_pw">Change password</button>
    <button class="ghost" onclick="window.scribe.deleteAccount()" style="color:var(--warn);border-color:var(--warn)" data-i18n="btn_delete_acct">Delete account</button>
   </div>
