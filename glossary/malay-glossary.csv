@@ -1,6 +1,5 @@
 english,malay,category
 Abdominal,bahagian perut,medical
-Abortion,pengguguran,medical
 Accident,kemalangan,medical
 Abuse,penderaan,medical
 Addict,penagih,medical
@@ -12,7 +11,6 @@ Anaesthetic,ubat bius,medical
 Bandage,pembalut,medical
 Bleed,berdarah,medical
 Blind,buta,medical
-Bruit,bruit,medical
 Clinical,klinikal,medical
 Contusion,lebam,medical
 Convalesce,sembuh,medical
@@ -22,28 +20,21 @@ Cramp,kekejangan,medical
 Cripple,lumpuh,medical
 Crutch,tongkat,medical
 Cure,penawar,medical
-Dazzle,menyilaukan,medical
 Debility,kelemahan,medical
 Defecate,buang air besar,medical
 Dejection,kekecewaan,medical
-Deleterious,memudaratkan,medical
 Delirious,mengigau,medical
 Dentist,doktor gigi,medical
 Depression,kemurungan,medical
-Detoxify,menyahtoksik,medical
 Diabetes,kencing manis,medical
 Disease,penyakit,medical
 Doctor,doktor,medical
-Emission,pelepasan,medical
-Erection,ereksi,medical
 Febrile,demam,medical
-Felon,penjenayah,medical
 Fever,demam,medical
 Fracture,patah tulang,medical
 Gargle,berkumur-kumur,medical
 Gash,luka,medical
 Gasp,tercungap-cungap,medical
-Genetic,genetik,medical
 Healer,penyembuh,medical
 Herbal,herba,medical
 Lesion,luka,medical
@@ -51,36 +42,25 @@ Ligament,ligamen,medical
 Measles,demam campak,medical
 Medical,perubatan,medical
 Mental,mental,medical
-Mite,hama,medical
-Mutate,bermutasi,medical
 Nurse,jururawat,medical
-Ovulation,ovulasi,medical
 Pain,sakit,medical
 Palpate,meraba,medical
 Panting,tercungap-cungap,medical
 Paralyse,lumpuh,medical
 Patient,pesakit,medical
-Pervert,orang cabul,medical
 Protein,protein,medical
-Probe,siasat,medical
-Pregnancy,kehamilan,medical
 Poultice,tuam,medical
 Relax,berehat,medical
 Relief,kelegaan,medical
-Sperm,sperma,medical
 Spew,memuntahkan,medical
 Spine,tulang belakang,medical
-Shiner,mata lebam,medical
 Shiver,menggigil,medical
 Shock,terkejut,medical
 Sneeze,bersin,medical
-Snivel,teresak-esak,medical
 Snotty,hingusan,medical
-Snuff,sedutan,medical
 Suicide,bunuh diri,medical
 Swelling,bengkak,medical
 Tablet,tablet,medical
-Taint,mencemarkan,medical
 Temperature,suhu,medical
 Abuse,penderaan,everyday
 Accept,terima,everyday

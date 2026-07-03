@@ -1,51 +1,51 @@
 english,ja,zh,ms,ta,my,category
-tracheal suction,気管吸引,气管吸引,sedutan trakea,மூச்சுக்குழல் உறிஞ்சுதல் (?),,procedure
-oral suction,口腔吸引,口腔吸引,sedutan mulut,வாய் உறிஞ்சுதல் (?),,procedure
-nasogastric tube feeding,経鼻経管栄養,鼻胃管喂食,pemakanan tiub nasogastrik,மூக்கு-இரைப்பைக் குழாய் ஊட்டம் (?),,procedure
-tube feeding,経管栄養,管饲,pemakanan melalui tiub,குழாய் மூலம் ஊட்டுதல் (?),,procedure
+tracheal suction,気管吸引,气管吸引,sedutan trakea,மூச்சுக்குழல் உறிஞ்சுதல்,လေပြွန်အတွင်း အရည်စုပ်ထုတ်ခြင်း,procedure
+oral suction,口腔吸引,口腔吸引,sedutan mulut,வாய் உறிஞ்சுதல்,ခံတွင်းအတွင်း အရည်စုပ်ထုတ်ခြင်း,procedure
+nasogastric tube feeding,経鼻経管栄養,鼻胃管喂食,pemakanan tiub nasogastrik,மூக்கு-இரைப்பைக் குழாய் ஊட்டம்,နှာခေါင်းမှ အစာအိမ်ပိုက်ဖြင့် အစာကျွေးခြင်း,procedure
+tube feeding,経管栄養,管饲,pemakanan melalui tiub,குழாய் மூலம் ஊட்டுதல்,ပိုက်ဖြင့် အစာကျွေးခြင်း,procedure
 bathing,入浴,洗澡,mandi,குளிப்பாட்டுதல்,ရေချိုးခြင်း,procedure
-partial bath,部分浴,局部清洗,mandi separa,பகுதி குளியல் (?),တစ်စိတ်တစ်ပိုင်း ရေချိုးခြင်း,procedure
-body wiping,清拭,擦身,lap badan,உடல் துடைத்தல் (?),ကိုယ်သုတ်ပေးခြင်း,procedure
-clean technique,清潔操作,清洁操作,teknik aseptik,தூய்மை நுட்பம் (?),,procedure
-transfer assistance,移乗介助,转移协助,bantuan pemindahan,இடமாற்ற உதவி (?),ရွှေ့ပြောင်းကူညီခြင်း,procedure
-repositioning,体位変換,翻身,tukar kedudukan,உடல் நிலை மாற்றுதல் (?),,procedure
-oral care,口腔ケア,口腔护理,penjagaan mulut,வாய் பராமரிப்பு,,procedure
-urinary catheter,尿道カテーテル,导尿管,kateter kencing,சிறுநீர்க் குழாய் (?),,procedure
-wound care,創傷ケア,伤口护理,penjagaan luka,காயம் பராமரிப்பு,,procedure
-pressure ulcer,褥瘡,褥疮,luka baring,படுக்கைப் புண்,,condition
-diaper change,おむつ交換,换尿布,tukar lampin,டயப்பர் மாற்றுதல் (?),,procedure
-toileting assistance,排泄介助,如厕协助,bantuan ke tandas,கழிப்பறை உதவி (?),,procedure
-eye drops,点眼,滴眼药,titis mata,கண் சொட்டு மருந்து,,procedure
-medication administration,服薬介助,给药,pemberian ubat,மருந்து வழங்கல்,,procedure
-oxygen therapy,酸素療法,氧疗,terapi oksigen,ஆக்ஸிஜன் சிகிச்சை,,procedure
-aspiration,誤嚥,误吸,aspirasi,உணவு மூச்சுக்குழலில் செல்லுதல் (?),,condition
+partial bath,部分浴,局部清洗,mandi separa,பகுதி குளியல்,တစ်စိတ်တစ်ပိုင်း ရေချိုးခြင်း,procedure
+body wiping,清拭,擦身,lap badan,உடல் துடைத்தல்,ကိုယ်သုတ်ပေးခြင်း,procedure
+clean technique,清潔操作,清洁操作,teknik aseptik,தூய்மை நுட்பம்,သန့်ရှင်းစွာ ဆောင်ရွက်နည်း,procedure
+transfer assistance,移乗介助,转移协助,bantuan pemindahan,இடமாற்ற உதவி,ရွှေ့ပြောင်းကူညီခြင်း,procedure
+repositioning,体位変換,翻身,tukar kedudukan,உடல் நிலை மாற்றுதல்,ကိုယ်နေဟန်ထား ပြောင်းပေးခြင်း,procedure
+oral care,口腔ケア,口腔护理,penjagaan mulut,வாய் பராமரிப்பு,ခံတွင်း ပြုစုစောင့်ရှောက်ခြင်း,procedure
+urinary catheter,尿道カテーテル,导尿管,kateter kencing,சிறுநீர்க் குழாய்,ဆီးပိုက်,procedure
+wound care,創傷ケア,伤口护理,penjagaan luka,காயம் பராமரிப்பு,အနာ ပြုစုစောင့်ရှောက်ခြင်း,procedure
+pressure ulcer,褥瘡,褥疮,luka baring,படுக்கைப் புண்,အိပ်ရာနာ,condition
+diaper change,おむつ交換,换尿布,tukar lampin,டயப்பர் மாற்றுதல்,သေးခံ လဲလှယ်ခြင်း,procedure
+toileting assistance,排泄介助,如厕协助,bantuan ke tandas,கழிப்பறை உதவி,အိမ်သာသွား ကူညီခြင်း,procedure
+eye drops,点眼,滴眼药,titis mata,கண் சொட்டு மருந்து,မျက်စဉ်းဆေး,procedure
+medication administration,服薬介助,给药,pemberian ubat,மருந்து வழங்கல்,ဆေးတိုက်ကျွေးခြင်း,procedure
+oxygen therapy,酸素療法,氧疗,terapi oksigen,ஆக்ஸிஜன் சிகிச்சை,အောက်ဆီဂျင်ကုထုံး,procedure
+aspiration,誤嚥,误吸,aspirasi,உணவு மூச்சுக்குழலில் செல்லுதல்,အစာမျိုမှားခြင်း,condition
 blood pressure,血圧,血压,tekanan darah,இரத்த அழுத்தம்,သွေးပေါင်ချိန်,vital
 pulse,脈拍,脉搏,kadar nadi,நாடித் துடிப்பு,နှလုံးခုန်နှုန်း,vital
 body temperature,体温,体温,suhu badan,உடல் வெப்பநிலை,ကိုယ်အပူချိန်,vital
-respiration rate,呼吸数,呼吸频率,kadar pernafasan,சுவாச விகிதம் (?),,vital
-oxygen saturation,酸素飽和度,血氧饱和度,ketepuan oksigen,ஆக்ஸிஜன் செறிவு (?),အောက်ဆီဂျင် ပြည့်ဝမှု,vital
-blood sugar,血糖,血糖,gula darah,இரத்த சர்க்கரை,,vital
-dementia,認知症,失智症,demensia,மறதி நோய் (?),,condition
-diabetes,糖尿病,糖尿病,kencing manis,நீரிழிவு நோய்,,condition
-hypertension,高血圧,高血压,darah tinggi,உயர் இரத்த அழுத்தம்,,condition
-stroke,脳卒中,中风,strok,பக்கவாதம்,,condition
-aspiration pneumonia,誤嚥性肺炎,吸入性肺炎,radang paru-paru aspirasi,உள்ளிழுப்பு நிமோனியா (?),,condition
-constipation,便秘,便秘,sembelit,மலச்சிக்கல்,,condition
-dehydration,脱水,脱水,dehidrasi,நீரிழப்பு,,condition
-fall,転倒,跌倒,jatuh,விழுதல்,,condition
-fracture,骨折,骨折,patah tulang,எலும்பு முறிவு,,condition
-urinary tract infection,尿路感染症,尿路感染,jangkitan saluran kencing,சிறுநீர்ப் பாதை தொற்று (?),,condition
-caregiver,介護士,护理员,penjaga,பராமரிப்பாளர்,,role
-nurse,看護師,护士,jururawat,செவிலியர்,,role
-doctor,医師,医生,doktor,மருத்துவர்,,role
-physiotherapist,理学療法士,物理治疗师,ahli fisioterapi,உடலியக்க சிகிச்சையாளர் (?),,role
-speech therapist,言語聴覚士,言语治疗师,ahli terapi pertuturan,பேச்சு சிகிச்சையாளர் (?),,role
-pharmacist,薬剤師,药剂师,ahli farmasi,மருந்தாளர் (?),,role
+respiration rate,呼吸数,呼吸频率,kadar pernafasan,சுவாச விகிதம்,အသက်ရှူနှုန်း,vital
+oxygen saturation,酸素飽和度,血氧饱和度,ketepuan oksigen,ஆக்ஸிஜன் செறிவு,အောက်ဆီဂျင် ပြည့်ဝမှု,vital
+blood sugar,血糖,血糖,gula darah,இரத்த சர்க்கரை,သွေးတွင်းသကြားဓာတ်,vital
+dementia,認知症,失智症,demensia,மறதி நோய்,သတိမေ့ဖျော့ရောဂါ,condition
+diabetes,糖尿病,糖尿病,kencing manis,நீரிழிவு நோய்,ဆီးချိုရောဂါ,condition
+hypertension,高血圧,高血压,darah tinggi,உயர் இரத்த அழுத்தம்,သွေးတိုးရောဂါ,condition
+stroke,脳卒中,中风,strok,பக்கவாதம்,လေဖြတ်ခြင်း,condition
+aspiration pneumonia,誤嚥性肺炎,吸入性肺炎,radang paru-paru aspirasi,உள்ளிழுப்பு நிமோனியா,အစာမျိုမှား အဆုတ်ရောင်ရောဂါ,condition
+constipation,便秘,便秘,sembelit,மலச்சிக்கல்,ဝမ်းချုပ်ခြင်း,condition
+dehydration,脱水,脱水,dehidrasi,நீரிழப்பு,ရေဓာတ်ခန်းခြောက်ခြင်း,condition
+fall,転倒,跌倒,jatuh,விழுதல்,လဲကျခြင်း,condition
+fracture,骨折,骨折,patah tulang,எலும்பு முறிவு,အရိုးကျိုးခြင်း,condition
+urinary tract infection,尿路感染症,尿路感染,jangkitan saluran kencing,சிறுநீர்ப் பாதை தொற்று,ဆီးလမ်းကြောင်း ပိုးဝင်ခြင်း,condition
+caregiver,介護士,护理员,penjaga,பராமரிப்பாளர்,ပြုစုစောင့်ရှောက်သူ,role
+nurse,看護師,护士,jururawat,செவிலியர்,သူနာပြု,role
+doctor,医師,医生,doktor,மருத்துவர்,ဆရာဝန်,role
+physiotherapist,理学療法士,物理治疗师,ahli fisioterapi,உடலியக்க சிகிச்சையாளர்,ရုပ်ပိုင်းဆိုင်ရာ ကုထုံးပညာရှင်,role
+speech therapist,言語聴覚士,言语治疗师,ahli terapi pertuturan,பேச்சு சிகிச்சையாளர்,စကားပြော ကုထုံးပညာရှင်,role
+pharmacist,薬剤師,药剂师,ahli farmasi,மருந்தாளர்,ဆေးဝါးကျွမ်းကျင်,role
 medication,薬,药物,ubat,மருந்து,ဆေး,record
-prescription,処方箋,处方,preskripsi,மருந்துச் சீட்டு,,record
-allergy,アレルギー,过敏,alahan,ஒவ்வாமை,,record
-appointment,予約,预约,temu janji,சந்திப்பு நேரம் (?),,record
-admission,入院,入院,kemasukan hospital,மருத்துவமனை அனுமதி,,record
-discharge,退院,出院,keluar hospital,மருத்துவமனையிலிருந்து விடுவிப்பு (?),,record
-care plan,ケアプラン,护理计划,pelan penjagaan,பராமரிப்புத் திட்டம்,,record
-vital signs,バイタルサイン,生命体征,tanda vital,உயிர்ச் சமிக்ஞைகள் (?),,record
+prescription,処方箋,处方,preskripsi,மருந்துச் சீட்டு,ဆေးညွှန်း,record
+allergy,アレルギー,过敏,alahan,ஒவ்வாமை,ဓာတ်မတည့်ခြင်း,record
+appointment,予約,预约,temu janji,சந்திப்பு நேரம்,ချိန်းဆိုချက်,record
+admission,入院,入院,kemasukan hospital,மருத்துவமனை அனுமதி,ဆေးရုံတက်ခြင်း,record
+discharge,退院,出院,keluar hospital,மருத்துவமனையிலிருந்து விடுவிப்பு,ဆေးရုံဆင်းခြင်း,record
+care plan,ケアプラン,护理计划,pelan penjagaan,பராமரிப்புத் திட்டம்,ပြုစုစောင့်ရှောက်မှု အစီအစဉ်,record
+vital signs,バイタルサイン,生命体征,tanda vital,உயிர்ச் சமிக்ஞைகள்,အသက်ရှင်လက္ခဏာများ,record

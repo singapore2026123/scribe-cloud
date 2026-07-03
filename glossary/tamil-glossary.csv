@@ -1,6 +1,5 @@
 english,tamil,category
 Abdominal,வயிறு,medical
-Abortion,கருக்கலைப்பு,medical
 Accident,விபத்து,medical
 Abuse,துஷ்பிரயோகம்,medical
 Addict,அடிமை,medical
@@ -12,7 +11,6 @@ Anaesthetic,மயக்க மருந்து,medical
 Bandage,கட்டு,medical
 Bleed,இரத்தப்போக்கு,medical
 Blind,குருடர்,medical
-Bruit,இதய இரைச்சல்,medical
 Clinical,மருத்துவம்,medical
 Contusion,நசுங்கிய காயம்,medical
 Convalesce,குணமடை,medical
@@ -22,28 +20,21 @@ Cramp,தசைப்பிடிப்பு,medical
 Cripple,ஊனமுற்றவர்,medical
 Crutch,ஊன்றுகோல்,medical
 Cure,குணப்படுத்து,medical
-Dazzle,கண் கூச்சம்,medical
 Debility,பலவீனம்,medical
 Defecate,மலம் கழிக்க,medical
 Dejection,மனச்சோர்வு,medical
-Deleterious,தீங்கு விளைவிக்கும்,medical
 Delirious,பிதற்றல்,medical
 Dentist,பல் மருத்துவர்,medical
 Depression,மன அழுத்தம்,medical
-Detoxify,நச்சு நீக்கு,medical
 Diabetes,சர்க்கரை நோய்,medical
 Disease,நோய்,medical
 Doctor,மருத்துவர்,medical
-Emission,உமிழ்வு,medical
-Erection,விறைப்பு,medical
 Febrile,காய்ச்சல் சார்ந்த,medical
-Felon,விரல் நுனி சீழ்க்கட்டி,medical
 Fever,காய்ச்சல்,medical
 Fracture,எலும்பு முறிவு,medical
 Gargle,வாய் கொப்பளிக்க,medical
 Gash,ஆழமான வெட்டுக்காயம்,medical
 Gasp,மூச்சுத்திணறல்,medical
-Genetic,மரபியல்,medical
 Healer,குணப்படுத்துபவர்,medical
 Herbal,மூலிகை,medical
 Lesion,புண்,medical
@@ -51,36 +42,25 @@ Ligament,தசைநார்,medical
 Measles,தட்டம்மை,medical
 Medical,மருத்துவ,medical
 Mental,மன,medical
-Mite,சிற்றுண்ணி,medical
-Mutate,பிறழ்வு,medical
 Nurse,செவிலியர்,medical
-Ovulation,அண்டவிடுப்பு,medical
 Pain,வலி,medical
 Palpate,தடவிப் பரிசோதி,medical
 Panting,மூச்சிரைத்தல்,medical
 Paralyse,முடக்கு,medical
 Patient,நோயாளி,medical
-Pervert,வக்கிரமான,medical
 Protein,புரதம்,medical
-Probe,ஆய்வுக் கருவி,medical
-Pregnancy,கர்ப்பம்,medical
 Poultice,பற்று மருந்து,medical
 Relax,ஓய்வெடு,medical
 Relief,துயர் நீக்கம்,medical
-Sperm,விந்து,medical
 Spew,வாந்தி எடு,medical
 Spine,முதுகெலும்பு,medical
-Shiner,கண் வீக்கம் (கரு விழி),medical
 Shiver,நடுக்கம்,medical
 Shock,அதிர்ச்சி,medical
 Sneeze,தும்மல்,medical
-Snivel,மூக்குச் சிந்தி அழுதல்,medical
 Snotty,மூக்குச் சளி நிறைந்த,medical
-Snuff,மூக்கடைப்பு,medical
 Suicide,தற்கொலை,medical
 Swelling,வீக்கம்,medical
 Tablet,மாத்திரை,medical
-Taint,மாசுபடுத்து,medical
 Temperature,வெப்ப நிலை,medical
 Abuse,துஷ்பிரயோகம்,everyday
 Accept,ஏற்றுக்கொள்,everyday
