@@ -369,12 +369,21 @@ async function maybeAutosave() {   // save once per session in the SAME organise
   const { error } = await sb.from("documents").insert({ user_id: user.id, title: defaultTitle(), html: body, folder_id: null });
   if (!error) { loadLibrary(); setState("Auto-saved to library", false); }
 }
+const NOTE_HEADERS = {   // section headers rendered in the TARGET language [translation-section, original-section]
+  en: ["Notes — Translation", "Notes — Original"],
+  ja: ["メモ（翻訳）", "メモ（原文）"],
+  zh: ["笔记（翻译）", "笔记（原文）"], "zh-CN": ["笔记（翻译）", "笔记（原文）"],
+  ms: ["Nota (Terjemahan)", "Nota (Asal)"],
+  ta: ["குறிப்புகள் (மொழிபெயர்ப்பு)", "குறிப்புகள் (மூலம்)"],
+  my: ["မှတ်စု (ဘာသာပြန်)", "မှတ်စု (မူရင်း)"],
+};
 async function organiseNotes(enLines, srcLines, tgt, src) {   // genspark layout: translated notes on top, original below
   const enNotes = enLines.length ? await notesFor(enLines.join("\n"), tgt) : "";
   const srcNotes = srcLines.length ? await notesFor(srcLines.join("\n"), src) : "";
+  const H = NOTE_HEADERS[tgt] || NOTE_HEADERS.en;   // headers match the target language the user is reading
   let body = "";
-  if (enLines.length) body += `<h2>Notes — Translation</h2>` + (enNotes ? mdToHtml(enNotes) : enLines.map((t) => `<p>${esc(t)}</p>`).join(""));
-  if (srcLines.length) body += `<hr style="margin:28px 0"><h2>Notes — Original</h2>` + (srcNotes ? mdToHtml(srcNotes) : srcLines.map((t) => `<p style="color:#667">${esc(t)}</p>`).join(""));
+  if (enLines.length) body += `<h2>${H[0]}</h2>` + (enNotes ? mdToHtml(enNotes) : enLines.map((t) => `<p>${esc(t)}</p>`).join(""));
+  if (srcLines.length) body += `<hr style="margin:28px 0"><h2>${H[1]}</h2>` + (srcNotes ? mdToHtml(srcNotes) : srcLines.map((t) => `<p style="color:#667">${esc(t)}</p>`).join(""));
   return body;
 }
 async function buildDocBody() {   // organised-notes HTML body from the live boxes; null if empty

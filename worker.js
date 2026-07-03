@@ -162,7 +162,7 @@ async function notes(request, env) {
     if (!text) return j({ notes: "" });
     if (!env.AI) return j({ notes: "", error: "Workers AI binding 'AI' is not configured on this Worker" });
     const lang = LNAME[target] || "English";
-    const genSys = `You are an expert notes assistant like Genspark. From the meeting content below, produce COMPREHENSIVE, well-organised meeting notes in ${lang}, in Markdown. Cover EVERYTHING — do not omit topics or summarise away detail. Structure with ## headings: start with "## Overview", then group into several topical sections with descriptive headings, then "## Key Points" (bulleted), "## Decisions", "## Action Items" (use "- [owner if mentioned] task (due if mentioned)"), and "## Next Steps". Be detailed and faithful; do not invent.`;
+    const genSys = `You are an expert notes assistant like Genspark. From the meeting content below, produce COMPREHENSIVE, well-organised meeting notes written ENTIRELY in ${lang} — including ALL section headings: translate the heading names into ${lang}, do NOT use English headings. Use Markdown with ## headings. Cover EVERYTHING — do not omit topics or summarise away detail. Structure: start with an overview section, then group into several topical sections with descriptive headings, then a key-points section (bulleted), decisions, action items (use "- [owner if mentioned] task (due if mentioned)"), and next steps. Be detailed and faithful; do not invent.`;
 
     // Long meetings: map (bullet each segment) -> reduce (organise), so notes cover the WHOLE transcript.
     const CHUNK = 9000;
