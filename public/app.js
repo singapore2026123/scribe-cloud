@@ -235,7 +235,9 @@ async function retranslateAll(doneMsg) {   // re-translate the whole transcript 
   const full = lines.join("\n").trim();
   if (!full) return;
   setState("translating…", true, true);
-  let tr = await translateText(full, srcLang, target, true);   // llm=true: translate the whole transcript in context (natural, accurate)
+  const strong = ["en", "ja", "zh", "zh-CN", "ms"];   // the LLM translates these well; for Tamil/Burmese it garbles (mixes languages) -> use Google
+  const useLLM = strong.includes(srcLang) && strong.includes(target);
+  let tr = await translateText(full, srcLang, target, useLLM);
   if (!tr) tr = (await Promise.all(lines.map((s) => translateText(s, srcLang, target)))).filter(Boolean).join("\n");   // fallback: per-line Google Translate
   if (tr) { $("enbox").innerHTML = ""; tr.split(/\n+/).forEach((o) => { if (o.trim()) { const p = document.createElement("p"); p.textContent = o.trim(); $("enbox").appendChild(p); } }); }
   setState(doneMsg || "Stopped", false);
