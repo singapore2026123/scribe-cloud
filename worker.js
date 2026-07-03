@@ -221,10 +221,19 @@ async function deleteAccount(request, env) {
 }
 
 // Standalone text translation (used by the swap button to re-translate in the flipped direction).
+const LANG_NAME = { en: "English", ja: "Japanese", zh: "Chinese", "zh-CN": "Chinese", ms: "Malay", ta: "Tamil", my: "Burmese", ko: "Korean", th: "Thai", id: "Indonesian", vi: "Vietnamese", hi: "Hindi", fr: "French" };
 async function translate(request, env) {
   try {
-    const { text, sl, tl } = await request.json();
+    const { text, sl, tl, llm } = await request.json();
     if (!text || !tl || tl === "off") return j({ translation: "" });
+    if (llm && env.AI) {   // higher-quality contextual translation of the full transcript (used on Stop / target change)
+      try {
+        const sys = `You are a professional translator for eldercare and nursing records. Translate the user's ${LANG_NAME[sl] || sl} text into ${LANG_NAME[tl] || tl}. Output ONLY the translation — natural, accurate and complete, faithful to the source with nothing added or omitted, no notes/labels/quotes. Preserve line breaks.`;
+        const r = await env.AI.run(NOTES_MODEL, { messages: [{ role: "system", content: sys }, { role: "user", content: text }], max_tokens: 1500 });
+        const o = (r.response || "").trim();
+        if (o) return j({ translation: o });
+      } catch (_) {}
+    }
     let out = "";
     try { out = await gtranslate(text, sl || "auto", tl); } catch (_) {}
     if (!out && env.AI && M2M[tl]) {

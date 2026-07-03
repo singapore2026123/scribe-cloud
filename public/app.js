@@ -41,10 +41,10 @@ function rerender() {
   if (!lines.length) { $("srcbox").innerHTML = '<p class="hint">Pick a language and press Start.</p>'; return; }
   lines.forEach(renderLine);
 }
-async function translateText(text, sl, tl) {      // one line -> the Worker's Google-Translate endpoint
+async function translateText(text, sl, tl, llm) {   // -> Worker /translate (Google Translate, or the LLM when llm=true for the full transcript)
   if (!text || !tl || tl === "off") return "";
   try {
-    const r = await fetch("/translate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, sl, tl }) });
+    const r = await fetch("/translate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, sl, tl, llm: !!llm }) });
     const d = await r.json();
     return d.translation || "";
   } catch { return ""; }
@@ -231,12 +231,13 @@ async function retranslateAll(doneMsg) {   // re-translate the whole transcript 
   const target = $("target").value, srcLang = $("lang").value;
   const norm = (x) => (x === "zh-CN" ? "zh" : x);
   if (target === "off" || norm(target) === norm(srcLang)) return;
-  const full = boxLines("srcbox").join(" ").replace(/\s+/g, " ").trim();
+  const lines = boxLines("srcbox");
+  const full = lines.join("\n").trim();
   if (!full) return;
-  const sentences = full.match(/[^.!?。！？]+[.!?。！？]*/g) || [full];   // split on sentence boundaries (Whisper punctuates)
   setState("translating…", true, true);
-  const outs = (await Promise.all(sentences.map((s) => translateText(s.trim(), srcLang, target)))).filter(Boolean);
-  if (outs.length) { $("enbox").innerHTML = ""; outs.forEach((o) => { const p = document.createElement("p"); p.textContent = o; $("enbox").appendChild(p); }); }
+  let tr = await translateText(full, srcLang, target, true);   // llm=true: translate the whole transcript in context (natural, accurate)
+  if (!tr) tr = (await Promise.all(lines.map((s) => translateText(s, srcLang, target)))).filter(Boolean).join("\n");   // fallback: per-line Google Translate
+  if (tr) { $("enbox").innerHTML = ""; tr.split(/\n+/).forEach((o) => { if (o.trim()) { const p = document.createElement("p"); p.textContent = o.trim(); $("enbox").appendChild(p); } }); }
   setState(doneMsg || "Stopped", false);
 }
 function stopLive() {
