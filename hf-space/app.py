@@ -85,6 +85,18 @@ app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 STATE = {"proc": None, "model": None, "dolphin": None}
 DTOK = re.compile(r"<[^>]*>")   # strip Dolphin control tokens like <my><MM><asr><notimestamp>
+def _native_ok(s, lang):   # keep sentence if it has native script (Tamil 0x0B80-0x0BFF / Burmese 0x1000-0x109F) or no Latin letters
+    lo, hi = (0x0B80, 0x0BFF) if lang == "ta" else (0x1000, 0x109F)
+    has_native = any(lo <= ord(c) <= hi for c in s)
+    has_latin = any((65 <= ord(c) <= 90) or (97 <= ord(c) <= 122) for c in s)
+    return has_native or (not has_latin)
+def keep_native(text, lang):
+    """Dolphin sometimes emits fluent English sentences for ta/my (self-translation/hallucination).
+    Keep only sentences with native script; drop English-only sentences."""
+    if lang not in ("ta", "my"):
+        return text
+    out = [p.strip() for p in re.split(r"(?<=[.!?])\s+", text) if p.strip() and _native_ok(p.strip(), lang)]
+    return " ".join(out).strip()
 
 
 def _seamless():
@@ -158,6 +170,8 @@ async def transcribe(req: Request):
             transcript = ""
         if src == "my" and transcript:
             transcript = normalize_burmese_numbers(apply_glossary_mm(transcript))   # snap terms + numbers->digits
+        if transcript and src in ("ta", "my"):
+            transcript = keep_native(transcript, src)   # drop English-only sentences Dolphin emits for ta/my
         if transcript:
             translation = ""
             if target and target != "off" and target != src:

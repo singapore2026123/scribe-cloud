@@ -486,6 +486,11 @@ async function openDoc(id) {
   $("feedwrap").classList.add("hidden"); $("docview").classList.remove("hidden");
 }
 function closeDoc() { currentDocId = null; $("docview").classList.add("hidden"); $("feedwrap").classList.remove("hidden"); }
+function goHome() {   // "Scribe Cloud" logo -> back to the main transcription screen (close any doc view / modal)
+  closeDoc();
+  ["loginModal", "settingsModal", "notesModal"].forEach((id) => { const m = document.getElementById(id); if (m) m.style.display = "none"; });
+  try { window.scrollTo(0, 0); } catch {}
+}
 async function saveDocEdits() {
   if (!currentDocId) return;
   const { error } = await sb.from("documents").update({ title: $("docTitle").value, html: $("docBody").innerHTML }).eq("id", currentDocId);
@@ -553,5 +558,5 @@ if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = ([
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 
 // expose for inline handlers
-window.scribe = { signIn, signUp, logout, resetPassword, openLogin, openSettings, changeEmail, changePassword, deleteAccount, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, saveDocEdits, downloadDoc, delSelected };
+window.scribe = { signIn, signUp, logout, resetPassword, openLogin, openSettings, changeEmail, changePassword, deleteAccount, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, goHome, saveDocEdits, downloadDoc, delSelected };
 boot();
