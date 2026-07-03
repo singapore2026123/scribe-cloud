@@ -1,51 +1,51 @@
 english,chinese,category
-Abdominal,腹部,medical
+Abdominal,腹部的,medical
 Abortion,流产,medical
 Accident,事故,medical
 Abuse,虐待,medical
 Addict,瘾君子,medical
-Agony,痛苦,medical
+Agony,极度痛苦,medical
 Ailment,病痛,medical
 Alcohol,酒精,medical
 Amputation,截肢,medical
-Anaesthetic,麻药,medical
+Anaesthetic,麻醉剂,medical
 Bandage,绷带,medical
 Bleed,流血,medical
-Blind,瞎的,medical
-Bruit,杂音,medical
-Clinical,临床,medical
+Blind,失明的,medical
+Bruit,血管杂音,medical
+Clinical,临床的,medical
 Contusion,挫伤,medical
-Convalesce,疗养,medical
+Convalesce,康复,medical
 Convulsion,抽搐,medical
 Cough,咳嗽,medical
 Cramp,抽筋,medical
-Cripple,削弱 (?),medical
+Cripple,残疾/瘸,medical
 Crutch,拐杖,medical
 Cure,治愈,medical
-Dazzle,炫 (?),medical
+Dazzle,目眩,medical
 Debility,虚弱,medical
-Defecate,大便,medical
+Defecate,排便,medical
 Dejection,沮丧,medical
 Deleterious,有害的,medical
-Delirious,神志不清,medical
+Delirious,神志不清的,medical
 Dentist,牙医,medical
-Depression,沮丧,medical
+Depression,抑郁,medical
 Detoxify,解毒,medical
 Diabetes,糖尿病,medical
 Disease,疾病,medical
 Doctor,医生,medical
-Emission,排放,medical
+Emission,遗精,medical
 Erection,勃起,medical
-Febrile,发热,medical
-Felon,重罪 (?),medical
+Febrile,发热的,medical
+Felon,瘭疽,medical
 Fever,发烧,medical
-Fracture,断裂,medical
+Fracture,骨折,medical
 Gargle,漱口,medical
-Gash,裂口,medical
+Gash,深伤口,medical
 Gasp,喘气,medical
-Genetic,遗传,medical
-Healer,治愈者,medical
-Herbal,草本,medical
+Genetic,遗传的,medical
+Healer,治疗者,medical
+Herbal,草药的,medical
 Lesion,病变,medical
 Ligament,韧带,medical
 Measles,麻疹,medical
@@ -55,41 +55,41 @@ Mite,螨虫,medical
 Mutate,变异,medical
 Nurse,护士,medical
 Ovulation,排卵,medical
-Pain,痛,medical
+Pain,疼痛,medical
 Palpate,触诊,medical
 Panting,气喘吁吁,medical
 Paralyse,瘫痪,medical
 Patient,病人,medical
-Pervert,变态,medical
+Pervert,性变态者,medical
 Protein,蛋白质,medical
-Probe,探测,medical
+Probe,探查,medical
 Pregnancy,怀孕,medical
-Poultice,膏药,medical
+Poultice,敷剂,medical
 Relax,放松,medical
-Relief,宽慰,medical
+Relief,缓解,medical
 Sperm,精子,medical
-Spew,吐出,medical
+Spew,呕吐,medical
 Spine,脊柱,medical
-Shiner,闪耀者 (?),medical
+Shiner,眼周瘀青,medical
 Shiver,发抖,medical
-Shock,震惊,medical
-Sneeze,喷嚏,medical
-Snivel,鼻涕,medical
+Shock,休克,medical
+Sneeze,打喷嚏,medical
+Snivel,流鼻涕,medical
 Snotty,流鼻涕的,medical
 Snuff,鼻烟,medical
 Suicide,自杀,medical
 Swelling,肿胀,medical
 Tablet,药片,medical
-Taint,污点,medical
-Temperature,温度,medical
+Taint,污染,medical
+Temperature,体温,medical
 Abuse,虐待,everyday
 Accept,接受,everyday
-Access,使用权 (?),everyday
-Accuse,告,everyday
+Access,进入/使用,everyday
+Accuse,指控,everyday
 Achieve,达到,everyday
 Acknowledge,承认,everyday
 Acquire,获得,everyday
-Act,行为 (?),everyday
+Act,行动,everyday
 Adapt,适应,everyday
 Add,添加,everyday
 Adjust,调整,everyday
@@ -97,24 +97,24 @@ Admire,钦佩,everyday
 Admit,承认,everyday
 Adopt,采纳,everyday
 Adore,崇拜,everyday
-Advance,进步,everyday
+Advance,前进,everyday
 Affect,影响,everyday
 Afford,买得起,everyday
 Agree,同意,everyday
 Allow,允许,everyday
-Amaze,惊奇,everyday
-Amount,数量 (?),everyday
-Anger,愤怒 (?),everyday
+Amaze,使惊奇,everyday
+Amount,总计,everyday
+Anger,使愤怒,everyday
 Announce,宣布,everyday
 Answer,回答,everyday
 Anticipate,预料,everyday
 Apologize,道歉,everyday
-Appeal,上诉,everyday
+Appeal,恳求,everyday
 Appear,出现,everyday
 Apply,申请,everyday
 Appreciate,欣赏,everyday
-Approach,方法 (?),everyday
-Appropriate,合适的 (?),everyday
+Approach,接近,everyday
+Appropriate,合适的,everyday
 Approve,批准,everyday
 Are,是,everyday
 Argue,争论,everyday
@@ -126,7 +126,7 @@ Assist,协助,everyday
 Associate,联系,everyday
 Assume,认为,everyday
 Assure,保证,everyday
-Attach,附,everyday
+Attach,附上,everyday
 Attack,攻击,everyday
 Attempt,试图,everyday
 Attend,出席,everyday
@@ -134,12 +134,12 @@ Attract,吸引,everyday
 Avoid,避免,everyday
 Bake,烤,everyday
 Balance,平衡,everyday
-Base,根据,everyday
+Base,以…为根据,everyday
 Battle,战斗,everyday
-Bear,熊 (?),everyday
+Bear,承受,everyday
 Beat,打,everyday
 Become,变得,everyday
-Bed,床 (?),everyday
+Bed,床,everyday
 Been,到过,everyday
 Begin,开始,everyday
 Behave,表现,everyday
@@ -147,37 +147,37 @@ Being,存在,everyday
 Believe,相信,everyday
 Belong,属于,everyday
 Bend,弯曲,everyday
-Bet,赌注,everyday
+Bet,打赌,everyday
 Bid,出价,everyday
 Blame,责备,everyday
 Block,堵塞,everyday
 Blow,吹,everyday
 Born,出生,everyday
-Borrow,借,everyday
+Borrow,借入,everyday
 Bother,打扰,everyday
-Break,休息 (?),everyday
+Break,打破,everyday
 Bring,带来,everyday
-Brush,刷子 (?),everyday
+Brush,刷,everyday
 Build,建造,everyday
 Burn,烧伤,everyday
 Burst,爆裂,everyday
 Buy,买,everyday
 Calculate,计算,everyday
 Call,称呼,everyday
-Camp,营 (?),everyday
+Camp,露营,everyday
 Cancel,取消,everyday
 Care,关心,everyday
 Carry,携带,everyday
-Cash,现金 (?),everyday
+Cash,兑现,everyday
 Catch,抓住,everyday
-Cause,原因 (?),everyday
+Cause,导致,everyday
 Celebrate,庆祝,everyday
 Change,改变,everyday
-Chart,图表 (?),everyday
+Chart,图表,everyday
 Check,查看,everyday
 Choose,选择,everyday
 Claim,宣称,everyday
-Clean,干净的 (?),everyday
+Clean,打扫,everyday
 Clear,清除,everyday
 Click,点击,everyday
 Close,关闭,everyday
@@ -186,13 +186,13 @@ Combine,结合,everyday
 Come,来,everyday
 Command,命令,everyday
 Comment,评论,everyday
-Commit,犯罪,everyday
+Commit,犯（错/罪）,everyday
 Communicate,交流,everyday
-Company,公司 (?),everyday
+Company,公司,everyday
 Compare,比较,everyday
 Compete,竞争,everyday
 Complain,抱怨,everyday
-Complete,完全的 (?),everyday
+Complete,完成,everyday
 Concentrate,集中,everyday
 Concern,忧虑,everyday
 Confirm,确认,everyday
@@ -201,51 +201,51 @@ Connect,连接,everyday
 Consider,考虑,everyday
 Consist,组成,everyday
 Consult,咨询,everyday
-Contact,接触,everyday
+Contact,联系,everyday
 Contain,包含,everyday
-Content,内容 (?),everyday
-Contest,比赛 (?),everyday
+Content,内容,everyday
+Contest,比赛,everyday
 Continue,继续,everyday
 Contribute,贡献,everyday
 Convert,转变,everyday
 Convince,说服,everyday
-Cook,厨师 (?),everyday
+Cook,烹饪,everyday
 Copy,复制,everyday
-Correct,正确的 (?),everyday
-Cost,成本 (?),everyday
+Correct,改正,everyday
+Cost,花费,everyday
 Could,可以,everyday
 Count,数数,everyday
-Counter,柜台 (?),everyday
-Couple,夫妻 (?),everyday
+Counter,柜台,everyday
+Couple,夫妻,everyday
 Cover,覆盖,everyday
 Crack,裂缝,everyday
-Craft,工艺 (?),everyday
+Craft,工艺,everyday
 Crash,碰撞,everyday
 Create,创造,everyday
-Credit,信用 (?),everyday
-Crew,全体人员 (?),everyday
+Credit,信用,everyday
+Crew,全体人员,everyday
 Criticize,批评,everyday
-Cross,叉 (?),everyday
+Cross,穿过,everyday
 Cry,哭,everyday
 Curve,曲线,everyday
 Cut,切,everyday
 Cycle,循环,everyday
 Damage,损害,everyday
-Dance,舞蹈,everyday
+Dance,跳舞,everyday
 Dare,敢,everyday
-Date,日期 (?),everyday
+Date,日期,everyday
 Deal,交易,everyday
 Debate,辩论,everyday
 Decide,决定,everyday
 Delay,延迟,everyday
 Deliver,递送,everyday
 Demand,要求,everyday
-Deny,否定,everyday
+Deny,否认,everyday
 Depend,依靠,everyday
 Describe,描述,everyday
 Deserve,应得,everyday
 Design,设计,everyday
-Desire,欲望 (?),everyday
+Desire,渴望,everyday
 Destroy,破坏,everyday
 Determine,决定,everyday
 Develop,发展,everyday
@@ -254,7 +254,7 @@ Differ,不同,everyday
 Dig,挖,everyday
 Disagree,不同意,everyday
 Disappear,消失,everyday
-Disappoint,辜负,everyday
+Disappoint,使失望,everyday
 Discipline,纪律,everyday
 Discount,折扣,everyday
 Discover,发现,everyday
@@ -266,30 +266,30 @@ Divide,划分,everyday
 Do,做,everyday
 Does,做,everyday
 Doubt,怀疑,everyday
-Draft,草稿 (?),everyday
+Draft,草稿,everyday
 Drag,拖,everyday
 Draw,画,everyday
-Dream,梦 (?),everyday
-Dress,裙子 (?),everyday
+Dream,梦,everyday
+Dress,穿衣,everyday
 Drink,喝,everyday
 Drive,驾驶,everyday
-Drop,降低,everyday
-Dry,干燥 (?),everyday
+Drop,掉落,everyday
+Dry,弄干,everyday
 Earn,赚,everyday
-Ease,舒适 (?),everyday
+Ease,缓解,everyday
 Eat,吃,everyday
 Effect,影响,everyday
 Emphasize,强调,everyday
-Employ,采用,everyday
+Employ,雇用,everyday
 Encourage,鼓励,everyday
-End,结尾 (?),everyday
+End,结束,everyday
 Engage,从事,everyday
 Enhance,提高,everyday
 Enjoy,享受,everyday
 Ensure,确保,everyday
 Enter,进入,everyday
 Escape,逃脱,everyday
-Essay,散文 (?),everyday
+Essay,散文,everyday
 Establish,建立,everyday
 Estimate,估计,everyday
 Examine,检查,everyday
@@ -299,49 +299,49 @@ Exercise,锻炼,everyday
 Exist,存在,everyday
 Expand,扩张,everyday
 Expect,预计,everyday
-Experience,经验 (?),everyday
+Experience,经历,everyday
 Explain,解释,everyday
 Explore,探索,everyday
 Expose,暴露,everyday
 Express,表达,everyday
 Extend,延长,everyday
-Face,脸 (?),everyday
+Face,面对,everyday
 Fail,失败,everyday
 Fall,落下,everyday
 Fear,害怕,everyday
 Feed,喂养,everyday
 Feel,感觉,everyday
-Fight,斗争,everyday
+Fight,打架,everyday
 Fill,充满,everyday
-Find,寻找,everyday
+Find,找到,everyday
 Finish,结束,everyday
-Firm,公司 (?),everyday
+Firm,公司,everyday
 Fit,合身,everyday
-Fix,使固定,everyday
+Fix,修理,everyday
 Flow,流动,everyday
 Fly,飞,everyday
-Focus,重点 (?),everyday
+Focus,集中,everyday
 Fold,折叠,everyday
 Follow,跟随,everyday
-Foot,脚 (?),everyday
-Force,力量 (?),everyday
+Foot,脚,everyday
+Force,强迫,everyday
 Forget,忘记,everyday
 Forgive,原谅,everyday
-Form,形式 (?),everyday
-Frame,框架 (?),everyday
+Form,形成,everyday
+Frame,框架,everyday
 Freeze,冻结,everyday
 Fry,炒,everyday
 Gain,获得,everyday
-Gap,差距 (?),everyday
-Gather,收集,everyday
+Gap,差距,everyday
+Gather,聚集,everyday
 Generate,产生,everyday
 Get,得到,everyday
 Give,给,everyday
-Glove,手套 (?),everyday
+Glove,手套,everyday
 Go,去,everyday
 Grow,生长,everyday
 Guarantee,保证,everyday
-Guard,警卫 (?),everyday
+Guard,守卫,everyday
 Guess,猜测,everyday
 Guide,指导,everyday
 Handle,处理,everyday
@@ -352,30 +352,30 @@ Has,有,everyday
 Hate,恨,everyday
 Have,有,everyday
 Hear,听到,everyday
-Heat,热,everyday
+Heat,加热,everyday
 Help,帮助,everyday
 Hesitate,犹豫,everyday
 Hide,隐藏,everyday
 Highlight,强调,everyday
 Hire,聘请,everyday
 Hit,打,everyday
-Hold,抓住,everyday
+Hold,握住,everyday
 Hope,希望,everyday
-Host,主持人 (?),everyday
+Host,主办,everyday
 Hunt,打猎,everyday
 Hurry,匆忙,everyday
 Hurt,伤害,everyday
-Identify,确认,everyday
+Identify,识别,everyday
 Ignore,忽略,everyday
 Illustrate,阐明,everyday
 Imagine,想象,everyday
 Impact,影响,everyday
 Implement,实施,everyday
 Imply,意味着,everyday
-Impress,留下深刻印象,everyday
+Impress,使印象深刻,everyday
 Improve,提升,everyday
 Include,包括,everyday
-Incorporate,包含,everyday
+Incorporate,合并,everyday
 Increase,增加,everyday
 Indicate,表明,everyday
 Influence,影响,everyday
@@ -383,83 +383,83 @@ Inform,通知,everyday
 Insist,坚持,everyday
 Install,安装,everyday
 Intend,打算,everyday
-Interest,兴趣 (?),everyday
+Interest,使感兴趣,everyday
 Interview,面试,everyday
 Introduce,介绍,everyday
 Invest,投资,everyday
 Investigate,调查,everyday
 Invite,邀请,everyday
 Involve,涉及,everyday
-Iron,铁 (?),everyday
+Iron,熨,everyday
 Jog,慢跑,everyday
 Join,加入,everyday
-Joke,玩笑,everyday
-Judge,法官 (?),everyday
+Joke,开玩笑,everyday
+Judge,判断,everyday
 Jump,跳,everyday
-Jury,陪审团 (?),everyday
-Justify,证明合法,everyday
+Jury,陪审团,everyday
+Justify,证明…正当,everyday
 Keep,保持,everyday
 Kick,踢,everyday
-Kid,孩子 (?),everyday
+Kid,开玩笑,everyday
 Kill,杀,everyday
 Kiss,吻,everyday
-Knit,针织,everyday
+Knit,编织,everyday
 Know,知道,everyday
 Lack,缺少,everyday
-Land,土地 (?),everyday
-Last,最后的 (?),everyday
+Land,着陆,everyday
+Last,持续,everyday
 Laugh,笑,everyday
-Lay,躺着,everyday
-Layer,层 (?),everyday
+Lay,放置,everyday
+Layer,层,everyday
 Lead,带领,everyday
 Learn,学习,everyday
 Leave,离开,everyday
-Lend,借,everyday
+Lend,借出,everyday
 Let,让,everyday
 Lie,说谎,everyday
 Lift,举起,everyday
-Light,光 (?),everyday
+Light,点燃,everyday
 Like,喜欢,everyday
 Limit,限制,everyday
-Line,线 (?),everyday
-Lip,唇 (?),everyday
-List,列表 (?),everyday
+Line,排队,everyday
+Lip,嘴唇,everyday
+List,列出,everyday
 Listen,听,everyday
 Live,居住,everyday
-Load,加载,everyday
+Load,装载,everyday
 Lock,锁,everyday
-Log,日志 (?),everyday
+Log,记录,everyday
 Look,看,everyday
-Loose,松动的 (?),everyday
+Loose,松的,everyday
 Lose,失去,everyday
-Lost,丢失的 (?),everyday
+Lost,丢失的,everyday
 Love,爱,everyday
-Mail,邮件 (?),everyday
+Mail,邮寄,everyday
 Maintain,维持,everyday
 Make,制作,everyday
 Manage,管理,everyday
-Manufacturing,制造业 (?),everyday
+Manufacturing,制造,everyday
 Mark,标记,everyday
 Marry,结婚,everyday
 Match,匹配,everyday
-Matter,事情 (?),everyday
+Matter,要紧,everyday
 Mean,意思是,everyday
-Measure,措施 (?),everyday
+Measure,测量,everyday
 Meet,见面,everyday
 Mention,提到,everyday
-Mind,头脑 (?),everyday
+Mind,介意,everyday
 Miss,错过,everyday
-Mistake,错误 (?),everyday
+Mistake,错误,everyday
 Mix,混合,everyday
 Move,移动,everyday
 Must,必须,everyday
 Need,需要,everyday
 Neglect,忽视,everyday
 Negotiate,谈判,everyday
-Nerve,神经 (?),everyday
-Note,笔记,everyday
+Nerve,神经,everyday
+Note,记下,everyday
 Notice,注意,everyday
-Number,数字 (?),everyday
+Number,给…编号,everyday
 Obtain,获得,everyday
 Occur,发生,everyday
 Offer,提供,everyday
@@ -471,66 +471,66 @@ Ought,应该,everyday
 Overcome,克服,everyday
 Overtake,超过,everyday
 Owe,欠,everyday
-Own,自己的 (?),everyday
-Pack,盒 (?),everyday
+Own,拥有,everyday
+Pack,打包,everyday
 Paint,画,everyday
-Park,公园 (?),everyday
+Park,停车,everyday
 Participate,参加,everyday
 Pass,经过,everyday
-Pattern,图案 (?),everyday
+Pattern,图案,everyday
 Pause,暂停,everyday
 Pay,支付,everyday
-Perfect,完美的 (?),everyday
-Perform,履行,everyday
+Perfect,完美的,everyday
+Perform,表演,everyday
 Permit,允许,everyday
 Persuade,说服,everyday
 Pick,挑选,everyday
-Pin,别针 (?),everyday
-Pitch,沥青 (?),everyday
-Place,地方 (?),everyday
+Pin,别住,everyday
+Pitch,投掷,everyday
+Place,放置,everyday
 Plan,计划,everyday
-Plant,植物 (?),everyday
-Plate,盘子 (?),everyday
+Plant,种植,everyday
+Plate,盘子,everyday
 Play,玩,everyday
 Please,请,everyday
-Pop,流行音乐 (?),everyday
-Possess,具有,everyday
-Post,邮政 (?),everyday
-Pot,锅 (?),everyday
-Pound,磅 (?),everyday
+Pop,爆开,everyday
+Possess,拥有,everyday
+Post,邮寄,everyday
+Pot,锅,everyday
+Pound,捶打,everyday
 Pour,倒,everyday
-Practice,实践,everyday
+Practice,练习,everyday
 Pray,祈祷,everyday
 Prefer,更喜欢,everyday
 Prepare,准备,everyday
 Press,按,everyday
 Pretend,假装,everyday
 Prevent,防止,everyday
-Pride,自豪 (?),everyday
+Pride,自豪,everyday
 Print,打印,everyday
-Process,过程 (?),everyday
+Process,处理,everyday
 Produce,生产,everyday
 Promise,承诺,everyday
-Prompt,迅速的 (?),everyday
+Prompt,促使,everyday
 Propose,提出,everyday
 Protect,保护,everyday
 Prove,证明,everyday
 Provide,提供,everyday
 Pull,拉,everyday
-Punch,冲床 (?),everyday
+Punch,拳打,everyday
 Purchase,购买,everyday
-Purpose,目的 (?),everyday
+Purpose,目的,everyday
 Pursue,追求,everyday
 Push,推,everyday
 Put,放,everyday
 Qualify,有资格,everyday
 Quit,辞职,everyday
 Quote,引用,everyday
-Race,种族 (?),everyday
-Rain,雨 (?),everyday
-Raise,增加,everyday
-Range,范围 (?),everyday
-Rate,速度 (?),everyday
+Race,赛跑,everyday
+Rain,下雨,everyday
+Raise,举起,everyday
+Range,范围,everyday
+Rate,评定,everyday
 Reach,抵达,everyday
 React,反应,everyday
 Read,读,everyday
@@ -541,19 +541,19 @@ Recommend,推荐,everyday
 Record,记录,everyday
 Recover,恢复,everyday
 Reduce,减少,everyday
-Refer,参考,everyday
+Refer,提及,everyday
 Reflect,反映,everyday
 Refuse,拒绝,everyday
 Register,登记,everyday
 Regret,后悔,everyday
 Relax,放松,everyday
-Release,发布,everyday
+Release,释放,everyday
 Relieve,缓解,everyday
 Rely,依靠,everyday
 Remain,保持,everyday
 Remember,记住,everyday
 Remind,提醒,everyday
-Remove,消除,everyday
+Remove,移除,everyday
 Rent,租,everyday
 Repair,维修,everyday
 Repeat,重复,everyday
@@ -562,33 +562,33 @@ Reply,回复,everyday
 Report,报告,everyday
 Represent,代表,everyday
 Request,要求,everyday
-Require,要求,everyday
+Require,需要,everyday
 Research,研究,everyday
 Reserve,预订,everyday
 Resist,抵抗,everyday
 Resolve,解决,everyday
-Resort,采取,everyday
+Resort,求助于,everyday
 Respect,尊重,everyday
 Respond,回应,everyday
 Rest,休息,everyday
-Result,结果 (?),everyday
-Retain,保持,everyday
+Result,结果,everyday
+Retain,保留,everyday
 Retire,退休,everyday
 Return,返回,everyday
 Reveal,揭示,everyday
 Review,审查,everyday
-Reward,报酬 (?),everyday
+Reward,奖励,everyday
 Ride,骑,everyday
-Ring,戒指 (?),everyday
+Ring,打电话,everyday
 Rise,上升,everyday
-Risk,风险 (?),everyday
-Run,跑步,everyday
+Risk,冒险,everyday
+Run,跑,everyday
 Rush,匆忙,everyday
-Sail,帆 (?),everyday
+Sail,航行,everyday
 Save,节省,everyday
 Say,说,everyday
 Search,搜索,everyday
-Seat,座位 (?),everyday
+Seat,使就座,everyday
 See,看,everyday
 Seek,寻找,everyday
 Seem,似乎,everyday
@@ -596,77 +596,76 @@ Select,选择,everyday
 Sell,卖,everyday
 Send,发送,everyday
 Separate,分离,everyday
-Service,服务 (?),everyday
+Service,服务,everyday
 Settle,定居,everyday
 Shake,摇,everyday
 Shall,将,everyday
 Share,分享,everyday
 Shine,闪耀,everyday
-Ship,船 (?),everyday
+Ship,运送,everyday
 Shock,震惊,everyday
 Show,展示,everyday
-Sign,符号 (?),everyday
-Size,尺寸 (?),everyday
+Sign,签名,everyday
+Size,尺寸,everyday
 Sleep,睡觉,everyday
 Smell,闻,everyday
 Smile,微笑,everyday
 Smoke,抽烟,everyday
 Solve,解决,everyday
-Sound,声音 (?),everyday
-Speed,速度 (?),everyday
+Sound,听起来,everyday
+Speed,加速,everyday
 Spell,拼写,everyday
 Spend,花费,everyday
 Split,分裂,everyday
-Sport,运动 (?),everyday
-Spot,点 (?),everyday
+Sport,运动,everyday
+Spot,发现,everyday
 Spray,喷,everyday
 Spread,传播,everyday
-Spring,春天 (?),everyday
-Stable,稳定的 (?),everyday
-Stage,阶段 (?),everyday
+Spring,跳跃,everyday
+Stable,稳定的,everyday
+Stage,阶段,everyday
 Stand,站立,everyday
 Start,开始,everyday
 Stay,停留,everyday
-Step,步 (?),everyday
+Step,踏步,everyday
 Stop,停止,everyday
-Store,店铺 (?),everyday
-Stretch,拉紧,everyday
-Struggle,斗争,everyday
+Store,储存,everyday
+Stretch,伸展,everyday
+Struggle,挣扎,everyday
 Study,学习,everyday
 Submit,提交,everyday
 Succeed,成功,everyday
 Supply,供应,everyday
 Support,支持,everyday
-Surprise,惊喜,everyday
-Survive,存活,everyday
+Surprise,使惊讶,everyday
+Survive,幸存,everyday
 Swim,游泳,everyday
 Take,拿,everyday
 Talk,讲话,everyday
 Taste,品尝,everyday
-Tax,税 (?),everyday
+Tax,征税,everyday
 Teach,教,everyday
 Tell,告诉,everyday
 Think,思考,everyday
 Throw,扔,everyday
 Touch,触碰,everyday
-Trade,贸易,everyday
-Traffic,交通 (?),everyday
-Train,火车 (?),everyday
+Traffic,交通,everyday
+Train,训练,everyday
 Travel,旅行,everyday
-Trouble,麻烦 (?),everyday
-Trust,相信,everyday
+Trouble,麻烦,everyday
+Trust,信任,everyday
 Try,尝试,everyday
 Turn,转动,everyday
-Type,类型 (?),everyday
-Upset,沮丧的 (?),everyday
-Vacuum,真空 (?),everyday
-Value,价值 (?),everyday
+Type,打字,everyday
+Upset,使心烦,everyday
+Vacuum,用吸尘器打扫,everyday
+Value,重视,everyday
 Visit,访问,everyday
 Wait,等待,everyday
 Walk,走,everyday
-Wall,墙 (?),everyday
+Wall,墙,everyday
 Want,想,everyday
-War,战争 (?),everyday
+War,战争,everyday
 Wash,洗,everyday
 Waste,浪费,everyday
 Wear,穿,everyday

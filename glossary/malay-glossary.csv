@@ -22,7 +22,7 @@ Cramp,kekejangan,medical
 Cripple,lumpuh,medical
 Crutch,tongkat,medical
 Cure,penawar,medical
-Dazzle,mempesonakan,medical
+Dazzle,menyilaukan,medical
 Debility,kelemahan,medical
 Defecate,buang air besar,medical
 Dejection,kekecewaan,medical
@@ -56,11 +56,11 @@ Mutate,bermutasi,medical
 Nurse,jururawat,medical
 Ovulation,ovulasi,medical
 Pain,sakit,medical
-Palpate,rabaan,medical
+Palpate,meraba,medical
 Panting,tercungap-cungap,medical
 Paralyse,lumpuh,medical
-Patient,sabar (?),medical
-Pervert,sesat,medical
+Patient,pesakit,medical
+Pervert,orang cabul,medical
 Protein,protein,medical
 Probe,siasat,medical
 Pregnancy,kehamilan,medical
@@ -70,11 +70,11 @@ Relief,kelegaan,medical
 Sperm,sperma,medical
 Spew,memuntahkan,medical
 Spine,tulang belakang,medical
-Shiner,penyeri,medical
+Shiner,mata lebam,medical
 Shiver,menggigil,medical
 Shock,terkejut,medical
 Sneeze,bersin,medical
-Snivel,tersengih,medical
+Snivel,teresak-esak,medical
 Snotty,hingusan,medical
 Snuff,sedutan,medical
 Suicide,bunuh diri,medical
@@ -97,7 +97,7 @@ Admire,mengagumi,everyday
 Admit,mengaku,everyday
 Adopt,menerima pakai,everyday
 Adore,memuja,everyday
-Advance,terlebih dahulu,everyday
+Advance,memajukan,everyday
 Affect,mempengaruhi,everyday
 Afford,mampu,everyday
 Agree,setuju,everyday
@@ -136,7 +136,7 @@ Bake,bakar,everyday
 Balance,seimbang,everyday
 Base,asas,everyday
 Battle,pertempuran,everyday
-Bear,beruang (?),everyday
+Bear,menanggung,everyday
 Beat,pukul,everyday
 Become,menjadi,everyday
 Bed,katil,everyday
@@ -156,7 +156,7 @@ Born,dilahirkan,everyday
 Borrow,meminjam,everyday
 Bother,menyusahkan,everyday
 Break,rehat,everyday
-Bring,bawak,everyday
+Bring,bawa,everyday
 Brush,berus,everyday
 Build,membina,everyday
 Burn,terbakar,everyday
@@ -180,7 +180,7 @@ Claim,tuntutan,everyday
 Clean,bersih,everyday
 Clear,jelas,everyday
 Click,klik,everyday
-Close,dekat (?),everyday
+Close,tutup,everyday
 Collect,mengumpul,everyday
 Combine,Gabung,everyday
 Come,datang,everyday
@@ -264,7 +264,7 @@ Distance,jarak,everyday
 Distribute,mengedarkan,everyday
 Divide,bahagikan,everyday
 Do,buat,everyday
-Does,tidak (?),everyday
+Does,melakukan,everyday
 Doubt,keraguan,everyday
 Draft,draf,everyday
 Drag,seret,everyday
@@ -364,7 +364,7 @@ Hope,harapan,everyday
 Host,tuan rumah,everyday
 Hunt,memburu,everyday
 Hurry,cepat,everyday
-Hurt,sakit hati,everyday
+Hurt,mencederakan,everyday
 Identify,mengenalpasti,everyday
 Ignore,abai,everyday
 Illustrate,menggambarkan,everyday
@@ -400,7 +400,7 @@ Jury,juri,everyday
 Justify,mewajarkan,everyday
 Keep,simpan,everyday
 Kick,tendang,everyday
-Kid,nak,everyday
+Kid,budak,everyday
 Kill,bunuh,everyday
 Kiss,ciuman,everyday
 Knit,mengait,everyday
@@ -468,7 +468,7 @@ Operate,beroperasi,everyday
 Order,pesanan,everyday
 Organize,menyusun,everyday
 Ought,sepatutnya,everyday
-Overcome,diatasi,everyday
+Overcome,mengatasi,everyday
 Overtake,memotong,everyday
 Owe,berhutang,everyday
 Own,sendiri,everyday
@@ -532,7 +532,7 @@ Raise,menaikkan,everyday
 Range,julat,everyday
 Rate,kadar,everyday
 Reach,capai,everyday
-React,bertindak,everyday
+React,bertindak balas,everyday
 Read,membaca,everyday
 Realize,sedar,everyday
 Receive,menerima,everyday
@@ -597,7 +597,7 @@ Sell,jual,everyday
 Send,hantar,everyday
 Separate,berasingan,everyday
 Service,perkhidmatan,everyday
-Settle,settle (?),everyday
+Settle,menyelesaikan,everyday
 Shake,goncang,everyday
 Shall,hendaklah,everyday
 Share,kongsi,everyday
