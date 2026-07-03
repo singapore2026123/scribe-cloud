@@ -17,12 +17,10 @@ Convalesce,sembuh,medical
 Convulsion,sawan,medical
 Cough,batuk,medical
 Cramp,kekejangan,medical
-Cripple,lumpuh,medical
 Crutch,tongkat,medical
 Cure,penawar,medical
 Debility,kelemahan,medical
 Defecate,buang air besar,medical
-Dejection,kekecewaan,medical
 Delirious,mengigau,medical
 Dentist,doktor gigi,medical
 Depression,kemurungan,medical
@@ -34,9 +32,6 @@ Fever,demam,medical
 Fracture,patah tulang,medical
 Gargle,berkumur-kumur,medical
 Gash,luka,medical
-Gasp,tercungap-cungap,medical
-Healer,penyembuh,medical
-Herbal,herba,medical
 Lesion,luka,medical
 Ligament,ligamen,medical
 Measles,demam campak,medical
@@ -52,12 +47,10 @@ Protein,protein,medical
 Poultice,tuam,medical
 Relax,berehat,medical
 Relief,kelegaan,medical
-Spew,memuntahkan,medical
 Spine,tulang belakang,medical
 Shiver,menggigil,medical
 Shock,terkejut,medical
 Sneeze,bersin,medical
-Snotty,hingusan,medical
 Suicide,bunuh diri,medical
 Swelling,bengkak,medical
 Tablet,tablet,medical

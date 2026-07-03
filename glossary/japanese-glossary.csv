@@ -17,12 +17,10 @@ convalesce,回復する,medical
 convulsion,けいれん,medical
 cough,咳,medical
 cramp,けいれん,medical
-cripple,身体障害,medical
 crutch,松葉杖,medical
 cure,治す,medical
 debility,衰弱,medical
 defecate,排便,medical
-dejection,落胆,medical
 delirious,せん妄,medical
 dentist,歯科医,medical
 depression,うつ,medical
@@ -34,9 +32,6 @@ fever,熱,medical
 fracture,骨折,medical
 gargle,うがい,medical
 gash,切り傷,medical
-gasp,あえぐ,medical
-healer,治療者,medical
-herbal,ハーブの,medical
 lesion,病変,medical
 ligament,靱帯,medical
 measles,麻疹,medical
@@ -52,12 +47,10 @@ protein,タンパク質,medical
 poultice,湿布,medical
 relax,リラックス,medical
 relief,緩和,medical
-spew,吐く,medical
 spine,脊椎,medical
 shiver,震える,medical
 shock,ショック,medical
 sneeze,くしゃみ,medical
-snotty,鼻水の出る,medical
 suicide,自殺,medical
 swelling,腫れ,medical
 tablet,錠剤,medical

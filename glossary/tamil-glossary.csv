@@ -17,12 +17,10 @@ Convalesce,குணமடை,medical
 Convulsion,வலிப்பு,medical
 Cough,இருமல்,medical
 Cramp,தசைப்பிடிப்பு,medical
-Cripple,ஊனமுற்றவர்,medical
 Crutch,ஊன்றுகோல்,medical
 Cure,குணப்படுத்து,medical
 Debility,பலவீனம்,medical
 Defecate,மலம் கழிக்க,medical
-Dejection,மனச்சோர்வு,medical
 Delirious,பிதற்றல்,medical
 Dentist,பல் மருத்துவர்,medical
 Depression,மன அழுத்தம்,medical
@@ -34,9 +32,6 @@ Fever,காய்ச்சல்,medical
 Fracture,எலும்பு முறிவு,medical
 Gargle,வாய் கொப்பளிக்க,medical
 Gash,ஆழமான வெட்டுக்காயம்,medical
-Gasp,மூச்சுத்திணறல்,medical
-Healer,குணப்படுத்துபவர்,medical
-Herbal,மூலிகை,medical
 Lesion,புண்,medical
 Ligament,தசைநார்,medical
 Measles,தட்டம்மை,medical
@@ -52,12 +47,10 @@ Protein,புரதம்,medical
 Poultice,பற்று மருந்து,medical
 Relax,ஓய்வெடு,medical
 Relief,துயர் நீக்கம்,medical
-Spew,வாந்தி எடு,medical
 Spine,முதுகெலும்பு,medical
 Shiver,நடுக்கம்,medical
 Shock,அதிர்ச்சி,medical
 Sneeze,தும்மல்,medical
-Snotty,மூக்குச் சளி நிறைந்த,medical
 Suicide,தற்கொலை,medical
 Swelling,வீக்கம்,medical
 Tablet,மாத்திரை,medical

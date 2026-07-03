@@ -17,12 +17,10 @@ Convalesce,康复,medical
 Convulsion,抽搐,medical
 Cough,咳嗽,medical
 Cramp,抽筋,medical
-Cripple,残疾/瘸,medical
 Crutch,拐杖,medical
 Cure,治愈,medical
 Debility,虚弱,medical
 Defecate,排便,medical
-Dejection,沮丧,medical
 Delirious,神志不清的,medical
 Dentist,牙医,medical
 Depression,抑郁,medical
@@ -34,9 +32,6 @@ Fever,发烧,medical
 Fracture,骨折,medical
 Gargle,漱口,medical
 Gash,深伤口,medical
-Gasp,喘气,medical
-Healer,治疗者,medical
-Herbal,草药的,medical
 Lesion,病变,medical
 Ligament,韧带,medical
 Measles,麻疹,medical
@@ -52,12 +47,10 @@ Protein,蛋白质,medical
 Poultice,敷剂,medical
 Relax,放松,medical
 Relief,缓解,medical
-Spew,呕吐,medical
 Spine,脊柱,medical
 Shiver,发抖,medical
 Shock,休克,medical
 Sneeze,打喷嚏,medical
-Snotty,流鼻涕的,medical
 Suicide,自杀,medical
 Swelling,肿胀,medical
 Tablet,药片,medical
