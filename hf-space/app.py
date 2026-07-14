@@ -4,7 +4,7 @@ Chinese Mandarin (zh/CN; Dolphin is a Chinese-specialist model). Fallback: Seaml
 Translation via Google Translate (free, no budget). Other languages are handled by Cloudflare Whisper, not here.
 POST /transcribe  {audio: <base64 WAV>, src: "my"|"ta", target: "en"}  ->  {transcript, translation}
 """
-import base64, io, os, re, json, tempfile, urllib.parse, urllib.request
+import base64, io, os, re, json, tempfile, unicodedata, urllib.parse, urllib.request
 import numpy as np
 import soundfile as sf
 import librosa
@@ -27,6 +27,30 @@ def _gtranslate(text, sl, tl):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": "application/json"})
     data = json.loads(urllib.request.urlopen(req, timeout=15).read().decode("utf-8"))
     return "".join(seg[0] for seg in data[0] if seg and seg[0]).strip()
+
+# --- Burmese Unicode normalization (LREC-2020 Gutkin et al.): Burmese text mixes the non-Unicode Zawgyi encoding
+# (visually identical, DIFFERENT codepoints) and has variable diacritic ordering -> raw str matching in the glossary /
+# number passes below silently misses. Convert Zawgyi->Unicode (best-effort) then NFC-canonicalize so matching is stable.
+# Both helpers are guarded: if the packages aren't installed the Space still runs (NFC-only). ---
+try:
+    from myanmar_tools import ZawgyiDetector
+    _ZG_DETECT = ZawgyiDetector()
+except Exception:
+    _ZG_DETECT = None
+try:
+    from rabbit import zg2uni as _zg2uni   # Rabbit Converter (pure-python Zawgyi<->Unicode)
+except Exception:
+    _zg2uni = None
+def normalize_burmese_unicode(text):
+    if not text:
+        return text
+    if _ZG_DETECT is not None and _zg2uni is not None:
+        try:
+            if _ZG_DETECT.get_zawgyi_probability(text) > 0.8:   # high-confidence Zawgyi only (don't corrupt Unicode)
+                text = _zg2uni(text)
+        except Exception:
+            pass
+    return unicodedata.normalize("NFC", text)
 
 # --- Burmese term-snapping: deterministic wrong->correct fixes observed in Dolphin output (safe: non-word wrongs) ---
 GLOSSARY_MM = [
@@ -169,7 +193,8 @@ async def transcribe(req: Request):
         except Exception:
             transcript = ""
         if src == "my" and transcript:
-            transcript = normalize_burmese_numbers(apply_glossary_mm(transcript))   # snap terms + numbers->digits
+            # Zawgyi->Unicode + NFC first, so the glossary/number passes match reliably, then snap terms + numbers->digits.
+            transcript = normalize_burmese_numbers(apply_glossary_mm(normalize_burmese_unicode(transcript)))
         if transcript and src in ("ta", "my"):
             transcript = keep_native(transcript, src)   # drop English-only sentences Dolphin emits for ta/my
         if transcript:
