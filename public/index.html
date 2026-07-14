@@ -137,6 +137,7 @@
     <span class="state"><span class="dot" id="dot"></span><span id="stxt" data-i18n="state_ready">Ready</span></span>
     <button class="ghost" onclick="window.scribe.save()" data-i18n="btn_save">Save</button>
     <button class="ghost" onclick="window.scribe.exportDoc()" title="Export organised notes + full transcript as a Word document" data-i18n="btn_export">Export (Word)</button>
+    <button class="ghost" onclick="window.scribe.openRecord()" title="Extract a structured care record (vitals, medication, incident) from the transcript to review &amp; confirm" data-i18n="btn_record">Care record</button>
     <button id="stop" onclick="window.scribe.stop()" disabled data-i18n="btn_stop">Stop</button>
     <button id="start" onclick="window.scribe.start()" data-i18n="btn_start">Start</button>
    </div>
@@ -173,9 +174,17 @@
 <div class="modal" id="notesModal"><div>
  <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px"><b style="font-size:19px" data-i18n="notes_title">Meeting Notes</b>
   <button class="ghost" style="margin-left:auto" onclick="window.scribe.exportDoc()" data-i18n="btn_export">Export (Word)</button>
+  <button class="ghost" onclick="window.scribe.openRecord()" data-i18n="btn_record">Care record</button>
   <button class="ghost" onclick="window.scribe.copyNotes()" data-i18n="btn_copy">Copy</button>
   <button class="ghost" onclick="document.getElementById('notesModal').style.display='none'" data-i18n="btn_close">Close</button></div>
  <div id="notesBody" style="overflow:auto;font-size:14px;line-height:1.7"></div></div></div>
+
+<div class="modal" id="recordModal"><div>
+ <div style="display:flex;align-items:center;gap:9px;margin-bottom:10px"><b style="font-size:19px" data-i18n="rec_title">Care Record</b>
+  <button class="ghost" style="margin-left:auto" onclick="window.scribe.confirmRecord()" data-i18n="btn_confirm">Confirm &amp; copy</button>
+  <button class="ghost" onclick="document.getElementById('recordModal').style.display='none'" data-i18n="btn_close">Close</button></div>
+ <p class="hint" style="margin:0 0 10px" data-i18n="rec_hint">Auto-extracted from the transcript &mdash; check every value before saving to the record. Nothing is committed automatically.</p>
+ <div id="recForm" style="overflow:auto"></div></div></div>
 
 <div class="modal" id="settingsModal"><div>
  <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><b style="font-size:19px" data-i18n="settings_title">Settings</b>

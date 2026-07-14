@@ -196,6 +196,63 @@ async function notes(request, env) {
   }
 }
 
+// ---- Structured care-record extraction: keyword categorize (deterministic) + LLM entity extraction. ----
+// "Propose, human confirms" — the client shows the result as EDITABLE fields; nothing is auto-committed to a record.
+const CAT_KEYWORDS = {
+  incident: [/\bfell\b/i, /\bfall(en|ing|s)?\b/i, /\binjur/i, /\bbruis/i, /\bbleed/i, /\bwound\b/i, /\bchok/i, /\bcollapse/i, /転倒/, /怪我|けが/, /出血/, /負傷/],
+  medication: [/\bmedication\b/i, /\bmedicine\b/i, /\btablet/i, /\bcapsule/i, /\bdose\b/i, /\badminist/i, /\binsulin\b/i, /\bparacetamol\b/i, /\bmg\b/i, /投薬|服薬|薬/],
+  vitals: [/\bblood pressure\b/i, /\btemperature\b/i, /\bpulse\b/i, /\bspo2\b/i, /\boxygen\b/i, /\bheart rate\b/i, /\bbp\b/i, /\bsugar\b|\bglucose\b/i, /血圧|体温|脈|血糖/],
+};
+const CAT_ORDER = ["incident", "medication", "vitals"];
+function keywordCategory(t) {
+  for (const c of CAT_ORDER) if (CAT_KEYWORDS[c].some((p) => p.test(t))) return c;
+  return "general";
+}
+const _s = (x) => (x == null ? "" : String(x).trim());
+function parseJsonLoose(s) {
+  if (!s) return null;
+  let t = String(s).replace(/```json/gi, "").replace(/```/g, "").trim();
+  const a = t.indexOf("{"), b = t.lastIndexOf("}");
+  if (a >= 0 && b > a) t = t.slice(a, b + 1);
+  try { return JSON.parse(t); } catch (_) { return null; }
+}
+function normalizeRecord(d, kwCat) {
+  d = d && typeof d === "object" ? d : {};
+  const v = d.vitals && typeof d.vitals === "object" ? d.vitals : {};
+  const list = (x) => (Array.isArray(x) ? x : []);
+  const cat = ["incident", "medication", "vitals", "adl", "general"].includes(d.category) ? d.category : kwCat;
+  return {
+    category: cat,
+    summary: _s(d.summary),
+    vitals: { bp: _s(v.bp), temp: _s(v.temp), pulse: _s(v.pulse), spo2: _s(v.spo2), resp: _s(v.resp) },
+    medications: list(d.medications).map((m) => (m && typeof m === "object")
+      ? { name: _s(m.name), dose: _s(m.dose), route: _s(m.route), time: _s(m.time) }
+      : { name: _s(m), dose: "", route: "", time: "" }).filter((m) => m.name),
+    symptoms: list(d.symptoms).map(_s).filter(Boolean),
+    actions: list(d.actions).map(_s).filter(Boolean),
+  };
+}
+async function extract(request, env) {
+  try {
+    const { transcript, target } = await request.json();
+    const text = String(transcript || "").trim();
+    if (!text) return j({ record: null });
+    const kwCat = keywordCategory(text);
+    if (!env.AI) return j({ record: normalizeRecord(null, kwCat), error: "Workers AI binding 'AI' is not configured" });
+    const lang = LNAME[target] || "English";
+    const sys = `You extract a STRUCTURED care-record entry from a nursing/eldercare voice note. Output ONLY valid minified JSON — no prose, no markdown, no code fences — with EXACTLY these keys and shape:
+{"category":"incident|medication|vitals|adl|general","summary":"one short sentence","vitals":{"bp":"","temp":"","pulse":"","spo2":"","resp":""},"medications":[{"name":"","dose":"","route":"","time":""}],"symptoms":[],"actions":[]}
+Rules: use ONLY what the note states — NEVER invent or infer a value that was not said. Leave any field "" or [] if not mentioned. Write vitals as digits (bp like "130/80", temp like "37.2"). Write all human-readable text values in ${lang}. Choose the single best "category". If nothing structured is present, use "general" with just a summary.`;
+    const r = await env.AI.run(NOTES_MODEL, {
+      messages: [{ role: "system", content: sys }, { role: "user", content: text.slice(0, 12000) }],
+      max_tokens: 900,
+    });
+    return j({ record: normalizeRecord(parseJsonLoose(r.response || ""), kwCat) });
+  } catch (e) {
+    return j({ record: null, error: e.message });
+  }
+}
+
 // Self-service account deletion: verify the caller's Supabase JWT, then admin-delete the user + their data.
 // Requires env vars SUPABASE_URL, SUPABASE_ANON_KEY (public) and SECRET SUPABASE_SERVICE_ROLE (never sent to the client).
 async function deleteAccount(request, env) {
@@ -259,6 +316,11 @@ export default {
     if (url.pathname === "/notes") {
       if (request.method === "OPTIONS") return new Response(null, { headers: CORS });
       if (request.method === "POST") return notes(request, env);
+      return j({ error: "POST only" }, 405);
+    }
+    if (url.pathname === "/extract") {
+      if (request.method === "OPTIONS") return new Response(null, { headers: CORS });
+      if (request.method === "POST") return extract(request, env);
       return j({ error: "POST only" }, 405);
     }
     if (url.pathname === "/account") {

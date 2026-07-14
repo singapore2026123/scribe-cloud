@@ -268,6 +268,79 @@ async function organiseOnStop() {
 }
 function copyNotes() { navigator.clipboard.writeText(lastNotes || ""); setState("Notes copied", false); }
 
+// ---------- structured care record (extract -> review/edit -> confirm) ----------
+let lastRecord = null;
+const CAT_LABELS = { incident: "Incident", medication: "Medication", vitals: "Vitals", adl: "ADL / daily care", general: "General note" };
+const RS = "width:100%;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:inherit;font-size:13px;box-sizing:border-box";
+function escAttr(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+function medRow(m) {
+  m = m || {};
+  return `<div class="recmed" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:6px;margin-bottom:5px">
+    <input class="rm-name" style="${RS}" value="${escAttr(m.name)}" placeholder="name">
+    <input class="rm-dose" style="${RS}" value="${escAttr(m.dose)}" placeholder="dose">
+    <input class="rm-route" style="${RS}" value="${escAttr(m.route)}" placeholder="route">
+    <input class="rm-time" style="${RS}" value="${escAttr(m.time)}" placeholder="time"></div>`;
+}
+function renderRecord(r) {
+  const row = (label, inner) => `<div style="margin:11px 0"><div style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px">${label}</div>${inner}</div>`;
+  const inp = (id, v, ph) => `<input id="${id}" style="${RS}" value="${escAttr(v)}" placeholder="${ph || ""}">`;
+  const cat = Object.keys(CAT_LABELS).map((k) => `<option value="${k}"${k === r.category ? " selected" : ""}>${CAT_LABELS[k]}</option>`).join("");
+  const v = r.vitals || {};
+  const meds = (r.medications || []).length ? (r.medications).map(medRow).join("") : medRow();
+  $("recForm").innerHTML =
+    row("Category", `<select id="rec_cat" style="${RS}">${cat}</select>`) +
+    row("Summary", inp("rec_summary", r.summary, "one-line summary")) +
+    row("Vitals", `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+      ${inp("rec_bp", v.bp, "BP e.g. 130/80")}${inp("rec_temp", v.temp, "Temp")}${inp("rec_pulse", v.pulse, "Pulse")}
+      ${inp("rec_spo2", v.spo2, "SpO2")}${inp("rec_resp", v.resp, "Resp")}</div>`) +
+    row("Medications", `<div id="rec_meds">${meds}</div><button class="ghost" style="font-size:12px;padding:4px 9px;margin-top:4px" onclick="window.scribe.recAddMed()">+ add</button>`) +
+    row("Symptoms", inp("rec_symptoms", (r.symptoms || []).join(", "), "comma-separated")) +
+    row("Actions / follow-up", inp("rec_actions", (r.actions || []).join(", "), "comma-separated"));
+}
+function recAddMed() { const c = document.getElementById("rec_meds"); if (c) c.insertAdjacentHTML("beforeend", medRow()); }
+async function openRecord() {
+  const text = boxLines("srcbox").join("\n").trim();
+  if (!text) { setState("Nothing to extract yet — transcribe first", false); return; }
+  setState("extracting care record…", true, true);
+  let rec = null;
+  try {
+    const d = await (await fetch("/extract", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ transcript: text, target: $("target").value }) })).json();
+    rec = d.record;
+  } catch (_) {}
+  if (!rec) { setState("Care-record extraction unavailable", false); return; }
+  lastRecord = rec;
+  renderRecord(rec);
+  document.getElementById("notesModal").style.display = "none";
+  $("recordModal").style.display = "flex";
+  setState("Care record ready — review & confirm", false);
+}
+function recordToText(r) {
+  const L = ["CARE RECORD — " + (CAT_LABELS[r.category] || r.category)];
+  if (r.summary) L.push("Summary: " + r.summary);
+  const v = r.vitals, vs = [["BP", v.bp], ["Temp", v.temp], ["Pulse", v.pulse], ["SpO2", v.spo2], ["Resp", v.resp]].filter((x) => x[1]).map((x) => x[0] + " " + x[1]);
+  if (vs.length) L.push("Vitals: " + vs.join(", "));
+  if (r.medications.length) L.push("Medications: " + r.medications.map((m) => [m.name, m.dose, m.route, m.time].filter(Boolean).join(" ")).join("; "));
+  if (r.symptoms.length) L.push("Symptoms: " + r.symptoms.join(", "));
+  if (r.actions.length) L.push("Actions: " + r.actions.join(", "));
+  return L.join("\n");
+}
+function confirmRecord() {
+  const g = (id) => (document.getElementById(id) ? document.getElementById(id).value.trim() : "");
+  const meds = [...document.querySelectorAll("#rec_meds .recmed")].map((d) => ({
+    name: d.querySelector(".rm-name").value.trim(), dose: d.querySelector(".rm-dose").value.trim(),
+    route: d.querySelector(".rm-route").value.trim(), time: d.querySelector(".rm-time").value.trim(),
+  })).filter((m) => m.name);
+  const csv = (id) => g(id).split(",").map((s) => s.trim()).filter(Boolean);
+  lastRecord = {
+    category: g("rec_cat"), summary: g("rec_summary"),
+    vitals: { bp: g("rec_bp"), temp: g("rec_temp"), pulse: g("rec_pulse"), spo2: g("rec_spo2"), resp: g("rec_resp") },
+    medications: meds, symptoms: csv("rec_symptoms"), actions: csv("rec_actions"),
+  };
+  navigator.clipboard.writeText(recordToText(lastRecord)).catch(() => {});
+  $("recordModal").style.display = "none";
+  setState("Care record confirmed & copied to clipboard", false);
+}
+
 // ---------- record -> Gemini ----------
 async function startRecord() {
   const source = $("source").value;
@@ -497,7 +570,7 @@ async function openDoc(id) {
 function closeDoc() { currentDocId = null; $("docview").classList.add("hidden"); $("feedwrap").classList.remove("hidden"); }
 function goHome() {   // "Scribe Cloud" logo -> back to the main transcription screen (close any doc view / modal)
   closeDoc();
-  ["loginModal", "settingsModal", "notesModal"].forEach((id) => { const m = document.getElementById(id); if (m) m.style.display = "none"; });
+  ["loginModal", "settingsModal", "notesModal", "recordModal"].forEach((id) => { const m = document.getElementById(id); if (m) m.style.display = "none"; });
   try { window.scrollTo(0, 0); } catch {}
 }
 async function saveDocEdits() {
@@ -567,5 +640,5 @@ if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = ([
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 
 // expose for inline handlers
-window.scribe = { signIn, signUp, logout, resetPassword, openLogin, openSettings, changeEmail, changePassword, deleteAccount, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, toggleSidebar, newFolder, closeDoc, goHome, saveDocEdits, downloadDoc, delSelected };
+window.scribe = { signIn, signUp, logout, resetPassword, openLogin, openSettings, changeEmail, changePassword, deleteAccount, start, stop, save, clearBox, swap, copyBox, exportDoc, copyNotes, openRecord, confirmRecord, recAddMed, toggleSidebar, newFolder, closeDoc, goHome, saveDocEdits, downloadDoc, delSelected };
 boot();
