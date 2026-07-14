@@ -204,6 +204,18 @@ const CAT_KEYWORDS = {
   vitals: [/\bblood pressure\b/i, /\btemperature\b/i, /\bpulse\b/i, /\bspo2\b/i, /\boxygen\b/i, /\bheart rate\b/i, /\bbp\b/i, /\bsugar\b|\bglucose\b/i, /血圧|体温|脈|血糖/],
 };
 const CAT_ORDER = ["incident", "medication", "vitals"];
+const REC_SCHEMA = {
+  type: "object",
+  properties: {
+    category: { type: "string", enum: ["incident", "medication", "vitals", "adl", "general"] },
+    summary: { type: "string" },
+    vitals: { type: "object", properties: { bp: { type: "string" }, temp: { type: "string" }, pulse: { type: "string" }, spo2: { type: "string" }, resp: { type: "string" } } },
+    medications: { type: "array", items: { type: "object", properties: { name: { type: "string" }, dose: { type: "string" }, route: { type: "string" }, time: { type: "string" } } } },
+    symptoms: { type: "array", items: { type: "string" } },
+    actions: { type: "array", items: { type: "string" } },
+  },
+  required: ["category", "summary", "vitals", "medications", "symptoms", "actions"],
+};
 function keywordCategory(t) {
   for (const c of CAT_ORDER) if (CAT_KEYWORDS[c].some((p) => p.test(t))) return c;
   return "general";
@@ -240,14 +252,17 @@ async function extract(request, env) {
     const kwCat = keywordCategory(text);
     if (!env.AI) return j({ record: normalizeRecord(null, kwCat), error: "Workers AI binding 'AI' is not configured" });
     const lang = LNAME[target] || "English";
-    const sys = `You extract a STRUCTURED care-record entry from a nursing/eldercare voice note. Output ONLY valid minified JSON — no prose, no markdown, no code fences — with EXACTLY these keys and shape:
-{"category":"incident|medication|vitals|adl|general","summary":"one short sentence","vitals":{"bp":"","temp":"","pulse":"","spo2":"","resp":""},"medications":[{"name":"","dose":"","route":"","time":""}],"symptoms":[],"actions":[]}
-Rules: use ONLY what the note states — NEVER invent or infer a value that was not said. Leave any field "" or [] if not mentioned. Write vitals as digits (bp like "130/80", temp like "37.2"). Write all human-readable text values in ${lang}. Choose the single best "category". If nothing structured is present, use "general" with just a summary.`;
-    const r = await env.AI.run(NOTES_MODEL, {
-      messages: [{ role: "system", content: sys }, { role: "user", content: text.slice(0, 12000) }],
-      max_tokens: 900,
-    });
-    return j({ record: normalizeRecord(parseJsonLoose(r.response || ""), kwCat) });
+    const sys = `You extract a STRUCTURED care-record entry from a nursing/eldercare voice note. Fill the JSON schema using ONLY what the note states — NEVER invent or infer a value that was not said; leave a field "" or [] if not mentioned. Write vitals as digits (bp like "130/80", temp like "37.2"). Write all human-readable text values in ${lang}. "category" is the single best fit of incident/medication/vitals/adl/general. If nothing structured is present, use "general" with just a summary.`;
+    const messages = [{ role: "system", content: sys }, { role: "user", content: text.slice(0, 12000) }];
+    let data = null;
+    try {   // guided JSON generation (Workers AI JSON mode) — far more reliable than free-form
+      const r = await env.AI.run(NOTES_MODEL, { messages, max_tokens: 900, response_format: { type: "json_schema", json_schema: REC_SCHEMA } });
+      data = (r.response && typeof r.response === "object") ? r.response : parseJsonLoose(String(r.response || ""));
+    } catch (_) {}
+    if (!data) {   // fallback: plain call + loose parse, in case the model/endpoint rejects response_format
+      try { const r2 = await env.AI.run(NOTES_MODEL, { messages, max_tokens: 900 }); data = parseJsonLoose(r2.response || ""); } catch (_) {}
+    }
+    return j({ record: normalizeRecord(data, kwCat) });
   } catch (e) {
     return j({ record: null, error: e.message });
   }
