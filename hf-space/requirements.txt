@@ -8,5 +8,3 @@ soundfile
 librosa
 numpy
 dataoceanai-dolphin
-myanmar-tools
-rabbit-python

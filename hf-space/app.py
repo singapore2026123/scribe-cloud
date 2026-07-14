@@ -28,17 +28,19 @@ def _gtranslate(text, sl, tl):
     data = json.loads(urllib.request.urlopen(req, timeout=15).read().decode("utf-8"))
     return "".join(seg[0] for seg in data[0] if seg and seg[0]).strip()
 
-# --- Burmese Unicode normalization (LREC-2020 Gutkin et al.): Burmese text mixes the non-Unicode Zawgyi encoding
-# (visually identical, DIFFERENT codepoints) and has variable diacritic ordering -> raw str matching in the glossary /
-# number passes below silently misses. Convert Zawgyi->Unicode (best-effort) then NFC-canonicalize so matching is stable.
-# Both helpers are guarded: if the packages aren't installed the Space still runs (NFC-only). ---
+# --- Burmese Unicode normalization (LREC-2020 Gutkin et al.): Burmese text has variable diacritic ordering, and some
+# sources use the non-Unicode Zawgyi encoding (visually identical, DIFFERENT codepoints) -> raw str matching in the
+# glossary / number passes below silently misses. NFC-canonicalize (stdlib, no dep) so matching is stable; and, IF a
+# Zawgyi detector+converter are vendored in, convert Zawgyi->Unicode first. Both are guarded/optional: neither is a pip
+# dependency (myanmar-tools / a Rabbit converter aren't on PyPI), so by default this is NFC-only and never breaks the
+# build. To enable Zawgyi handling, drop the two libs into the image and the imports below light up automatically. ---
 try:
     from myanmar_tools import ZawgyiDetector
     _ZG_DETECT = ZawgyiDetector()
 except Exception:
     _ZG_DETECT = None
 try:
-    from rabbit import zg2uni as _zg2uni   # Rabbit Converter (pure-python Zawgyi<->Unicode)
+    from rabbit import zg2uni as _zg2uni   # Rabbit Converter (Zawgyi<->Unicode); optional, not a pip dep
 except Exception:
     _zg2uni = None
 def normalize_burmese_unicode(text):
