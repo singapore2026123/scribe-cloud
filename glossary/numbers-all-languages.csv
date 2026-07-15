@@ -1,0 +1,36 @@
+english,ja,zh,ms,ta,my,category
+zero,ゼロ,零,kosong,பூஜ்யம்,သုည,number
+one,いち,一,satu,ஒன்று,တစ်,number
+two,に,二,dua,இரண்டு,နှစ်,number
+three,さん,三,tiga,மூன்று,သုံး,number
+four,よん,四,empat,நான்கு,လေး,number
+five,ご,五,lima,ஐந்து,ငါး,number
+six,ろく,六,enam,ஆறு,ခြောက်,number
+seven,なな,七,tujuh,ஏழு,ခုနစ်,number
+eight,はち,八,lapan,எட்டு,ရှစ်,number
+nine,きゅう,九,sembilan,ஒன்பது,ကိုး,number
+ten,じゅう,十,sepuluh,பத்து,ဆယ်,number
+eleven,じゅういち,十一,sebelas,பதினொன்று,ဆယ့်တစ်,number
+twelve,じゅうに,十二,dua belas,பன்னிரண்டு,ဆယ့်နှစ်,number
+thirteen,じゅうさん,十三,tiga belas,பதிமூன்று,ဆယ့်သုံး,number
+fourteen,じゅうよん,十四,empat belas,பதினான்கு,ဆယ့်လေး,number
+fifteen,じゅうご,十五,lima belas,பதினைந்து,ဆယ့်ငါး,number
+sixteen,じゅうろく,十六,enam belas,பதினாறு,ဆယ့်ခြောက်,number
+seventeen,じゅうなな,十七,tujuh belas,பதினேழு,ဆယ့်ခုနစ်,number
+eighteen,じゅうはち,十八,lapan belas,பதினெட்டு,ဆယ့်ရှစ်,number
+nineteen,じゅうきゅう,十九,sembilan belas,பத்தொன்பது,ဆယ့်ကိုး,number
+twenty,にじゅう,二十,dua puluh,இருபது,နှစ်ဆယ်,number
+thirty,さんじゅう,三十,tiga puluh,முப்பது,သုံးဆယ်,number
+forty,よんじゅう,四十,empat puluh,நாற்பது,လေးဆယ်,number
+fifty,ごじゅう,五十,lima puluh,ஐம்பது,ငါးဆယ်,number
+sixty,ろくじゅう,六十,enam puluh,அறுபது,ခြောက်ဆယ်,number
+seventy,ななじゅう,七十,tujuh puluh,எழுபது,ခုနစ်ဆယ်,number
+eighty,はちじゅう,八十,lapan puluh,எண்பது,ရှစ်ဆယ်,number
+ninety,きゅうじゅう,九十,sembilan puluh,தொண்ணூறு,ကိုးဆယ်,number
+one hundred,ひゃく,一百,seratus,நூறு,တစ်ရာ,number
+one thousand,せん,一千,seribu,ஆயிரம்,တစ်ထောင်,number
+point (decimal),てん,点,perpuluhan,புள்ளி,ဒသမ,symbol
+percent,パーセント,百分之,peratus,பர்சென்ட்,ရာခိုင်နှုန်း,symbol
+slash / over (BP),の,比,garis miring,பை,ကို,symbol
+half,はん,半,setengah,அரை,တစ်ဝက်,symbol
+degree (temperature),度,度,darjah,டிகிரி,ဒီဂရီ,symbol
