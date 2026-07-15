@@ -70,6 +70,10 @@ def apply_glossary_mm(t):
 # --- Burmese number-words -> digits (fixes vitals; conservative: leaves garbled/unknown tokens as-is) ---
 _BN_DIG = {"သုည": 0, "တစ်": 1, "နှစ်": 2, "သုံး": 3, "လေး": 4, "ငါး": 5, "ခြောက်": 6, "ခုနစ်": 7, "ခုနှစ်": 7, "ရှစ်": 8, "ကိုး": 9}
 _BN_MUL = {"ဆယ်": 10, "ရာ": 100, "ထောင်": 1000}
+# Dolphin writes the tens with a creaky-tone dot (U+1037) before a following unit (e.g. 36 = [30]+[6]) -> add that
+# variant so it matches (built by inserting U+1037 before the final asat, to keep the source ASCII-safe).
+for _t in [k for k, v in _BN_MUL.items() if v == 10]:
+    _BN_MUL[_t[:-1] + chr(0x1037) + _t[-1]] = 10
 _BN_TOKENS = sorted(list(_BN_DIG) + list(_BN_MUL) + ["ဒသမ", "ရာခိုင်နှုန်း"], key=len, reverse=True)
 def _bn_value(words):
     total = 0; cur = 0
@@ -95,6 +99,13 @@ def normalize_burmese_numbers(text):
         while i < n:
             m = match_at(i)
             if m is None or m == "ရာခိုင်နှုန်း":
+                j = i   # Dolphin spaces number-words apart ("... ဒသမ ...") -> skip spaces between two number tokens
+                while j < n and text[j] == " ":
+                    j += 1
+                nm = match_at(j)
+                if j > i and nm is not None and nm != "ရာခိုင်နှုန်း":
+                    i = j
+                    continue
                 break
             run.append(m); i += len(m)
         parts = [[]]

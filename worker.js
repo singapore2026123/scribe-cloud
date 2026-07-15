@@ -109,6 +109,22 @@ function applyGlossary(text, lang) {
   for (const [w, c] of pairs) if (text.includes(w)) text = text.split(w).join(c);
   return text;
 }
+// Spoken-symbol -> symbol normalization for numbers/vitals. ASR hears the digits but writes the SPOKEN symbol as a word
+// (Malay "128 garis miring 98" -> "128/98", "35 perpuluhan 7" -> "35.7"). Only fires BETWEEN digits, so it's safe on prose.
+const NUM_SPOKEN = {
+  ms: [["garis miring", "/"], ["garis pisah", "/"], ["perpuluhan", "."]],
+  en: [["slash", "/"], ["point", "."]],
+};
+function normSpokenNumbers(text, lang) {
+  const rules = NUM_SPOKEN[lang];
+  if (!rules) return text;
+  for (const [word, sym] of rules) {
+    const re = new RegExp("(\\d)\\s*" + word.replace(/\s+/g, "\\s+") + "\\s*(\\d)", "gi");
+    let prev;
+    do { prev = text; text = text.replace(re, "$1" + sym + "$2"); } while (text !== prev);   // chained: "1 slash 2 slash 3"
+  }
+  return text;
+}
 // Care-term prompts to bias Whisper toward correct in-domain vocabulary (best-effort).
 const PROMPTS = {
   ja: "医療・介護記録。用語：気管吸引、口腔吸引、清潔操作、実務者研修、医療的ケア、耳鼻咽喉科、点眼、難聴、感音難聴、鼓室形成術、副鼻腔、言語聴覚士、人工内耳、留置術、経管栄養、清拭、部分浴、移乗介助、排便、循環器内科、不整脈、心房細動、弁置換術、末梢動脈疾患、経カテーテル、咳、くしゃみ、発熱、腫れ、骨折、出血、嘔吐、めまい、発疹、包帯。",
@@ -135,6 +151,7 @@ async function transcribe(request, env) {
 
     let transcript = collapseRepeats(applyGlossary((asr.text || "").trim(), src));
     transcript = stripHalluc(transcript);
+    transcript = normSpokenNumbers(transcript, src);   // "128 garis miring 98" -> "128/98" (Malay vitals), etc.
     if (!transcript) return j({ transcript: "", translation: "" });
 
     let translation = "";
