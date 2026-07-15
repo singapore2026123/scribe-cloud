@@ -1,36 +1,130 @@
-english,ja,zh,ms,ta,my,category
-zero,ゼロ,零,kosong,பூஜ்யம்,သုည,number
-one,いち,一,satu,ஒன்று,တစ်,number
-two,に,二,dua,இரண்டு,နှစ်,number
-three,さん,三,tiga,மூன்று,သုံး,number
-four,よん,四,empat,நான்கு,လေး,number
-five,ご,五,lima,ஐந்து,ငါး,number
-six,ろく,六,enam,ஆறு,ခြောက်,number
-seven,なな,七,tujuh,ஏழு,ခုနစ်,number
-eight,はち,八,lapan,எட்டு,ရှစ်,number
-nine,きゅう,九,sembilan,ஒன்பது,ကိုး,number
-ten,じゅう,十,sepuluh,பத்து,ဆယ်,number
-eleven,じゅういち,十一,sebelas,பதினொன்று,ဆယ့်တစ်,number
-twelve,じゅうに,十二,dua belas,பன்னிரண்டு,ဆယ့်နှစ်,number
-thirteen,じゅうさん,十三,tiga belas,பதிமூன்று,ဆယ့်သုံး,number
-fourteen,じゅうよん,十四,empat belas,பதினான்கு,ဆယ့်လေး,number
-fifteen,じゅうご,十五,lima belas,பதினைந்து,ဆယ့်ငါး,number
-sixteen,じゅうろく,十六,enam belas,பதினாறு,ဆယ့်ခြောက်,number
-seventeen,じゅうなな,十七,tujuh belas,பதினேழு,ဆယ့်ခုနစ်,number
-eighteen,じゅうはち,十八,lapan belas,பதினெட்டு,ဆယ့်ရှစ်,number
-nineteen,じゅうきゅう,十九,sembilan belas,பத்தொன்பது,ဆယ့်ကိုး,number
-twenty,にじゅう,二十,dua puluh,இருபது,နှစ်ဆယ်,number
-thirty,さんじゅう,三十,tiga puluh,முப்பது,သုံးဆယ်,number
-forty,よんじゅう,四十,empat puluh,நாற்பது,လေးဆယ်,number
-fifty,ごじゅう,五十,lima puluh,ஐம்பது,ငါးဆယ်,number
-sixty,ろくじゅう,六十,enam puluh,அறுபது,ခြောက်ဆယ်,number
-seventy,ななじゅう,七十,tujuh puluh,எழுபது,ခုနစ်ဆယ်,number
-eighty,はちじゅう,八十,lapan puluh,எண்பது,ရှစ်ဆယ်,number
-ninety,きゅうじゅう,九十,sembilan puluh,தொண்ணூறு,ကိုးဆယ်,number
-one hundred,ひゃく,一百,seratus,நூறு,တစ်ရာ,number
-one thousand,せん,一千,seribu,ஆயிரம்,တစ်ထောင်,number
-point (decimal),てん,点,perpuluhan,புள்ளி,ဒသမ,symbol
-percent,パーセント,百分之,peratus,பர்சென்ட்,ရာခိုင်နှုန်း,symbol
-slash / over (BP),の,比,garis miring,பை,ကို,symbol
-half,はん,半,setengah,அரை,တစ်ဝက်,symbol
-degree (temperature),度,度,darjah,டிகிரி,ဒီဂရီ,symbol
+value,ja,zh,ms,ta,my,category
+0,ゼロ,零,kosong,பூஜ்ஜியம்,သုည,cardinal
+1,いち,一,satu,ஒன்று,တစ်,cardinal
+2,に,二,dua,இரண்டு,နှစ်,cardinal
+3,さん,三,tiga,மூன்று,သုံး,cardinal
+4,よん,四,empat,நான்கு,လေး,cardinal
+5,ご,五,lima,ஐந்து,ငါး,cardinal
+6,ろく,六,enam,ஆறு,ခြောက်,cardinal
+7,なな,七,tujuh,ஏழு,ခုနစ်,cardinal
+8,はち,八,lapan,எட்டு,ရှစ်,cardinal
+9,きゅう,九,sembilan,ஒன்பது,ကိုး,cardinal
+10,じゅう,十,sepuluh,பத்து,တစ်ဆယ်,cardinal
+11,じゅういち,十一,sebelas,பதினொன்று,တစ်ဆယ့်တစ်,cardinal
+12,じゅうに,十二,dua belas,பன்னிரண்டு,တစ်ဆယ့်နှစ်,cardinal
+13,じゅうさん,十三,tiga belas,பதிமூன்று,တစ်ဆယ့်သုံး,cardinal
+14,じゅうよん,十四,empat belas,பதினான்கு,တစ်ဆယ့်လေး,cardinal
+15,じゅうご,十五,lima belas,பதினைந்து,တစ်ဆယ့်ငါး,cardinal
+16,じゅうろく,十六,enam belas,பதினாறு,တစ်ဆယ့်ခြောက်,cardinal
+17,じゅうなな,十七,tujuh belas,பதினேழு,တစ်ဆယ့်ခုနစ်,cardinal
+18,じゅうはち,十八,lapan belas,பதினெட்டு,တစ်ဆယ့်ရှစ်,cardinal
+19,じゅうきゅう,十九,sembilan belas,பத்தொன்பது,တစ်ဆယ့်ကိုး,cardinal
+20,にじゅう,二十,dua puluh,இருபது,နှစ်ဆယ်,cardinal
+21,にじゅういち,二十一,dua puluh satu,இருபத்தி ஒன்று,နှစ်ဆယ့်တစ်,cardinal
+22,にじゅうに,二十二,dua puluh dua,இருபத்தி இரண்டு,နှစ်ဆယ့်နှစ်,cardinal
+23,にじゅうさん,二十三,dua puluh tiga,இருபத்தி மூன்று,နှစ်ဆယ့်သုံး,cardinal
+24,にじゅうよん,二十四,dua puluh empat,இருபத்தி நான்கு,နှစ်ဆယ့်လေး,cardinal
+25,にじゅうご,二十五,dua puluh lima,இருபத்தி ஐந்து,နှစ်ဆယ့်ငါး,cardinal
+26,にじゅうろく,二十六,dua puluh enam,இருபத்தி ஆறு,နှစ်ဆယ့်ခြောက်,cardinal
+27,にじゅうなな,二十七,dua puluh tujuh,இருபத்தி ஏழு,နှစ်ဆယ့်ခုနစ်,cardinal
+28,にじゅうはち,二十八,dua puluh lapan,இருபத்தெட்டு,နှစ်ဆယ့်ရှစ်,cardinal
+29,にじゅうきゅう,二十九,dua puluh sembilan,இருபத்தி ஒன்பது,နှစ်ဆယ့်ကိုး,cardinal
+30,さんじゅう,三十,tiga puluh,முப்பது,သုံးဆယ်,cardinal
+31,さんじゅういち,三十一,tiga puluh satu,முப்பத்தி ஒன்று,သုံးဆယ့်တစ်,cardinal
+32,さんじゅうに,三十二,tiga puluh dua,முப்பத்தி இரண்டு,သုံးဆယ့်နှစ်,cardinal
+33,さんじゅうさん,三十三,tiga puluh tiga,முப்பத்தி மூன்று,သုံးဆယ့်သုံး,cardinal
+34,さんじゅうよん,三十四,tiga puluh empat,முப்பத்தி நான்கு,သုံးဆယ့်လေး,cardinal
+35,さんじゅうご,三十五,tiga puluh lima,முப்பத்தி ஐந்து,သုံးဆယ့်ငါး,cardinal
+36,さんじゅうろく,三十六,tiga puluh enam,முப்பத்தி ஆறு,သုံးဆယ့်ခြောက်,cardinal
+37,さんじゅうなな,三十七,tiga puluh tujuh,முப்பத்தி ஏழு,သုံးဆယ့်ခုနစ်,cardinal
+38,さんじゅうはち,三十八,tiga puluh lapan,முப்பத்தெட்டு,သုံးဆယ့်ရှစ်,cardinal
+39,さんじゅうきゅう,三十九,tiga puluh sembilan,முப்பத்தி ஒன்பது,သုံးဆယ့်ကိုး,cardinal
+40,よんじゅう,四十,empat puluh,நாற்பது,လေးဆယ်,cardinal
+41,よんじゅういち,四十一,empat puluh satu,நாற்பத்தி ஒன்று,လေးဆယ့်တစ်,cardinal
+42,よんじゅうに,四十二,empat puluh dua,நாற்பத்தி இரண்டு,လေးဆယ့်နှစ်,cardinal
+43,よんじゅうさん,四十三,empat puluh tiga,நாற்பத்தி மூன்று,လေးဆယ့်သုံး,cardinal
+44,よんじゅうよん,四十四,empat puluh empat,நாற்பத்தி நான்கு,လေးဆယ့်လေး,cardinal
+45,よんじゅうご,四十五,empat puluh lima,நாற்பத்தி ஐந்து,လေးဆယ့်ငါး,cardinal
+46,よんじゅうろく,四十六,empat puluh enam,நாற்பத்தி ஆறு,လေးဆယ့်ခြောက်,cardinal
+47,よんじゅうなな,四十七,empat puluh tujuh,நாற்பத்தி ஏழு,လေးဆယ့်ခုနစ်,cardinal
+48,よんじゅうはち,四十八,empat puluh lapan,நாற்பத்தெட்டு,လေးဆယ့်ရှစ်,cardinal
+49,よんじゅうきゅう,四十九,empat puluh sembilan,நாற்பத்தி ஒன்பது,လေးဆယ့်ကိုး,cardinal
+50,ごじゅう,五十,lima puluh,ஐம்பது,ငါးဆယ်,cardinal
+51,ごじゅういち,五十一,lima puluh satu,ஐம்பத்தி ஒன்று,ငါးဆယ့်တစ်,cardinal
+52,ごじゅうに,五十二,lima puluh dua,ஐம்பத்தி இரண்டு,ငါးဆယ့်နှစ်,cardinal
+53,ごじゅうさん,五十三,lima puluh tiga,ஐம்பத்தி மூன்று,ငါးဆယ့်သုံး,cardinal
+54,ごじゅうよん,五十四,lima puluh empat,ஐம்பத்தி நான்கு,ငါးဆယ့်လေး,cardinal
+55,ごじゅうご,五十五,lima puluh lima,ஐம்பத்தி ஐந்து,ငါးဆယ့်ငါး,cardinal
+56,ごじゅうろく,五十六,lima puluh enam,ஐம்பத்தி ஆறு,ငါးဆယ့်ခြောက်,cardinal
+57,ごじゅうなな,五十七,lima puluh tujuh,ஐம்பத்தி ஏழு,ငါးဆယ့်ခုနစ်,cardinal
+58,ごじゅうはち,五十八,lima puluh lapan,ஐம்பத்தெட்டு,ငါးဆယ့်ရှစ်,cardinal
+59,ごじゅうきゅう,五十九,lima puluh sembilan,ஐம்பத்தி ஒன்பது,ငါးဆယ့်ကိုး,cardinal
+60,ろくじゅう,六十,enam puluh,அறுபது,ခြောက်ဆယ်,cardinal
+61,ろくじゅういち,六十一,enam puluh satu,அறுபத்தி ஒன்று,ခြောက်ဆယ့်တစ်,cardinal
+62,ろくじゅうに,六十二,enam puluh dua,அறுபத்தி இரண்டு,ခြောက်ဆယ့်နှစ်,cardinal
+63,ろくじゅうさん,六十三,enam puluh tiga,அறுபத்தி மூன்று,ခြောက်ဆယ့်သုံး,cardinal
+64,ろくじゅうよん,六十四,enam puluh empat,அறுபத்தி நான்கு,ခြောက်ဆယ့်လေး,cardinal
+65,ろくじゅうご,六十五,enam puluh lima,அறுபத்தி ஐந்து,ခြောက်ဆယ့်ငါး,cardinal
+66,ろくじゅうろく,六十六,enam puluh enam,அறுபத்தி ஆறு,ခြောက်ဆယ့်ခြောက်,cardinal
+67,ろくじゅうなな,六十七,enam puluh tujuh,அறுபத்தி ஏழு,ခြောက်ဆယ့်ခုနစ်,cardinal
+68,ろくじゅうはち,六十八,enam puluh lapan,அறுபத்தெட்டு,ခြောက်ဆယ့်ရှစ်,cardinal
+69,ろくじゅうきゅう,六十九,enam puluh sembilan,அறுபத்தி ஒன்பது,ခြောက်ဆယ့်ကိုး,cardinal
+70,ななじゅう,七十,tujuh puluh,எழுபது,ခုနစ်ဆယ်,cardinal
+71,ななじゅういち,七十一,tujuh puluh satu,எழுபத்தி ஒன்று,ခုနစ်ဆယ့်တစ်,cardinal
+72,ななじゅうに,七十二,tujuh puluh dua,எழுபத்தி இரண்டு,ခုနစ်ဆယ့်နှစ်,cardinal
+73,ななじゅうさん,七十三,tujuh puluh tiga,எழுபத்தி மூன்று,ခုနစ်ဆယ့်သုံး,cardinal
+74,ななじゅうよん,七十四,tujuh puluh empat,எழுபத்தி நான்கு,ခုနစ်ဆယ့်လေး,cardinal
+75,ななじゅうご,七十五,tujuh puluh lima,எழுபத்தி ஐந்து,ခုနစ်ဆယ့်ငါး,cardinal
+76,ななじゅうろく,七十六,tujuh puluh enam,எழுபத்தி ஆறு,ခုနစ်ဆယ့်ခြောက်,cardinal
+77,ななじゅうなな,七十七,tujuh puluh tujuh,எழுபத்தி ஏழு,ခုနစ်ဆယ့်ခုနစ်,cardinal
+78,ななじゅうはち,七十八,tujuh puluh lapan,எழுபத்தெட்டு,ခုနစ်ဆယ့်ရှစ်,cardinal
+79,ななじゅうきゅう,七十九,tujuh puluh sembilan,எழுபத்தி ஒன்பது,ခုနစ်ဆယ့်ကိုး,cardinal
+80,はちじゅう,八十,lapan puluh,எண்பது,ရှစ်ဆယ်,cardinal
+81,はちじゅういち,八十一,lapan puluh satu,எண்பத்தி ஒன்று,ရှစ်ဆယ့်တစ်,cardinal
+82,はちじゅうに,八十二,lapan puluh dua,எண்பத்தி இரண்டு,ရှစ်ဆယ့်နှစ်,cardinal
+83,はちじゅうさん,八十三,lapan puluh tiga,எண்பத்தி மூன்று,ရှစ်ဆယ့်သုံး,cardinal
+84,はちじゅうよん,八十四,lapan puluh empat,எண்பத்தி நான்கு,ရှစ်ဆယ့်လေး,cardinal
+85,はちじゅうご,八十五,lapan puluh lima,எண்பத்தி ஐந்து,ရှစ်ဆယ့်ငါး,cardinal
+86,はちじゅうろく,八十六,lapan puluh enam,எண்பத்தி ஆறு,ရှစ်ဆယ့်ခြောက်,cardinal
+87,はちじゅうなな,八十七,lapan puluh tujuh,எண்பத்தி ஏழு,ရှစ်ဆယ့်ခုနစ်,cardinal
+88,はちじゅうはち,八十八,lapan puluh lapan,எண்பத்தெட்டு,ရှစ်ဆယ့်ရှစ်,cardinal
+89,はちじゅうきゅう,八十九,lapan puluh sembilan,எண்பத்தி ஒன்பது,ရှစ်ဆယ့်ကိုး,cardinal
+90,きゅうじゅう,九十,sembilan puluh,தொண்ணூறு,ကိုးဆယ်,cardinal
+91,きゅうじゅういち,九十一,sembilan puluh satu,தொண்ணூற்றி ஒன்று,ကိုးဆယ့်တစ်,cardinal
+92,きゅうじゅうに,九十二,sembilan puluh dua,தொண்ணூற்றி இரண்டு,ကိုးဆယ့်နှစ်,cardinal
+93,きゅうじゅうさん,九十三,sembilan puluh tiga,தொண்ணூற்றி மூன்று,ကိုးဆယ့်သုံး,cardinal
+94,きゅうじゅうよん,九十四,sembilan puluh empat,தொண்ணூற்றி நான்கு,ကိုးဆယ့်လေး,cardinal
+95,きゅうじゅうご,九十五,sembilan puluh lima,தொண்ணூற்றி ஐந்து,ကိုးဆယ့်ငါး,cardinal
+96,きゅうじゅうろく,九十六,sembilan puluh enam,தொண்ணூற்றி ஆறு,ကိုးဆယ့်ခြောက်,cardinal
+97,きゅうじゅうなな,九十七,sembilan puluh tujuh,தொண்ணூற்றி ஏழு,ကိုးဆယ့်ခုနစ်,cardinal
+98,きゅうじゅうはち,九十八,sembilan puluh lapan,தொண்ணூற்றெட்டு,ကိုးဆယ့်ရှစ်,cardinal
+99,きゅうじゅうきゅう,九十九,sembilan puluh sembilan,தொண்ணூற்றி ஒன்பது,ကိုးဆယ့်ကိုး,cardinal
+100,ひゃく,一百,seratus,நூறு,တစ်ရာ,cardinal
+110,ひゃくじゅう,一百一十,seratus sepuluh,நூற்றி பத்து,တစ်ရာ့တစ်ဆယ်,cardinal
+120,ひゃくにじゅう,一百二十,seratus dua puluh,நூற்றி இருபது,တစ်ရာ့နှစ်ဆယ်,cardinal
+128,ひゃくにじゅうはち,一百二十八,seratus dua puluh lapan,நூற்று இருபத்தெட்டு,တစ်ရာ့နှစ်ဆယ့်ရှစ်,cardinal
+130,ひゃくさんじゅう,一百三十,seratus tiga puluh,நூற்றி முப்பது,တစ်ရာ့သုံးဆယ်,cardinal
+140,ひゃくよんじゅう,一百四十,seratus empat puluh,நூற்றி நாற்பது,တစ်ရာ့လေးဆယ်,cardinal
+150,ひゃくごじゅう,一百五十,seratus lima puluh,நூற்றி ஐம்பது,တစ်ရာ့ငါးဆယ်,cardinal
+158,ひゃくごじゅうはち,一百五十八,seratus lima puluh lapan,நூற்று ஐம்பத்தெட்டு,တစ်ရာ့ငါးဆယ့်ရှစ်,cardinal
+160,ひゃくろくじゅう,一百六十,seratus enam puluh,நூற்றி அறுபது,တစ်ရာ့ခြောက်ဆယ်,cardinal
+170,ひゃくななじゅう,一百七十,seratus tujuh puluh,நூற்றி எழுபது,တစ်ရာ့ခုနစ်ဆယ်,cardinal
+180,ひゃくはちじゅう,一百八十,seratus lapan puluh,நூற்றி எண்பது,တစ်ရာ့ရှစ်ဆယ်,cardinal
+190,ひゃくきゅうじゅう,一百九十,seratus sembilan puluh,நூற்றி தொண்ணூறு,တစ်ရာ့ကိုးဆယ်,cardinal
+200,にひゃく,二百,dua ratus,இருநூறு,နှစ်ရာ,cardinal
+250,にひゃくごじゅう,二百五十,dua ratus lima puluh,இருநூற்று ஐம்பது,နှစ်ရာ့ငါးဆယ်,cardinal
+300,さんびゃく,三百,tiga ratus,முந்நூறு,သုံးရာ,cardinal
+400,よんひゃく,四百,empat ratus,நானூறு,လေးရာ,cardinal
+500,ごひゃく,五百,lima ratus,ஐந்நூறு,ငါးရာ,cardinal
+1000,せん,一千,seribu,ஆயிரம்,တစ်ထောင်,cardinal
+35.7,さんじゅうご てん なな,三十五点七,tiga puluh lima perpuluhan tujuh,முப்பத்தி ஐந்து புள்ளி ஏழு,သုံးဆယ့်ငါး ဒသမ ခုနစ်,decimal
+36.5,さんじゅうろく てん ご,三十六点五,tiga puluh enam perpuluhan lima,முப்பத்தி ஆறு புள்ளி ஐந்து,သုံးဆယ့်ခြောက် ဒသမ ငါး,decimal
+36.6,さんじゅうろく てん ろく,三十六点六,tiga puluh enam perpuluhan enam,முப்பத்தி ஆறு புள்ளி ஆறு,သုံးဆယ့်ခြောက် ဒသမ ခြောက်,decimal
+37.0,さんじゅうなな てん ゼロ,三十七点零,tiga puluh tujuh perpuluhan kosong,முப்பத்தி ஏழு புள்ளி பூஜ்ஜியம்,သုံးဆယ့်ခုနစ် ဒသမ သုည,decimal
+37.2,さんじゅうなな てん に,三十七点二,tiga puluh tujuh perpuluhan dua,முப்பத்தி ஏழு புள்ளி இரண்டு,သုံးဆယ့်ခုနစ် ဒသမ နှစ်,decimal
+98.6,きゅうじゅうはち てん ろく,九十八点六,sembilan puluh lapan perpuluhan enam,தொண்ணூற்றி எட்டு புள்ளி ஆறு,ကိုးဆယ့်ရှစ် ဒသမ ခြောက်,decimal
+point,てん,点,perpuluhan,புள்ளி,ဒသမ,symbol
+percent,パーセント,百分之,peratus,சதவீதம்,ရာခိုင်နှုန်း,symbol
+slash,の,比,garis miring,பை,ကို,symbol
+half,はん,一半,setengah,அரை,တစ်ဝက်,symbol
+degree,ど,度,darjah,டிகிரி,ဒီဂရီ,symbol
