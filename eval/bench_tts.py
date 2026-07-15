@@ -97,12 +97,46 @@ def transcribe(url, path, src):
     return d.get("transcript", ""), d.get("translation", ""), d.get("error", "")
 
 
+# --- ElevenLabs Scribe STT engine (alternative to Worker/Space) — key comes from env ELEVENLABS_API_KEY, never a file ---
+EL_LANG = {"ja": "jpn", "ms": "msa", "my": "mya", "zh": "zho", "ta": "tam", "en": "eng"}  # Scribe accepts ISO-639-3
+
+
+def _multipart(fields, filename, filebytes):
+    boundary = "----scribebenchboundary7f3a2b"
+    crlf = "\r\n"
+    parts = []
+    for k, v in fields.items():
+        parts.append("--%s%sContent-Disposition: form-data; name=\"%s\"%s%s%s" % (boundary, crlf, k, crlf, crlf, v))
+    body = crlf.join(parts).encode("utf-8") + crlf.encode()
+    body += ("--%s%sContent-Disposition: form-data; name=\"file\"; filename=\"%s\"%sContent-Type: application/octet-stream%s%s"
+             % (boundary, crlf, filename, crlf, crlf, crlf)).encode("utf-8")
+    body += filebytes + crlf.encode() + ("--%s--%s" % (boundary, crlf)).encode()
+    return boundary, body
+
+
+def el_transcribe(path, lang, key):
+    fields = {"model_id": "scribe_v1", "language_code": EL_LANG.get(lang, lang), "diarize": "false", "tag_audio_events": "false"}
+    with open(path, "rb") as f:
+        boundary, body = _multipart(fields, os.path.basename(path), f.read())
+    req = urllib.request.Request("https://api.elevenlabs.io/v1/speech-to-text", data=body,
+                                 headers={"xi-api-key": key, "Content-Type": "multipart/form-data; boundary=" + boundary})
+    with urllib.request.urlopen(req, timeout=180) as r:
+        d = json.loads(r.read().decode("utf-8"))
+    return d.get("text", ""), "", ""   # Scribe is STT only (no translation)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--langs", default="ja,ms,my,zh")
     ap.add_argument("--zh-limit", type=int, default=24, help="cap ZH clips (0 = all)")
-    ap.add_argument("--out", default=os.path.join(POC, "tts_asr_results.csv"))
+    ap.add_argument("--engine", default="scribe", choices=["scribe", "elevenlabs"], help="scribe = Worker/Space; elevenlabs = ElevenLabs Scribe STT")
+    ap.add_argument("--out", default=None)
     args = ap.parse_args()
+    if args.out is None:
+        args.out = os.path.join(POC, "tts_asr_results_elevenlabs.csv" if args.engine == "elevenlabs" else "tts_asr_results.csv")
+    el_key = os.environ.get("ELEVENLABS_API_KEY", "")
+    if args.engine == "elevenlabs" and not el_key:
+        raise SystemExit("set ELEVENLABS_API_KEY in the environment")
     langs = [x.strip() for x in args.langs.split(",") if x.strip()]
     refs = build_refs()
 
@@ -138,7 +172,10 @@ def main():
         t0 = time.time()
         tr, tl, err = "", "", ""
         try:
-            tr, tl, err = transcribe(ROUTE[jb["lang"]], jb["path"], jb["lang"])
+            if args.engine == "elevenlabs":
+                tr, tl, err = el_transcribe(jb["path"], jb["lang"], el_key)
+            else:
+                tr, tl, err = transcribe(ROUTE[jb["lang"]], jb["path"], jb["lang"])
         except Exception as e:
             err = str(e)
         sec = round(time.time() - t0, 1)
