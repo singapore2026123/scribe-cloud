@@ -118,6 +118,27 @@ def normalize_burmese_numbers(text):
         out.append(".".join(nums) if nums else "".join(run))
     return "".join(out)
 
+# Spoken-symbol -> symbol normalization for the Space languages (Dolphin), fires ONLY between digits so it's safe on
+# prose. Uses the spoken forms verified in the language glossaries' number sections. Tamil "128 பை 98"->"128/98",
+# "36 புள்ளி 6"->"36.6"; Chinese "128比98"->"128/98", "36点6"->"36.6"; Burmese BP "128 ကို 98"->"128/98" (applied AFTER
+# normalize_burmese_numbers has turned the number-words into digits). NOTE: no ZH/TA vitals clips exist yet to measure this.
+_SPOKEN_SYM = {
+    "ta": [("புள்ளி", "."), ("பை", "/"), ("பர்சென்ட்", "%")],
+    "zh": [("点", "."), ("比", "/"), ("杠", "/")],
+    "my": [("ကို", "/")],   # BP "over"; the decimal ဒသမ is already consumed by normalize_burmese_numbers
+}
+def apply_spoken_symbols(text, lang):
+    rules = _SPOKEN_SYM.get(lang)
+    if not rules or not text:
+        return text
+    for word, sym in rules:
+        pat = re.compile(r"(\d)\s*" + re.escape(word) + r"\s*(\d)")
+        prev = None
+        while prev != text:   # chained, e.g. "1 point 2 point 3"
+            prev = text
+            text = pat.sub(r"\1" + sym + r"\2", text)
+    return text
+
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 STATE = {"proc": None, "model": None, "dolphin": None}
@@ -208,6 +229,8 @@ async def transcribe(req: Request):
         if src == "my" and transcript:
             # Zawgyi->Unicode + NFC first, so the glossary/number passes match reliably, then snap terms + numbers->digits.
             transcript = normalize_burmese_numbers(apply_glossary_mm(normalize_burmese_unicode(transcript)))
+        if transcript and src in _SPOKEN_SYM:
+            transcript = apply_spoken_symbols(transcript, src)   # spoken decimal/slash -> "." / "/" between digits
         if transcript and src in ("ta", "my"):
             transcript = keep_native(transcript, src)   # drop English-only sentences Dolphin emits for ta/my
         if transcript:
