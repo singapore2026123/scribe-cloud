@@ -18,7 +18,8 @@ GEN = dict(no_repeat_ngram_size=3, repetition_penalty=1.3, max_new_tokens=256, n
 
 # Google Translate free endpoint (no key, no budget) for the translation half.
 GT = {"en": "en", "ja": "ja", "zh": "zh-CN", "zh-CN": "zh-CN", "ms": "ms", "ta": "ta",
-      "my": "my", "ko": "ko", "th": "th", "id": "id", "vi": "vi", "hi": "hi", "fr": "fr"}
+      "my": "my", "ko": "ko", "th": "th", "id": "id", "vi": "vi", "hi": "hi", "fr": "fr",
+      "yue": "yue", "nan": "zh-CN"}   # Cantonese has its own Google code; Hokkien is written in Han -> translate as Chinese
 def _gtranslate(text, sl, tl):
     if not text or not tl:
         return ""
@@ -218,7 +219,9 @@ async def transcribe(req: Request):
     data = data.astype(np.float32)
 
     # Burmese, Tamil & Chinese -> Dolphin (primary, language-specialised) + Google Translate; falls back to SeamlessM4T.
-    _LR = {"my": ("my", "MM"), "ta": ("ta", "IN"), "zh": ("zh", "CN"), "zh-CN": ("zh", "CN")}
+    # Dolphin two-level tokens: Cantonese = ct/HK, Hokkien (Min Nan) = zh/MINNAN (both in the model's languages.md).
+    _LR = {"my": ("my", "MM"), "ta": ("ta", "IN"), "zh": ("zh", "CN"), "zh-CN": ("zh", "CN"),
+           "yue": ("ct", "HK"), "nan": ("zh", "MINNAN")}
     if src in _LR:
         lang_sym, region_sym = _LR[src]
         transcript = ""

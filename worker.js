@@ -9,7 +9,7 @@ const CORS = {
 // Whisper/m2m100 use ISO-639-1 codes; our target "zh-CN" -> "zh".
 const M2M = { en: "en", ja: "ja", "zh-CN": "zh", zh: "zh", ms: "ms", ta: "ta", ko: "ko", th: "th", id: "id", vi: "vi", hi: "hi", fr: "fr", my: "my" };
 // Google Translate free endpoint — no key, NO daily budget, good quality (same engine the desktop app used).
-const GT = { en: "en", ja: "ja", zh: "zh-CN", "zh-CN": "zh-CN", ms: "ms", ta: "ta", my: "my", ko: "ko", th: "th", id: "id", vi: "vi", hi: "hi", fr: "fr" };
+const GT = { en: "en", ja: "ja", zh: "zh-CN", "zh-CN": "zh-CN", ms: "ms", ta: "ta", my: "my", ko: "ko", th: "th", id: "id", vi: "vi", hi: "hi", fr: "fr", yue: "yue", nan: "zh-CN" };
 async function gtranslate(text, src, tgt) {
   const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" + (GT[src] || "auto") + "&tl=" + GT[tgt] + "&dt=t&q=" + encodeURIComponent(text);
   const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)", "Accept": "application/json" } });

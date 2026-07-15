@@ -51,8 +51,8 @@ async function translateText(text, sl, tl, llm) {   // -> Worker /translate (Goo
 }
 async function swap() {                            // flip spoken<->translation languages AND re-translate in the new direction
   snap();
-  const t2l = { "zh-CN": "zh", ja: "ja", en: "en", ms: "ms", my: "my", ta: "ta" };
-  const l2t = { zh: "zh-CN", ja: "ja", en: "en", ms: "ms", my: "my", ta: "ta" };
+  const t2l = { "zh-CN": "zh", ja: "ja", en: "en", ms: "ms", my: "my", ta: "ta", yue: "yue", nan: "nan" };
+  const l2t = { zh: "zh-CN", ja: "ja", en: "en", ms: "ms", my: "my", ta: "ta", yue: "yue", nan: "nan" };
   const L = $("lang").value, T = $("target").value, nl = t2l[T];
   if (!nl) return setState('Set "Translate to" to a spoken language (JA/ZH/MS/MY/EN/TA) to swap', false);
   const en = boxLines("enbox");                    // the current translation becomes the new source text
@@ -206,8 +206,9 @@ function flushLive() {
   for (let i = 0; i < outLen; i++) out[i] = merged[Math.floor(i * ratio)];
   transcribeChunkLive(encodeWavB64(out, 16000), ++liveSeq);
 }
-function asrEndpoint(src) {   // Burmese, Tamil & Chinese -> HF Space (Dolphin); others -> Cloudflare Worker (Workers AI Whisper)
-  return (src === "my" || src === "ta" || src === "zh") ? (asrUrl ? asrUrl.replace(/\/+$/, "") + "/transcribe" : "") : "/transcribe";
+const SPACE_LANGS = ["my", "ta", "zh", "yue", "nan"];   // Burmese/Tamil/Chinese/Cantonese/Hokkien -> HF Space (Dolphin)
+function asrEndpoint(src) {   // Space (Dolphin) for the specialised langs; others -> Cloudflare Worker (Whisper)
+  return SPACE_LANGS.includes(src) ? (asrUrl ? asrUrl.replace(/\/+$/, "") + "/transcribe" : "") : "/transcribe";
 }
 async function transcribeChunkLive(b64, n) {
   const src = $("lang").value, target = $("target").value, url = asrEndpoint(src);
@@ -372,7 +373,7 @@ async function processRecording() {
     lastWavB64 = await blobToWav16kB64(blob);
     const url = asrEndpoint(src);
     if (!url) { setState("Burmese engine not configured (SCRIBE_ASR_URL).", false); return; }
-    setState((src === "my" || src === "ta" || src === "zh") ? "transcribing on the Space (first run loads the model)…" : "transcribing…", true, true);
+    setState(SPACE_LANGS.includes(src) ? "transcribing on the Space (first run loads the model)…" : "transcribing…", true, true);
     const d = await (await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ audio: lastWavB64, src, target }) })).json();
     if (d.transcript) addLine(d.transcript, d.translation || "");
     else setState("No speech / " + (d.error || "empty"), false);
@@ -635,7 +636,7 @@ document.addEventListener("keydown", (ev) => {
 ["srcbox", "enbox"].forEach((id) => { const el = $(id); if (el) { let t; el.addEventListener("input", () => { clearTimeout(t); t = setTimeout(snap, 400); }); } });
 
 // Burmese runs on the slow Space -> Live lags; auto-switch to Record (whole-clip, one call). Others default to Live.
-if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = (["my", "ta", "zh"].includes($("lang").value)) ? "record" : "live"; });
+if ($("lang")) $("lang").addEventListener("change", () => { $("mode").value = (SPACE_LANGS.includes($("lang").value)) ? "record" : "live"; });
 
 function toggleSidebar() { const c = $("app").classList.toggle("sb-collapsed"); try { localStorage.setItem("sbCollapsed", c ? "1" : "0"); } catch {} }
 
