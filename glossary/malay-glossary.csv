@@ -649,3 +649,338 @@ Wonder,tertanya-tanya,everyday
 Worry,risau,everyday
 Would,akan,everyday
 Write,menulis,everyday
+
+hello,helo,everyday
+good morning,selamat pagi,everyday
+good afternoon,selamat tengah hari,everyday
+good evening,selamat petang,everyday
+good night,selamat malam,everyday
+welcome,selamat datang,everyday
+goodbye,selamat tinggal,everyday
+see you,jumpa lagi,everyday
+thank you,terima kasih,everyday
+you're welcome,sama-sama,everyday
+please,tolong,everyday
+sorry,maaf,everyday
+excuse me,maafkan saya,everyday
+never mind,tak apa,everyday
+of course,sudah tentu,everyday
+yes,ya,everyday
+no,tidak,everyday
+not,bukan,everyday
+maybe,mungkin,everyday
+correct,betul,everyday
+wrong,salah,everyday
+okay,okay,everyday
+sure,pasti,everyday
+what,apa,everyday
+where,mana,everyday
+when,bila,everyday
+who,siapa,everyday
+how,bagaimana,everyday
+why,kenapa,everyday
+which,yang mana,everyday
+how much,berapa,everyday
+how many,berapa banyak,everyday
+I,saya,everyday
+you,awak,everyday
+you (polite),encik/puan,everyday
+he,dia,everyday
+she,dia,everyday
+we,kami,everyday
+they,mereka,everyday
+this,ini,everyday
+that,itu,everyday
+patient,pesakit,everyday
+nurse,jururawat,everyday
+doctor,doktor,everyday
+staff,kakitangan,everyday
+caregiver,penjaga,everyday
+family,keluarga,everyday
+father,bapa,everyday
+mother,ibu,everyday
+son,anak lelaki,everyday
+daughter,anak perempuan,everyday
+child,anak,everyday
+wife,isteri,everyday
+husband,suami,everyday
+grandchild,cucu,everyday
+grandfather,datuk,everyday
+grandmother,nenek,everyday
+brother,abang,everyday
+sister,kakak,everyday
+friend,kawan,everyday
+person,orang,everyday
+name,nama,everyday
+pain,sakit,everyday
+it hurts,rasa sakit,everyday
+ache,sengal,everyday
+tired,penat,everyday
+weak,lemah,everyday
+dizzy,pening,everyday
+uncomfortable,tidak selesa,everyday
+comfortable,selesa,everyday
+better,lebih baik,everyday
+worse,lebih teruk,everyday
+afraid,takut,everyday
+worried,risau,everyday
+sad,sedih,everyday
+happy,gembira,everyday
+angry,marah,everyday
+cold,sejuk,everyday
+hot,panas,everyday
+warm,suam,everyday
+hungry,lapar,everyday
+thirsty,haus,everyday
+sleepy,mengantuk,everyday
+itchy,gatal,everyday
+numb,kebas,everyday
+nauseous,loya,everyday
+breathless,sesak nafas,everyday
+head,kepala,everyday
+hair,rambut,everyday
+face,muka,everyday
+eye,mata,everyday
+ear,telinga,everyday
+nose,hidung,everyday
+mouth,mulut,everyday
+tooth,gigi,everyday
+tongue,lidah,everyday
+lip,bibir,everyday
+throat,tekak,everyday
+neck,leher,everyday
+shoulder,bahu,everyday
+chest,dada,everyday
+heart,jantung,everyday
+lung,paru-paru,everyday
+stomach,perut,everyday
+back,belakang,everyday
+waist,pinggang,everyday
+arm,lengan,everyday
+elbow,siku,everyday
+hand,tangan,everyday
+finger,jari,everyday
+leg,kaki,everyday
+thigh,peha,everyday
+knee,lutut,everyday
+foot,tapak kaki,everyday
+skin,kulit,everyday
+bone,tulang,everyday
+blood,darah,everyday
+eat,makan,everyday
+drink,minum,everyday
+sleep,tidur,everyday
+wake up,bangun,everyday
+wash,cuci,everyday
+bathe,mandi,everyday
+toilet,tandas,everyday
+urinate,kencing,everyday
+defecate,berak,everyday
+brush teeth,gosok gigi,everyday
+get dressed,pakai baju,everyday
+change clothes,tukar baju,everyday
+sit,duduk,everyday
+stand,berdiri,everyday
+walk,berjalan,everyday
+lie down,baring,everyday
+rest,rehat,everyday
+move,gerak,everyday
+turn over,pusing badan,everyday
+help,bantu,everyday
+support,sokong,everyday
+carry,dukung,everyday
+feed,suap,everyday
+water,air,everyday
+hot water,air panas,everyday
+cold water,air sejuk,everyday
+tea,teh,everyday
+coffee,kopi,everyday
+rice,nasi,everyday
+porridge,bubur,everyday
+soup,sup,everyday
+milk,susu,everyday
+bread,roti,everyday
+egg,telur,everyday
+fruit,buah,everyday
+vegetable,sayur,everyday
+sugar,gula,everyday
+salt,garam,everyday
+medicine,ubat,everyday
+meal,makanan,everyday
+breakfast,sarapan,everyday
+lunch,makan tengah hari,everyday
+dinner,makan malam,everyday
+snack,makanan ringan,everyday
+spoon,sudu,everyday
+fork,garpu,everyday
+cup,cawan,everyday
+plate,pinggan,everyday
+bowl,mangkuk,everyday
+bottle,botol,everyday
+straw,penyedut minuman,everyday
+bed,katil,everyday
+chair,kerusi,everyday
+table,meja,everyday
+wheelchair,kerusi roda,everyday
+walker,alat bantu berjalan,everyday
+cane,tongkat,everyday
+pillow,bantal,everyday
+blanket,selimut,everyday
+bedsheet,cadar,everyday
+clothes,baju,everyday
+diaper,lampin,everyday
+towel,tuala,everyday
+glasses,cermin mata,everyday
+call button,butang panggilan,everyday
+light,lampu,everyday
+fan,kipas,everyday
+door,pintu,everyday
+window,tingkap,everyday
+room,bilik,everyday
+bathroom,bilik air,everyday
+floor,lantai,everyday
+wall,dinding,everyday
+today,hari ini,everyday
+tomorrow,esok,everyday
+yesterday,semalam,everyday
+now,sekarang,everyday
+later,nanti,everyday
+soon,sekejap lagi,everyday
+just now,tadi,everyday
+already,sudah,everyday
+not yet,belum,everyday
+always,selalu,everyday
+sometimes,kadang-kadang,everyday
+morning,pagi,everyday
+noon,tengah hari,everyday
+afternoon,petang,everyday
+evening,senja,everyday
+night,malam,everyday
+day,hari,everyday
+week,minggu,everyday
+month,bulan,everyday
+year,tahun,everyday
+minute,minit,everyday
+hour,jam,everyday
+second,saat,everyday
+time,masa,everyday
+Monday,Isnin,everyday
+Tuesday,Selasa,everyday
+Wednesday,Rabu,everyday
+Thursday,Khamis,everyday
+Friday,Jumaat,everyday
+Saturday,Sabtu,everyday
+Sunday,Ahad,everyday
+home,rumah,everyday
+hospital,hospital,everyday
+clinic,klinik,everyday
+ward,wad,everyday
+nursing home,rumah jagaan,everyday
+kitchen,dapur,everyday
+outside,luar,everyday
+come,mari,everyday
+go,pergi,everyday
+give,beri,everyday
+take,ambil,everyday
+want,mahu,everyday
+need,perlu,everyday
+can,boleh,everyday
+cannot,tidak boleh,everyday
+wait,tunggu,everyday
+stop,berhenti,everyday
+open,buka,everyday
+close,tutup,everyday
+look,tengok,everyday
+listen,dengar,everyday
+call,panggil,everyday
+feel,rasa,everyday
+breathe,bernafas,everyday
+cough,batuk,everyday
+sneeze,bersin,everyday
+swallow,telan,everyday
+fall,jatuh,everyday
+hold,pegang,everyday
+push,tolak,everyday
+pull,tarik,everyday
+try,cuba,everyday
+know,tahu,everyday
+understand,faham,everyday
+speak,cakap,everyday
+ask,tanya,everyday
+remember,ingat,everyday
+forget,lupa,everyday
+big,besar,everyday
+small,kecil,everyday
+good,bagus,everyday
+bad,teruk,everyday
+more,lebih,everyday
+less,kurang,everyday
+enough,cukup,everyday
+clean,bersih,everyday
+dirty,kotor,everyday
+full,penuh,everyday
+empty,kosong,everyday
+fast,laju,everyday
+slow,perlahan,everyday
+new,baru,everyday
+old,lama,everyday
+young,muda,everyday
+painful,menyakitkan,everyday
+dangerous,bahaya,everyday
+safe,selamat,everyday
+heavy,berat,everyday
+light (weight),ringan,everyday
+soft,lembut,everyday
+hard,keras,everyday
+easy,senang,everyday
+difficult,susah,everyday
+up,atas,everyday
+down,bawah,everyday
+left,kiri,everyday
+right,kanan,everyday
+here,sini,everyday
+there,sana,everyday
+inside,dalam,everyday
+outside (position),luar,everyday
+front,depan,everyday
+back (position),belakang,everyday
+near,dekat,everyday
+far,jauh,everyday
+beside,sebelah,everyday
+between,antara,everyday
+zero,kosong,number
+one,satu,number
+two,dua,number
+three,tiga,number
+four,empat,number
+five,lima,number
+six,enam,number
+seven,tujuh,number
+eight,lapan,number
+nine,sembilan,number
+ten,sepuluh,number
+eleven,sebelas,number
+twelve,dua belas,number
+thirteen,tiga belas,number
+fourteen,empat belas,number
+fifteen,lima belas,number
+sixteen,enam belas,number
+seventeen,tujuh belas,number
+eighteen,lapan belas,number
+nineteen,sembilan belas,number
+twenty,dua puluh,number
+thirty,tiga puluh,number
+forty,empat puluh,number
+fifty,lima puluh,number
+sixty,enam puluh,number
+seventy,tujuh puluh,number
+eighty,lapan puluh,number
+ninety,sembilan puluh,number
+one hundred,seratus,number
+one thousand,seribu,number
+point (decimal),perpuluhan,number
+percent,peratus,number
+slash/over (BP),garis miring,number
+and,dan,number
+half,setengah,number
+degree (temperature),darjah,number

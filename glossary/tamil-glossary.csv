@@ -632,3 +632,289 @@ Wonder,வியப்பு,everyday
 Worry,கவலை,everyday
 Would,நிபந்தனை துணைவினை,everyday
 Write,எழுது,everyday
+
+hello,வணக்கம்,everyday
+goodbye,போய் வரேன்,everyday
+thank you,நன்றி,everyday
+please,தயவு செய்து,everyday
+sorry,மன்னிக்கவும்,everyday
+excuse me,கொஞ்சம்,everyday
+welcome,வாங்க,everyday
+good morning,காலை வணக்கம்,everyday
+good night,இனிய இரவு,everyday
+yes,ஆமா,everyday
+no,இல்லை,everyday
+maybe,இருக்கலாம்,everyday
+okay,சரி,everyday
+what,என்ன,everyday
+where,எங்கே,everyday
+when,எப்போ,everyday
+who,யார்,everyday
+how,எப்படி,everyday
+why,ஏன்,everyday
+which,எது,everyday
+how much,எவ்வளவு,everyday
+how many,எத்தனை,everyday
+I,நான்,everyday
+you,நீங்க,everyday
+he,அவன்,everyday
+she,அவங்க,everyday
+we,நாங்க,everyday
+they,அவங்க,everyday
+this,இது,everyday
+that,அது,everyday
+patient,நோயாளி,everyday
+nurse,செவிலியர்,everyday
+doctor,டாக்டர்,everyday
+staff,பணியாளர்,everyday
+family,குடும்பம்,everyday
+son,மகன்,everyday
+daughter,மகள்,everyday
+wife,மனைவி,everyday
+husband,கணவன்,everyday
+mother,அம்மா,everyday
+father,அப்பா,everyday
+grandchild,பேரன்,everyday
+granddaughter,பேத்தி,everyday
+child,பிள்ளை,everyday
+friend,நண்பர்,everyday
+person,ஆள்,everyday
+name,பேர்,everyday
+pain,வலி,everyday
+hurts,வலிக்குது,everyday
+tired,சோர்வு,everyday
+dizzy,தலைசுத்தல்,everyday
+uncomfortable,சங்கடம்,everyday
+better,பரவாயில்லை,everyday
+worse,மோசம்,everyday
+afraid,பயம்,everyday
+sad,வருத்தம்,everyday
+happy,சந்தோஷம்,everyday
+angry,கோபம்,everyday
+worried,கவலை,everyday
+cold,குளிர்,everyday
+hot,சூடு,everyday
+hungry,பசி,everyday
+thirsty,தாகம்,everyday
+sleepy,தூக்கம்,everyday
+weak,பலவீனம்,everyday
+itchy,அரிப்பு,everyday
+numb,மரத்துப்போச்சு,everyday
+swollen,வீக்கம்,everyday
+fever,காய்ச்சல்,everyday
+head,தலை,everyday
+hair,முடி,everyday
+face,முகம்,everyday
+eye,கண்,everyday
+ear,காது,everyday
+nose,மூக்கு,everyday
+mouth,வாய்,everyday
+tooth,பல்,everyday
+tongue,நாக்கு,everyday
+throat,தொண்டை,everyday
+neck,கழுத்து,everyday
+chest,மார்பு,everyday
+heart,இதயம்,everyday
+stomach,வயிறு,everyday
+back,முதுகு,everyday
+waist,இடுப்பு,everyday
+shoulder,தோள்,everyday
+arm,கை,everyday
+hand,கை,everyday
+finger,விரல்,everyday
+nail,நகம்,everyday
+leg,கால்,everyday
+knee,முழங்கால்,everyday
+foot,பாதம்,everyday
+toe,கால் விரல்,everyday
+skin,தோல்,everyday
+bone,எலும்பு,everyday
+blood,ரத்தம்,everyday
+eat,சாப்பிடு,everyday
+drink,குடி,everyday
+sleep,தூங்கு,everyday
+wake up,எழுந்திரு,everyday
+wash,கழுவு,everyday
+bathe,குளி,everyday
+toilet,கழிப்பறை,everyday
+urinate,சிறுநீர் கழி,everyday
+defecate,மலம் கழி,everyday
+brush teeth,பல் தேய்,everyday
+get dressed,உடை மாத்து,everyday
+sit,உட்காரு,everyday
+stand,நில்லு,everyday
+walk,நட,everyday
+lie down,படு,everyday
+rest,ஓய்வு எடு,everyday
+move,நகரு,everyday
+turn over,புரண்டு படு,everyday
+help,உதவி,everyday
+water,தண்ணீர்,everyday
+hot water,சூடான தண்ணீர்,everyday
+tea,டீ,everyday
+coffee,காபி,everyday
+rice,சோறு,everyday
+porridge,கஞ்சி,everyday
+soup,சூப்,everyday
+milk,பால்,everyday
+juice,ஜூஸ்,everyday
+medicine,மருந்து,everyday
+tablet,மாத்திரை,everyday
+meal,சாப்பாடு,everyday
+breakfast,காலை உணவு,everyday
+lunch,மதிய உணவு,everyday
+dinner,இரவு உணவு,everyday
+snack,தின்பண்டம்,everyday
+spoon,கரண்டி,everyday
+cup,கப்,everyday
+plate,தட்டு,everyday
+salt,உப்பு,everyday
+sugar,சர்க்கரை,everyday
+bed,கட்டில்,everyday
+chair,நாற்காலி,everyday
+wheelchair,சக்கர நாற்காலி,everyday
+walker,நடை உதவி,everyday
+cane,ஊன்றுகோல்,everyday
+pillow,தலையணை,everyday
+blanket,போர்வை,everyday
+clothes,துணி,everyday
+diaper,டயப்பர்,everyday
+call button,அழைப்பு பொத்தான்,everyday
+light,விளக்கு,everyday
+door,கதவு,everyday
+window,ஜன்னல்,everyday
+room,அறை,everyday
+bathroom,குளியலறை,everyday
+towel,துண்டு,everyday
+glasses,கண்ணாடி,everyday
+today,இன்னைக்கு,everyday
+tomorrow,நாளைக்கு,everyday
+yesterday,நேத்து,everyday
+now,இப்போ,everyday
+later,அப்புறம்,everyday
+soon,சீக்கிரம்,everyday
+morning,காலை,everyday
+noon,மதியம்,everyday
+afternoon,பிற்பகல்,everyday
+evening,மாலை,everyday
+night,இரவு,everyday
+day,நாள்,everyday
+week,வாரம்,everyday
+month,மாதம்,everyday
+year,வருஷம்,everyday
+minute,நிமிடம்,everyday
+hour,மணி,everyday
+time,நேரம்,everyday
+Monday,திங்கள்,everyday
+Tuesday,செவ்வாய்,everyday
+Wednesday,புதன்,everyday
+Thursday,வியாழன்,everyday
+Friday,வெள்ளி,everyday
+Saturday,சனி,everyday
+Sunday,ஞாயிறு,everyday
+home,வீடு,everyday
+hospital,மருத்துவமனை,everyday
+clinic,கிளினிக்,everyday
+ward,வார்டு,everyday
+place,இடம்,everyday
+come,வா,everyday
+go,போ,everyday
+give,கொடு,everyday
+take,எடு,everyday
+want,வேணும்,everyday
+need,தேவை,everyday
+can,முடியும்,everyday
+cannot,முடியாது,everyday
+wait,பொறு,everyday
+stop,நிறுத்து,everyday
+open,திற,everyday
+close,மூடு,everyday
+look,பாரு,everyday
+listen,கேளு,everyday
+call,கூப்பிடு,everyday
+feel,உணரு,everyday
+breathe,மூச்சு விடு,everyday
+cough,இரும்பு,everyday
+swallow,விழுங்கு,everyday
+fall,விழு,everyday
+know,தெரியும்,everyday
+understand,புரியுது,everyday
+say,சொல்லு,everyday
+ask,கேளு,everyday
+show,காட்டு,everyday
+put,வை,everyday
+hold,பிடி,everyday
+change,மாத்து,everyday
+clean,சுத்தம் பண்ணு,everyday
+finish,முடி,everyday
+start,ஆரம்பி,everyday
+big,பெரிய,everyday
+small,சின்ன,everyday
+good,நல்லது,everyday
+bad,கெட்டது,everyday
+more,அதிகம்,everyday
+less,குறைவு,everyday
+enough,போதும்,everyday
+dirty,அழுக்கு,everyday
+full,நிறைய,everyday
+empty,காலி,everyday
+fast,வேகம்,everyday
+slow,மெதுவா,everyday
+new,புதுசு,everyday
+old,பழைய,everyday
+painful,வலியா,everyday
+dangerous,ஆபத்து,everyday
+easy,சுலபம்,everyday
+hard,கஷ்டம்,everyday
+heavy,கனம்,everyday
+soft,மென்மை,everyday
+wet,ஈரம்,everyday
+dry,உலர்ந்த,everyday
+up,மேலே,everyday
+down,கீழே,everyday
+left,இடது,everyday
+right,வலது,everyday
+here,இங்கே,everyday
+there,அங்கே,everyday
+inside,உள்ளே,everyday
+outside,வெளியே,everyday
+front,முன்னாடி,everyday
+behind,பின்னாடி,everyday
+near,பக்கத்துல,everyday
+far,தூரம்,everyday
+zero,பூஜ்யம்,number
+one,ஒன்று,number
+two,இரண்டு,number
+three,மூன்று,number
+four,நான்கு,number
+five,ஐந்து,number
+six,ஆறு,number
+seven,ஏழு,number
+eight,எட்டு,number
+nine,ஒன்பது,number
+ten,பத்து,number
+eleven,பதினொன்று,number
+twelve,பன்னிரண்டு,number
+thirteen,பதிமூன்று,number
+fourteen,பதினான்கு,number
+fifteen,பதினைந்து,number
+sixteen,பதினாறு,number
+seventeen,பதினேழு,number
+eighteen,பதினெட்டு,number
+nineteen,பத்தொன்பது,number
+twenty,இருபது,number
+thirty,முப்பது,number
+forty,நாற்பது,number
+fifty,ஐம்பது,number
+sixty,அறுபது,number
+seventy,எழுபது,number
+eighty,எண்பது,number
+ninety,தொண்ணூறு,number
+one hundred,நூறு,number
+one thousand,ஆயிரம்,number
+point (decimal),புள்ளி,number
+percent,பர்சென்ட்,number
+slash/over (BP),பை,number
+and,மற்றும்,number
+half,அரை,number
+degree (temperature),டிகிரி,number

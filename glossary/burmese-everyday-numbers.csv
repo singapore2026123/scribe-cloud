@@ -1,0 +1,270 @@
+english,burmese,category
+hello,မင်္ဂလာပါ,everyday
+goodbye,သွားတော့မယ်,everyday
+thank you,ကျေးဇူးတင်ပါတယ်,everyday
+sorry,တောင်းပန်ပါတယ်,everyday
+excuse me,တစ်ဆိတ်လောက်,everyday
+please,ကျေးဇူးပြု၍,everyday
+you're welcome,ရပါတယ်,everyday
+welcome,ကြိုဆိုပါတယ်,everyday
+good morning,မင်္ဂလာနံနက်ခင်းပါ,everyday
+good night,အိပ်ရေးဝင်ပါစေ,everyday
+how are you,နေကောင်းလား,everyday
+I'm fine,နေကောင်းပါတယ်,everyday
+yes,ဟုတ်ကဲ့,everyday
+no,မဟုတ်ဘူး,everyday
+maybe,ဖြစ်ကောင်းဖြစ်နိုင်တယ်,everyday
+okay,ရပါတယ်,everyday
+not okay,မရဘူး,everyday
+correct,မှန်တယ်,everyday
+wrong,မှားတယ်,everyday
+what,ဘာ,everyday
+where,ဘယ်မှာ,everyday
+when,ဘယ်တော့,everyday
+who,ဘယ်သူ,everyday
+how,ဘယ်လို,everyday
+why,ဘာဖြစ်လို့,everyday
+which,ဘယ်ဟာ,everyday
+how much,ဘယ်လောက်,everyday
+how many,ဘယ်နှစ်,everyday
+I,ကျွန်တော်,everyday
+you,ခင်ဗျား,everyday
+he,သူ,everyday
+she,သူမ,everyday
+we,ကျွန်တော်တို့,everyday
+they,သူတို့,everyday
+patient,လူနာ,everyday
+nurse,သူနာပြု,everyday
+doctor,ဆရာဝန်,everyday
+staff,ဝန်ထမ်း,everyday
+caregiver,ပြုစုစောင့်ရှောက်သူ,everyday
+family,မိသားစု,everyday
+mother,အမေ,everyday
+father,အဖေ,everyday
+son,သား,everyday
+daughter,သမီး,everyday
+wife,ဇနီး,everyday
+husband,ခင်ပွန်း,everyday
+grandchild,မြေး,everyday
+grandmother,အဖွား,everyday
+grandfather,အဘိုး,everyday
+friend,သူငယ်ချင်း,everyday
+child,ကလေး,everyday
+old person,သက်ကြီးရွယ်အို,everyday
+pain,နာကျင်မှု,everyday
+it hurts,နာတယ်,everyday
+tired,ပင်ပန်းတယ်,everyday
+dizzy,မူးတယ်,everyday
+uncomfortable,မသက်မသာဖြစ်တယ်,everyday
+better,သက်သာတယ်,everyday
+worse,ပိုဆိုးတယ်,everyday
+afraid,ကြောက်တယ်,everyday
+sad,ဝမ်းနည်းတယ်,everyday
+happy,ပျော်တယ်,everyday
+cold,ချမ်းတယ်,everyday
+hot,ပူတယ်,everyday
+hungry,ဗိုက်ဆာတယ်,everyday
+thirsty,ရေဆာတယ်,everyday
+sleepy,အိပ်ချင်တယ်,everyday
+weak,အားနည်းတယ်,everyday
+nauseous,အန်ချင်တယ်,everyday
+itchy,ယားတယ်,everyday
+numb,ထုံတယ်,everyday
+sick,နေမကောင်းဘူး,everyday
+fever,ဖျားတယ်,everyday
+head,ခေါင်း,everyday
+eye,မျက်စိ,everyday
+ear,နား,everyday
+nose,နှာခေါင်း,everyday
+mouth,ပါးစပ်,everyday
+throat,လည်ချောင်း,everyday
+chest,ရင်ဘတ်,everyday
+stomach,ဗိုက်,everyday
+back,ကျော,everyday
+waist,ခါး,everyday
+arm,လက်မောင်း,everyday
+hand,လက်,everyday
+finger,လက်ချောင်း,everyday
+leg,ခြေထောက်,everyday
+knee,ဒူး,everyday
+foot,ခြေဖဝါး,everyday
+skin,အရေပြား,everyday
+teeth,သွား,everyday
+heart,နှလုံး,everyday
+face,မျက်နှာ,everyday
+neck,လည်ပင်း,everyday
+shoulder,ပခုံး,everyday
+hair,ဆံပင်,everyday
+eat,စားတယ်,everyday
+drink,သောက်တယ်,everyday
+sleep,အိပ်တယ်,everyday
+wake up,နိုးတယ်,everyday
+wash,ဆေးတယ်,everyday
+bathe,ရေချိုးတယ်,everyday
+toilet,အိမ်သာ,everyday
+urinate,ဆီးသွားတယ်,everyday
+defecate,ဝမ်းသွားတယ်,everyday
+brush teeth,သွားတိုက်တယ်,everyday
+get dressed,အဝတ်ဝတ်တယ်,everyday
+sit,ထိုင်တယ်,everyday
+stand,မတ်တပ်ရပ်တယ်,everyday
+walk,လမ်းလျှောက်တယ်,everyday
+lie down,လှဲတယ်,everyday
+rest,အနားယူတယ်,everyday
+move,ရွှေ့တယ်,everyday
+turn over,စောင်းလိုက်တယ်,everyday
+help,ကူညီတယ်,everyday
+change clothes,အဝတ်လဲတယ်,everyday
+water,ရေ,everyday
+hot water,ရေနွေး,everyday
+tea,လက်ဖက်ရည်,everyday
+rice,ထမင်း,everyday
+porridge,ဆန်ပြုတ်,everyday
+soup,ဟင်းချို,everyday
+milk,နို့,everyday
+medicine,ဆေး,everyday
+injection,ဆေးထိုး,everyday
+meal,အစားအစာ,everyday
+breakfast,မနက်စာ,everyday
+lunch,နေ့လည်စာ,everyday
+dinner,ညစာ,everyday
+snack,မုန့်,everyday
+spoon,ဇွန်း,everyday
+cup,ခွက်,everyday
+plate,ပန်းကန်,everyday
+fruit,အသီးအနှံ,everyday
+bed,ကုတင်,everyday
+chair,ကုလားထိုင်,everyday
+wheelchair,ဘီးတပ်ကုလားထိုင်,everyday
+walker,လမ်းလျှောက်ကူ (?),everyday
+cane,တောင်ဝှေး,everyday
+pillow,ခေါင်းအုံး,everyday
+blanket,စောင်,everyday
+clothes,အဝတ်အစား,everyday
+diaper,ကလေးအနှီး,everyday
+call button,ခေါ်ခလုတ် (?),everyday
+light,မီး,everyday
+door,တံခါး,everyday
+window,ပြတင်းပေါက်,everyday
+room,အခန်း,everyday
+bathroom,ရေချိုးခန်း,everyday
+bell,ခေါင်းလောင်း,everyday
+glasses,မျက်မှန်,everyday
+today,ဒီနေ့,everyday
+tomorrow,မနက်ဖြန်,everyday
+yesterday,မနေ့က,everyday
+now,အခု,everyday
+later,နောက်မှ,everyday
+soon,မကြာခင်,everyday
+morning,မနက်,everyday
+noon,နေ့လည်,everyday
+afternoon,နေ့လယ်ခင်း,everyday
+evening,ညနေ,everyday
+night,ည,everyday
+day,နေ့,everyday
+week,အပတ်,everyday
+minute,မိနစ်,everyday
+hour,နာရီ,everyday
+month,လ,everyday
+year,နှစ်,everyday
+Monday,တနင်္လာနေ့,everyday
+Tuesday,အင်္ဂါနေ့,everyday
+Wednesday,ဗုဒ္ဓဟူးနေ့,everyday
+Thursday,ကြာသပတေးနေ့,everyday
+Friday,သောကြာနေ့,everyday
+Saturday,စနေနေ့,everyday
+Sunday,တနင်္ဂနွေနေ့,everyday
+home,အိမ်,everyday
+hospital,ဆေးရုံ,everyday
+clinic,ဆေးခန်း,everyday
+ward,ဆေးရုံဆောင်,everyday
+come,လာတယ်,everyday
+go,သွားတယ်,everyday
+give,ပေးတယ်,everyday
+take,ယူတယ်,everyday
+want,လိုချင်တယ်,everyday
+need,လိုတယ်,everyday
+can,ရတယ်,everyday
+cannot,မရဘူး,everyday
+wait,စောင့်တယ်,everyday
+stop,ရပ်တယ်,everyday
+open,ဖွင့်တယ်,everyday
+close,ပိတ်တယ်,everyday
+look,ကြည့်တယ်,everyday
+listen,နားထောင်တယ်,everyday
+call,ခေါ်တယ်,everyday
+feel,ခံစားတယ်,everyday
+breathe,အသက်ရှူတယ်,everyday
+cough,ချောင်းဆိုးတယ်,everyday
+swallow,မျိုချတယ်,everyday
+fall,လဲကျတယ်,everyday
+speak,ပြောတယ်,everyday
+understand,နားလည်တယ်,everyday
+know,သိတယ်,everyday
+big,ကြီးတယ်,everyday
+small,သေးတယ်,everyday
+good,ကောင်းတယ်,everyday
+bad,ဆိုးတယ်,everyday
+more,ပိုတယ်,everyday
+less,နည်းတယ်,everyday
+clean,သန့်ရှင်းတယ်,everyday
+dirty,ညစ်ပတ်တယ်,everyday
+full,ပြည့်တယ်,everyday
+empty,ဗလာ,everyday
+fast,မြန်တယ်,everyday
+slow,နှေးတယ်,everyday
+new,အသစ်,everyday
+old,အဟောင်း,everyday
+painful,နာကျင်တယ်,everyday
+dangerous,အန္တရာယ်ရှိတယ်,everyday
+enough,လုံလောက်တယ်,everyday
+heavy,လေးတယ်,everyday
+light (weight),ပေါ့တယ်,everyday
+up,အပေါ်,everyday
+down,အောက်,everyday
+left,ဘယ်,everyday
+right,ညာ,everyday
+here,ဒီမှာ,everyday
+there,ဟိုမှာ,everyday
+inside,အထဲ,everyday
+outside,အပြင်,everyday
+front,ရှေ့,everyday
+behind,နောက်,everyday
+near,အနီး,everyday
+far,အဝေး,everyday
+zero,သုည,number
+one,တစ်,number
+two,နှစ်,number
+three,သုံး,number
+four,လေး,number
+five,ငါး,number
+six,ခြောက်,number
+seven,ခုနစ်,number
+eight,ရှစ်,number
+nine,ကိုး,number
+ten,ဆယ်,number
+eleven,ဆယ့်တစ်,number
+twelve,ဆယ့်နှစ်,number
+thirteen,ဆယ့်သုံး,number
+fourteen,ဆယ့်လေး,number
+fifteen,ဆယ့်ငါး,number
+sixteen,ဆယ့်ခြောက်,number
+seventeen,ဆယ့်ခုနစ်,number
+eighteen,ဆယ့်ရှစ်,number
+nineteen,ဆယ့်ကိုး,number
+twenty,နှစ်ဆယ်,number
+thirty,သုံးဆယ်,number
+forty,လေးဆယ်,number
+fifty,ငါးဆယ်,number
+sixty,ခြောက်ဆယ်,number
+seventy,ခုနစ်ဆယ်,number
+eighty,ရှစ်ဆယ်,number
+ninety,ကိုးဆယ်,number
+one hundred,တစ်ရာ,number
+one thousand,တစ်ထောင်,number
+point (decimal),ဒသမ,number
+percent,ရာခိုင်နှုန်း,number
+slash/over (BP),ကို,number
+and,နဲ့,number
+half,တစ်ဝက်,number
+degree (temperature),ဒီဂရီ,number

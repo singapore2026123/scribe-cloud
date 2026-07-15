@@ -648,3 +648,337 @@ Wonder,想知道,everyday
 Worry,担心,everyday
 Would,会,everyday
 Write,写,everyday
+
+hello,你好,everyday
+good morning,早上好,everyday
+goodbye,再见,everyday
+thank you,谢谢,everyday
+you're welcome,不客气,everyday
+sorry,对不起,everyday
+excuse me,不好意思,everyday
+please,请,everyday
+never mind,没关系,everyday
+welcome,欢迎,everyday
+take care,保重,everyday
+good night,晚安,everyday
+how are you,你好吗,everyday
+long time no see,好久不见,everyday
+yes,是,everyday
+no,不是,everyday
+okay,好,everyday
+alright,行,everyday
+maybe,也许,everyday
+not sure,不确定,everyday
+correct,对,everyday
+wrong,不对,everyday
+of course,当然,everyday
+really,真的,everyday
+sure,好的,everyday
+what,什么,everyday
+where,哪里,everyday
+when,什么时候,everyday
+who,谁,everyday
+how,怎么,everyday
+why,为什么,everyday
+which,哪个,everyday
+how much,多少,everyday
+how many,几个,everyday
+how long,多久,everyday
+what time,几点,everyday
+I,我,everyday
+you,你,everyday
+he,他,everyday
+she,她,everyday
+we,我们,everyday
+they,他们,everyday
+this,这个,everyday
+that,那个,everyday
+patient,病人,everyday
+nurse,护士,everyday
+doctor,医生,everyday
+caregiver,护工,everyday
+family,家人,everyday
+son,儿子,everyday
+daughter,女儿,everyday
+wife,妻子,everyday
+husband,丈夫,everyday
+grandchild,孙子,everyday
+granddaughter,孙女,everyday
+mother,妈妈,everyday
+father,爸爸,everyday
+brother,兄弟,everyday
+sister,姐妹,everyday
+friend,朋友,everyday
+elderly person,老人,everyday
+child,孩子,everyday
+everyone,大家,everyday
+pain,疼,everyday
+hurts,痛,everyday
+tired,累,everyday
+dizzy,头晕,everyday
+uncomfortable,不舒服,everyday
+comfortable,舒服,everyday
+better,好一点,everyday
+worse,更糟,everyday
+afraid,害怕,everyday
+sad,难过,everyday
+happy,开心,everyday
+angry,生气,everyday
+worried,担心,everyday
+lonely,孤单,everyday
+cold,冷,everyday
+hot,热,everyday
+hungry,饿,everyday
+thirsty,渴,everyday
+sleepy,困,everyday
+weak,虚弱,everyday
+nauseous,恶心,everyday
+itchy,痒,everyday
+numb,麻,everyday
+head,头,everyday
+hair,头发,everyday
+face,脸,everyday
+eye,眼睛,everyday
+ear,耳朵,everyday
+nose,鼻子,everyday
+mouth,嘴巴,everyday
+tooth,牙齿,everyday
+tongue,舌头,everyday
+throat,喉咙,everyday
+neck,脖子,everyday
+shoulder,肩膀,everyday
+chest,胸,everyday
+heart,心脏,everyday
+stomach,肚子,everyday
+belly,腹部,everyday
+back,背,everyday
+waist,腰,everyday
+arm,手臂,everyday
+elbow,手肘,everyday
+hand,手,everyday
+finger,手指,everyday
+wrist,手腕,everyday
+leg,腿,everyday
+knee,膝盖,everyday
+foot,脚,everyday
+toe,脚趾,everyday
+ankle,脚踝,everyday
+skin,皮肤,everyday
+bone,骨头,everyday
+blood,血,everyday
+eat,吃,everyday
+drink,喝,everyday
+sleep,睡觉,everyday
+wake up,醒来,everyday
+wash,洗,everyday
+wash face,洗脸,everyday
+bathe,洗澡,everyday
+toilet,上厕所,everyday
+urinate,小便,everyday
+defecate,大便,everyday
+brush teeth,刷牙,everyday
+comb hair,梳头,everyday
+get dressed,穿衣服,everyday
+undress,脱衣服,everyday
+sit,坐,everyday
+stand,站,everyday
+walk,走,everyday
+lie down,躺下,everyday
+rest,休息,everyday
+move,移动,everyday
+turn over,翻身,everyday
+get up,起床,everyday
+help,帮忙,everyday
+take medicine,吃药,everyday
+change clothes,换衣服,everyday
+change diaper,换尿布,everyday
+water,水,everyday
+hot water,热水,everyday
+warm water,温水,everyday
+cold water,冷水,everyday
+tea,茶,everyday
+coffee,咖啡,everyday
+rice,米饭,everyday
+porridge,粥,everyday
+noodles,面,everyday
+soup,汤,everyday
+milk,牛奶,everyday
+juice,果汁,everyday
+medicine,药,everyday
+meal,饭,everyday
+breakfast,早餐,everyday
+lunch,午餐,everyday
+dinner,晚餐,everyday
+snack,零食,everyday
+fruit,水果,everyday
+vegetable,蔬菜,everyday
+meat,肉,everyday
+egg,鸡蛋,everyday
+bread,面包,everyday
+sugar,糖,everyday
+salt,盐,everyday
+spoon,勺子,everyday
+cup,杯子,everyday
+bowl,碗,everyday
+plate,盘子,everyday
+chopsticks,筷子,everyday
+straw,吸管,everyday
+bottle,瓶子,everyday
+bed,床,everyday
+chair,椅子,everyday
+wheelchair,轮椅,everyday
+walker,助行器,everyday
+cane,拐杖,everyday
+pillow,枕头,everyday
+blanket,被子,everyday
+bedsheet,床单,everyday
+clothes,衣服,everyday
+diaper,尿布,everyday
+towel,毛巾,everyday
+glasses,眼镜,everyday
+call button,呼叫铃,everyday
+light,灯,everyday
+door,门,everyday
+window,窗户,everyday
+room,房间,everyday
+bathroom,浴室,everyday
+table,桌子,everyday
+phone,电话,everyday
+today,今天,everyday
+tomorrow,明天,everyday
+yesterday,昨天,everyday
+now,现在,everyday
+later,等一下,everyday
+soon,很快,everyday
+just now,刚才,everyday
+morning,早上,everyday
+noon,中午,everyday
+afternoon,下午,everyday
+evening,傍晚,everyday
+night,晚上,everyday
+midnight,半夜,everyday
+day,天,everyday
+week,星期,everyday
+month,月,everyday
+year,年,everyday
+minute,分钟,everyday
+hour,小时,everyday
+second,秒,everyday
+Monday,星期一,everyday
+Tuesday,星期二,everyday
+Wednesday,星期三,everyday
+Thursday,星期四,everyday
+Friday,星期五,everyday
+Saturday,星期六,everyday
+Sunday,星期天,everyday
+weekend,周末,everyday
+everyday,每天,everyday
+home,家,everyday
+hospital,医院,everyday
+clinic,诊所,everyday
+ward,病房,everyday
+nursing home,养老院,everyday
+outside,外面,everyday
+garden,花园,everyday
+come,来,everyday
+go,去,everyday
+give,给,everyday
+take,拿,everyday
+want,要,everyday
+need,需要,everyday
+can,可以,everyday
+cannot,不可以,everyday
+wait,等,everyday
+stop,停,everyday
+open,开,everyday
+close,关,everyday
+look,看,everyday
+listen,听,everyday
+call,叫,everyday
+feel,感觉,everyday
+breathe,呼吸,everyday
+cough,咳嗽,everyday
+swallow,吞,everyday
+fall,跌倒,everyday
+know,知道,everyday
+understand,明白,everyday
+remember,记得,everyday
+forget,忘记,everyday
+speak,说,everyday
+try,试,everyday
+find,找,everyday
+hold,握,everyday
+push,推,everyday
+pull,拉,everyday
+big,大,everyday
+small,小,everyday
+good,好,everyday
+bad,坏,everyday
+more,多,everyday
+less,少,everyday
+clean,干净,everyday
+dirty,脏,everyday
+full,饱,everyday
+empty,空,everyday
+fast,快,everyday
+slow,慢,everyday
+new,新,everyday
+old,旧,everyday
+painful,疼痛,everyday
+okay,还好,everyday
+dangerous,危险,everyday
+safe,安全,everyday
+soft,软,everyday
+hard,硬,everyday
+heavy,重,everyday
+light (weight),轻,everyday
+enough,够,everyday
+up,上,everyday
+down,下,everyday
+left,左,everyday
+right,右,everyday
+here,这里,everyday
+there,那里,everyday
+inside,里面,everyday
+front,前面,everyday
+behind,后面,everyday
+middle,中间,everyday
+near,附近,everyday
+far,远,everyday
+zero,零,number
+one,一,number
+two,二,number
+three,三,number
+four,四,number
+five,五,number
+six,六,number
+seven,七,number
+eight,八,number
+nine,九,number
+ten,十,number
+eleven,十一,number
+twelve,十二,number
+thirteen,十三,number
+fourteen,十四,number
+fifteen,十五,number
+sixteen,十六,number
+seventeen,十七,number
+eighteen,十八,number
+nineteen,十九,number
+twenty,二十,number
+thirty,三十,number
+forty,四十,number
+fifty,五十,number
+sixty,六十,number
+seventy,七十,number
+eighty,八十,number
+ninety,九十,number
+one hundred,一百,number
+one thousand,一千,number
+two (for counting),两,number
+point (decimal),点,number
+percent,百分之,number
+slash/over (BP),比,number
+zero-placeholder (e.g. 108),零,number
+half,半,number
+degree (temperature),度,number

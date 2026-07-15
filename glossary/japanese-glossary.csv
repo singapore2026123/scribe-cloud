@@ -645,3 +645,342 @@ wonder,不思議に思う,everyday
 worry,心配する,everyday
 would,するだろう,everyday
 write,書く,everyday
+
+hello,こんにちは,everyday
+good morning,おはようございます,everyday
+good evening,こんばんは,everyday
+good night,おやすみなさい,everyday
+goodbye,さようなら,everyday
+thank you,ありがとう,everyday
+thank you very much,ありがとうございます,everyday
+you're welcome,どういたしまして,everyday
+excuse me,すみません,everyday
+sorry,ごめんなさい,everyday
+please,お願いします,everyday
+please (offering),どうぞ,everyday
+nice to meet you,はじめまして,everyday
+welcome,いらっしゃいませ,everyday
+take care,お大事に,everyday
+good work,お疲れ様,everyday
+congratulations,おめでとう,everyday
+yes,はい,everyday
+no,いいえ,everyday
+okay,大丈夫,everyday
+maybe,たぶん,everyday
+of course,もちろん,everyday
+not yet,まだ,everyday
+already,もう,everyday
+correct,正しい,everyday
+wrong,間違い,everyday
+what,何,everyday
+where,どこ,everyday
+when,いつ,everyday
+who,誰,everyday
+how,どう,everyday
+why,なぜ,everyday
+which,どちら,everyday
+how much,いくら,everyday
+how many,いくつ,everyday
+what time,何時,everyday
+I,私,everyday
+you,あなた,everyday
+he,彼,everyday
+she,彼女,everyday
+we,私たち,everyday
+they,彼ら,everyday
+this person,この人,everyday
+patient,患者,everyday
+nurse,看護師,everyday
+doctor,医者,everyday
+caregiver,介護士,everyday
+staff,職員,everyday
+family,家族,everyday
+father,お父さん,everyday
+mother,お母さん,everyday
+son,息子,everyday
+daughter,娘,everyday
+wife,妻,everyday
+husband,夫,everyday
+grandchild,孫,everyday
+grandfather,おじいさん,everyday
+grandmother,おばあさん,everyday
+brother,兄弟,everyday
+sister,姉妹,everyday
+child,子供,everyday
+friend,友達,everyday
+pain,痛み,everyday
+it hurts,痛い,everyday
+tired,疲れた,everyday
+dizzy,めまい,everyday
+nausea,吐き気,everyday
+uncomfortable,気持ち悪い,everyday
+comfortable,楽,everyday
+better,良くなった,everyday
+worse,悪くなった,everyday
+afraid,怖い,everyday
+worried,心配,everyday
+sad,悲しい,everyday
+happy,嬉しい,everyday
+lonely,寂しい,everyday
+angry,怒っている,everyday
+cold,寒い,everyday
+hot,暑い,everyday
+warm,暖かい,everyday
+hungry,お腹が空いた,everyday
+thirsty,喉が渇いた,everyday
+sleepy,眠い,everyday
+itchy,かゆい,everyday
+numb,しびれる,everyday
+weak,だるい,everyday
+fine,元気,everyday
+sick,病気,everyday
+head,頭,everyday
+face,顔,everyday
+eye,目,everyday
+ear,耳,everyday
+nose,鼻,everyday
+mouth,口,everyday
+tooth,歯,everyday
+tongue,舌,everyday
+throat,喉,everyday
+neck,首,everyday
+shoulder,肩,everyday
+chest,胸,everyday
+stomach,お腹,everyday
+belly,腹,everyday
+back,背中,everyday
+waist,腰,everyday
+arm,腕,everyday
+elbow,肘,everyday
+hand,手,everyday
+finger,指,everyday
+wrist,手首,everyday
+leg,足,everyday
+knee,膝,everyday
+foot,足,everyday
+ankle,足首,everyday
+skin,肌,everyday
+hair,髪,everyday
+heart,心臓,everyday
+bone,骨,everyday
+blood,血,everyday
+eat,食べる,everyday
+drink,飲む,everyday
+sleep,寝る,everyday
+wake up,起きる,everyday
+wash,洗う,everyday
+wash face,顔を洗う,everyday
+bathe,お風呂に入る,everyday
+shower,シャワーを浴びる,everyday
+toilet,トイレ,everyday
+urinate,おしっこ,everyday
+defecate,うんち,everyday
+brush teeth,歯を磨く,everyday
+get dressed,着替える,everyday
+sit,座る,everyday
+stand,立つ,everyday
+walk,歩く,everyday
+lie down,横になる,everyday
+rest,休む,everyday
+move,動く,everyday
+turn over,寝返り,everyday
+help,手伝う,everyday
+help me,助けて,everyday
+change,変える,everyday
+carry,運ぶ,everyday
+hold,持つ,everyday
+water,水,everyday
+hot water,お湯,everyday
+tea,お茶,everyday
+green tea,緑茶,everyday
+rice,ご飯,everyday
+porridge,お粥,everyday
+soup,スープ,everyday
+miso soup,味噌汁,everyday
+milk,牛乳,everyday
+juice,ジュース,everyday
+coffee,コーヒー,everyday
+medicine,薬,everyday
+meal,食事,everyday
+breakfast,朝ご飯,everyday
+lunch,昼ご飯,everyday
+dinner,晩ご飯,everyday
+snack,おやつ,everyday
+fruit,果物,everyday
+vegetable,野菜,everyday
+meat,肉,everyday
+fish,魚,everyday
+bread,パン,everyday
+egg,卵,everyday
+salt,塩,everyday
+sugar,砂糖,everyday
+spoon,スプーン,everyday
+cup,コップ,everyday
+chopsticks,箸,everyday
+fork,フォーク,everyday
+plate,皿,everyday
+bowl,茶碗,everyday
+bed,ベッド,everyday
+chair,椅子,everyday
+wheelchair,車椅子,everyday
+walker,歩行器,everyday
+cane,杖,everyday
+pillow,枕,everyday
+blanket,毛布,everyday
+sheet,シーツ,everyday
+towel,タオル,everyday
+clothes,服,everyday
+pajamas,パジャマ,everyday
+underwear,下着,everyday
+socks,靴下,everyday
+shoes,靴,everyday
+slippers,スリッパ,everyday
+glasses,眼鏡,everyday
+diaper,おむつ,everyday
+call button,ナースコール,everyday
+light,電気,everyday
+door,ドア,everyday
+window,窓,everyday
+room,部屋,everyday
+bathroom,お手洗い,everyday
+curtain,カーテン,everyday
+table,テーブル,everyday
+today,今日,everyday
+tomorrow,明日,everyday
+yesterday,昨日,everyday
+now,今,everyday
+later,後で,everyday
+soon,もうすぐ,everyday
+just now,さっき,everyday
+morning,朝,everyday
+noon,昼,everyday
+afternoon,午後,everyday
+evening,夕方,everyday
+night,夜,everyday
+midnight,真夜中,everyday
+day,日,everyday
+week,週,everyday
+month,月,everyday
+year,年,everyday
+minute,分,everyday
+hour,時間,everyday
+second,秒,everyday
+Monday,月曜日,everyday
+Tuesday,火曜日,everyday
+Wednesday,水曜日,everyday
+Thursday,木曜日,everyday
+Friday,金曜日,everyday
+Saturday,土曜日,everyday
+Sunday,日曜日,everyday
+every day,毎日,everyday
+weekend,週末,everyday
+home,家,everyday
+hospital,病院,everyday
+clinic,診療所,everyday
+ward,病棟,everyday
+nursing home,老人ホーム,everyday
+reception,受付,everyday
+outside,外,everyday
+garden,庭,everyday
+come,来る,everyday
+go,行く,everyday
+give,あげる,everyday
+take,取る,everyday
+want,欲しい,everyday
+need,必要,everyday
+can,できる,everyday
+cannot,できない,everyday
+wait,待つ,everyday
+stop,止まる,everyday
+open,開ける,everyday
+close,閉める,everyday
+look,見る,everyday
+listen,聞く,everyday
+call,呼ぶ,everyday
+feel,感じる,everyday
+breathe,呼吸する,everyday
+cough,咳,everyday
+swallow,飲み込む,everyday
+fall,転ぶ,everyday
+try,やってみる,everyday
+know,知る,everyday
+understand,分かる,everyday
+forget,忘れる,everyday
+remember,覚える,everyday
+speak,話す,everyday
+say,言う,everyday
+show,見せる,everyday
+big,大きい,everyday
+small,小さい,everyday
+good,良い,everyday
+bad,悪い,everyday
+more,もっと,everyday
+less,少ない,everyday
+clean,きれい,everyday
+dirty,汚い,everyday
+full,いっぱい,everyday
+empty,空,everyday
+fast,速い,everyday
+slow,遅い,everyday
+new,新しい,everyday
+old,古い,everyday
+painful,痛い,everyday
+dangerous,危ない,everyday
+heavy,重い,everyday
+light (weight),軽い,everyday
+long,長い,everyday
+short,短い,everyday
+soft,柔らかい,everyday
+hard,硬い,everyday
+easy,簡単,everyday
+difficult,難しい,everyday
+up,上,everyday
+down,下,everyday
+left,左,everyday
+right,右,everyday
+here,ここ,everyday
+there,そこ,everyday
+over there,あそこ,everyday
+inside,中,everyday
+front,前,everyday
+behind,後ろ,everyday
+side,横,everyday
+next to,隣,everyday
+near,近く,everyday
+far,遠く,everyday
+zero,ゼロ,number
+one,いち,number
+two,に,number
+three,さん,number
+four,よん,number
+five,ご,number
+six,ろく,number
+seven,なな,number
+eight,はち,number
+nine,きゅう,number
+ten,じゅう,number
+eleven,じゅういち,number
+twelve,じゅうに,number
+thirteen,じゅうさん,number
+fourteen,じゅうよん,number
+fifteen,じゅうご,number
+sixteen,じゅうろく,number
+seventeen,じゅうなな,number
+eighteen,じゅうはち,number
+nineteen,じゅうきゅう,number
+twenty,にじゅう,number
+thirty,さんじゅう,number
+forty,よんじゅう,number
+fifty,ごじゅう,number
+sixty,ろくじゅう,number
+seventy,ななじゅう,number
+eighty,はちじゅう,number
+ninety,きゅうじゅう,number
+one hundred,ひゃく,number
+one thousand,せん,number
+point (decimal),てん,number
+percent,パーセント,number
+slash/over (BP),の,number
+and,と,number
+half,はん,number
+degree (temperature),度,number
