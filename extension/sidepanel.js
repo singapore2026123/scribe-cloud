@@ -591,7 +591,15 @@ function startListening(){
     if(listenBubble) listenBubble.textContent="🎤 "+(finalText||interim||"聞き取り中…");
   };
   rec.onerror=e=>{
-    if(e.error==="not-allowed"||e.error==="service-not-allowed"){
+    if((e.error==="network"||e.error==="service-not-allowed") && inputLang===NATIVE && nativeMode==="browser"){
+      nativeMode="scribe";                       // ブラウザ音声認識が使えない環境 → 日本語もScribeで認識
+      listening=false; $("mic").classList.remove("rec");
+      if(listenBubble){ listenBubble.remove(); listenBubble=null; }
+      addBubble("sys","ブラウザ音声認識が使えないため、日本語もScribe Cloudで認識します。");
+      if(voiceMode) startRecording();
+      return;
+    }
+    if(e.error==="not-allowed"){
       showBanner("マイクの使用が許可されていません。ブラウザのマイク許可をご確認ください（テキスト入力は利用できます）。");
     }
   };
@@ -602,7 +610,7 @@ function startListening(){
     if(t){ voiceMode=true; noSpeech=0; submit(t,true); }
     else{
       noSpeech++;
-      if(autoOn&&voiceMode&&session&&noSpeech<2){ startListening(); }
+      if(autoOn&&voiceMode&&session&&noSpeech<2&&modeOf(inputLang)==="browser"){ startListening(); }
       else if(noSpeech>=2){ addBubble("sys","無音のため待機します。マイクをタップして再開できます。"); }
     }
   };
@@ -619,7 +627,10 @@ const SCRIBE_SPACE = "https://singapore2026123-scribe-burmese-asr.hf.space"; // 
 const REC_LANG  = "ja";   // 記録・対話言語。外国語音声はここへ翻訳して抽出する
 const LANG_MODE = { ja:"browser", en:"scribe", zh:"scribe", ms:"scribe", ta:"scribe", my:"scribe" };
 let inputLang = "ja";
-const isScribe = ()=>LANG_MODE[inputLang]==="scribe";
+const NATIVE = "ja";                          // ブラウザ音声認識を使う言語（＝記録言語）
+let nativeMode = SR ? "browser" : "scribe";   // SR不可 → 日本語もScribeで認識（自動フォールバック）
+const modeOf = (l)=> l===NATIVE ? nativeMode : LANG_MODE[l];
+const isScribe = ()=> modeOf(inputLang)==="scribe";
 $("langSel").addEventListener("change", e=>{
   inputLang=e.target.value;
   if(listening) stopListening();
@@ -628,7 +639,7 @@ $("langSel").addEventListener("change", e=>{
   addBubble("sys", `入力言語：${lbl} ` + (isScribe()
     ? "→ Scribe Cloudで認識し日本語へ翻訳して記録します"
     : "→ ブラウザ音声認識（即時）"));
-  $("mic").disabled = (LANG_MODE[inputLang]==="browser" && !SR);
+  $("mic").disabled = (modeOf(inputLang)==="browser" && !SR);
 });
 
 /* マイク録音（ScriptProcessor）→ 無音で自動停止 → WAV/base64 → Scribe */
@@ -765,8 +776,8 @@ refreshAiState();
 
 /* ============ 起動 ============ */
 if(!SR){
-  showBanner("このブラウザはブラウザ音声認識に非対応です。日本語はテキスト入力を、英/中/馬/泰/緬は上部の言語選択でScribe Cloud音声入力をご利用ください（Chrome/Edge推奨）。");
-  if(LANG_MODE[inputLang]==="browser") $("mic").disabled=true;   // 日本語ブラウザ認識のみ無効化。Scribe言語はマイク可
+  showBanner("ブラウザ音声認識が使えないため、日本語もScribe Cloudで認識します（マイクはご利用いただけます）。");
+  // nativeMode は既に "scribe"。マイクは無効化しない（日本語もScribeで録音・認識）
 }
 addBubble("ai","こんにちは、"+STAFF+"さん。ケアトーク × Scribe Cloud v0.4.0 です（CWマスタ準拠：食事・水分補給・排泄・バイタル）。\n\n■ 多言語音声入力（NEW）\n・右上の言語ボタンで話す言語を選べます：🎙日本語（ブラウザ即時）／☁英・中・馬・泰・緬\n・☁言語は Scribe Cloud が音声を認識し、日本語へ翻訳してから記録します\n　例：ミャンマー人職員がビルマ語で話す → 日本語の記録に整理\n・☁は話し終えると自動で認識します（緬は初回の起動に少し時間がかかります）\n\n■ 使い方（一括発話方式）\n・マイク🎤をタップして、知っている内容を一気に話してください\n　例：「田中さんの昼食、主食8割、副食全量、お茶150cc」\n・単語ずつでもOK：「主食」→「全量」のように区切って話せます\n・内容を整理し、足りない必須項目だけ確認します\n・最後に補足（場所・介助・状態コメント）を聞いて、まとめて登録します\n・言い直しは「やっぱり主食は7割」／中止は「キャンセル」\n\n■ ⚙AI ボタンから Gemini APIキーを設定すると、AIが発話全体を解釈し、誤変換（全寮→全量など）も文脈で補正します（任意）。");
 renderChips();
