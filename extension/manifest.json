@@ -1,13 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Scribe Tab Audio",
-  "version": "0.2.0",
-  "description": "Live transcription + translation of the current tab's audio (no screen-share) in a side panel. Scribe.",
-  "permissions": ["tabCapture", "offscreen", "tabs", "storage", "sidePanel", "activeTab"],
+  "name": "Scribe CareTalk — 多言語音声介護記録",
+  "version": "0.4.0",
+  "description": "音声対話でCWマスタ準拠の介護記録を作成。日本語=ブラウザ音声認識、英/中/馬/泰/緬=Scribe Cloudで認識し日本語へ翻訳。用語集グロッサリ内蔵。",
+  "permissions": ["sidePanel", "storage"],
   "host_permissions": [
+    "https://scribe-cloud.singapore2026123.workers.dev/*",
     "https://singapore2026123-scribe-burmese-asr.hf.space/*",
-    "https://scribe-cloud.singapore2026123.workers.dev/*"
+    "https://generativelanguage.googleapis.com/*"
   ],
   "background": { "service_worker": "background.js" },
-  "action": { "default_title": "Scribe — open live side panel" }
+  "side_panel": { "default_path": "sidepanel.html" },
+  "action": { "default_title": "ケアトーク — 介護記録パネルを開く" }
 }

@@ -49,3 +49,628 @@ admission,入院,入院,kemasukan hospital,மருத்துவமனை அ
 discharge,退院,出院,keluar hospital,மருத்துவமனையிலிருந்து விடுவிப்பு,ဆေးရုံဆင်းခြင်း,record
 care plan,ケアプラン,护理计划,pelan penjagaan,பராமரிப்புத் திட்டம்,ပြုစုစောင့်ရှောက်မှု အစီအစဉ်,record
 vital signs,バイタルサイン,生命体征,tanda vital,உயிர்ச் சமிக்ஞைகள்,အသက်ရှင်လက္ခဏာများ,record
+Excretion,排泄,排泄,Perkumuhan,கழிவு வெளியேற்றம்,အညစ်အကြေးစွန့်ခြင်း,carewatcher
+Cleaning,掃除,清洁,Pembersihan,சுத்தம் செய்தல்,သန့်ရှင်းရေး,carewatcher
+Laundry,洗濯,洗衣,Dobi,துணி துவைத்தல்,လျှော်ဖွတ်ခြင်း,carewatcher
+Bed-making,ベットメイク,铺床,Mengemas katil,படுக்கை ஒழுங்குசெய்தல்,အိပ်ယာပြင်ဆင်ခြင်း,carewatcher
+Clothing,衣類・被服,衣服/衣着,Pakaian,ஆடை,အဝတ်အစား/အဝတ်အစားဝတ်ဆင်ခြင်း,carewatcher
+Meal preparation and service,調理・配下膳,烹饪/上菜・撤菜,Penyediaan dan penghidangan makanan,உணவு தயாரிப்பு மற்றும் பரிமாறல்,အစားအစာချက်ပြုတ်ပြင်ဆင်ခြင်းနှင့် တည်ခင်းခြင်း,carewatcher
+Shopping and obtaining medication,買物・薬の受取,购物/领药,Membeli-belah dan mendapatkan ubat,பொருள் வாங்குதல் மற்றும் மருந்து பெறுதல்,ဈေးဝယ်ခြင်းနှင့် ဆေးဝါးကုသမှုခံယူခြင်း,carewatcher
+Observation of status,状態観察,状态观察,Pemerhatian keadaan,நிலை கண்காணிப்பு,အခြေအနေအားအနီးကပ်စောင့်ကြည့်ခြင်း,carewatcher
+Safety check,安全確認,安全检查,Pemeriksaan keselamatan,பாதுகாப்பு சரிபார்ப்பு,လုံခြုံမှုရှိမရှိ စစ်ဆေးအတည်ပြုခြင်း,carewatcher
+Changing clothing,衣類更衣,换衣服,Menukar pakaian,ஆடை மாற்றுதல்,အဝတ်အစားလဲလှယ်ခြင်း,carewatcher
+Assistance logged,支援記録,援助记录,Rekod bantuan,உதவி பதிவு,ထောက်ပံ့မှုမှတ်တမ်း,carewatcher
+Medical treatment,医療処置,医疗处理,Rawatan perubatan,மருத்துவ சிகிச்சை,ဆေးဘက်ဆိုင်ရာပြုစုကုသမှု,carewatcher
+Activities,アクティビティ・活動,活动,Aktiviti,செயல்பாடுகள்,လှုပ်ရှားဆောင်ရွက်မှုများ,carewatcher
+Rehabilitation,リハビリテーション,康复训练,Pemulihan,மறுவாழ்வு,ပြန်လည်သန်စွမ်းရေး,carewatcher
+Recreation,レクリエーション,休闲娱乐,Rekreasi,பொழுதுபோக்கு,အပန်းဖြေခြင်း,carewatcher
+Outing or sleep over,外出・外泊,外出/外宿,Keluar atau menginap,வெளியில் செல்லுதல் அல்லது தங்குதல்,အပြင်ထွက်ခြင်း သို့မဟုတ် ညအိပ်ထွက်ခြင်း,carewatcher
+"Sleep over, visit, etc.",外泊・面会等,外宿/探望等,"Menginap, melawat, dll.","தங்குதல், சந்திப்பு, முதலியன",ညအိပ်ထွက်ခြင်း၊ အလည်အပတ်သွားရောက်ခြင်း စသည်,carewatcher
+Nursing care,看護ケア,看护,Penjagaan kejururawatan,செவிலியர் பராமரிப்பு,သူနာပြု စောင့်ရှောက်မှု,carewatcher
+Care and observation,看護・観察,看护/观察,Penjagaan dan pemerhatian,பராமரிப்பு மற்றும் கண்காணிப்பு,သူနာပြုစောင့်ရှောက်မှုနှင့် အနီးကပ်စောင့်ကြည့်မှု,carewatcher
+Responding to a complaint,苦情対応,投诉处理,Tindak balas terhadap aduan,புகாருக்கு பதிலளித்தல்,မကျေနပ်ချက်တစ်ရပ်ကို တုန့်ပြန်ဖြေရှင်းခြင်း,carewatcher
+Liquids,水分,水分,Cecair,திரவங்கள்,ရေဓါတ်,carewatcher
+Event,行事,活动,Acara,நிகழ்வு,အခမ်းအနား/ပွဲ,carewatcher
+Responding to an accident or emergency,事故・緊急時対応,事故或应急措施,Tindak balas terhadap kemalangan atau kecemasan,விபத்து அல்லது அவசரநிலைக்கு பதிலளித்தல்,မတော်တဆထိခိုက်မှု၊ အရေးပေါ်အခြေအနေအား တုန့်ပြန်ဖြေရှင်းခြင်း,carewatcher
+Admission and discharge,入院・退院,住院/出院,Kemasukan dan pelepasan hospital,மருத்துவமனை அனுமதி மற்றும் விடுவிப்பு,ဆေးရုံတက်ခြင်းနှင့် ဆေးရုံဆင်းခြင်း,carewatcher
+House call,往診,出诊,Lawatan doktor ke rumah,மருத்துவர் வீட்டு வருகை,အိမ်တိုင်ယာရောက်သွားရောက်၍ဆေးစစ်ပေးခြင်း,carewatcher
+Form of nutrition management,栄養管理方法,营养管理方法,Kaedah pengurusan pemakanan,ஊட்டச்சத்து மேலாண்மை முறை,အစာအာဟာရ စီမံခန့်ခွဲမှုပုံစံ,carewatcher
+Status of nutrition management,栄養管理状態,营养管理状态,Status pengurusan pemakanan,ஊட்டச்சத்து மேலாண்மை நிலை,အစာအာဟာရ စီမံခန့်ခွဲမှုအခြေအနေ,carewatcher
+Regular checks/Health and welfare check,巡視・様子確認,巡视/情况确认,Pemeriksaan berkala,வழக்கமான சோதனைகள்,အိမ်တိုင်ယာရောက်သွားရောက်၍ဆေးစစ်ပေးခြင်း,carewatcher
+Response to a change in status,状態変化対応,状态变化应对,Tindak balas terhadap perubahan keadaan,நிலை மாற்றத்திற்கு பதிலளித்தல்,ပြောင်းလဲလာသောအခြေအနေပေါ်မူတည်၍ တုန့်ပြန်ဖြေရှင်းခြင်း,carewatcher
+Grooming,身体整容,身体护理,Dandanan diri,தன்னை ஒழுங்குபடுத்துதல்,တစ်ကိုယ်ရေသန့်ရှင်းမှုနှင့်အပြင်အဆင်,carewatcher
+"Assistance transferring to a chair, bed, etc.",移乗・移動介助,转移/移动辅助,Bantuan pemindahan dan pergerakan,இடமாற்றம் மற்றும் நகர்வு உதவி,နေရာအပြောင်းအလဲ၊ အရွှေ့အပြောင်းနှင့်ဆိုင်သော အကူအညီ,carewatcher
+Taking medication,服薬,吃药,Pengambilan ubat,மருந்து உட்கொள்ளுதல்,ဆေးသောက်ခြင်း,carewatcher
+Waking up and going to bed,起床・就寝,起床/就寝,Bangun tidur dan tidur,எழுந்திருத்தல் மற்றும் படுக்கச் செல்லுதல்,အိပ်ယာထခြင်းနှင့် အိပ်ယာဝင်ခြင်း,carewatcher
+Method,方法,方法,Kaedah,முறை,နည်းလမ်း,carewatcher
+Main dish,主食,主食,Makanan ruji,பிரதான உணவு,အဓိကဟင်းပွဲ,carewatcher
+Log observation,観察記録,观察记录,Rekod pemerhatian,கண்காணிப்பு பதிவு,အနီးကပ်စောင့်ကြည့်ခြင်းမှတ်တမ်း,carewatcher
+Details,内容,内容,Butiran,விவரங்கள்,အသေးစိတ်အချက်များ,carewatcher
+Situation,状況,情况,Keadaan,சூழ்நிலை,အခြေအနေ,carewatcher
+Movement,移動,移动,Pergerakan,நகர்வு,ရွှေ့ပြောင်းခြင်း,carewatcher
+Individual rehabilitation,個別リハ,个别康复训练,Pemulihan individu,தனிநபர் மறுவாழ்வு,တစ်ဦးချင်း ပြန်လည်ထူထောင်ရေး,carewatcher
+Exercise therapy,運動療法,运动疗法,Terapi senaman,உடற்பயிற்சி சிகிச்சை,လေ့ကျင့်ခန်းကုထုံး,carewatcher
+Side dish,副食,副食,Lauk,பக்க உணவு,အရန်ဟင်းပွဲ,carewatcher
+Physical therapy,物理療法,物理疗法,Fisioterapi,இயன்முறை சிகிச்சை,ရုပ်ခန္ဓာဆိုင်ရာကုထုံး,carewatcher
+Status,状態,状态,Keadaan,நிலை,အခြေအနေ,carewatcher
+Activities,活動内容,活动内容,Aktiviti,செயல்பாடுகள்,လှုပ်ရှားဆောင်ရွက်မှုများ,carewatcher
+Departure,出発,出发,Berlepas,புறப்பாடு,ထွက်ခွာခြင်း,carewatcher
+Return to facility,帰館,归馆,Kembali ke kemudahan,வசதிக்கு திரும்புதல்,အိမ်ပြန်ခြင်း,carewatcher
+Changing clothing - Details,更衣-内容,更衣-内容,Menukar pakaian - Butiran,ஆடை மாற்றம் - விவரங்கள்,အဝတ်အစားလဲလှယ်ခြင်း - အချက်များ,carewatcher
+Changing clothing - Assistance,更衣-介助,更衣-辅助,Menukar pakaian - Bantuan,ஆடை மாற்றம் - உதவி,အဝတ်အစားလဲလှယ်ခြင်း - ကူညီခြင်း,carewatcher
+Size of main dish,主食量,主食量,Jumlah makanan ruji,பிரதான உணவின் அளவு,အဓိကဟင်းပွဲအရွယ်အစား,carewatcher
+Location,所在,所在地,Lokasi,இடம்,တည်ရှိရာနေရာ,carewatcher
+Nutrition,栄養,营养,Pemakanan,ஊட்டச்சத்து,အာဟာရ,carewatcher
+Administration of medication,与薬,给药,Pemberian ubat,மருந்து வழங்கல்,သောက်ရန်ဆေးပေးခြင်း,carewatcher
+General,一般,一般,Umum,பொது,အထွေထွေ,carewatcher
+Local,局所,局部,Setempat,உள்ளூர்,ဒေသတွင်း,carewatcher
+Determining if a bath is needed,入浴判断,入浴判断,Menentukan keperluan mandi,குளியல் தேவையா என தீர்மானித்தல்,ရေချိုးရန်လို/မလို ဆုံးဖြတ်ခြင်း,carewatcher
+Size of side dish,副食量,副食量,Jumlah lauk,பக்க உணவின் அளவு,အရံဟင်းပွဲ အရွယ်အစား,carewatcher
+Status (in bed),状態(就寝),状态(就寝),Keadaan (di katil),நிலை (படுக்கையில்),အခြေအနေ (အိပ်ရာထဲရှိချိန်),carewatcher
+Response,対応,处理,Tindak balas,பதில்,တုန့်ပြန်ဖြေရှင်းမှု,carewatcher
+Status of sputum,痰の状態,痰的状态,Keadaan kahak,சளியின் நிலை,ချွဲသလိပ်အခြေအနေ,carewatcher
+Date and time of occurrence (response),発生（対応）日時,发生（处理）日期和时间,Tarikh dan masa kejadian (tindak balas),நிகழ்வு (பதில்) தேதி மற்றும் நேரம்,ဖြစ်ပွားမှု (တုန့်ပြန်မှု)၏ နေ့ရက်နှင့်အချိန်,carewatcher
+Petitioner,申し立て者,申诉者,Pengadu,மனுதாரர்,အသနားခံတင်ပြသူ,carewatcher
+Monthly event,月単位行事,每月的活动,Acara bulanan,மாதாந்திர நிகழ்வு,လစဥ်ကျင်းပသည့်ပွဲ,carewatcher
+Seasonal event,季節行事,季节性活动,Acara bermusim,பருவகால நிகழ்வு,ရာသီပွဲတော်,carewatcher
+Rehabilitation,リハビリ,康复训练,Pemulihan,மறுவாழ்வு,ပြန်လည်သန်စွမ်းရေး,carewatcher
+Amount of nutritional support,栄養補給量,营养补充量,Jumlah sokongan pemakanan,ஊட்டச்சத்து ஆதரவின் அளவு,အာဟာရဆိုင်ရာပံ့ပိူးမှုပမာဏ,carewatcher
+Date and time of occurrence,発生日時,发生日期和时间,Tarikh dan masa kejadian,நிகழ்வு தேதி மற்றும் நேரம்,ဖြစ်ပွားသည့်နေ့ရက်နှင့်အချိန်,carewatcher
+Category,分類,分类,Kategori,வகை,အမျိုးအစားခွဲခြားခြင်း,carewatcher
+Response①,対応①,处理①,Tindak balas ①,பதில் ①,တုန့်ပြန်ဖြေရှင်းမှု (၁),carewatcher
+Response②,対応②,处理②,Tindak balas ②,பதில் ②,တုန့်ပြန်ဖြေရှင်းမှု (၂),carewatcher
+Foreseeability,予見可能性,可预见性,Kebolehramalan,முன்கூட்டியே அறியும் தன்மை,ကြိုတင်မြင်နိုင်မှု ဖြစ်နိုင်ချေအလားအလာ,carewatcher
+Admission or discharge,入退院,住院和出院,Kemasukan atau pelepasan,அனுமதி அல்லது விடுவிப்பு,ဆေးရုံတက်ခြင်း သို့မဟုတ် ဆင်းခြင်း,carewatcher
+Cardinal symptoms,主症状,主要症状,Gejala utama,முக்கிய அறிகுறிகள்,အဓိကလက္ခဏာ,carewatcher
+Pay service,有料サービス,收费服务,Perkhidmatan berbayar,கட்டண சேவை,အခကြေးငွေပေးရသည့်ဝန်ဆောင်မှု,carewatcher
+Comments on status,状態コメント,状态评论,Ulasan tentang keadaan,நிலை பற்றிய கருத்துகள்,အခြေအနေကိုမှတ်ချက်ပေးခြင်း,carewatcher
+Seen at medical facility - Details,受診－内容,就诊-内容,Rawatan di kemudahan perubatan - Butiran,மருத்துவ வசதியில் பார்வை - விவரங்கள்,ကုသမှုခံယူခြင်း - အသေးစိတ််အချက်များ,carewatcher
+Admission - Details,入院－内容,住院-内容,Kemasukan - Butiran,அனுமதி - விவரங்கள்,ဆေးရုံတက်ခြင်း - အသေးစိတ််အချက်များ,carewatcher
+Admission - Other,入院－その他,住院-其他,Kemasukan - Lain-lain,அனுமதி - மற்றவை,ဆေးရုံတက်ခြင်း - အခြား,carewatcher
+Start time,開始時間,开始时间,Masa mula,தொடக்க நேரம்,စတင်ချိန်,carewatcher
+End time,終了時間,结束时间,Masa tamat,முடிவு நேரம்,ပြီးဆုံးချိန်,carewatcher
+Next appointment,次回予約,下次预约,Temujanji seterusnya,அடுத்த சந்திப்பு,နောက်တစ်ကြိမ်တွေ့ဆုံရန်ချိန်းဆိုမှု,carewatcher
+Seen by (department),受診科目,就诊科目,Jabatan yang dirujuk,பார்க்கப்பட்ட துறை,ဆေးစစ်ရမည့်ဌာန,carewatcher
+Informed consent,インフォームド？コンセント,知情同意,Persetujuan termaklum,தகவலறிந்த சம்மதம்,အသိပေးထားသော မကျေနပ်ချက်,carewatcher
+Visiting physician,往診医,出诊医生,Doktor yang melawat,வருகை தரும் மருத்துவர்,အိမ်တိုင်ရာရောက်ကုသသည့်ဆရာဝန်,carewatcher
+Medication-related,薬剤関連,药剂相关,Berkaitan ubat,மருந்து தொடர்பான,ဆေးဝါးနှင့်သက်ဆိုင်သော,carewatcher
+Caloric intake,摂取カロリー,摄取卡路里,Pengambilan kalori,கலோரி உட்கொள்ளல்,စားသုံးသည့်ကယ်လိုရီ,carewatcher
+Changing body position,体位交換,改变姿势,Menukar kedudukan badan,உடல் நிலை மாற்றம்,ကိုယ်အနေအထားပြောင်းခြင်း,carewatcher
+Other,その他,其他,Lain-lain,மற்றவை,အခြားအရာ,carewatcher
+Replenishing fluids,水分補給,补充水分,Menambah cecair,திரவங்களை நிரப்புதல்,ရေဓာတ်ဖြည့်စွက်ပေးခြင်း,carewatcher
+Shampooing,洗髪,洗头发,Mencuci rambut,தலைமுடி கழுவுதல்,ခေါင်းလျှော်ခြင်း,carewatcher
+Dressing and undressing,着脱衣,穿/脱衣,Memakai dan menanggalkan pakaian,ஆடை அணிதல் மற்றும் கழற்றுதல்,အဝတ်ဝတ်ခြင်းနှင့်  အဝတ်အစားချွတ်ခြင်း,carewatcher
+Status of skin,皮膚の状態,皮肤状态,Keadaan kulit,தோலின் நிலை,အရေပြားအခြေအနေ,carewatcher
+Alertness,意識の状態,意识状态,Tahap kesedaran,விழிப்புணர்வு நிலை,အသိစိတ်အခြေအနေ,carewatcher
+Aspects of appearance,整容項目,护理项目,Aspek penampilan,தோற்றத்தின் அம்சங்கள்,တစ်ကိုယ်ရေသန့်ရှင်းရေးနှင့်ဆိုင်သောအချက်များ,carewatcher
+Complexion,顔色,脸色,Warna muka,முகநிறம்,မျက်နှာအသားအရောင်,carewatcher
+Urination,排尿,排尿,Kencing,சிறுநீர் கழித்தல்,ဆီးသွားခြင်း,carewatcher
+Scalp and hair,頭皮頭髪,头皮头发,Kulit kepala dan rambut,உச்சந்தலை மற்றும் முடி,ဦးရေပြားနှင့် ဆံပင်,carewatcher
+Nails,爪,指甲,Kuku,நகங்கள்,လက်သည်းခြေသည်း,carewatcher
+Assistance,介助,辅助,Bantuan,உதவி,ကူညီစောင့်ရှောက်ပေးခြင်း,carewatcher
+Details on assistance,介助内容,辅助内容,Butiran bantuan,உதவி விவரங்கள்,ှုကူညီစောင့်ရှောက်ပေးခြင်း- အသေးစိတ်အချက်များ,carewatcher
+Urination (status),排尿（状態）,排尿(状态),Kencing (keadaan),சிறுநீர் கழித்தல் (நிலை),ဆီးသွားမှု (အခြေအနေ),carewatcher
+Blood pressure (up),血圧（上）,血压(上),Tekanan darah (sistolik),இரத்த அழுத்தம் (சிஸ்டாலிக்),သွေးဖိအား (အပေါ်),carewatcher
+Blood pressure (down),血圧（下）,血压(下),Tekanan darah (diastolik),இரத்த அழுத்தம் (டயஸ்டாலிக்),သွေးဖိအား (အောက်),carewatcher
+Height,身長,身高,Ketinggian,உயரம்,အရပ်အမြင့်,carewatcher
+Weight,体重,体重,Berat badan,எடை,ကိုယ်အလေးချိန်,carewatcher
+Location,場所,位置,Lokasi,இடம்,တည်နေရာ,carewatcher
+Notes,特記,特别记载,Catatan khas,சிறப்பு குறிப்புகள்,မှတ်ချက်များ,carewatcher
+Oral-Detail,口腔-内容,口腔-内容,Rongga mulut - Butiran,வாய் - விவரம்,အာခံတွင်းဆိုင်ရာ - အသေးစိတ်အချက်များ,carewatcher
+Oral-Assistance,口腔-介助,口腔-辅助,Rongga mulut - Bantuan,வாய் - உதவி,အာခံတွင်းဆိုင်ရာ - ကူညီဆောင်ရွက်ခြင်း,carewatcher
+Stool (type),排便（性状）,排便(性状),Najis (jenis),மலம் (வகை),ဝမ်း (ပုံစံ),carewatcher
+Excretion - Type,排泄-種類,排泄-类别,Perkumuhan - Jenis,கழிவு - வகை,အညစ်အကြေးစွန့်ခြင်း - အမျိုးအစား,carewatcher
+Excretion - Locaiton,排泄-場所,排泄-位置,Perkumuhan - Lokasi,கழிவு - இடம்,အညစ်အကြေးစွန့်ခြင်း- နေရာ,carewatcher
+Excretion - Tool,排泄-用具,排泄-工具,Perkumuhan - Alat,கழிவு - கருவி,အညစ်အကြေးစွန့်ခြင်း-  ကိရိယာ,carewatcher
+Excretion - Assistance,排泄-介助,排泄-辅助,Perkumuhan - Bantuan,கழிவு - உதவி,အညစ်အကြေးစွန့်ခြင်း - အထောက်အကူ,carewatcher
+Urinary incontinence,尿失禁,尿失禁,Ketidakupayaan menahan kencing,சிறுநீர் கட்டுப்பாடின்மை,ဆီး မထိန်းနိုင်ခြင်း,carewatcher
+Fecal incontinence,便失禁,大便失禁,Ketidakupayaan menahan najis,மல கட்டுப்பாடின்மை,ဝမ်း မထိန်းနိုင်ခြင်း,carewatcher
+Excretion - Other,排泄-その他,排泄-其他,Perkumuhan - Lain-lain,கழிவு - மற்றவை,အညစ်အကြေးစွန့်ခြင်း - အခြား,carewatcher
+Status of urination,排尿状態,排尿状态,Keadaan kencing,சிறுநீர் கழிப்பு நிலை,ဆီးသွားမှုအခြေအနေ,carewatcher
+Incontinence,失禁,失禁,Ketidakupayaan menahan,கட்டுப்பாடின்மை,ဆီးဝမ်းမထိန်းနိုင်ခြင်း,carewatcher
+Type of stool (Bristol stool scale),排便形状（ブリストルスケール）,排便形状（布里斯托大便分类法）,Jenis najis (Skala Bristol),மல வகை (பிரிஸ்டல் அளவுகோல்),ဝမ်းအမျိုးအစား (ဝမ်းမာကျောမှုအဆင့်),carewatcher
+Status check after excretion,排泄後の状態確認,排泄后的状态确认,Pemeriksaan keadaan selepas perkumuhan,கழிவுக்குப் பின் நிலை சரிபார்ப்பு,ဝမ်းသွားပြီးနောက် အခြေအနေကိုစစ်ဆေးခြင်း,carewatcher
+Grooming-Details,整容-内容,护理-内容,Dandanan - Butiran,ஒப்பனை - விவரங்கள்,တစ်ကိုယ်ရေသန့်ရှင်းရေးနှင့်အပြင်အဆင်- အသေးစိတ်,carewatcher
+Grooming-Assistance,整容-介助,护理-辅助,Dandanan - Bantuan,ஒப்பனை - உதவி,တစ်ကိုယ်ရေသန့်ရှင်းရေးနှင့်အပြင်အဆင်- အထောက်အကူ,carewatcher
+Deposit,預り金,预付款,Deposit,வைப்புத்தொகை,စပေါ်ပေးသွင်းငွေ,carewatcher
+Amount spent,使用金,消费金额,Jumlah dibelanjakan,செலவழித்த தொகை,အသုံးပြုသည့်ငွေ,carewatcher
+Mood,気分,心情,Suasana hati,மனநிலை,စိတ်နေသဘောထား,carewatcher
+Aspiration (status),吸引（状態）,吸入(状态),Sedutan (keadaan),உறிஞ்சல் (நிலை),စုပ်ယူခြင်း (အခြေအနေ),carewatcher
+Aspiration (amount),吸引（量）,吸入(量),Sedutan (jumlah),உறிஞ்சல் (அளவு),စုပ်ယူခြင်း (ပမာဏ),carewatcher
+Fasting,絶食,绝食,Berpuasa,உண்ணாநோன்பு,အစာမစားဘဲနေခြင်း,carewatcher
+Has appetite,食欲あり,有食欲,Ada selera makan,பசி உள்ளது,အစာစားချင်စိတ်ရှိခြင်း,carewatcher
+Normal,普通,一般,Biasa,சாதாரண,ပုံမှန်,carewatcher
+Hunger,空腹感,空腹感,Rasa lapar,பசி உணர்வு,ဆာလောင်သည့်စိတ်,carewatcher
+Malaise,倦怠感,倦怠感,Rasa lesu,சோர்வு உணர்வு,မောပန်းနွမ်းနယ်ခြင်း,carewatcher
+Vomiting,嘔吐,呕吐,Muntah,வாந்தி,အော့အန်ခြင်း,carewatcher
+Wheezing,喘鳴,喘鸣,Berdehit (nafas),மூச்சு விசில்,အသက်ရှူသံ တရွှီးရွွှီးထွက်ခြင်း,carewatcher
+Dysphagia,嚥下困難,吞咽困难,Sukar menelan,விழுங்குதல் சிரமம்,မျိုရခက်ခဲသော,carewatcher
+Other abnormalities,その他異常,其他异常,Keabnormalan lain,பிற அசாதாரணங்கள்,အခြား ပုံမှန်မဟုတ်သောအခြေအနေများ,carewatcher
+Choking,むせ込み,噎住,Tersedak,மூச்சுத் திணறல்,အစာနင်ခြင်း,carewatcher
+Hoarding,ため込み,含在口中,Menyimpan makanan dalam mulut,வாயில் தேக்குதல்,စုဆောင်းခြင်း,carewatcher
+Extensive amount,多量,大量,Banyak,அதிக அளவு,ပမာဏများသော,carewatcher
+Black tea,紅茶,红茶,Teh,டீ,လက်ဖက်ရည်,carewatcher
+Jelly,ゼリー,果冻,Jeli,ஜெல்லி,ကျောက်ကျော,carewatcher
+Minimal amount,極少量,极少量,Amat sedikit,மிகக் குறைவு,အနည်းဆုံးပမာဏ,carewatcher
+Small amount,少量,少量,Sedikit,சிறிதளவு,အနည်းငယ်သောပမာဏ,carewatcher
+Full bath,全身浴,全身沐浴,Mandi penuh,முழு குளியல்,တစ်ကိုယ်လုံးရေချိုးခြင်း,carewatcher
+Hand bath,手浴,手浴,Mandi tangan,கை குளியல்,လက်ကိုဆေးကြောခြင်း,carewatcher
+Foot bath,足浴,足浴,Mandi kaki,கால் குளியல்,ခြေထောက်ကိုဆေးကြောခြင်း,carewatcher
+Complete bed bath,全身清拭,细擦全身,Lap seluruh badan,முழு உடல் துடைப்பு,တစ်ကိုယ်လုံး ရေပတ်တိုက်ခြင်း,carewatcher
+Upper body sponge bath,上半身清拭,细擦上身,Lap badan atas,மேல் உடல் துடைப்பு,ကိုယ်ခန္ဓာအပေါ်ပိုင်း ရေပတ်တိုက်ခြင်း,carewatcher
+Lower body sponge bath,下肢清拭,细擦下肢,Lap badan bawah,கீழ் உடல் துடைப்பு,ကိုယ်ခန္ဓာအောက်ပိုင်း ရေပတ်တိုက်ခြင်း,carewatcher
+Normal bathing,一般浴,普通洗浴,Mandi biasa,சாதாரண குளியல்,သာမန်ရေချိုးခြင်း,carewatcher
+Assisted bathing,機械浴,辅助洗浴,Mandi berbantu mesin,இயந்திர உதவி குளியல்,အကူအညီဖြင့်ရေချိုးခြင်း,carewatcher
+Bathing discontinued,入浴中止,中止洗浴,Mandi dihentikan,குளியல் நிறுத்தப்பட்டது,ရေဆက်ချိုးခွင့်မရ,carewatcher
+Individual bathing,個浴,单独洗浴,Mandi individu,தனி குளியல்,တစ်ဦးချင်းရေချိုးခြင်း,carewatcher
+Independence,自立,独立,Berdikari,சுயசார்பு,မိမိဘာသာလုပ်နိုင်ခြင်း,carewatcher
+Monitoring,見守り,看护,Pemantauan,கண்காணிப்பு,စောင့်ကြည့်ခြင်း,carewatcher
+Partial assistance,一部介助,部分辅助,Bantuan separa,பகுதி உதவி,တစ်စိတ်တစ်ပိုင်းပံ့ပိုးကူညီခြင်း,carewatcher
+Complete assistance,全介助,完全辅助,Bantuan penuh,முழு உதவி,အပြည့်အဝပံ့ပိုးကူညီခြင်း,carewatcher
+Concentration,濃縮,浓缩,Pekat,அடர்த்தி,ပျစ်သော၊ စူးစိုက်သော,carewatcher
+Turbidity,混濁,浑浊,Keruh,கலங்கல்,နောက်ကျိခြင်း၊ ညစ်ပတ်ခြင်း,carewatcher
+No problem,問題なし,无异常,Tiada masalah,பிரச்சனை இல்லை,ပြဿနာမရှိ,carewatcher
+Tumor,腫瘤,肿瘤,Ketumbuhan,கட்டி,အစိုင်အခဲ/အကြိတ်,carewatcher
+Redness,発赤,皮肤发红,Kemerahan,சிவப்பு,နီလာခြင်း,carewatcher
+Skin peeling,皮膚剥離,皮肤脱落,Pengelupasan kulit,தோல் உரிதல்,အရေပြားကွာခြင်း,carewatcher
+Hematuria,血尿,血尿,Kencing berdarah,இரத்த சிறுநீர்,ဆီးထဲသွေးပါခြင်း,carewatcher
+Abnormal,異常あり,存在异常,Tidak normal,அசாதாரணம்,မူမမှန်ခြင်း,carewatcher
+Washing the face,洗面,洗脸,Membasuh muka,முகம் கழுவுதல்,မျက်နှာသစ်ခြင်း,carewatcher
+Toothbrushing,歯磨き,刷牙,Memberus gigi,பல் துலக்குதல்,သွားတိုက်ခြင်း,carewatcher
+Trimming the fingernails,手爪切り,剪手指甲,Memotong kuku tangan,கை நகம் வெட்டுதல்,လက်သည်းညှပ်ခြင်း,carewatcher
+Trimming the toenails,足爪切り,剪脚指甲,Memotong kuku kaki,கால் நகம் வெட்டுதல்,ခြေသည်းညှပ်ခြင်း,carewatcher
+Ear cleaning,耳掃除,清洁耳朵,Membersihkan telinga,காது சுத்தம்,နားသန့်ရှင်းရေး,carewatcher
+Shaving,髭剃り,剃胡子,Bercukur,சவரம்,မုတ်ဆိတ်ရိတ်ခြင်း,carewatcher
+Hair care,髪の手入れ,护理头发,Penjagaan rambut,முடி பராமரிப்பு,ဆံပင်ဖီးခြင်း/ပြင်ဆင်ခြင်း,carewatcher
+Makeup,化粧,化妆,Solek,ஒப்பனை,အလှပြင်ခြင်း,carewatcher
+Oral cleaning,口腔清拭,清洁口腔,Pembersihan mulut,வாய் சுத்தம்,ခံတွင်းသန့်ရှင်းရေး,carewatcher
+Denture cleaning,義歯洗浄,清洁假牙,Pembersihan gigi palsu,பொய்ப்பல் சுத்தம்,သွားတုသန့်ရှင်းရေး,carewatcher
+Changing clothing,更衣,更衣,Menukar pakaian,ஆடை மாற்றம்,အဝတ်လဲခြင်း,carewatcher
+Jaundiced,黄だんあり,有黄疸,Jaundis,மஞ்சள் காமாலை,အသားဝါ,carewatcher
+Pale,顔面蒼白,脸色苍白,Pucat,வெளிறல்,မျက်နှာဖြူဖတ်ဖြူလျော်ဖြစ်သော,carewatcher
+Flushing,紅潮,红晕,Muka merah,முகம் சிவத்தல்,နီရဲလာခြင်း,carewatcher
+Portable,ポータブル,便携式,Mudah alih (tandas),நகர்த்தக்கூடிய,ရွှေ့ပြောင်းသယ်ယူနိုင်သော,carewatcher
+Abnormal ocular discharge,目脂に異常あり,眼屎存在异常,Tahi mata tidak normal,கண் அழுக்கு அசாதாரணம்,မျက်ဝတ် ပုံမှန်မဟုတ်ခြင်း,carewatcher
+Watery eyes,涙目,溢泪,Mata berair,கண் நீர்,မျက်ရည်ဝိုင်းသောမျက်လုံး,carewatcher
+Excessive tearing,涙流している,多泪,Mata mengalir air,அதிக கண்ணீர்,ငိုနေသည်,carewatcher
+Abnormal nasal discharge,鼻汁に異常あり,鼻涕存在异常,Hingus tidak normal,மூக்கு நீர் அசாதாரணம்,နှာရည် ပုံမှန်မဟုတ်ခြင်း,carewatcher
+Pressure ulcer of the scalp,頭皮褥瘡あり,头皮有褥疮,Luka tekanan kulit kepala,உச்சந்தலை அழுத்த புண்,ကြာရှည်လဲလျောင်းသောအခါ ဦးရေတွင်ဖြစ်ပေါ်လာသောအနာ,carewatcher
+Redness of the scalp,頭皮発赤あり,头皮发红,Kemerahan kulit kepala,உச்சந்தலை சிவப்பு,ဦးရေနီလာခြင်း,carewatcher
+Crusty scalp,頭皮痂皮あり,头皮有痂皮,Kerak kulit kepala,உச்சந்தலை மேலோடு,ဦးခေါင်းတွင်ဂျွတ်တက်ခြင်း,carewatcher
+Extensive amount alopecia,脱毛が多い,脱发较多,Keguguran rambut banyak,அதிக முடி உதிர்வு,ဆံပင်ကျွတ်များခြင်း,carewatcher
+Pruritis,掻痒感あり,发痒,Gatal,அரிப்பு,ယားယံသလိုဖြစ်ခြင်း,carewatcher
+Tumor present,腫瘤あり,有肿瘤,Ada ketumbuhan,கட்டி உள்ளது,အစိုင်အခဲ အကြိတ်ရှိခြင်း,carewatcher
+Extensive amount ear wax,耳垢が多い,耳垢较多,Tahi telinga banyak,அதிக காது அழுக்கு,နားဖာချေးများခြင်း,carewatcher
+Minimal amount ear wax,耳垢が少ない,耳垢较少,Tahi telinga sedikit,குறைந்த காது அழுக்கு,နားဖာချေးနည်းခြင်း,carewatcher
+Athlete's foot,水虫,足癣,Kurap kaki,கால் பூஞ்சை,ရေဝဲစားခြင်း,carewatcher
+Clipping nails too short,深爪,剪短指甲太短,Potong kuku terlalu pendek,நகம் மிகக் குட்டையாக வெட்டுதல்,လက်သည်းထူခြင်း,carewatcher
+Chair transfer,移乗,转移,Pemindahan (ke kerusi),இடமாற்றம்,လွှဲပြောင်းခြင်း ရွှေ့ပြောင်းခြင်း,carewatcher
+Comfort,安楽,舒适,Keselesaan,சௌகரியம்,သက်တောင့်သက်သာရှိခြင်း,carewatcher
+Before meal,食前,饭前,Sebelum makan,உணவுக்கு முன்,အစာမစားမီ,carewatcher
+During meal,食間,两餐之间,Antara waktu makan,உணவுக்கு இடையில்,အစာစားနေချိန်,carewatcher
+After meal,食後,饭后,Selepas makan,உணவுக்குப் பின்,အစာစားပြီးနောက်,carewatcher
+Before bedtime,就寝前,睡觉前,Sebelum tidur,படுக்கைக்கு முன்,ညမအိပ္မီ,carewatcher
+While bathing,入浴時,洗浴时,Semasa mandi,குளிக்கும் போது,ရေချိုးစဥ်,carewatcher
+During toileting,排泄時,排泄时,Semasa ke tandas,கழிப்பறை நேரத்தில்,အညစ်အကြေးစွန့်ချိန်,carewatcher
+Taking medication,内服,内服,Ambil ubat (oral),மருந்து உட்கொள்ளல்,ဆေးသောက်ခြင်း,carewatcher
+Type A Separate hard lumps),タイプA（コロコロ便）,类型A(粪便呈小块装),Jenis A (Ketulan keras berasingan),வகை A (தனித் திண்ம கட்டிகள்),ပုံစံ အေ (စမြင်းလုံးဝမ်း),carewatcher
+Suppository,坐剤,栓剂,Ubat dubur,குத மருந்து,စအိုတွင်းထည့်သည့်ဆေး,carewatcher
+Plaster,貼薬,敷贴膏药,Tampalan ubat,ஒட்டு மருந்து,ကပ်ဆေး,carewatcher
+Infusion (oral),注入（経口）,注射（从口中）,Suapan (oral),செலுத்துதல் (வாய்வழி),သွင်းခြင်း/ထိုးခြင်း(သောက်ဆေး),carewatcher
+Infusion (nasogastric tube),注入（経鼻）,注射（从鼻中）,Suapan (tiub hidung),செலுத்துதல் (மூக்கு குழாய்),သွင်းခြင်း/ထိုးခြင်း(နှာခေါင်း),carewatcher
+Infusion (gastrostomy tube),注入（胃ろう）,注射（胃造瘘管）,Suapan (tiub gastrostomi),செலுத்துதல் (இரைப்பை குழாய்),သွင်းခြင်း/ထိုးခြင်း(အစာအိမ်သို့ တိုက်ရိုက်အစာသွင်းခြင်း),carewatcher
+Preparation,準備,准备,Persediaan,தயாரிப்பு,ပြင်ဆင်မှု,carewatcher
+Checking details,内容確認,内容确认,Menyemak butiran,விவரங்கள் சரிபார்ப்பு,ပါဝင်သည့်အရာကိုစစ်ဆေးအတည်ပြုခြင်း,carewatcher
+TypeB(Sausage-shaped),タイプB（硬い便）,类型B(硬便),"Jenis B (Bentuk sosej, keras)",வகை B (தொத்திறைச்சி வடிவம்),ပုံစံ ဘီ (မာသောဝမ်း),carewatcher
+Expectoration,吐き出し,吐出,Ludah keluar,துப்புதல்,ထွေးထုတ်ခြင်း,carewatcher
+Refusal,拒否,拒绝,Enggan,மறுப்பு,ငြင်းဆိုခြင်း,carewatcher
+TypeC(Like a sausage but with surface cracks),タイプC（やや硬い便）,类型C(粪便稍硬),Jenis C (Sosej dengan retakan),வகை C (விரிசல் உள்ள தொத்திறைச்சி),ပုံစံ စီ (အနည်းငယ်မာသောဝမ်း),carewatcher
+Waking up,起床,起床,Bangun tidur,எழுந்திருத்தல்,အိပ်ယာထခြင်း,carewatcher
+Waking up,就寝,睡觉就寝,Tidur,படுக்கச் செல்லுதல்,အိပ်ယာဝင်ခြင်း,carewatcher
+TypeD(Smooth and soft),タイプD（普通便）,类型D(普通粪便),Jenis D (Lembut dan licin),வகை D (மென்மையான),ပုံစံ ဒီ (ပုံမှန်ဝမ်း),carewatcher
+Bedding,布団,被褥,Tilam/selimut,படுக்கை விரிப்பு,ဂွမ်းကပ်အခင်း,carewatcher
+Sound sleep,寝つきが良い,易入睡,Mudah tidur,நன்றாக தூங்குதல்,ကောင်းကောင်းအိပ်ပျော်ခြင်း,carewatcher
+Wakeful,寝つきが悪い,难以入睡,Sukar tidur,தூக்கமின்மை,ကောင်းကောင်းအိပ်မပျော်ခြင်း,carewatcher
+Waking up in a good mood,寝起きが良い,轻松起床,Bangun dengan mood baik,நல்ல மனநிலையில் எழுதல்,လန်းလန်းဆန်းဆန်းအိပ်ယာနိုးခြင်း,carewatcher
+TypeE(Soft blobs),タイプE（やや軟らかい便）,类型E(粪便稍软),Jenis E (Gumpalan lembut),வகை E (மென் திரள்கள்),ပုံစံ အီး (အနည်းငယ်ပျော့သောဝမ်း),carewatcher
+Waking up in a foul mood,寝起きが悪い,难以起床,Bangun dengan mood buruk,மோசமான மனநிலையில் எழுதல்,အိပ်ယာနိုးချိန်လန်းဆန်းမှုမရှိခြင်း/မအီမသာဖြစ်ခြင်း,carewatcher
+Laying out bedding,布団を敷く,铺被子,Membentang tilam,படுக்கை விரித்தல்,ဂွမ်းကပ်အခင်းခင်းခြင်း,carewatcher
+Putting away bedding,布団をたたむ,叠被子,Mengemas tilam,படுக்கை மடித்தல்,ဂွမ်းကပ်အခင်းခေါက်ခြင်း,carewatcher
+Outfit→Pajamas,洋服→寝巻,衣服→睡衣,Pakaian→Baju tidur,ஆடை→இரவு உடை,ပုံမှန်အဝတ်အစား → ညအိပ်အဝတ်အစား,carewatcher
+Pajamas→Outfit,寝巻→洋服,睡衣→衣服,Baju tidur→Pakaian,இரவு உடை→ஆடை,ညအိပ်အဝတ်အစား → ပုံမှန်အဝတ်အစား,carewatcher
+Outfit→Outfit,洋服→洋服,衣服→衣服,Pakaian→Pakaian,ஆடை→ஆடை,ပုံမှန်အဝတ်အစား → ပုံမှန်အဝတ်အစား,carewatcher
+Pajamas→Pajamas,寝巻→寝巻,睡衣→睡衣,Baju tidur→Baju tidur,இரவு உடை→இரவு உடை,ညအိပ်အဝတ်အစား → ညအိပ်အဝတ်အစား,carewatcher
+Coordinating clothing,衣類調整,调整衣服,Melaras pakaian,ஆடை ஒழுங்கு,အဝတ်အစားကို အဆင်ပြေအောင်ဝတ်ဆင်ခြင်း,carewatcher
+Not implemented (not checked),未実施（未確認）,未执行（未确认）,Tidak dilaksanakan (tidak disemak),செயல்படுத்தப்படவில்லை (சரிபார்க்கப்படவில்லை),လက်တွေ ့အကောင်အထည်မဖော်ရသေးခြင်း (အတည်မပြုခြင်း),carewatcher
+TypeF(Fluffy pieces),タイプF（泥状便）,类型F(粪便呈泥状),Jenis F (Kepingan lembut berair),வகை F (பஞ்சு போன்ற துண்டுகள்),ပုံစံ အက်ဖ် (စေးပိုင်သောဝမ်း),carewatcher
+Verbal address,声かけ,打招呼,Sapaan lisan,வாய்மொழி அழைப்பு,အသံပြုခြင်း,carewatcher
+Monitoring and checking,見守り？確認,看护/确认,Pemantauan dan semakan,கண்காணிப்பு மற்றும் சரிபார்ப்பு,စောင့်ကြည့်ခြင်းနှင့် အတည်ပြုခြင်း,carewatcher
+Toothbrushing,歯ブラシ,牙刷,Berus gigi,பல் துலக்கி,သြားပြတ္တံ,carewatcher
+Sponge swab,スポンジブラシ,海绵刷,Berus span,பஞ்சு துடைப்பான்,ဖော့ဘရပ်ရှ်,carewatcher
+Disposable diaper,紙おむつ,纸尿布片,Lampin pakai buang,ஒருமுறை பேம்பர்,တစ်ခါသုံး မစင်ခံ စက္ကူဘောင်းဘီ,carewatcher
+TypeG(Watery),タイプG(水様便),类型G(水样粪便),Jenis G (Cair),வகை G (நீர்ம),ပုံစံ ဂျီ (ဝမ်းအရည်),carewatcher
+Voluntary actions,自発的行為,自发行为,Tindakan sukarela,தன்னிச்சை செயல்,မိမိဆန္ဒအလျောက်ပြုလုပ်ခြင်း,carewatcher
+Occasionally prompted toileting,随時誘導,偶尔提示如厕,Bimbingan ke tandas sekali-sekala,எப்போதாவது கழிப்பறை வழிகாட்டல்,အခါအားလျော်စွာ လံှု့ဆော်ခြင်း,carewatcher
+Regularly prompted toileting,定時誘導,定时提示如厕,Bimbingan ke tandas berjadual,வழக்கமான கழிப்பறை வழிகாட்டல்,သတ်မှတ်ချိန် လံှု့ဆော်ခြင်း,carewatcher
+In bed,ベッド上,床上,Di atas katil,படுக்கையில்,ကုတင်ပေါ်,carewatcher
+Not used,不使用,不使用,Tidak digunakan,பயன்படுத்தப்படவில்லை,အသုံးမပြုခြင်း,carewatcher
+Incontinence underwear,失禁用パンツ,失禁用内裤,Seluar dalam inkontinens,கட்டுப்பாடின்மை உள்ளாடை,ဆီးဝမ်းမထိန်းနိုင်သည့်အခါ အသုံးပြုသည့် ဘောင်းဘီ,carewatcher
+Disposable underwear,紙パンツ,纸尿裤,Seluar dalam pakai buang,ஒருமுறை உள்ளாடை,စက္ကူဘောင်းဘီ,carewatcher
+Pad,パット,吸水垫,Pad,திண்டு,အမျိုးသမီးလစဥ်သုံးပစ္စည်း,carewatcher
+Bedpan,尿器,便盆,Bekas kencing,சிறுநீர் பாத்திரம்,ဆီးအိုး,carewatcher
+Balloon,バルーン,球囊导管,Kateter belon,பலூன் கேதீட்டர்,ဘော်လုံး,carewatcher
+Complete change of clothing,衣類全更衣,更换所有衣服,Tukar semua pakaian,முழு ஆடை மாற்றம்,ဝတ်ထားသည့်အဝတ်အားလုံးလဲလှယ်ခြင်း,carewatcher
+Changing pants alone,ズボンのみ更衣,仅更换裤子,Tukar seluar sahaja,கால்சட்டை மட்டும் மாற்றம்,ဘောင်းဘီသာလဲလှယ်ခြင်း,carewatcher
+Changing linen,リネン類交換,更换床单等亚麻布类,Menukar linen,விரிப்பு மாற்றம்,အိပ်ယာအသုံးအဆောင်လဲလှယ်ခြင်း,carewatcher
+Minimal amount,微量,微量,Amat sedikit,மிகக் குறைவு,အလွန့် အလွန်နည်းသောပမာဏ,carewatcher
+Not checked,未確認,未确认,Tidak disemak,சரிபார்க்கப்படவில்லை,အတည်မပြုရသေးသော,carewatcher
+Normal,通常,通常,Biasa,சாதாரண,ပုံမှန်,carewatcher
+Cloudy white urine,混濁尿,尿液浑浊,Kencing keruh,கலங்கிய சிறுநீர்,နောက်ကျိနေသောဆီး,carewatcher
+Brown urine,茶褐色尿,尿液呈茶褐色,Kencing perang,பழுப்பு சிறுநீர்,အညိုရောင်ဆီး,carewatcher
+Black urine,黒色尿,尿液呈黑色,Kencing hitam,கருப்பு சிறுநீர்,အနက်ရောင်ဆီး,carewatcher
+Dark urine,濃尿,尿液浓度高,Kencing pekat,அடர் சிறுநீர்,ပြစ်နေသောဆီး,carewatcher
+①Separate hard lumps,①コロコロ便,①粪便呈小块装,①Ketulan keras berasingan,①தனித் திண்ம கட்டிகள்,(၁) စမြင်းလုံးဝမ်း,carewatcher
+②Sausage-shaped,②硬い便,②硬便,"②Bentuk sosej, keras",②தொத்திறைச்சி வடிவம்,(၂) မာသောဝမ်း,carewatcher
+③Like a sausage but with surface cracks,③やや硬い便,③粪便稍硬,③Sosej dengan retakan,③விரிசல் உள்ள தொத்திறைச்சி,(၃) အနည်းငယ်မာသောဝမ်း,carewatcher
+④Smooth and soft,④普通便,④普通粪便,④Lembut dan licin,④மென்மையான,(၄) ပုံမှန်ဝမ်း,carewatcher
+⑤Soft blobs,⑤やや軟らかい便,⑤粪便稍软,⑤Gumpalan lembut,⑤மென் திரள்கள்,(၅) အနည်းငယ်ပျော့သောဝမ်း,carewatcher
+⑥Fluffy pieces,⑥泥状便,⑥粪便呈泥状,⑥Kepingan lembut berair,⑥பஞ்சு போன்ற துண்டுகள்,(၆) စေးကပ်သောဝမ်း,carewatcher
+⑦Watery,⑦水様便,⑦水样粪便,⑦Cair,⑦நீர்ம,(၇) အရည်ကျဲသောဝမ်း,carewatcher
+Abnormal,問題あり,存在问题,Ada masalah,அசாதாரணம்,ပြဿနာရှိ,carewatcher
+Nutritional support,栄養補給,补充营养,Sokongan pemakanan,ஊட்டச்சத்து ஆதரவு,အာဟာရဖြည့်စွက်ခြင်း,carewatcher
+Enteral formula,注入食,注入膳食,Formula tiub,குழாய் உணவு,ပိုက်ဖြင့်သွင်းသည့်အစာ,carewatcher
+Distance walked,歩行距離,步行距离,Jarak berjalan,நடந்த தூரம்,လမ်းလျှောက်သည့်အကွာအဝေး,carewatcher
+Walking unassisted,自立歩行,独立行走,Berjalan tanpa bantuan,உதவியின்றி நடத்தல்,မိမိဘာသာလမ်းလျှောက်ခြင်း,carewatcher
+Guided walking,手引き歩行,牵引行走,Berjalan berpandu,வழிகாட்டி நடத்தல்,လူနှင့်တွဲလျှောက်ခြင်း,carewatcher
+Walking with a cane,杖歩行,拄拐行走,Berjalan dengan tongkat,கைத்தடியுடன் நடத்தல்,ဂျိုင်းထောက်ဖြင့်လျှောက်ခြင်း,carewatcher
+Independent wheelchair use,車椅子自走,使用轮椅独立移动,Kerusi roda sendiri,சுயமாக சக்கர நாற்காலி,ဘီးတပ်ကုလားထိုင်ဖြင့် မိမိဘာသာသွားခြင်း,carewatcher
+Wheelchair assistance,車椅子介助,使用轮椅依靠他人辅助移动,Bantuan kerusi roda,சக்கர நாற்காலி உதவி,ဘီးတပ်ကုလားထိုင်ဖြင့် ကူညီပံ့ပိုးခြင်း,carewatcher
+Taking out trash,ゴミ出し,倒垃圾,Membuang sampah,குப்பை வெளியேற்றல்,အမိှုက်စွန့်ပစ်ခြင်း,carewatcher
+Checking the refrigerator,冷蔵庫チェック,检查冰箱,Menyemak peti sejuk,குளிர்சாதனப் பெட்டி சரிபார்ப்பு,ရေခဲသေတ္တာစစ်ဆေးခြင်း,carewatcher
+Cleaning the air conditioner,エアコン掃除,清洁空调,Membersihkan penghawa dingin,ஏசி சுத்தம்,လေအေးပေးစက်သန့်ရှင်းရေး,carewatcher
+Cleaning a humidifier,加湿器掃除,清洁加湿器,Membersihkan pelembap,ஈரப்பதமூட்டி சுத்தம்,အပူပေးစက်သန့်ရှင်းရေး,carewatcher
+Living room,居間,客厅,Ruang tamu,வரவேற்பறை,ဧည့်ခန်း,carewatcher
+Bedroom,寝室,卧室,Bilik tidur,படுக்கையறை,အိပ်ခန်း,carewatcher
+Absorbent pad,尿パット,尿垫,Pad serap,உறிஞ்சு திண்டு,ဆီးအိတ်,carewatcher
+Entrance,玄関,玄关,Pintu masuk,நுழைவாயில்,အိမ်အဝင်ဝ,carewatcher
+Bath,風呂,浴室,Bilik mandi,குளியலறை,ရေချိုးခန်း,carewatcher
+Extremely dirty,汚れがひどい,很脏,Sangat kotor,மிகவும் அழுக்கு,အလွန်ညစ်ပေသော,carewatcher
+Regular meal,普通食,正规餐,Makanan biasa,சாதாரண உணவு,ပုံမှန်အစားအသောက်,carewatcher
+Slightly dirty,汚れがあまりない,不是很脏,Sedikit kotor,சிறிது அழுக்கு,သိပ်မညစ်ပတ်သော,carewatcher
+Washing machine,洗濯機,洗衣机,Mesin basuh,சலவை இயந்திரம்,အဝတ်လျှော်စက်,carewatcher
+Hand washing,手洗い,手洗,Basuh tangan,கை கழுவல்,လက်ဆေးကြောသန့်စင်ခြင်း,carewatcher
+Laundry drying,物干し,晾晒衣服,Menyidai,உலர்த்துதல்,အဝတ်လှမ်းသည့်တန်း,carewatcher
+Drier,乾燥機,烘干机,Mesin pengering,உலர்த்தி,အခြောက်ခံစက်,carewatcher
+Bringing in,取り込み,收衣服,Mengangkat masuk,உள்ளே எடுத்தல்,လှမ်းထားသည့်အဝတ်သိမ်းခြင်း,carewatcher
+Rice porridge,粥食,食粥,Bubur nasi,கஞ்சி,ဆန်ပြုတ်,carewatcher
+Fold clothes,たたみ,叠衣服,Melipat pakaian,ஆடை மடித்தல்,တာတာမိ ဂျပန်ဖျာ,carewatcher
+Ironing,アイロンがけ,熨烫,Menggosok,இஸ்திரி,မီးပူတိုက်ခြင်း,carewatcher
+Putting away clothes,収納,收起衣服,Menyimpan pakaian,ஆடை சேமித்தல்,သိုလှောင်ခြင်း,carewatcher
+A large amount,多い,多,Banyak,அதிக அளவு,များသောပမာဏ,carewatcher
+Usual clothing,一般衣類,一般服装,Pakaian biasa,சாதாரண ஆடை,သာမန်အဝတ်အစား,carewatcher
+Incontinence wear,失禁衣類,失禁服装,Pakaian inkontinens,கட்டுப்பாடின்மை ஆடை,ဆီးဝမ်းမထိန်းနိုင်သည့်အခါ ဝတ်ဆင်သည့်အဝတ်,carewatcher
+Moistened rice,軟飯,软米饭,Nasi lembik,மென் சோறு,ထမင်းပျော့,carewatcher
+Changing a quilt cover,布団カバー交換,更换被套,Menukar sarung tilam,போர்வை உறை மாற்றம்,ဂွမ်းကပ်အခင်းအဖုံး လဲလှယ်ခြင်း,carewatcher
+Changing sheets,シーツ交換,更换床单,Menukar cadar,விரிப்பு மாற்றம்,အိပ်ယာခင်းလဲလှယ်ခြင်း,carewatcher
+Airing out bedding,布団干し,晒被褥,Menjemur tilam,படுக்கை காயவைத்தல்,ဂွမ်းကပ်အခင်း နေလှန်းခြင်း,carewatcher
+Bringing in bedding,布団取込,收被褥,Mengangkat masuk tilam,படுக்கை உள்ளே எடுத்தல்,နေလှန်းထားသည့် ဂွမ်းကပ်အခင်း သိမ်းခြင်း,carewatcher
+Changing soiled sheets,汚染時シーツ交換,弄脏时更换床单,Menukar cadar kotor,அழுக்கு விரிப்பு மாற்றம்,ညစ်ပေသည့်အခါ အိပ်ယာခင်းလဲလှယ်ခြင်း,carewatcher
+Drying bedding,布団乾燥,烘干被褥,Mengeringkan tilam,படுக்கை உலர்த்தல்,ဂွမ်းကပ်အိပ်ယာခင်းခြောက်သွေ ့ခြင်း,carewatcher
+Laying out clothes,衣類整理,整理衣服,Menyusun pakaian,ஆடை ஒழுங்கு,အဝတ်အစား အစီအစဥ်တကျထားသိုခြင်း,carewatcher
+Switching to summer or winter clothing,夏？冬物入替,更换至夏季或冬季服装,Tukar pakaian musim,பருவகால ஆடை மாற்றம்,နွေရာသီ သို့မဟုတ် ဆောင်းရာသီ အဝတ်လဲလှယ်ပြင်ဆင်ခြင်း,carewatcher
+Sewing buttons,ボタン付け,缝纽扣,Menjahit butang,பொத்தான் தைத்தல்,ကြယ်သီးတပ်ဆင်ခြင်း,carewatcher
+Mincing,刻み食,切碎的食物,Makanan dicincang,நறுக்கிய உணவு,နုတ်နုတ်စင်းထားသည့်အစာ,carewatcher
+Mending,破れ補修,修补破损,Membaiki koyakan,கிழிசல் சரிசெய்தல்,စုတ်ပြဲသည့်အဝတ်ကိုချုပ်သည်,carewatcher
+Writing one's name,名前記入,填入姓名,Menulis nama,பெயர் எழுதுதல்,အမည်ရေးသွင်းခြင်း,carewatcher
+Meal preparation,調理,烹饪,Penyediaan makanan,உணவு தயாரிப்பு,ချက်ပြုတ်ခြင်း,carewatcher
+Meal service,配膳,摆餐上菜,Menghidang makanan,உணவு பரிமாறல்,စားပွဲခင်းကျင်းပြင်ဆင်,carewatcher
+Cleanup,後片付け,餐后收拾,Mengemas selepas makan,சுத்தம் செய்தல்,ရှင်းလင်းသိမ်းဆည်းခြင်း,carewatcher
+Shopping,買い物,购物,Membeli-belah,பொருள் வாங்குதல்,ဈေးဝယ်ခြင်း,carewatcher
+Obtaining medication,薬の受取,药物领取,Mengambil ubat,மருந்து பெறுதல்,ဆေးလက်ခံယူခြင်း,carewatcher
+Blenderized food,ミキサー食,匀浆膳食,Makanan dikisar,அரைத்த உணவு,ကြိတ်စက်ဖြင့်ကြိတ်ထားသောအစာ,carewatcher
+Enter numerical value (yen),数字入力（円）,输入数字（日元）,Masukkan nilai (yen),எண் மதிப்பு (யென்),ကိန်းဂဏန်းတန်ဖိုးရေးထည့်ခြင်း (ယန်း),carewatcher
+Rounds,巡回,巡视,Rondaan,சுற்றுப் பார்வை,လှည့်ပတ်ခြင်း,carewatcher
+Visit to a room,訪室,探访病人室,Melawat bilik,அறை வருகை,အခန်းအလည်သွားခြင်း,carewatcher
+Falling asleep,入眠,入睡,Terlelap,தூங்குதல்,အိပ်စက်ခြင်း,carewatcher
+Awake,覚醒,睡醒,Sedar/jaga,விழிப்பு,သတိပြန်ရခြင်း,carewatcher
+Agitation,不穏,激动不安,Gelisah,அமைதியின்மை,စိတ်မသက်မသာဖြစ်သော,carewatcher
+Wandering,徘徊,徘徊,Merayau,அலைதல்,လျှောက်သွားသည်,carewatcher
+Desire to return home,帰宅願望,渴望回家,Ingin pulang ke rumah,வீடு திரும்ப விருப்பம்,အိမ်ပြန်လိုသောဆန္ဒ,carewatcher
+Bread (normal),パン（普通）,面包（普通）,Roti (biasa),ரொட்டி (சாதாரண),ပေါင်မုန် ့(ရိုးရိုး),carewatcher
+Relieving pressure on the back,背抜き,缓解背部压力,Melegakan tekanan belakang,முதுகு அழுத்தம் குறைத்தல்,ကျောပြင်အားအိပ်ရာမှခေတ္တခွာစေခြင်း,carewatcher
+Decompression,除圧,减压,Nyahtekanan,அழுத்தம் நீக்கல்,ဖိထားခြင်း,carewatcher
+Changing into pajamas,寝衣更衣,穿上睡衣,Menukar ke baju tidur,இரவு உடை மாற்றம்,ညအိပ်ဝတ်စုံလဲလှယ်ခြင်း,carewatcher
+Changing into everyday clothing,日常着更衣,穿上便服,Menukar ke pakaian harian,அன்றாட ஆடை மாற்றம்,နေ့စဥ်အဝတ်လဲလှယ်ခြင်း,carewatcher
+Changing (soiled) outerwear,上着更衣(汚染),更换外衣（弄脏）,Menukar baju luar (kotor),மேலாடை மாற்றம் (அழுக்கு),အပေါ်ဝတ်အင်္ကျီလဲလှယ်ခြင်း (ညစ်ပေခြင်း),carewatcher
+Changing underwear,下着更衣(汚染),更换内衣（弄脏）,Menukar seluar dalam (kotor),உள்ளாடை மாற்றம் (அழுக்கு),အောက်ခံအဝတ်လဲလှယ်ခြင်း (ညစ်ပေခြင်း),carewatcher
+Complete change of clothing,全更衣(汚染),更换所有衣服,Tukar semua pakaian (kotor),முழு ஆடை மாற்றம் (அழுக்கு),အဝတ်အားလုံးလဲလှယ်ခြင်း (ညစ်ပေခြင်း),carewatcher
+Bread (bite-sized),パン（一口大）,面包（一口的大小）,Roti (saiz sesuap),ரொட்டி (சிறு துண்டு),ပေါင်မုန် ့(တစ်လုတ်စာအကြီး),carewatcher
+Telephone,電話,电话,Telefon,தொலைபேசி,တယ်လီဖုန်း,carewatcher
+Translucent,透明,透明,Lut sinar,ஒளிஊடுருவும்,ထိုးဖောက်မြင်ရသော,carewatcher
+White,白,白,Putih,வெள்ளை,အဖြူ,carewatcher
+Green,緑,绿,Hijau,பச்சை,အစိမ်း,carewatcher
+Yellow,黄,黄,Kuning,மஞ்சள்,အဝါ,carewatcher
+Bread (porridge),パン（粥）,面包（粥）,Roti (bubur),ரொட்டி (கஞ்சி),ပေါင်မုန် ့(ဆန်ပြုတ်),carewatcher
+Viscous,粘チョウ,粘稠,Likat,பிசுபிசுப்பு,စေးကပ်,carewatcher
+Fluid,サラサラ,清爽,Cair,நீர்மம்,ချောမွေ့သော,carewatcher
+Intermediate amount,中等量,中等量,Jumlah sederhana,நடுத்தர அளவு,အလယ်အလတ်ပမာဏ,carewatcher
+Disinfection,消毒,消毒,Nyahjangkit,கிருமி நீக்கம்,ပိုးသတ်ခြင်း,carewatcher
+Covered with gauze,ガーゼ保護,纱布保护,Dilindungi dengan kain kasa,காஸ் மூடல்,ပတ်တီးဖြင့် ကာကွယ်ခြင်း,carewatcher
+Cold compress,冷罨法,冷敷法,Tuam sejuk,குளிர் ஒற்றடம்,အအေးဓာတ်ဖြင့်ကုသနည်း,carewatcher
+Warm compress,温罨法,热敷法,Tuam panas,வெப்ப ஒற்றடம்,အနွေးဓာတ်ဖြင့်ကုသနည်း,carewatcher
+Disposable diaper+Absorbent pad,紙おむつ+尿パット,纸尿布+尿垫,Lampin pakai buang + pad serap,ஒருமுறை பேம்பர் + உறிஞ்சு திண்டு,တစ်ခါသုံး မစင်ခံ စက္ကူ ဘောင်းဘီ၊ ဆီးအိတ်,carewatcher
+Cooked rice,米飯,米饭,Nasi,சோறு,ထမင်း,carewatcher
+Application of ointment,軟膏塗布,软膏涂敷,Menyapu salap,களிம்பு பூசுதல்,လိမ်းဆေးလိမ်းခြင်း,carewatcher
+Irrigation,洗浄,洗浄,Pembilasan,கழுவுதல்,ရေဆေးခြင်း,carewatcher
+Insulin,インスリン,胰岛素,Insulin,இன்சுலின்,အင်ဆူလင်,carewatcher
+Tracheotomy,気管切開,气管切开,Trakeostomi,மூச்சுக்குழல் திறப்பு,လေပြွန်ဖောက်ခြင်း,carewatcher
+Gastrostomy tube,胃ろう,胃造瘘管,Tiub gastrostomi,இரைப்பை குழாய்,အစာအိမ်သို့တိုက်ရိုက်အစာသွင်းခြင်း,carewatcher
+Cystostomy,膀胱ろう,膀胱造瘘,Sistostomi,சிறுநீர்ப்பை துளை,ဆီးအိမ််ဖောက်ထားခြင်း,carewatcher
+Stoma,ストーマ,瘘孔,Stoma,ஸ்டோமா,အစာအိမ်,carewatcher
+Nephrostomy,腎ろう,肾造瘘,Nefrostomi,சிறுநீரக துளை,ကျောက်ကပ်ဖောက်ထားခြင်း,carewatcher
+Blenderized porridge,ミキサー粥,稠粥,Bubur dikisar,அரைத்த கஞ்சி,ကြိတ်စက်ဖြင့် ကြိတ်ထားသောဆန်ပြုတ်,carewatcher
+Parenteral nutrition,中心静脈栄養,中心静脉营养输液,Pemakanan parenteral,நரம்பு வழி ஊட்டம்,ပင်မသွေးပြန်ကြောအစာအာဟာရ,carewatcher
+Peritoneal dialysis,腹膜透析,腹膜透析,Dialisis peritoneal,வயிற்றுப்பை சலனம்,ဝမ်းဗိုက်အတွင်းအင်္ဂါကိုဖုံးအုပ်ထားသည့်အမြှေးပါးကို ဆေးဖြင့်ဆေးကြောခြင်း,carewatcher
+Anticancer agent,抗癌剤,抗癌药物,Ubat antikanser,புற்றுநோய் எதிர்ப்பு மருந்து,ကင်ဆာဆေး,carewatcher
+Erosion,糜爛,糜烂,Hakisan (kulit),அரிப்பு புண்,တိုက်စားခြင်း,carewatcher
+Purpura,紫斑,紫斑,Purpura,ஊதா திட்டு,ခရမ်းရောင်အကွက်,carewatcher
+Rice balls,おにぎり,饭团,Bebola nasi,சோற்று உருண்டை,ထမင်းဆုပ်,carewatcher
+Numbness,痺れ,麻木,Kebas,மரத்துப்போதல்,ထုံကျင်ခြင်း,carewatcher
+Event,イベント,公开活动,Acara,நிகழ்வு,ပွဲ,carewatcher
+Activity,アクティビティ,活动,Aktiviti,செயல்பாடு,လှုပ်ရှားမှု,carewatcher
+Salon,サロン,沙龙,Salun,அழகுநிலையம்,အလှပြင်ဆိုင်,carewatcher
+Personalized,個別対応,个别照料,Layanan individu,தனிப்பயன்,တစ်ဦးချင်းစီ ဆောင်ရွက်ပေးခြင်း,carewatcher
+Physical exercises,体操,体操,Senaman,உடற்பயிற்சி,ကိုယ်လက်လှုပ်ရှားလေ့ကျင့်ခန်း,carewatcher
+Functional rehabilitation,機能リハビリ,功能康复训练,Pemulihan fungsi,செயல்பாட்டு மறுவாழ்வு,ပြန်လည်ထူထောင်ရေး လုပ်ဆောင်ချက်,carewatcher
+Rehabilitation to return to everyday activities,生活リハビリ,生活康复训练,Pemulihan aktiviti harian,அன்றாட வாழ்க்கை மறுவாழ்வு,နေထိုင်စားသောက်မှုဆိုင်ရာ ပြန်လည်ထူထောင်ရေး,carewatcher
+Tea party,茶話会,茶道聚会,Majlis minum teh,தேநீர் விருந்து,ရေနွေးကြမ်းသောက်ရင်းစကားပြောဆိုခြင်း,carewatcher
+Birthday party,誕生会,生日聚会,Majlis hari jadi,பிறந்தநாள் விழா,မွေးနေ့ပွဲ,carewatcher
+Concert,演奏会,演奏会,Konsert,இசை நிகழ்ச்சி,ဖျော်ဖြေပွဲ,carewatcher
+Japanese flower arrangement,生け花,日式插花,Gubahan bunga Jepun,ஜப்பானிய மலர் அலங்காரம்,ပန်းအလှပြင်ခြင်း,carewatcher
+Calligraphy,書道,书法,Kaligrafi,கையெழுத்துக் கலை,စုတ်တံဖြင့်စာရေးခြင်း,carewatcher
+Movies,映画,电影,Filem,திரைப்படம்,ရုပ်ရှင်,carewatcher
+Karaoke,カラオケ,卡拉OK,Karaoke,கரோக்கே,ကာရာအိုကေ,carewatcher
+Participating,参加,参加,Menyertai,பங்கேற்பு,ပါဝင်ဆင်နွှဲခြင်း,carewatcher
+Not participating,不参加,不参加,Tidak menyertai,பங்கேற்கவில்லை,မပါဝင်ခြင်း,carewatcher
+Partial participation (partial implementation),途中参加（一部実施）,中途参加（部分可实施）,Penyertaan separa,பகுதி பங்கேற்பு,တစ်ဝက်တစ်ပျက် ပါဝင်ဆင်နွှဲခြင်း,carewatcher
+Dropout midway,途中退出,中途退出,Keluar di pertengahan,இடையில் விலகல்,တစ်ဝက်တစ်ပျက်မှ ထွက်သွားခြင်း,carewatcher
+Individual rehabilitation,個別リハビリ,个别康复训练,Pemulihan individu,தனிநபர் மறுவாழ்வு,တစ်ဦးချင်းဆီ ပြန်လည်သန်စွမ်းရေး,carewatcher
+Range of motion exercises,関節可動域訓練,可活动关节的训练,Latihan julat pergerakan,மூட்டு அசைவு பயிற்சி,အဆစ်နေရာပြန်လည်လှုပ်ရှားနိုင်ရန်လေ့ကျင့်ခြင်း,carewatcher
+Bite-sized,一口大,一口的大小,Saiz sesuap,சிறு துண்டு,တစ်လုတ်စာအရွယ်အစား,carewatcher
+Strength training,筋力トレーニング,肌肉力量训练,Latihan kekuatan,வலிமை பயிற்சி,ကြွက်သားသန်မာရန်လေ့ကျင့်ခြင်း,carewatcher
+Basic activity training,基本動作訓練,基本动作训练,Latihan pergerakan asas,அடிப்படை அசைவு பயிற்சி,အခြေခံလှုပ်ရှားမှုလေ့ကျင့်ခြင်း,carewatcher
+Neuromuscular facilitation training,促通訓練,神经肌肉促进训练,Latihan fasilitasi neuromuskular,நரம்புத்தசை பயிற்சி,တုန့်ပြန်မှုပေးနိုင်ရန်လေ့ကျင့်ခြင်း,carewatcher
+Gait training,歩行訓練,行走训练,Latihan berjalan,நடை பயிற்சி,လမ်းလျှောက်လေ့ကျင့်ခြင်း,carewatcher
+Wheelchair use training,車椅子駆動訓練,轮椅使用训练,Latihan guna kerusi roda,சக்கர நாற்காலி பயிற்சி,ဘီးတပ်ကုလားထိုင်ဖြင့်သွားလာနိုင်ရန်လေ့ကျင့်ခြင်း,carewatcher
+ADL training,ＡＤＬ訓練,日常生活活动训练,Latihan ADL,ADL பயிற்சி,ADL လေ့ကျင့်ခြင်း,carewatcher
+Rehabilitation using exercise equipment,パワーリハ,力量康复训练,Pemulihan guna peralatan senaman,கருவி மறுவாழ்வு,လေ့ကျင့်ခန်းအသုံးအဆောင်များသုံးပြီး ပြန်လည်ထူထောင်စေခြင်း,carewatcher
+Stairs training,階段昇降訓練,爬楼梯训练,Latihan naik turun tangga,படிக்கட்டு பயிற்சி,လှေကားထစ် အတက်အဆင်း လေ့ကျင့်ခြင်း,carewatcher
+Walking outdoors,屋外歩行訓練,户外行走训练,Latihan berjalan di luar,வெளிப்புற நடை பயிற்சி,အိမ်ပြင်ပလမ်းလျှောက်လေ့ကျင့်ခြင်း,carewatcher
+SSP,ＳＳＰ,SSP,SSP,SSP,SSP,carewatcher
+Heat pack,ホットパック,热敷,Pek haba,வெப்பப் பொதி,အပူအိတ်,carewatcher
+Hydro massage bed,アクアシエスタ,水力按摩床,Katil urut air,நீர் மசாஜ் படுக்கை,ရေကိုအသုံးပြု နှိပ်ခြင်း,carewatcher
+Indirect traction,介達牽引,间接牵引,Tarikan tidak langsung,மறைமுக இழுவை,ခန္ဓာကိုယ်အစိတ်အပိုင်းတစ်နေရာကို စက်ဖြင့်ဆွဲခြင်း,carewatcher
+Air compression leg massage,メドマ,空气压腿部按摩,Urut kaki mampatan udara,காற்றழுத்த கால் மசாஜ்,လေဖိအားဖြင့် ခြေထောက်နှိပ်ခြင်း,carewatcher
+Microwave diathermy,マイクロ波,微波透热疗法,Diatermi gelombang mikro,நுண்ணலை வெப்பம்,မိုက်ခရိုဝေ့ အသုံးပြုကုသခြင်း,carewatcher
+Icing,アイシング,冷敷,Rawatan ais,ஐஸ் சிகிச்சை,ရေခဲအုပ်ခြင်း,carewatcher
+Normal,異常なし,无异常,Tiada keabnormalan,அசாதாரணம் இல்லை,ပုံမှန်,carewatcher
+At the individual's convenience,本人の都合,本人的情况,Atas urusan individu,தனிநபர் வசதிக்காக,ကာယကံရှင်၏ အဆင်ပြေမှု မပြေမှု,carewatcher
+Pureed food,ムース,泥状食物,Makanan lenyek (mousse),பிசைந்த உணவு,အမြှုပ်ထွက်အောင်ပြုလုပ်ခြင်း,carewatcher
+Ill health,体調不良,身体不适,Kurang sihat,உடல்நலக்குறைவு,နေထိုင်မကောင်းခြင်း,carewatcher
+Off-site activities,園外活動,园外活动,Aktiviti luar,வெளியிட செயல்பாடு,ပြင်ပလှုပ်ရှားမှု,carewatcher
+Singing,歌,歌,Menyanyi,பாடுதல்,သီချင်း,carewatcher
+Vocal exercises,発声練習,发声练习,Latihan suara,குரல் பயிற்சி,အသံထုတ်အော်လေ့ကျင်ခန်း,carewatcher
+Oral cavity exercises,口腔体操,口腔体操,Senaman mulut,வாய் பயிற்சி,ခံတွင်းလှုပ်ရှားမှုလေ့ကျင့်ခြင်း,carewatcher
+Walking,散歩,散步,Berjalan-jalan,நடைப்பயிற்சி,လမ်းလျှောက်ခြင်း,carewatcher
+Gardening,畑仕事,农活,Berkebun,தோட்ட வேலை,စိုက်ခင်းအလုပ်,carewatcher
+Mental workouts,脳トレ,大脑训练,Latihan minda,மூளை பயிற்சி,ဦးနှောက်လေ့ကျင့်ခန်း,carewatcher
+Liquefied food,ペースト,糊状食物,Makanan pes,திரவ உணவு,ကော်,carewatcher
+Card games,カードゲーム,纸牌游戏,Permainan kad,சீட்டு விளையாட்டு,ကတ်ကစားခြင်း,carewatcher
+Calendar,カレンダー,日历,Kalendar,நாட்காட்டி,ပြက္ခဒိန်,carewatcher
+Giant calendar,大カレンダー,大日历,Kalendar besar,பெரிய நாட்காட்டி,ပြက္ခဒိန်အကြီး,carewatcher
+Japanese chess,将棋,将棋,Catur Jepun,ஜப்பானிய சதுரங்கம்,ကျားကွက်ကစားခြင်း/ကျားထိုးကစားခြင်း,carewatcher
+Calligraphy,習字,练字,Kaligrafi,கையெழுத்துக் கலை,စုတ်တံဖြင့်စာရေးခြင်း,carewatcher
+Penmanship,ペン習字,硬笔练字,Tulisan tangan,கையெழுத்து பயிற்சி,ဖောင်တိန်ဖြင့်စာရေးခြင်း,carewatcher
+Hand-drawn postcards,絵手紙,手绘明信片,Poskad lukisan tangan,கை வரைபட அஞ்சல் அட்டை,ပုံပါသောပို ့စကတ်,carewatcher
+Puzzles,パズル,拼图,Teka-teki,புதிர்கள்,ပါဇယ်လ်ကစားခြင်း,carewatcher
+Total amount,全量,总量,Jumlah penuh,மொத்த அளவு,ပမာဏအားလုံး,carewatcher
+Japanese playing cards,カルタ,纸牌,Kad karuta,ஜப்பானிய சீட்டு,ခါရုတာကတ််ကစားခြင်း,carewatcher
+Poetry playing cards,歌カルタ,歌牌,Kad karuta puisi,கவிதை சீட்டு,သီချင်းပါသောခါရုတာကတ်,carewatcher
+Ball games,ボールレク,球类娱乐,Permainan bola,பந்து விளையாட்டு,ဘော်လုံးဂိမ်း,carewatcher
+Folding laundry,洗濯物たたみ,折叠晒干衣服,Melipat cucian,சலவை மடித்தல்,လျှော်ဖွတ်ထားသည့်အဝတ်ကိုခေါက်ခြင်း,carewatcher
+Airing out laundry,洗濯物干し,晾晒衣服,Menyidai cucian,சலவை உலர்த்தல்,လျှော်ဖွတ်ထားသည့်အဝတ်ကိုနေလှန်းခြင်း,carewatcher
+Rolling hand towels,おしぼり巻き,卷手巾,Menggulung tuala tangan,கை துண்டு சுருட்டல்,လက်သုပ်အဝတ်ခေါက်လိပ်ခြင်း,carewatcher
+Health management chart,健康管理表,健康管理表,Carta pengurusan kesihatan,சுகாதார மேலாண்மை அட்டவணை,ကျန်းမာရေးစီမံခန့်ခွဲသည့်ဇယား,carewatcher
+Arts and crafts,小物作り,制作小工艺品,Kraf tangan,கைவினை,သေးငယ်သောအသုံးအဆောင်ပစ္စည်းပြုလုပ်ခြင်း,carewatcher
+Making snacks,おやつ作り,做点心,Membuat snek,சிற்றுண்டி தயாரித்தல்,မုန့်ပြုလုပ်ခြင်း,carewatcher
+2/3,３分の２,3分之2,2/3,2/3,၃ပုံ၂ပုံ,carewatcher
+Poem recitation,詩吟,吟诗,Deklamasi puisi,கவிதை பாராயணம்,ကဗျာရွတ်ဆိုပွဲ,carewatcher
+Origami,折り紙,折纸,Origami,ஒரிகமி,စက္ကူအရုပ်ချိုးခြင်း,carewatcher
+Adult coloring books,塗り絵,着色用线条画,Buku mewarna,வண்ணம் தீட்டல்,ရုပ်ပုံစာအုပ်ဆေးချယ်ခြင်း,carewatcher
+Seasonal event,季節イベント,季节性活动,Acara bermusim,பருவகால நிகழ்வு,ရာသီအလိုက်ပွဲတော်,carewatcher
+Outing,外出,外出,Keluar,வெளியில் செல்லுதல்,အပြင်ထွက်ခြင်း,carewatcher
+Driving,ドライブ,开车兜风,Memandu (jalan-jalan),கார் பயணம்,အပျော်ကားမောင်းခြင်း,carewatcher
+Sleep over,外泊,外宿,Menginap,இரவு தங்குதல்,ညအိပ်အပြင်ထွက်ခြင်း,carewatcher
+1/2,２分の１,2分之1,1/2,1/2,၂ပုံ၁ပုံ,carewatcher
+→Street clothes,→外出着,→外出服装,→Pakaian keluar,→வெளி ஆடை,→အပြင်သွားသည့်အခါဝတ်သည့် အဝတ်အစား,carewatcher
+1/3,３分の１,3分之1,1/3,1/3,၃ပုံ၁ပုံ,carewatcher
+Relative,親戚,亲戚,Saudara,உறவினர்,ဆွေမျိုး,carewatcher
+Seen by medical facility,受診,就诊,Rawatan perubatan,மருத்துவ பரிசோதனை,စမ်းသပ်မှုခံယူခြင်း,carewatcher
+Return to facility,帰苑,返回设施,Kembali ke kemudahan,வசதிக்கு திரும்புதல்,အိမ်ပြန်ခြင်း,carewatcher
+Return home,帰宅,回家,Pulang ke rumah,வீடு திரும்புதல்,အိမ်ပြန်ခြင်း,carewatcher
+Nasogastric feeding,経鼻栄養,鼻饲,Pemakanan tiub hidung,மூக்கு குழாய் ஊட்டம்,နှာခေါင်းမှအစာထည့်ခြင်း,carewatcher
+Assistance eating,摂食介助,辅助摄食,Bantuan makan,உணவு உதவி,အစာစားရာတွင်ကူညီပေးခြင်း,carewatcher
+Swallowing training,摂食嚥下訓練,吞咽训练,Latihan menelan,விழுங்கும் பயிற்சி,အစာမျိုချခြင်းလေ့ကျင့်ခန်း,carewatcher
+Provisionally administered medication,臨時与薬,临时给药,Ubat diberi sementara,தற்காலிக மருந்து,လိုအပ်သည့်အခါဆေးပေးခြင်း,carewatcher
+Regularly administered medication,定時与薬,定期给药,Ubat diberi berjadual,வழக்கமான மருந்து,သတ်မှတ်ထားသည့်အချိန်ဆေးပေးခြင်း,carewatcher
+Insulin injection,インスリン注射,注射胰岛素,Suntikan insulin,இன்சுலின் ஊசி,အင်ဆူလင်ထိုးခြင်း,carewatcher
+Taking glucose,ブドウ糖服用,服用葡萄糖,Mengambil glukosa,குளுக்கோஸ் உட்கொள்ளல்,ဂလူးကို ့စ်သောက်ခြင်း,carewatcher
+Narcotic,麻薬,麻药,Narkotik,மயக்க மருந்து,မူးယစ်ဆေး,carewatcher
+Nasal drops,点鼻,滴鼻药水,Titis hidung,மூக்கு சொட்டு,နှာခေါင်းမှဆေးအစက်ချခြင်း,carewatcher
+Inhalation,吸入,吸入,Sedutan (inhaler),உள்ளிழுப்பு,ရှူသွင်းခြင်း,carewatcher
+Home oxygen,在宅酸素,家庭氧疗,Oksigen di rumah,வீட்டு ஆக்சிஜன்,အိမ်မှာအောက်ဆီဂျင်ပေးခြင်း,carewatcher
+White phlegm,白色痰,痰呈白色,Kahak putih,வெள்ளை சளி,ချွဲအဖြူရောင်,carewatcher
+Yellow phlegm,黄色痰,痰呈黄色,Kahak kuning,மஞ்சள் சளி,ချွဲအဝါရောင်,carewatcher
+Green phlegm,緑色痰,痰呈绿色,Kahak hijau,பச்சை சளி,ချွဲအစိမ်းရောင်,carewatcher
+Clear sputum,透明な痰,透明痰,Kahak jernih,தெளிவான சளி,ချွဲအဖြူအကြည်,carewatcher
+Watery saliva,水様？唾液,水状唾液,Air liur cair,நீர்ம உமிழ்நீர்,အရည်ကျဲသောတံတွေး,carewatcher
+Viscous phlegm,粘ちょう痰,痰液粘稠,Kahak likat,பிசுபிசுப்பு சளி,ပြစ်သောချွဲသလိပ်,carewatcher
+Cooling,クーリング,冷却,Penyejukan,குளிர்வித்தல்,အအေးဓါတ်ဖြင့်ကုသနည်း,carewatcher
+Lymphatic drainage massage of the legs,下肢リンパマッサージ,下肢淋巴按摩,Urut limfa kaki,கால் நிணநீர் மசாஜ்,ခန္ဓာကိုယ်အောက်ပိုင်းနှိပ်ခြင်း,carewatcher
+Elastic bandage application,弾性包帯ケア,弹性绷带护理,Balutan elastik,மீள் கட்டு,ကျုံ့နိုင်ဆန့်နိုင်သောပတ်တီးအသုံးပြုခြင်း,carewatcher
+Attentive listening,傾聴,倾听,Mendengar dengan teliti,கவனமாக கேட்டல்,ဂရုတစိုက်နားထောင်ခြင်း,carewatcher
+Instructions on how to self-inject insulin,インスリン自己注射指導,胰岛素自我注射指导,Panduan suntik insulin sendiri,சுய இன்சுலின் ஊசி வழிகாட்டல்,မိမိဘာသာ အင်ဆူလင်ဆေးထိုးရန်သင်ပေးခြင်း,carewatcher
+Regular treatment,定期処置,定期治疗,Rawatan berkala,வழக்கமான சிகிச்சை,ပုံမှန်ကုသမှု,carewatcher
+Antiseptic for cuts and scrapes,カット判処置,切割型治疗,Antiseptik untuk luka,காயங்களுக்கு கிருமிநாசினி,ထိခိုက်ရှနာများအတွက် ကုသမှု,carewatcher
+Application of gauze,ガーゼ処置,纱布处理,Balutan kain kasa,காஸ் கட்டு,ပတ်တီးပိတ်ပါးသုံးကုသခြင်း,carewatcher
+Application of an ointment,軟膏処置,软膏处理,Menyapu salap,களிம்பு சிகிச்சை,လိမ်းဆေးခြင့်ကုသခြင်း,carewatcher
+Application of a dressing,ドレッシング剤処置,敷料剂处理,Balutan luka,காயக் கட்டு,အနာကိုဆေးထည့်ပတ်တီးစည်းကုသပေးခြင်း,carewatcher
+Disimpaction,摘便,人工取便,Mengeluarkan najis (manual),மலம் நீக்கல்,လက်ဖြင့်ဝမ်းချူခြင်း,carewatcher
+Balloon replacement,バルン交換,更换球囊导管,Menukar kateter belon,பலூன் மாற்றம்,ဘော်လုံးလဲခြင်း,carewatcher
+Catheterization,導尿,导尿,Kateterisasi,சிறுநீர்க்குழாய்,ဆီးပိုက်ထည့်ခြင်း,carewatcher
+Abdominal massage,腹部マッサージ,腹部按摩,Urut perut,வயிறு மசாஜ்,ဗိုက်ကိုနှိပ်နယ်ခြင်း,carewatcher
+Bladder irrigation,膀胱洗浄,膀胱冲洗,Pembilasan pundi kencing,சிறுநீர்ப்பை கழுவல்,ဆီးအိမ်ကိုဆေးခြင်း,carewatcher
+Milking,ミルキング,揉挤,Milking (tiub),குழாய் பிதுக்கல்,နို ့ညှစ်ခြင်း,carewatcher
+Balloon,パルーン,球囊导管,Kateter belon,பலூன் கேதீட்டர்,ဘော်လုံး,carewatcher
+No hypoglycemic episodes,低血糖発作なし,低血糖未发作,Tiada episod hipoglisemia,இரத்த சர்க்கரை குறைவு இல்லை,သွေးထဲတွင်သကြားဓါတ်နည်းခြင်းမဖြစ်ပေါ်,carewatcher
+Hypoglycemic episodes,低血糖発作あり,低血糖发作,Episod hipoglisemia,இரத்த சர்க்கரை குறைவு உள்ளது,သွေးထဲတွင်သကြားဓါတ်နည်းခြင်းဖြစ်ပေါ်,carewatcher
+Interview a medical history,病歴聞き取り,询问病史,Temu bual sejarah perubatan,மருத்துவ வரலாறு நேர்காணல்,ဖြစ်ဖူးသောရောဂါမေးမြန်းခြင်း,carewatcher
+Checking medication information,薬情報確認,确认药物信息,Menyemak maklumat ubat,மருந்து தகவல் சரிபார்ப்பு,ဆေးဝါးမှတ်တမ်းအတည်ပြုခြင်း,carewatcher
+Family interview,家族聞きとり,询问家人,Temu bual keluarga,குடும்ப நேர்காணல்,မိသားစုအားမေးမြန်းခြင်း,carewatcher
+No pain,痛みなし,不痛,Tiada kesakitan,வலி இல்லை,နာကျင်မှု မရှိ,carewatcher
+No pain during motion,可動時疼痛なし,移动时未感疼痛,Tiada sakit semasa bergerak,அசைவின் போது வலி இல்லை,လှုပ်ရှားမှု ပြုလုပ်စဥ်နာကျင်မှု မရှိ,carewatcher
+Pain during motion,可動時疼痛あり,移动时感到疼痛,Sakit semasa bergerak,அசைவின் போது வலி,လှုပ်ရှားမှု ပြုလုပ်စဥ်နာကျင်မှု ရှိ,carewatcher
+No bleeding,出血なし,未出血,Tiada pendarahan,இரத்தப்போக்கு இல்லை,သွေးထွက်ခြင်းမရှိ,carewatcher
+Bleeding,出血あり,出血,Ada pendarahan,இரத்தப்போக்கு,သွေးထွက်ခြင်းရှိ,carewatcher
+Restricted motion,可動制限あり,移动受限,Pergerakan terhad,அசைவு கட்டுப்பாடு,လှုပ်ရှားမှုအကန့်အသတ်ရှိ,carewatcher
+Unable to move,可動不可,不可移动,Tidak boleh bergerak,அசைய இயலாது,မလှုပ်ရှားနိုင်,carewatcher
+Able to stand,立位可,可站立,Boleh berdiri,நிற்க முடியும்,မတ်တပ်ရပ်နိုင်,carewatcher
+Unable to stand,立位不可,不可站立,Tidak boleh berdiri,நிற்க இயலாது,မတ်တပ်မရပ်နိုင်,carewatcher
+Bathing not possible,入浴不可,不可洗浴,Tidak boleh mandi,குளிக்க இயலாது,ရေချိုးမရပါ၊ ရေချိုးခွင့်မပြု,carewatcher
+Changed to a shower,シャワー浴に変更,改为淋浴,Tukar kepada pancuran,ஷவருக்கு மாற்றம்,ရေပန်းချိုးခြင်းသို ့ပြောင်းလဲခြင်း,carewatcher
+Changed to a sponge bath,清拭に変更,改为细擦,Tukar kepada lap badan,உடல் துடைப்புக்கு மாற்றம்,ရေပတ်တိုက်သည့်အဆင့်သို့ပြောင်းလဲခြင်း,carewatcher
+Rumbling or rattling sounds,ゴロ音,咕噜声,Bunyi berkeruk,சடசட ஒலி,ချွဲသလိပ်သံ,carewatcher
+Aspirated sputum,吸痰,吸痰,Sedutan kahak,சளி உறிஞ்சல்,သလိပ်ကိုစုပ်ထုတ်ခြင်း,carewatcher
+Tapping,タッピング,叩打,Menepuk (dada),தட்டுதல்,လက်ဖြင့်ပုတ်ပေးခြင်း,carewatcher
+Nebulizer,ネブライザー,喷雾器,Nebulizer,நெபுலைசர்,စက်ဖြင့်ရှူရသည့် ရှူဆေး,carewatcher
+Viscous phlegm,粘稠痰,浓痰,Kahak likat,பிசுபிசுப்பு சளி,ပြစ်သောချွဲသလိပ်,carewatcher
+Initial report,発生時報告,发生时报告,Laporan awal,ஆரம்ப அறிக்கை,ဖြစ်ပေါ်သည့်အချိန်အစီအရင်ခံခြင်း,carewatcher
+Progress report,経過報告,过程报告,Laporan kemajuan,முன்னேற்ற அறிக்கை,တိုးတက်မှုအခြေအနေအစီအရင်ခံခြင်း,carewatcher
+Final report,最終報告,最终报告,Laporan akhir,இறுதி அறிக்கை,နောက်ဆုံးသတင်းပို ့ခြင်း,carewatcher
+The individual,本人,本人,Individu itu,அந்த நபர்,ကာယကံရှင်,carewatcher
+Relative,親族,亲属,Saudara,உறவினர்,ဆွေမျိုး,carewatcher
+Acquaintance,知人,熟人,Kenalan,அறிமுகமானவர்,မိတ်ဆွေ,carewatcher
+Tea drinking,喫茶,饮茶,Minum teh,தேநீர் அருந்துதல்,လက်ဖက်ရည်သောက်ခြင်း,carewatcher
+Recreation,レクリェーション,休闲娱乐,Rekreasi,பொழுதுபோக்கு,အပန်းဖြေခြင်း,carewatcher
+Beauty salon treatment,エステ,美体养生,Rawatan salun kecantikan,அழகு சிகிச்சை,အလှအတွက်ပြုလုပ်ခြင်း,carewatcher
+New Year's celebrations,新年のお祝い,新年庆祝活动,Sambutan Tahun Baru,புத்தாண்டு கொண்டாட்டம்,နှစ်သစ်ကိုဂုဏ်ပြုခြင်း,carewatcher
+A temple visit at the beginning of the New Year,初詣,新年首次参拜,Lawatan kuil Tahun Baru,புத்தாண்டு கோயில் வருகை,နှစ်သစ်မှာ ပထမဦးဆုံး ဘုရားကျောင်းသို့ သွားရောက်ကန်တော့ခြင်း,carewatcher
+The last day of winter,節分,立春前一天,Hari akhir musim sejuk (Setsubun),குளிர்கால இறுதி நாள்,ဆယ်ဆုဘွန်း နွေဦးရာသီမရောက်မီပြုလုပ်သည့်ပဲစေ့ကြဲသည့်ပွဲ,carewatcher
+Doll festival,ひなまつり,女儿节,Perayaan patung (Hinamatsuri),பொம்மை திருவிழா,အရုပ်ပွဲတော်,carewatcher
+Plum blossom viewing,梅花見,赏梅花,Menikmati bunga plum,பிளம் பூ பார்வை,မက်မုံပန်းကြည့်သည့်ပွဲတော်,carewatcher
+Cherry blossom viewing,桜花見,赏樱花,Menikmati bunga sakura,செர்ரி பூ பார்வை,ချယ်ရီပန်းကြည့်သည့်ပွဲတော်,carewatcher
+Elderly Ground Golf,グランドゴルフ,老年人高尔夫,Golf padang warga emas,கிரவுண்ட் கோல்ஃப்,သက်ကြီး ဂေါက်ရိုက်ပွဲ,carewatcher
+Iris blossom viewing,菖蒲花見,赏鸢尾花,Menikmati bunga iris,ஐரிஸ் பூ பார்வை,အိုင်းရစ်ပန်းကြည့်သည့်ပွဲတော်,carewatcher
+Star festival,七夕,七夕,Perayaan bintang (Tanabata),நட்சத்திர திருவிழா,ကြယ်ပွဲတော်,carewatcher
+Midsummer Day of the Ox,土用丑の日,吃鳗鱼的日子,Hari Lembu pertengahan musim panas,கோடை எருது நாள்,ဒိုရောအုရှိ နေ ့,carewatcher
+Obon dance festival,盆踊り,盂兰盆舞,Perayaan tarian Obon,ஒபோன் நடன விழா,အိုဘွန်းပွဲတော်အက,carewatcher
+Summer festival,夏祭り,夏日祭,Perayaan musim panas,கோடை விழா,နွေရာသီပွဲတော်,carewatcher
+Event for senior citizens,敬老会,敬老会,Majlis warga emas,மூத்த குடிமக்கள் விழா,သက်ကြီးရွယ်အိုများကိုလေးစားဂုဏ်ပြုသည့်ပွဲ,carewatcher
+Sports day,運動会,运动会,Hari sukan,விளையாட்டு நாள்,အားကစားပွဲ,carewatcher
+Overnight trip,一泊旅行,两天一宿游,Perjalanan bermalam,இரவு தங்கும் பயணம்,တစ်ညအိပ်ခရီးသွားခြင်း,carewatcher
+Day trip,日帰り旅行,一日游,Perjalanan sehari,ஒரு நாள் பயணம்,နေ့ချင်းပြန်ခရီးသွားခြင်း,carewatcher
+Dinner party,食事会,聚餐,Majlis makan,விருந்து,စားပွဲ,carewatcher
+Christmas party,クリスマス会,圣诞晚会,Majlis Krismas,கிறிஸ்துமஸ் விழா,ခရစ်စမတ်ပွဲတော်,carewatcher
+Rice-cake making,もちつき,捣年糕,Membuat kuih mochi,அரிசி கேக் தயாரிப்பு,ကောက်ညှင်းထောင်းခြင်း,carewatcher
+Functional training,機能訓練,机能训练,Latihan fungsi,செயல்பாட்டு பயிற்சி,လုပ်ဆောင်ချက်အလိုက်လေ့ကျင့်ခြင်း,carewatcher
+Rhythm exercises,リズム体操,节奏体操,Senaman berirama,தாள பயிற்சி,စည်းချက်နှင့်အညီ ပြုလုပ်သည့် ကိုယ်လက်လှုပ်ရှားအားကစား,carewatcher
+Radio exercises,ラジオ体操,广播体操,Senaman radio,வானொலி பயிற்சி,ရေဒီယို ကိုယ်လက်လှုပ်ရှားအားကစား,carewatcher
+Nearly a collision,ヒヤリハット,近似差错,Nyaris kejadian,சம்பவம் தவிர்ப்பு,ဆေးကုသမှုမှားယွင်းခြင်း,carewatcher
+Responding to an emergency,緊急時対応,紧急应对,Tindak balas kecemasan,அவசர பதில்,အရေးပေါ်ကုသမှုနှင့်ပတ်သက်ပြီး တုန့်ပြန်ဆောင်ရွက်မှု,carewatcher
+Responding to an infection,感染症対応,应对感染,Tindak balas jangkitan,தொற்று பதில்,ကူးစက်ရောဂါနှင့်ပတ်သက်ပြီး တုန့်ပြန်ဆောင်ရွက်မှု,carewatcher
+Toppling over /Fall,転倒？転落,跌倒/摔落,Tumbang / jatuh,விழுதல்,ချော်လဲခြင်း/လဲကျခြင်း,carewatcher
+Trauma,外傷,外伤,Kecederaan luka,காயம்,စိတ်ဒဏ်ရာ,carewatcher
+Internal bleeding,内出血,内出血,Pendarahan dalaman,உள் இரத்தப்போக்கு,ခန္ဓာကိုယ်တွင်းသွေးယိုစီးခြင်း,carewatcher
+Administration of wrong medication,誤薬,误服,Ubat salah diberi,தவறான மருந்து,ဆေးမှားခြင်း,carewatcher
+Missed administration medication,落薬,把药掉到地上,Ubat tertinggal,மருந்து தவறல்,ဆေးသောက်သုံးမှုလက်လွတ်သွားခြင်း,carewatcher
+Abnormal vital signs,バイタル値異常,生命迹象异常,Tanda vital tidak normal,அசாதாரண உயிர் அறிகுறி,အရေးကြီးသော ပုံမှန်မဟုတ်သည့် လက္ခဏာများ,carewatcher
+Stoma,ストマ,瘘孔,Stoma,ஸ்டோமா,အစာအိမ်,carewatcher
+Report by facility director,ホーム長報告,管理人报告,Laporan pengarah kemudahan,இயக்குநர் அறிக்கை,သက်ဆိုင်ရာဒါရိုက်တာ၏အစီအရင်ခံစာ,carewatcher
+Requested care (report),看護対応依頼（報告）,护理委托(报告),Permohonan penjagaan (laporan),பராமரிப்பு கோரிக்கை,ပြုစုမှုကိုတောင်းဆိုခြင်း (အစီရင်ခံခြင်း),carewatcher
+Physician notified,Drコール,呼叫医生,Doktor dimaklumkan,மருத்துவர் அறிவிப்பு,ဆရာဝန်ကိုခေါ်ခြင်း,carewatcher
+Guarantor or family contact,身元引受人？家族連絡,联系担保人/家人,Hubungi penjamin atau keluarga,பிணையாளர்/குடும்ப தொடர்பு,အာမခံသူ သို့မဟုတ် ဆက်သွယ်ရမည့်အိမ်သား,carewatcher
+Follow-up,経過観察,过程观察,Susulan,பின்தொடர்தல்,တိုးတက်မှုအားအနီးကပ်စောင့်ကြည့်ခြင်း,carewatcher
+Interim house call,臨時往診,临时出诊,Lawatan rumah sementara,தற்காலிக வீட்டு வருகை,လိုအပ်သည့်အချိန် အိမ်တိုင်ရာရောက်ကုသခြင်း,carewatcher
+Seen by a medical facility after follow-up,経過観察後受診,后续诊断,Rawatan selepas susulan,பின்தொடர்தலுக்குப் பின் பரிசோதனை,တိုးတက်မှုအားအနီးကပ်စောင့်ကြည့်ပြီးနောက်,carewatcher
+Emergency transport,救急搬送,紧急运送,Pengangkutan kecemasan,அவசர கொண்டு செல்லல்,အရေးပေါ်ပို့ဆောင်ခြင်း,carewatcher
+Mechanical ventilation,人工呼吸,人工呼吸,Pernafasan buatan,செயற்கை சுவாசம்,အသက်ရှူစက်,carewatcher
+Maintaining an airway,気道確保,确保气道,Mengekalkan saluran udara,சுவாசப்பாதை பராமரிப்பு,လေပြွန်ပွင့်အောင်ပြုလုပ်ခြင်း,carewatcher
+Heart massage,心臓マッサージ,心脏按摩,Urutan jantung (CPR),இதய மசாஜ்,နှလုံးဖိနှိပ်ပေးခြင်း,carewatcher
+Response measures have been implemented,対策実施済,已采取措施,Langkah telah dilaksanakan,நடவடிக்கை செயல்படுத்தப்பட்டது,လက်တွေ့အကောင်အထည်ဖော်ပြီးသော အစီအစဥ်များ,carewatcher
+Response measures have not been considered,対策検討も未実施,未研究对策,Langkah belum dilaksanakan,நடவடிக்கை செயல்படுத்தப்படவில்லை,ထည့်သွင်းစဥ်းစားခြင်းပင်မပြုရသေးသော,carewatcher
+Predicted but response measures still under consideration,予測していたが対策未検討,预测过，但未研究对策,Diramal tetapi langkah belum dipertimbang,கணிக்கப்பட்டது ஆனால் நடவடிக்கை பரிசீலனையில்,ကြိုတင်ခန့်မှန်းထားသောလည်း အစီအစဥ်မဆွဲရသေးခြင်း,carewatcher
+Unpredictable,予測できなかった,未能预测,Tidak dapat diramal,கணிக்க முடியாதது,ကြိုတင်မှန်းမရသော,carewatcher
+Physical factors,身体的要因,生理因素,Faktor fizikal,உடல் காரணிகள்,ရုပ်ပိုင်းဆိုင်ရာ အကြောင်းအချက်,carewatcher
+Psychological factors,心理的要因,心理因素,Faktor psikologi,உள மன காரணிகள்,စိတ်ပိုင်းဆိုင်ရာ အကြောင်းအချက်,carewatcher
+Environmental factors,環境的要因,环境因素,Faktor persekitaran,சுற்றுச்சூழல் காரணிகள்,ပတ်ဝန်းကျင်ဆိုင်ရာ အကြောင်းအချက်,carewatcher
+Educational factors,教育的要因,教育因素,Faktor pendidikan,கல்வி காரணிகள்,ပညာပေးရေးဆိုင်ရာ အကြောင်းအချက်,carewatcher
+Undernutrition,栄養低下,营养不足,Kekurangan zat makanan,ஊட்டச்சத்து குறைபாடு,အာဟာရဓာတ်နည်းခြင်း,carewatcher
+Medical checkup,健康診断,体检,Pemeriksaan kesihatan,மருத்துவ பரிசோதனை,ကျန်းမာရေးဆေးစစ်ခြင်း,carewatcher
+Regular,定期,定期,Berkala,வழக்கமான,ပုံမှန်,carewatcher
+Provisional,臨時,临时,Sementara,தற்காலிக,အထူး အချိန်,carewatcher
+Changing a PEG tube dressing,ＰＥＧ交換,PEG交换,Menukar balutan tiub PEG,PEG குழாய் கட்டு மாற்றம்,PEG ပိုက်လဲလှယ်ခြင်း,carewatcher
+Providing a care summary,看護サマリー提供,提供护理总结,Menyediakan ringkasan penjagaan,பராமரிப்பு சுருக்கம் வழங்கல்,ပြုစုကုသမှုအကျဥ်းချုပ်တင်ပြမှု,carewatcher
+Providing information,情報提供,信息提供,Memberi maklumat,தகவல் வழங்கல்,သတင်းအချက်အလက်ပေးခြင်း,carewatcher
+Gathering information,情報収集,信息收集,Mengumpul maklumat,தகவல் சேகரிப்பு,သတင်းအချက်အလက်စုဆောင်းခြင်း,carewatcher
+Visit in preparation for acceptance after discharge,退院受け入れ準備訪問,出院申请准备,Lawatan persediaan penerimaan selepas discaj,விடுவிப்புக்குப் பின் ஏற்பு தயாரிப்பு வருகை,ဆေးရုံဆင်းရန်ပြင်ဆင်ခြင်း,carewatcher
+Pre-discharge conference,退院前カンファレンス,出院前会诊,Persidangan pra-discaj,விடுவிப்புக்கு முன் மாநாடு,ဆေးရုံမဆင်းမီ ကွန်ဖရင့်ဆွေးနွေးခြင်း,carewatcher
+Internal Medicine,内科,内科,Perubatan Dalaman,உள் மருத்துவம்,ခန္ဓာကိုုယ်အတွင်းပိုင်းရောဂါကုဌာန,carewatcher
+Orthopedics,整形,整形,Ortopedik,எலும்பியல்,အရိုးကုသခြင်း,carewatcher
+Ophthalmology,眼科,眼科,Oftalmologi,கண் மருத்துவம்,မျက်စေ့ဌာန,carewatcher
+Gynecology,婦人科,妇科,Ginekologi,மகளிர் மருத்துவம்,သားဖြားမီးယပ္ဌာန,carewatcher
+Neurology/Neurosurgery,脳神経(内？外),脑神经（内/外）,Neurologi/Bedah saraf,நரம்பியல்/நரம்பு அறுவை,ဦးနှောက်နှင့်အာရုံကြော(အတွင်းခွဲစိတ်),carewatcher
+Dermatology,皮膚科,皮肤科,Dermatologi,தோல் மருத்துவம்,အရေပြားဌာန,carewatcher
+Private house call,個別往診,个人出诊,Lawatan rumah persendirian,தனி வீட்டு வருகை,တစ်ဦးချင်းဆီ သွားရောက်ကုသခြင်း,carewatcher
+Facility visit,集団往診,集体出诊,Lawatan kemudahan,குழு வருகை,အဖွဲ့အစည်းအလိုက် သွားရောက်ကုသခြင်း,carewatcher
+Provision of physician information,医師情報提供,提供医生信息,Penyediaan maklumat doktor,மருத்துவர் தகவல் வழங்கல்,နေ့ရက်အလိုက်ကုသမည့် ဆရာဝန်အကြောင်း ရှင်းပြခြင်း,carewatcher
+Ordered medication,薬剤指示,药物说明,Arahan ubat,மருந்து உத்தரவு,သောက်ရမည့်ဆေးကိုညွှန်ကြားခြင်း,carewatcher
+Nurses' orders,看護師指示,护士指示,Arahan jururawat,செவிலியர் உத்தரவு,သူနာပြု၏ညွှန်ကြားချက်များ,carewatcher
+Explanation and orders given to the individual,本人説明？指示,患者说明/指示,Penerangan dan arahan kepada individu,நபருக்கு விளக்கம் மற்றும் உத்தரவு,ကာယကံရှင်ကိုရှင်းပြခြင်းနှင့် ညွှန်ကြားခြင်း,carewatcher
+Intravenous infusion,点滴,静脉滴注,Titisan intravena (IV),நரம்பு வழி சொட்டு,အကြောဆေးသွင်းခြင်း,carewatcher
+Taking blood,採血,抽血,Ambil darah,இரத்தம் எடுத்தல்,သွေးဖောက်ယူခြင်း,carewatcher
+Vaccination,予防接種,疫苗接种,Vaksinasi,தடுப்பூசி,ကာကွယ်ဆေးထိုးခြင်း,carewatcher
+Guarantor,身元引受人,担保人,Penjamin,பிணையாளர்,အာမခံသူ,carewatcher
+Primary physician,かかりつけ医,主治医生,Doktor keluarga,முதன்மை மருத்துவர்,မိသားစုဆရာဝန်၊ အမြဲပြသသည့်ဆရာဝန်,carewatcher
+Coordinated visit by dentist,協力訪問歯科,合作上门诊治牙科,Lawatan doktor gigi,பல் மருத்துவர் வருகை,သွားရောက်ကုသသည့်သွားဆရာဝန်,carewatcher
+Regularly prescribed,定期処方,常规处方,Preskripsi berkala,வழக்கமான மருந்துச்சீட்டு,ပုံမှန် ဆေးစာ,carewatcher
+Prescribed provisionally,臨時処方,临时处方,Preskripsi sementara,தற்காலிக மருந்துச்சீட்டு,အထူး ဆေးစာ,carewatcher
+Change in a prescription,処方変更,变更处方,Perubahan preskripsi,மருந்துச்சீட்டு மாற்றம்,ဆေးစာပြောင်းလဲခြင်း,carewatcher
+Explanation of medication and instruction in taking it (pharmacist),薬剤説明？服薬指導（薬剤師）,药物说明/用药指导（药剂师）,Penerangan ubat & panduan (ahli farmasi),மருந்து விளக்கம் (மருந்தாளர்),သောက်ရမည့်ဆေးအကြောင်းရှင်းပြခြင်းနှင့် ဆေးသောက်ပုံကိုရှင်းပြခြင်း (ဆေးရောင်းသူ),carewatcher
+Oral intake,経口摂取,口服,Pengambilan oral,வாய்வழி உட்கொள்ளல்,ပါးစပ်မှ ဆေးသောက်ခြင်း,carewatcher
+Tube feeding (gastrostomy tube),経管栄養（胃ろう）,胃管喂食（胃造瘘管）,Pemakanan tiub (gastrostomi),குழாய் ஊட்டம் (இரைப்பை),အစာပိုက်မှ အစာထည့်ပေးခြင်း (အစာအိမ်ဖောက်ပြီးထည့်ထားသောပိုက်),carewatcher
+Amount entered,数字入力量,输入数值量,Jumlah dimasukkan,உள்ளிட்ட அளவு,စာရင်းသွင်းသောပမာဏ,carewatcher
+Caloric intake entered,数字入力摂取カロリー,输入数字 摄取卡路里量,Kalori diambil dimasukkan,உள்ளிட்ட கலோரி,စားသုံးသောကယ်လိုရီ စာရင်းသွင်းခြင်း,carewatcher
+Gastrostomy tube leakage,胃ろう漏れあり,胃造瘘口渗漏,Kebocoran tiub gastrostomi,இரைப்பை குழாய் கசிவு,အစာအိမ်ဖောက်ပြီးထည့်ထားသောပိုက် ယိုစိမ့်ခြင်း,carewatcher
+Regular checks,定時巡視,定时查房,Rondaan berjadual,வழக்கமான சுற்றுப் பார்வை,ပုံမှန် လှည့်ပတ်ခြင်း,carewatcher
+Nurse call mat,コールマット,呼叫垫,Tikar panggilan jururawat,செவிலியர் அழைப்பு பாய்,သူနာပြုခေါ်ရန် အသံပြုစက်ပါသည့်ဖျာ,carewatcher
+Health and welfare check,様子確認,状态检查,Semakan keadaan,நல நிலை சரிபார்ப்பு,ကျန်းမာရေးနှင့် ဖူလုံရေးစစ်ဆေးမှု,carewatcher
+Bedbound (awake),臥床（覚醒）,卧床（清醒）,Terlantar (sedar),படுக்கையில் (விழிப்பு),အိပ်ယာ (သတိရလာခြင်း),carewatcher
+Mobile (active),離床（活動）,下床（活动）,Bangun dari katil (aktif),படுக்கை விட்டு (செயல்),ရွေ့လျားမှု (လှုပ်ရှားမှု),carewatcher
+Right lateral position,右側臥位,右侧卧位,Baring sisi kanan,வலது பக்க படுக்கை,ညာဖက်စောင်းလှဲခြင်း,carewatcher
+Left lateral position,左側臥位,左侧卧位,Baring sisi kiri,இடது பக்க படுக்கை,ဘယ်ဖက်စောင်းလှဲခြင်း,carewatcher
+Supine position,仰臥位,仰卧位,Baring telentang,மல்லாந்த நிலை,ပက်လက်လှန်လှဲခြင်း,carewatcher
+Legs elevated,下肢挙上,腿部上抬,Kaki dinaikkan,கால் உயர்த்தல்,ခြေထောက် မြှောက်ခြင်း,carewatcher
+Head elevated,頭部挙上,头部上抬,Kepala dinaikkan,தலை உயர்த்தல்,ဦးခေါင်း မြှင့်ခြင်း,carewatcher
+Room temperature adjusted,室温調整,调节室温,Suhu bilik dilaras,அறை வெப்பநிலை சரிசெய்தல்,အခန်းတွင်းအပူချိန်ညှိခြင်း,carewatcher
+Humidity adjusted,湿度調整,调节湿度,Kelembapan dilaras,ஈரப்பதம் சரிசெய்தல்,အခန်းတွင်း စိုထိုင်းမှု ညှိခြင်း,carewatcher
+Lighting adjusted,照度調整,调节照明,Pencahayaan dilaras,விளக்கு சரிசெய்தல்,အလင်းရောင်အတိုးအလျော့လုပ်ပေးခြင်း,carewatcher
+Ventilation,換気,通风,Pengudaraan,காற்றோட்டம்,လေဝင်လေထွက်,carewatcher
+Headaches,頭痛,头痛,Sakit kepala,தலைவலி,ခေါင်းကိုက်ခြင်း,carewatcher
+Abdominal pain,腹痛,腹痛,Sakit perut,வயிற்று வலி,ဗိုက်နာခြင်း,carewatcher
+Loss of consciousness,意識消失,昏迷,Hilang kesedaran,சுயநினைவு இழப்பு,သတိလစ်ခြင်း,carewatcher
+Diarrhea,下痢,腹泻,Cirit-birit,வயிற்றுப்போக்கு,ဝမ်းလျှောခြင်း,carewatcher
+Sweating,発汗,出汗,Berpeluh,வியர்வை,ချွေးထွက်ခြင်း,carewatcher
+Temperature taken,体温測定,体温测量,Suhu diukur,வெப்பநிலை அளவீடு,ကိုယ်အပူချိန် တိုင်းခြင်း,carewatcher
+Blood pressure checked,血圧測定,血压测量,Tekanan darah diukur,இரத்த அழுத்த அளவீடு,သွေးဖိအားတိုင်းခြင်း,carewatcher
+Vital signs checked,バイタル測定,生命体征测量,Tanda vital diukur,உயிர் அறிகுறி அளவீடு,အရေးကြီးလက္ခဏာရပ်များကို စစ်ဆေးခြင်း,carewatcher
+Bag valve mask,アンビュー,急救袋,Beg injap topeng (Ambu),அம்பு பை,အသက်ရှူအထောက်အကူ,carewatcher
