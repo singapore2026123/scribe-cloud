@@ -862,25 +862,7 @@ async function translateUI(text, toLang){
   return ov && ov[toLang] ? prefix+ov[toLang] : text;   // 固定ラベルの厳選対訳のみ。会話文・説明は記録言語のまま＝機械翻訳しない（誤訳・不適切語なし）
 }
 const localize = (text)=> translateUI(text, uiLangOf());
-/* 説明文（intro）のみ 無料翻訳API(MyMemory・キー不要)で翻訳。ラベルは厳選対訳、会話は記録言語のまま。 */
-const MM_LANG = { ja:"ja", en:"en", zh:"zh-CN", ms:"ms", ta:"ta", my:"my" };
-const _mmCache = new Map();
-async function translateInstructions(text, toLang){
-  if(!text || toLang===REC_LANG) return text;
-  const key=toLang+":"+text;
-  if(_mmCache.has(key)) return _mmCache.get(key);
-  const src=MM_LANG[REC_LANG]||REC_LANG, tgt=MM_LANG[toLang]||toLang;
-  try{
-    const out=await Promise.all(text.split("\n").map(async ln=>{
-      if(!ln.trim()) return ln;
-      const r=await fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(ln)+"&langpair="+src+"|"+tgt);
-      const d=await r.json();
-      const tt=(d&&d.responseData&&d.responseData.translatedText)||"";
-      return (tt && !/MYMEMORY WARNING|QUOTA|INVALID/i.test(tt)) ? tt : ln;   // 制限超過などは原文のまま
-    }));
-    const joined=out.join("\n"); _mmCache.set(key,joined); return joined;
-  }catch(e){ return text; }
-}
+const INTRO_I18N = {"en": "Hello, Yamamoto. Press the mic and say what you want to record.\nExample: Tanaka's lunch, main dish 80%, side dish all, tea 150cc.\nI only ask for the missing items. Say \"none\" or \"register\" to save.\nUse the button at the top right to choose your spoken language. Non-Japanese speech is translated into Japanese for the record.", "zh": "您好，山本先生。请点击麦克风，说出您想记录的内容。\n例：田中先生的午餐，主食8成，副食全量，茶150cc。\n只询问缺少的项目。最后说「无」或「登记」即可保存。\n用右上角的按钮选择说话的语言。非日语的语音会翻译成日语后记录。", "ms": "Helo, Encik Yamamoto. Tekan mikrofon dan sebut apa yang anda mahu rekod.\nContoh: Makan tengah hari Tanaka, makanan utama 80%, lauk penuh, teh 150cc.\nSaya hanya tanya item yang tiada. Sebut \"tiada\" atau \"daftar\" untuk menyimpan.\nGunakan butang di kanan atas untuk memilih bahasa pertuturan anda. Bahasa selain Jepun diterjemah ke bahasa Jepun untuk rekod.", "ta": "வணக்கம், யமமோட்டோ ஐயா. மைக்ரோஃபோனை அழுத்தி, பதிவு செய்ய விரும்புவதைச் சொல்லுங்கள்.\nஎடுத்துக்காட்டு: தனகாவின் மதிய உணவு, பிரதான உணவு 80%, பக்க உணவு முழுவதும், தேநீர் 150cc.\nவிடுபட்ட உருப்படிகளை மட்டும் கேட்கிறேன். சேமிக்க \"இல்லை\" அல்லது \"பதிவு\" எனச் சொல்லுங்கள்.\nநீங்கள் பேசும் மொழியைத் தேர்ந்தெடுக்க மேல் வலதுபுறத்தில் உள்ள பொத்தானைப் பயன்படுத்தவும். ஜப்பானியம் அல்லாத பேச்சு பதிவுக்காக ஜப்பானிய மொழியில் மொழிபெயர்க்கப்படும்.", "my": "မင်္ဂလာပါ Yamamoto။ မိုက်ခရိုဖုန်းကို နှိပ်ပြီး မှတ်တမ်းတင်လိုသည့်အရာကို ပြောပါ။\nဥပမာ- တနကာ၏ နေ့လယ်စာ၊ အဓိကအစားအစာ ၈၀%၊ ဘေးအစားအစာ အားလုံး၊ လက်ဖက်ရည် ၁၅၀cc။\nကျန်နေသည့်အချက်များကိုသာ မေးပါမည်။ သိမ်းရန် \"မရှိ\" သို့မဟုတ် \"မှတ်ပုံတင်\" ဟုပြောပါ။\nသင်ပြောမည့်ဘာသာစကားကို ရွေးရန် ညာဘက်အပေါ်ထောင့်ရှိ ခလုတ်ကို သုံးပါ။ ဂျပန်မဟုတ်သော အသံကို မှတ်တမ်းအတွက် ဂျပန်ဘာသာသို့ ပြန်ဆိုပါသည်။"};
 const SPEAK_LANG = { ja:"ja-JP", en:"en-US", zh:"zh-CN", ms:"ms-MY", ta:"ta-IN", my:"my-MM" };
 function pickVoiceFor(lang){ if(!synth) return null;
   const pfx=(SPEAK_LANG[lang]||"en-US").slice(0,2).toLowerCase();
@@ -894,7 +876,7 @@ async function localizeChrome(){
   await Promise.all([setLbl("btnAuto","連続"),setLbl("btnTts","読上げ"),setLbl("btnAI","AI設定"),setLbl("btnRecs","記録")]);
   const sb=$("send"); if(sb) sb.textContent = await translateUI("送信",L);
   const ti=$("ti"); if(ti) ti.placeholder = await translateUI("話す代わりに入力もできます",L);
-  if(introBubble && introBubble.dataset.src) introBubble.textContent = await translateInstructions(introBubble.dataset.src,L);
+  if(introBubble) introBubble.textContent = INTRO_I18N[L] || introBubble.dataset.src;
   renderChips();
 }
 
@@ -1049,7 +1031,7 @@ if(!SR){
   showBanner("ブラウザ音声認識が使えないため、日本語もScribe Cloudで認識します（マイクはご利用いただけます）。");
   // nativeMode は既に "scribe"。マイクは無効化しない（日本語もScribeで録音・認識）
 }
-introBubble=addBubble("ai","こんにちは、"+STAFF+"さん。ケアトーク × Scribe Cloud v0.4.0 です（CWマスタ準拠：食事・水分補給・排泄・バイタル）。\n\n■ 多言語音声入力（NEW）\n・右上の言語ボタンで話す言語を選べます：🎙日本語（ブラウザ即時）／☁英語・中国語・マレー語・タミル語・ビルマ語\n・☁言語は Scribe Cloud が音声を認識し、日本語へ翻訳してから記録します\n　例：ミャンマー人職員がビルマ語で話す → 日本語の記録に整理\n・☁は話し終えると自動で認識します（ビルマ語は初回の起動に少し時間がかかります）\n\n■ 使い方\n・マイク🎤をタップして、知っている内容を一気に話してください\n　例：「田中さんの昼食、主食8割、副食全量、お茶150cc」\n・単語ずつでもOK：「主食」→「全量」のように区切って話せます\n・内容を整理し、足りない必須項目だけ確認します\n・最後に補足（場所・介助・状態コメント）を聞いて、まとめて登録します\n・言い直しは「やっぱり主食は7割」／中止は「キャンセル」\n\n■ ⚙AI ボタンから Gemini APIキーを設定すると、AIが発話全体を解釈し、誤変換（全寮→全量など）も文脈で補正します（任意）。");
+introBubble=addBubble("ai","こんにちは、"+STAFF+"さん。マイクを押して、記録したいことを話してください。\n例：田中さんの昼食、主食は8割、副食は全量、お茶は150cc。\n足りない項目だけ質問します。最後に「なし」または「登録」と言うと保存します。\n右上のボタンで、話す言語を選べます。日本語以外は音声を日本語に翻訳して記録します。");
 introBubble.dataset.src=introBubble.textContent;   // 言語切替時に再翻訳できるよう原文を保持
 localizeChrome();
 })();
@@ -1714,25 +1696,7 @@ async function translateUI(text, toLang){
   return ov && ov[toLang] ? prefix+ov[toLang] : text;   // curated labels only; dialogue/instructions stay in the record language (no machine translation, so no wrong words)
 }
 const localize = (text)=> translateUI(text, uiLangOf());
-/* Instructions (intro) only: translate via a free API (MyMemory, no key). Labels use the curated table; dialogue stays in the record language. */
-const MM_LANG = { ja:"ja", en:"en", zh:"zh-CN", ms:"ms", ta:"ta", my:"my" };
-const _mmCache = new Map();
-async function translateInstructions(text, toLang){
-  if(!text || toLang===REC_LANG) return text;
-  const key=toLang+":"+text;
-  if(_mmCache.has(key)) return _mmCache.get(key);
-  const src=MM_LANG[REC_LANG]||REC_LANG, tgt=MM_LANG[toLang]||toLang;
-  try{
-    const out=await Promise.all(text.split("\n").map(async ln=>{
-      if(!ln.trim()) return ln;
-      const r=await fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(ln)+"&langpair="+src+"|"+tgt);
-      const d=await r.json();
-      const tt=(d&&d.responseData&&d.responseData.translatedText)||"";
-      return (tt && !/MYMEMORY WARNING|QUOTA|INVALID/i.test(tt)) ? tt : ln;   // fall back to original on quota/errors
-    }));
-    const joined=out.join("\n"); _mmCache.set(key,joined); return joined;
-  }catch(e){ return text; }
-}
+const INTRO_I18N = {"ja": "こんにちは、山本さん。マイクを押して、記録したいことを話してください。\n例：メアリーの昼食、主食は全量、副食は半分、お茶は150ml。\n足りない項目だけ質問します。「なし」または「登録」と言うと保存します。\n右上のボタンで、話す言語を選べます。英語以外は音声を英語に翻訳して記録します。", "zh": "您好，Yamamoto。请点击麦克风，说出您想记录的内容。\n例：Mary的午餐，主食全量，副食一半，茶150ml。\n只询问缺少的项目。说「无」或「保存」即可存储。\n用右上角的按钮选择说话的语言。非英语的语音会翻译成英语后记录。", "ms": "Helo, Yamamoto. Tekan mikrofon dan sebut apa yang anda mahu rekod.\nContoh: Makan tengah hari Mary, hidangan utama penuh, lauk separuh, teh 150 ml.\nSaya hanya tanya item yang tiada. Sebut \"tiada\" atau \"simpan\" untuk menyimpan.\nGunakan butang di kanan atas untuk memilih bahasa pertuturan anda. Bahasa selain Inggeris diterjemah ke bahasa Inggeris untuk rekod.", "ta": "வணக்கம், Yamamoto. மைக்ரோஃபோனை அழுத்தி, பதிவு செய்ய விரும்புவதைச் சொல்லுங்கள்.\nஎடுத்துக்காட்டு: மேரியின் மதிய உணவு, பிரதான உணவு முழுவதும், பக்க உணவு பாதி, தேநீர் 150 ml.\nவிடுபட்ட உருப்படிகளை மட்டும் கேட்கிறேன். சேமிக்க \"இல்லை\" அல்லது \"சேமி\" எனச் சொல்லுங்கள்.\nநீங்கள் பேசும் மொழியைத் தேர்ந்தெடுக்க மேல் வலதுபுறத்தில் உள்ள பொத்தானைப் பயன்படுத்தவும். ஆங்கிலம் அல்லாத பேச்சு பதிவுக்காக ஆங்கிலத்தில் மொழிபெயர்க்கப்படும்.", "my": "မင်္ဂလာပါ Yamamoto။ မိုက်ခရိုဖုန်းကို နှိပ်ပြီး မှတ်တမ်းတင်လိုသည့်အရာကို ပြောပါ။\nဥပမာ- Mary ၏ နေ့လယ်စာ၊ အဓိကဟင်းလျာ အားလုံး၊ ဘေးဟင်းလျာ တစ်ဝက်၊ လက်ဖက်ရည် ၁၅၀ ml။\nကျန်နေသည့်အချက်များကိုသာ မေးပါမည်။ သိမ်းရန် \"မရှိ\" သို့မဟုတ် \"သိမ်း\" ဟုပြောပါ။\nသင်ပြောမည့်ဘာသာစကားကို ရွေးရန် ညာဘက်အပေါ်ထောင့်ရှိ ခလုတ်ကို သုံးပါ။ အင်္ဂလိပ်မဟုတ်သော အသံကို မှတ်တမ်းအတွက် အင်္ဂလိပ်ဘာသာသို့ ပြန်ဆိုပါသည်။"};
 const SPEAK_LANG = { en:"en-US", ja:"ja-JP", zh:"zh-CN", ms:"ms-MY", ta:"ta-IN", my:"my-MM" };
 function pickVoiceFor(lang){ if(!synth) return null;
   const pfx=(SPEAK_LANG[lang]||"en-US").slice(0,2).toLowerCase();
@@ -1746,7 +1710,7 @@ async function localizeChrome(){
   await Promise.all([setLbl("btnAuto","Auto"),setLbl("btnTts","Voice"),setLbl("btnAI","AI settings"),setLbl("btnRecs","Records")]);
   const sb=$("send"); if(sb) sb.textContent = await translateUI("Send",L);
   const ti=$("ti"); if(ti) ti.placeholder = await translateUI("You can also type here",L);
-  if(introBubble && introBubble.dataset.src) introBubble.textContent = await translateInstructions(introBubble.dataset.src,L);
+  if(introBubble) introBubble.textContent = INTRO_I18N[L] || introBubble.dataset.src;
   renderChips();
 }
 
@@ -1907,7 +1871,7 @@ if(!SR){
   showBanner("Browser speech recognition is unavailable — English is recognized via Scribe Cloud (the mic still works).");
   // nativeMode is already "scribe"; do not disable the mic (English falls back to Scribe).
 }
-introBubble=addBubble("ai","Hello, "+STAFF+". This is CareTalk EN × Scribe Cloud v0.4.0 (CW-master aligned: Meal, Fluids, Toileting, Vitals).\n\n■ Multilingual voice input (NEW)\n- Pick your spoken language top-right: 🎙 English (browser, instant) / ☁ Japanese, Chinese, Malay, Tamil, Burmese\n- ☁ languages: Scribe Cloud recognizes your speech and translates it to English for the record\n  e.g. a Malay/Tamil/Burmese caregiver speaks their language → the record comes out in English\n- ☁ auto-stops when you pause (Burmese may take a moment to wake on first use)\n\n■ How to use\n- Tap the mic 🎤 and say everything you know at once:\n  \"Mary had lunch, main course all, side dish half, tea 150 ml\"\n- Word by word also works: \"main course\" → \"all\"\n- I organize it and ask only for the missing required items\n- Then I take extras (location, assistance, notes) and save with \"none\" or \"save\"\n- Fix a value: \"actually main course was half\" / discard: \"cancel\"\n\n■ Tap ⚙AI to set a Gemini API key — an LLM then interprets the whole utterance and fixes mishearings (optional).");
+introBubble=addBubble("ai","Hello, "+STAFF+". Press the mic and say what you want to record.\nExample: Mary had lunch, main course all, side dish half, tea 150 ml.\nI only ask for what is missing. Say \"none\" or \"save\" to store it.\nUse the button at the top right to choose your spoken language. Other languages are translated into English for the record.");
 introBubble.dataset.src=introBubble.textContent;   // keep source so it can be re-translated on language switch
 localizeChrome();
 })();
