@@ -847,7 +847,9 @@ const UI_I18N = {
   "なし（登録する）":{en:"None (save)",zh:"无（保存）",ms:"Tiada (simpan)",ta:"இல்லை (சேமி)",my:"မရှိ (သိမ်း)"},
   "話す代わりに入力もできます":{en:"You can also type",zh:"也可以打字",ms:"Anda juga boleh menaip",ta:"தட்டச்சு செய்யலாம்",my:"စာရိုက်၍လည်းရသည်"},
   "まだ記録がありません。":{en:"No records yet.",zh:"还没有记录。",ms:"Belum ada rekod.",ta:"இன்னும் பதிவுகள் இல்லை.",my:"မှတ်တမ်းမရှိသေးပါ။"},
-  "試す: 一気に話す例":{en:"Try: say it all at once",zh:"试一下：一次说完",ms:"Cuba: sebut sekali gus",ta:"முயற்சி: ஒரே முறையில் சொல்",my:"စမ်းရန်- တစ်ကြိမ်တည်းပြော"}
+  "試す: 一気に話す例":{en:"Try: say it all at once",zh:"试一下：一次说完",ms:"Cuba: sebut sekali gus",ta:"முயற்சி: ஒரே முறையில் சொல்",my:"စမ်းရန်- တစ်ကြိမ်တည်းပြော"},
+  "送信":{en:"Send",zh:"发送",ms:"Hantar",ta:"அனுப்பு",my:"ပို့ရန်"},
+  "AI設定":{en:"AI settings",zh:"AI设置",ms:"Tetapan AI",ta:"AI அமைப்புகள்",my:"AI ဆက်တင်များ"}
 };
 const _trCache = new Map();
 async function translateUI(text, toLang){
@@ -860,6 +862,25 @@ async function translateUI(text, toLang){
   return ov && ov[toLang] ? prefix+ov[toLang] : text;   // 固定ラベルの厳選対訳のみ。会話文・説明は記録言語のまま＝機械翻訳しない（誤訳・不適切語なし）
 }
 const localize = (text)=> translateUI(text, uiLangOf());
+/* 説明文（intro）のみ 無料翻訳API(MyMemory・キー不要)で翻訳。ラベルは厳選対訳、会話は記録言語のまま。 */
+const MM_LANG = { ja:"ja", en:"en", zh:"zh-CN", ms:"ms", ta:"ta", my:"my" };
+const _mmCache = new Map();
+async function translateInstructions(text, toLang){
+  if(!text || toLang===REC_LANG) return text;
+  const key=toLang+":"+text;
+  if(_mmCache.has(key)) return _mmCache.get(key);
+  const src=MM_LANG[REC_LANG]||REC_LANG, tgt=MM_LANG[toLang]||toLang;
+  try{
+    const out=await Promise.all(text.split("\n").map(async ln=>{
+      if(!ln.trim()) return ln;
+      const r=await fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(ln)+"&langpair="+src+"|"+tgt);
+      const d=await r.json();
+      const tt=(d&&d.responseData&&d.responseData.translatedText)||"";
+      return (tt && !/MYMEMORY WARNING|QUOTA|INVALID/i.test(tt)) ? tt : ln;   // 制限超過などは原文のまま
+    }));
+    const joined=out.join("\n"); _mmCache.set(key,joined); return joined;
+  }catch(e){ return text; }
+}
 const SPEAK_LANG = { ja:"ja-JP", en:"en-US", zh:"zh-CN", ms:"ms-MY", ta:"ta-IN", my:"my-MM" };
 function pickVoiceFor(lang){ if(!synth) return null;
   const pfx=(SPEAK_LANG[lang]||"en-US").slice(0,2).toLowerCase();
@@ -871,8 +892,9 @@ async function localizeChrome(){
   const L=uiLangOf();
   const setLbl=async(id,src)=>{ const el=$(id), lbl=el&&el.querySelector(".mlbl"); if(lbl) lbl.textContent=await translateUI(src,L); };
   await Promise.all([setLbl("btnAuto","連続"),setLbl("btnTts","読上げ"),setLbl("btnAI","AI設定"),setLbl("btnRecs","記録")]);
+  const sb=$("send"); if(sb) sb.textContent = await translateUI("送信",L);
   const ti=$("ti"); if(ti) ti.placeholder = await translateUI("話す代わりに入力もできます",L);
-  if(introBubble && introBubble.dataset.src) introBubble.textContent = await translateUI(introBubble.dataset.src,L);
+  if(introBubble && introBubble.dataset.src) introBubble.textContent = await translateInstructions(introBubble.dataset.src,L);
   renderChips();
 }
 
@@ -1027,7 +1049,7 @@ if(!SR){
   showBanner("ブラウザ音声認識が使えないため、日本語もScribe Cloudで認識します（マイクはご利用いただけます）。");
   // nativeMode は既に "scribe"。マイクは無効化しない（日本語もScribeで録音・認識）
 }
-introBubble=addBubble("ai","こんにちは、"+STAFF+"さん。マイクを押して、記録したいことを話してください。\n例：田中さんの昼食、主食は8割、副食は全量、お茶は150cc。\n足りないことだけ質問します。最後に「なし」または「登録」と言うと保存します。\n\n右上のボタンで、話す言語を選べます。日本語以外を選ぶと、話した内容を日本語に翻訳して記録します。画面もその言語で表示します。");
+introBubble=addBubble("ai","こんにちは、"+STAFF+"さん。ケアトーク × Scribe Cloud v0.4.0 です（CWマスタ準拠：食事・水分補給・排泄・バイタル）。\n\n■ 多言語音声入力（NEW）\n・右上の言語ボタンで話す言語を選べます：🎙日本語（ブラウザ即時）／☁英語・中国語・マレー語・タミル語・ビルマ語\n・☁言語は Scribe Cloud が音声を認識し、日本語へ翻訳してから記録します\n　例：ミャンマー人職員がビルマ語で話す → 日本語の記録に整理\n・☁は話し終えると自動で認識します（ビルマ語は初回の起動に少し時間がかかります）\n\n■ 使い方\n・マイク🎤をタップして、知っている内容を一気に話してください\n　例：「田中さんの昼食、主食8割、副食全量、お茶150cc」\n・単語ずつでもOK：「主食」→「全量」のように区切って話せます\n・内容を整理し、足りない必須項目だけ確認します\n・最後に補足（場所・介助・状態コメント）を聞いて、まとめて登録します\n・言い直しは「やっぱり主食は7割」／中止は「キャンセル」\n\n■ ⚙AI ボタンから Gemini APIキーを設定すると、AIが発話全体を解釈し、誤変換（全寮→全量など）も文脈で補正します（任意）。");
 introBubble.dataset.src=introBubble.textContent;   // 言語切替時に再翻訳できるよう原文を保持
 localizeChrome();
 })();
@@ -1677,7 +1699,9 @@ const UI_I18N = {
   "None (save)":{ja:"なし（登録）",zh:"无（保存）",ms:"Tiada (simpan)",ta:"இல்லை (சேமி)",my:"မရှိ (သိမ်း)"},
   "You can also type here":{ja:"入力もできます",zh:"也可以打字",ms:"Anda boleh menaip",ta:"தட்டச்சு செய்யலாம்",my:"စာရိုက်၍လည်းရသည်"},
   "No records yet.":{ja:"まだ記録がありません。",zh:"还没有记录。",ms:"Belum ada rekod.",ta:"இன்னும் பதிவுகள் இல்லை.",my:"မှတ်တမ်းမရှိသေးပါ။"},
-  "Try: say it all at once":{ja:"例：一気に話す",zh:"试一下：一次说完",ms:"Cuba: sebut sekali gus",ta:"முயற்சி: ஒரே முறையில் சொல்",my:"စမ်းရန်- တစ်ကြိမ်တည်းပြော"}
+  "Try: say it all at once":{ja:"例：一気に話す",zh:"试一下：一次说完",ms:"Cuba: sebut sekali gus",ta:"முயற்சி: ஒரே முறையில் சொல்",my:"စမ်းရန်- တစ်ကြိမ်တည်းပြော"},
+  "Send":{ja:"送信",zh:"发送",ms:"Hantar",ta:"அனுப்பு",my:"ပို့ရန်"},
+  "AI settings":{ja:"AI設定",zh:"AI设置",ms:"Tetapan AI",ta:"AI அமைப்புகள்",my:"AI ဆက်တင်များ"}
 };
 const _trCache = new Map();
 async function translateUI(text, toLang){
@@ -1690,6 +1714,25 @@ async function translateUI(text, toLang){
   return ov && ov[toLang] ? prefix+ov[toLang] : text;   // curated labels only; dialogue/instructions stay in the record language (no machine translation, so no wrong words)
 }
 const localize = (text)=> translateUI(text, uiLangOf());
+/* Instructions (intro) only: translate via a free API (MyMemory, no key). Labels use the curated table; dialogue stays in the record language. */
+const MM_LANG = { ja:"ja", en:"en", zh:"zh-CN", ms:"ms", ta:"ta", my:"my" };
+const _mmCache = new Map();
+async function translateInstructions(text, toLang){
+  if(!text || toLang===REC_LANG) return text;
+  const key=toLang+":"+text;
+  if(_mmCache.has(key)) return _mmCache.get(key);
+  const src=MM_LANG[REC_LANG]||REC_LANG, tgt=MM_LANG[toLang]||toLang;
+  try{
+    const out=await Promise.all(text.split("\n").map(async ln=>{
+      if(!ln.trim()) return ln;
+      const r=await fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(ln)+"&langpair="+src+"|"+tgt);
+      const d=await r.json();
+      const tt=(d&&d.responseData&&d.responseData.translatedText)||"";
+      return (tt && !/MYMEMORY WARNING|QUOTA|INVALID/i.test(tt)) ? tt : ln;   // fall back to original on quota/errors
+    }));
+    const joined=out.join("\n"); _mmCache.set(key,joined); return joined;
+  }catch(e){ return text; }
+}
 const SPEAK_LANG = { en:"en-US", ja:"ja-JP", zh:"zh-CN", ms:"ms-MY", ta:"ta-IN", my:"my-MM" };
 function pickVoiceFor(lang){ if(!synth) return null;
   const pfx=(SPEAK_LANG[lang]||"en-US").slice(0,2).toLowerCase();
@@ -1700,9 +1743,10 @@ let introBubble=null;
 async function localizeChrome(){
   const L=uiLangOf();
   const setLbl=async(id,src)=>{ const el=$(id), lbl=el&&el.querySelector(".mlbl"); if(lbl) lbl.textContent=await translateUI(src,L); };
-  await Promise.all([setLbl("btnAuto","Auto"),setLbl("btnTts","Voice"),setLbl("btnAI","AI"),setLbl("btnRecs","Records")]);
+  await Promise.all([setLbl("btnAuto","Auto"),setLbl("btnTts","Voice"),setLbl("btnAI","AI settings"),setLbl("btnRecs","Records")]);
+  const sb=$("send"); if(sb) sb.textContent = await translateUI("Send",L);
   const ti=$("ti"); if(ti) ti.placeholder = await translateUI("You can also type here",L);
-  if(introBubble && introBubble.dataset.src) introBubble.textContent = await translateUI(introBubble.dataset.src,L);
+  if(introBubble && introBubble.dataset.src) introBubble.textContent = await translateInstructions(introBubble.dataset.src,L);
   renderChips();
 }
 
@@ -1863,7 +1907,7 @@ if(!SR){
   showBanner("Browser speech recognition is unavailable — English is recognized via Scribe Cloud (the mic still works).");
   // nativeMode is already "scribe"; do not disable the mic (English falls back to Scribe).
 }
-introBubble=addBubble("ai","Hello, "+STAFF+". Press the mic and say what you want to record.\nExample: Mary had lunch, main course all, side dish half, tea 150 ml.\nI only ask for what is missing. Say \"none\" or \"save\" to store it.\n\nUse the button at the top right to choose your spoken language. If you pick another language, I translate what you say into English and record it. The screen also shows that language.");
+introBubble=addBubble("ai","Hello, "+STAFF+". This is CareTalk EN × Scribe Cloud v0.4.0 (CW-master aligned: Meal, Fluids, Toileting, Vitals).\n\n■ Multilingual voice input (NEW)\n- Pick your spoken language top-right: 🎙 English (browser, instant) / ☁ Japanese, Chinese, Malay, Tamil, Burmese\n- ☁ languages: Scribe Cloud recognizes your speech and translates it to English for the record\n  e.g. a Malay/Tamil/Burmese caregiver speaks their language → the record comes out in English\n- ☁ auto-stops when you pause (Burmese may take a moment to wake on first use)\n\n■ How to use\n- Tap the mic 🎤 and say everything you know at once:\n  \"Mary had lunch, main course all, side dish half, tea 150 ml\"\n- Word by word also works: \"main course\" → \"all\"\n- I organize it and ask only for the missing required items\n- Then I take extras (location, assistance, notes) and save with \"none\" or \"save\"\n- Fix a value: \"actually main course was half\" / discard: \"cancel\"\n\n■ Tap ⚙AI to set a Gemini API key — an LLM then interprets the whole utterance and fixes mishearings (optional).");
 introBubble.dataset.src=introBubble.textContent;   // keep source so it can be re-translated on language switch
 localizeChrome();
 })();
