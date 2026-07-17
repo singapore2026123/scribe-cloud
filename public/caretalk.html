@@ -894,11 +894,7 @@ $("langSel").addEventListener("change", async e=>{
   if(listening) stopListening();
   if(recording) stopRecording();
   $("mic").disabled = (modeOf(inputLang)==="browser" && !SR);
-  await localizeChrome();
-  const note = isScribe()
-    ? "この言語で話してください。認識し日本語へ翻訳して記録します（画面はこの言語で表示します）。"
-    : "日本語（ブラウザ音声認識・即時）に切り替えました。";
-  addBubble("sys", await localize(note));
+  await localizeChrome();   // 言語切替の通知バブルは出さない（UIが切り替わるため冗長・毎回積み重なるのを防ぐ）
 });
 
 /* マイク録音（ScriptProcessor）→ 無音で自動停止 → WAV/base64 → Scribe */
@@ -1741,11 +1737,7 @@ $("langSel").addEventListener("change", async e=>{
   if(listening) stopListening();
   if(recording) stopRecording();
   $("mic").disabled = (modeOf(inputLang)==="browser" && !SR);
-  await localizeChrome();
-  const note = isScribe()
-    ? "Speak in this language — I recognize it and translate to English for the record (the screen is in this language)."
-    : "Switched to English (browser speech recognition, instant).";
-  addBubble("sys", await localize(note));
+  await localizeChrome();   // no per-switch notice bubble (the UI already changes language; avoids pile-up)
 });
 
 /* Mic recording (ScriptProcessor) -> auto-stop on pause -> WAV/base64 -> Scribe */
