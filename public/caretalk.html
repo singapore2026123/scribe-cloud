@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <title>ケアトーク × Scribe Cloud — 統合版（記録言語 JA/EN 切替）</title>
 <!-- v0.4.0-SC 2026-07-16: 02(日本語CareTalk)+ Scribe Cloud 統合。日/英=ブラウザ音声認識(即時)、中/馬/泰/緬=Scribe(/transcribe)で認識+日本語へ翻訳→対話エンジンでCWマスタ記録化。認識レイヤのみ差し替え、スロット抽出はローカル規則のまま。 -->
 <style>
@@ -14,7 +14,7 @@
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   body{margin:0; font-family:"Hiragino Sans","Yu Gothic UI","Meiryo","Noto Sans Myanmar","Padauk","Noto Sans Tamil",sans-serif; background:#dfe4ea; color:var(--ink);}
   #app{max-width:480px; margin:0 auto; height:100dvh; display:flex; flex-direction:column; background:var(--bg); box-shadow:0 0 24px rgba(0,0,0,.12); position:relative;}
-  header{background:var(--accent); color:#fff; padding:10px 14px; display:flex; align-items:center; gap:8px; flex-shrink:0;}
+  header{background:var(--accent); color:#fff; padding:calc(10px + env(safe-area-inset-top)) 14px 10px; display:flex; align-items:center; gap:8px; flex-shrink:0;}
   header .title{font-weight:700; font-size:16px;}
   header .tag{font-size:10px; background:rgba(255,255,255,.2); border-radius:99px; padding:2px 8px;}
   header .spacer{flex:1;}
@@ -61,15 +61,19 @@
   #send{border:none; background:none; color:var(--accent); font-weight:700; font-size:14px; cursor:pointer; padding:8px;}
   #recpanel{display:none; position:absolute; inset:0; background:rgba(20,28,40,.45); z-index:10;}
   #recinner{position:absolute; bottom:0; left:0; right:0; max-height:75%; overflow-y:auto; background:var(--bg); border-radius:16px 16px 0 0; padding:16px; display:flex; flex-direction:column; gap:10px;}
+  @media (max-width:540px){ #app{max-width:100%; box-shadow:none; padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right);} }
   #langSel option{color:#1a2433; background:#fff;}   /* 開いたリストで白背景×白文字にならないよう明示 */
 
-  #recbar{position:sticky;top:0;z-index:30;height:46px;display:flex;align-items:center;justify-content:center;gap:10px;background:#0b544a;color:#fff;font-size:13px;}
+  html,body{height:100%;}
+  body{min-height:100dvh; display:flex; flex-direction:column;}
+  #recbar{flex-shrink:0; display:flex; align-items:center; justify-content:center; gap:10px; background:#0b544a; color:#fff; font-size:13px; min-height:46px; padding-top:env(safe-area-inset-top);}
   #recbar .lbl{opacity:.85;}
-  #recbar button{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;}
-  #recbar button.on{background:#fff;color:#0b544a;font-weight:700;}
-  .engwrap{display:none;}
-  .engwrap.on{display:block;}
-  .engwrap #app{height:calc(100dvh - 46px);}
+  #recbar button{background:rgba(255,255,255,.15); border:none; color:#fff; border-radius:8px; padding:8px 16px; font-size:13px; cursor:pointer;}
+  #recbar button.on{background:#fff; color:#0b544a; font-weight:700;}
+  .engwrap{display:none; flex:1; min-height:0;}
+  .engwrap.on{display:flex; flex-direction:column;}
+  .engwrap #app{height:auto; flex:1; min-height:0;}
+  .engwrap header{padding-top:10px;}   /* record-bar already covers the top inset */
 </style>
 
 </head>
