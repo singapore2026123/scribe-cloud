@@ -854,23 +854,10 @@ async function translateUI(text, toLang){
   text = (text==null?"":String(text));
   const t=text.trim();
   if(!t || toLang===REC_LANG) return text;
-  if(text.indexOf("\n")>=0){   // 長文は行ごとに翻訳（機械翻訳の末尾崩れ・語の繰り返しを防止）
-    const parts=await Promise.all(text.split("\n").map(ln=> ln.trim()? translateUI(ln,toLang) : ln));
-    return parts.join("\n");
-  }
-  const mm=t.match(/^([^\p{L}\p{N}]+)?([\s\S]*)$/u);   // 先頭の絵文字/記号を分離（「🍚 食事」等をきれいに）
+  const mm=t.match(/^([^\p{L}\p{N}]+)?([\s\S]*)$/u);   // 先頭の絵文字/記号を分離
   const prefix=(mm&&mm[1])||"", core=(((mm&&mm[2])||t).trim())||t;
   const ov=UI_I18N[core];
-  if(ov && ov[toLang]) return prefix+ov[toLang];
-  const key=toLang+":"+core;
-  if(_trCache.has(key)) return prefix+_trCache.get(key);
-  try{
-    const res = await fetch(SCRIBE_CF+"/translate",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({text:core, sl:REC_LANG, tl:toLang})});
-    const d = await res.json();
-    const out = ((d&&d.translation)||"").trim() || core;
-    _trCache.set(key,out); return prefix+out;
-  }catch(e){ return text; }
+  return ov && ov[toLang] ? prefix+ov[toLang] : text;   // 固定ラベルの厳選対訳のみ。会話文・説明は記録言語のまま＝機械翻訳しない（誤訳・不適切語なし）
 }
 const localize = (text)=> translateUI(text, uiLangOf());
 const SPEAK_LANG = { ja:"ja-JP", en:"en-US", zh:"zh-CN", ms:"ms-MY", ta:"ta-IN", my:"my-MM" };
@@ -1697,23 +1684,10 @@ async function translateUI(text, toLang){
   text=(text==null?"":String(text));
   const t=text.trim();
   if(!t || toLang===REC_LANG) return text;
-  if(text.indexOf("\n")>=0){   // long text: translate line-by-line (avoids MT tail garbling/repetition)
-    const parts=await Promise.all(text.split("\n").map(ln=> ln.trim()? translateUI(ln,toLang) : ln));
-    return parts.join("\n");
-  }
-  const mm=t.match(/^([^\p{L}\p{N}]+)?([\s\S]*)$/u);   // split a leading emoji/symbol so "🍚 Meal" translates cleanly
+  const mm=t.match(/^([^\p{L}\p{N}]+)?([\s\S]*)$/u);   // split a leading emoji/symbol
   const prefix=(mm&&mm[1])||"", core=(((mm&&mm[2])||t).trim())||t;
   const ov=UI_I18N[core];
-  if(ov && ov[toLang]) return prefix+ov[toLang];
-  const key=toLang+":"+core;
-  if(_trCache.has(key)) return prefix+_trCache.get(key);
-  try{
-    const res=await fetch(SCRIBE_CF+"/translate",{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({text:core, sl:REC_LANG, tl:toLang})});
-    const d=await res.json();
-    const out=((d&&d.translation)||"").trim()||core;
-    _trCache.set(key,out); return prefix+out;
-  }catch(e){ return text; }
+  return ov && ov[toLang] ? prefix+ov[toLang] : text;   // curated labels only; dialogue/instructions stay in the record language (no machine translation, so no wrong words)
 }
 const localize = (text)=> translateUI(text, uiLangOf());
 const SPEAK_LANG = { en:"en-US", ja:"ja-JP", zh:"zh-CN", ms:"ms-MY", ta:"ta-IN", my:"my-MM" };
