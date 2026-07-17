@@ -18,7 +18,7 @@
   header .title{font-weight:700; font-size:16px;}
   header .tag{font-size:10px; background:rgba(255,255,255,.2); border-radius:99px; padding:2px 8px;}
   header .spacer{flex:1;}
-  .hbtn{background:rgba(255,255,255,.15); border:none; color:#fff; border-radius:8px; padding:6px 10px; font-size:12px; cursor:pointer;}
+  .hbtn{background:rgba(255,255,255,.15); border:none; color:#fff; border-radius:8px; padding:6px 9px; font-size:15px; line-height:1; cursor:pointer;}
   .hbtn.on{background:#fff; color:var(--accent); font-weight:700;}
   #banner{background:#fff7ed; color:var(--warn); font-size:12px; padding:8px 14px; border-bottom:1px solid #fed7aa; display:none;}
   #settings{display:none; background:#fff; border-bottom:1px solid var(--line); padding:10px 14px; font-size:12px;}
@@ -62,6 +62,12 @@
   #recpanel{display:none; position:absolute; inset:0; background:rgba(20,28,40,.45); z-index:10;}
   #recinner{position:absolute; bottom:0; left:0; right:0; max-height:75%; overflow-y:auto; background:var(--bg); border-radius:16px 16px 0 0; padding:16px; display:flex; flex-direction:column; gap:10px;}
   @media (max-width:540px){ #app{max-width:100%; box-shadow:none; padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right);} }
+  header{position:relative;}
+  #menu{display:none; position:absolute; top:100%; right:8px; margin-top:6px; z-index:25; background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.18); overflow:hidden; min-width:190px;}
+  #menu.open{display:block;}
+  .menurow{display:flex; align-items:center; gap:10px; width:100%; background:none; border:none; border-bottom:1px solid var(--line); padding:13px 16px; font-size:15px; color:var(--ink); cursor:pointer; text-align:left; font-family:inherit;}
+  .menurow:last-child{border-bottom:none;}
+  .menurow.on{color:var(--accent); font-weight:700; background:var(--accent-soft);}
   #langSel option{color:#1a2433; background:#fff;}   /* 開いたリストで白背景×白文字にならないよう明示 */
 
   html,body{height:100%;}
@@ -91,10 +97,13 @@
       <option value="ta">☁ தமிழ்</option>
       <option value="my">☁ မြန်မာ</option>
     </select>
-    <button class="hbtn on" id="btnAuto" title="応答後に自動でマイクを開く">連続</button>
-    <button class="hbtn on" id="btnTts">読上げ</button>
-    <button class="hbtn" id="btnAI">⚙AI</button>
-    <button class="hbtn" id="btnRecs">記録 <span id="recCount">0</span></button>
+    <button class="hbtn" id="btnMenu" title="メニュー">☰</button>
+    <div id="menu">
+      <button class="menurow on" id="btnAuto">🔁 <span class="mlbl">連続</span></button>
+      <button class="menurow on" id="btnTts">🔊 <span class="mlbl">読上げ</span></button>
+      <button class="menurow" id="btnAI">⚙ <span class="mlbl">AI設定</span></button>
+      <button class="menurow" id="btnRecs">📋 <span class="mlbl">記録</span> <span id="recCount">0</span></button>
+    </div>
   </header>
   <div id="banner"></div>
   <div id="settings">
@@ -125,10 +134,13 @@
       <option value="ta">☁ தமிழ்</option>
       <option value="my">☁ မြန်မာ</option>
     </select>
-    <button class="hbtn on" id="btnAuto" title="Auto-listen after each reply">Auto</button>
-    <button class="hbtn on" id="btnTts">Voice</button>
-    <button class="hbtn" id="btnAI">⚙AI</button>
-    <button class="hbtn" id="btnRecs">Records <span id="recCount">0</span></button>
+    <button class="hbtn" id="btnMenu" title="Menu">☰</button>
+    <div id="menu">
+      <button class="menurow on" id="btnAuto">🔁 <span class="mlbl">Auto</span></button>
+      <button class="menurow on" id="btnTts">🔊 <span class="mlbl">Voice</span></button>
+      <button class="menurow" id="btnAI">⚙ <span class="mlbl">AI</span></button>
+      <button class="menurow" id="btnRecs">📋 <span class="mlbl">Records</span> <span id="recCount">0</span></button>
+    </div>
   </header>
   <div id="banner"></div>
   <div id="settings">
@@ -842,6 +854,10 @@ async function translateUI(text, toLang){
   text = (text==null?"":String(text));
   const t=text.trim();
   if(!t || toLang===REC_LANG) return text;
+  if(text.indexOf("\n")>=0){   // 長文は行ごとに翻訳（機械翻訳の末尾崩れ・語の繰り返しを防止）
+    const parts=await Promise.all(text.split("\n").map(ln=> ln.trim()? translateUI(ln,toLang) : ln));
+    return parts.join("\n");
+  }
   const mm=t.match(/^([^\p{L}\p{N}]+)?([\s\S]*)$/u);   // 先頭の絵文字/記号を分離（「🍚 食事」等をきれいに）
   const prefix=(mm&&mm[1])||"", core=(((mm&&mm[2])||t).trim())||t;
   const ov=UI_I18N[core];
@@ -866,11 +882,8 @@ function pickVoiceFor(lang){ if(!synth) return null;
 let introBubble=null;
 async function localizeChrome(){
   const L=uiLangOf();
-  for(const [id,base] of [["btnAuto","連続"],["btnTts","読上げ"]]){
-    const el=$(id); if(el) el.textContent = await translateUI(base,L);
-  }
-  const recBtn=$("btnRecs");
-  if(recBtn && recBtn.childNodes[0]) recBtn.childNodes[0].nodeValue = (await translateUI("記録",L))+" ";
+  const setLbl=async(id,src)=>{ const el=$(id), lbl=el&&el.querySelector(".mlbl"); if(lbl) lbl.textContent=await translateUI(src,L); };
+  await Promise.all([setLbl("btnAuto","連続"),setLbl("btnTts","読上げ"),setLbl("btnAI","AI設定"),setLbl("btnRecs","記録")]);
   const ti=$("ti"); if(ti) ti.placeholder = await translateUI("話す代わりに入力もできます",L);
   if(introBubble && introBubble.dataset.src) introBubble.textContent = await translateUI(introBubble.dataset.src,L);
   renderChips();
@@ -991,7 +1004,10 @@ $("mic").onclick=()=>{
 };
 $("btnTts").onclick=()=>{ ttsOn=!ttsOn; $("btnTts").classList.toggle("on",ttsOn); if(!ttsOn&&synth) synth.cancel(); };
 $("btnAuto").onclick=()=>{ autoOn=!autoOn; $("btnAuto").classList.toggle("on",autoOn); };
+$("btnMenu").onclick=(e)=>{ e.stopPropagation(); $("menu").classList.toggle("open"); };
+document.addEventListener("click",(ev)=>{ const m=$("menu"); if(m&&m.classList.contains("open")&&!m.contains(ev.target)&&ev.target!==$("btnMenu")) m.classList.remove("open"); });
 $("btnRecs").onclick=()=>{
+  $("menu").classList.remove("open");
   const p=$("recpanel"), inner=$("recinner"); inner.innerHTML="";
   const h=document.createElement("div"); h.style.cssText="font-weight:700;font-size:14px;";
   h.textContent=`本日の記録（${records.length}件） — タップで閉じる`; inner.appendChild(h);
@@ -1015,7 +1031,7 @@ function refreshAiState(){
     else localStorage.removeItem("ct_ai");
   }catch(e){}
 }
-$("btnAI").onclick=()=>{ const s=$("settings"); s.style.display=s.style.display==="block"?"none":"block"; };
+$("btnAI").onclick=()=>{ $("menu").classList.remove("open"); const s=$("settings"); s.style.display=s.style.display==="block"?"none":"block"; };
 ["aiOn","aiKey","aiModel","aiSave"].forEach(id=>$(id).addEventListener("change",refreshAiState));
 try{
   const saved=JSON.parse(localStorage.getItem("ct_ai")||"null");
@@ -1685,6 +1701,10 @@ async function translateUI(text, toLang){
   text=(text==null?"":String(text));
   const t=text.trim();
   if(!t || toLang===REC_LANG) return text;
+  if(text.indexOf("\n")>=0){   // long text: translate line-by-line (avoids MT tail garbling/repetition)
+    const parts=await Promise.all(text.split("\n").map(ln=> ln.trim()? translateUI(ln,toLang) : ln));
+    return parts.join("\n");
+  }
   const mm=t.match(/^([^\p{L}\p{N}]+)?([\s\S]*)$/u);   // split a leading emoji/symbol so "🍚 Meal" translates cleanly
   const prefix=(mm&&mm[1])||"", core=(((mm&&mm[2])||t).trim())||t;
   const ov=UI_I18N[core];
@@ -1709,11 +1729,8 @@ function pickVoiceFor(lang){ if(!synth) return null;
 let introBubble=null;
 async function localizeChrome(){
   const L=uiLangOf();
-  for(const [id,base] of [["btnAuto","Auto"],["btnTts","Voice"]]){
-    const el=$(id); if(el) el.textContent = await translateUI(base,L);
-  }
-  const recBtn=$("btnRecs");
-  if(recBtn && recBtn.childNodes[0]) recBtn.childNodes[0].nodeValue = (await translateUI("Records",L))+" ";
+  const setLbl=async(id,src)=>{ const el=$(id), lbl=el&&el.querySelector(".mlbl"); if(lbl) lbl.textContent=await translateUI(src,L); };
+  await Promise.all([setLbl("btnAuto","Auto"),setLbl("btnTts","Voice"),setLbl("btnAI","AI"),setLbl("btnRecs","Records")]);
   const ti=$("ti"); if(ti) ti.placeholder = await translateUI("You can also type here",L);
   if(introBubble && introBubble.dataset.src) introBubble.textContent = await translateUI(introBubble.dataset.src,L);
   renderChips();
@@ -1840,7 +1857,10 @@ $("mic").onclick=()=>{
 };
 $("btnTts").onclick=()=>{ ttsOn=!ttsOn; $("btnTts").classList.toggle("on",ttsOn); if(!ttsOn&&synth) synth.cancel(); };
 $("btnAuto").onclick=()=>{ autoOn=!autoOn; $("btnAuto").classList.toggle("on",autoOn); };
+$("btnMenu").onclick=(e)=>{ e.stopPropagation(); $("menu").classList.toggle("open"); };
+document.addEventListener("click",(ev)=>{ const m=$("menu"); if(m&&m.classList.contains("open")&&!m.contains(ev.target)&&ev.target!==$("btnMenu")) m.classList.remove("open"); });
 $("btnRecs").onclick=()=>{
+  $("menu").classList.remove("open");
   const p=$("recpanel"), inner=$("recinner"); inner.innerHTML="";
   const h=document.createElement("div"); h.style.cssText="font-weight:700;font-size:14px;";
   h.textContent=`Today's records (${records.length}) — tap to close`; inner.appendChild(h);
@@ -1864,7 +1884,7 @@ function refreshAiState(){
     else localStorage.removeItem("ct_ai_en");
   }catch(e){}
 }
-$("btnAI").onclick=()=>{ const s=$("settings"); s.style.display=s.style.display==="block"?"none":"block"; };
+$("btnAI").onclick=()=>{ $("menu").classList.remove("open"); const s=$("settings"); s.style.display=s.style.display==="block"?"none":"block"; };
 ["aiOn","aiKey","aiModel","aiSave"].forEach(id=>$(id).addEventListener("change",refreshAiState));
 try{
   const saved=JSON.parse(localStorage.getItem("ct_ai_en")||"null");
