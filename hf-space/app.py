@@ -206,9 +206,82 @@ def _mms_model():
         model.eval()
         STATE["mms"] = (proc, model)
     return STATE["mms"]
+# --- Optional char-n-gram LM decoding for Burmese (shallow-fusion CTC beam search). Enable with SCRIBE_MY_LM=1.
+#     Prototype: rec-17 CER 25.7% (greedy) -> 24.8% (beam+LM), +0.9pt, NO acoustic retraining, from the care glossary.
+#     Char-level (correct for space-less Burmese) + pure Python (no kenlm/C++ build; portable & testable). Adds CPU
+#     latency per utterance, so it's off by default. Corpus: hf-space/burmese_lm_corpus.txt (glossary; expand for
+#     more gain). SPEED NOTE: on the Space you can swap the Python n-gram below for a char-level kenlm backend. ---
+import math
+from collections import defaultdict
+_LM = {}
+def _lm_build(N=5):
+    if _LM:
+        return
+    full = defaultdict(int); ctx = defaultdict(int); V = set()
+    path = os.path.join(os.path.dirname(__file__), "burmese_lm_corpus.txt")
+    try:
+        for line in io.open(path, encoding="utf-8"):
+            t = "^" + unicodedata.normalize("NFC", line.strip()) + "$"
+            for c in t: V.add(c)
+            for n in range(1, N + 1):
+                for i in range(len(t) - n + 1):
+                    full[t[i:i + n]] += 1
+                    if n > 1: ctx[t[i:i + n - 1]] += 1
+    except FileNotFoundError:
+        pass
+    _LM.update(full=full, ctx=ctx, V=max(len(V), 1), N=N,
+               uni=sum(v for g, v in full.items() if len(g) == 1) or 1)
+def _lm_logp(prefix_chars, ch):   # P(ch | last N-1 chars), stupid-backoff + add-k
+    N = _LM["N"]; full = _LM["full"]; ctx = _LM["ctx"]; V = _LM["V"]
+    for n in range(N, 1, -1):
+        c = prefix_chars[-(n - 1):]
+        den = ctx.get(c, 0)
+        if den > 0:
+            return math.log((full.get(c + ch, 0) + 0.1) / (den + 0.1 * V))
+    return math.log((full.get(ch, 0) + 0.1) / (_LM["uni"] + 0.1 * V))
+_MYRE = re.compile(r'[က-ဿ]')   # Burmese letters (not numerals) -> only score these with the LM
+def _beam_decode(logp, id2ch, blank, alpha=0.4, beam=12, topk=12):
+    NEG = -1e30
+    def lse(a, b):
+        if a == NEG: return b
+        if b == NEG: return a
+        m = max(a, b); return m + math.log(math.exp(a - m) + math.exp(b - m))
+    beams = {(): [0.0, NEG]}
+    cache = {}
+    def lm(prefix, ch):
+        cs = id2ch.get(ch, "")
+        if not (cs and _MYRE.match(cs)): return 0.0
+        key = ("".join(id2ch.get(i, "") for i in prefix[-(_LM["N"] - 1):]), cs)
+        if key not in cache: cache[key] = alpha * _lm_logp(key[0], cs)
+        return cache[key]
+    for row in logp:
+        top = sorted(range(len(row)), key=lambda c: -row[c])[:topk]
+        if blank not in top: top.append(blank)
+        new = defaultdict(lambda: [NEG, NEG])
+        for prefix, (pb, pnb) in beams.items():
+            ptot = lse(pb, pnb)
+            for c in top:
+                lp = row[c]
+                if c == blank:
+                    e = new[prefix]; e[0] = lse(e[0], ptot + lp); continue
+                last = prefix[-1] if prefix else -1
+                if c == last:
+                    e = new[prefix]; e[1] = lse(e[1], pnb + lp)
+                    np_ = prefix + (c,); e2 = new[np_]; e2[1] = lse(e2[1], pb + lp + lm(prefix, c))
+                else:
+                    np_ = prefix + (c,); e2 = new[np_]; e2[1] = lse(e2[1], ptot + lp + lm(prefix, c))
+        beams = dict(sorted(new.items(), key=lambda kv: -lse(kv[1][0], kv[1][1]))[:beam])
+    best = max(beams.items(), key=lambda kv: lse(kv[1][0], kv[1][1]))[0]
+    return "".join(id2ch.get(i, "") for i in best if id2ch.get(i, "") not in ("<pad>", "<s>", "</s>", "<unk>", "|"))
+
 def _mms_asr(data16k):
     import torch
     proc, model = _mms_model()
+    use_lm = os.environ.get("SCRIBE_MY_LM") == "1"
+    if use_lm:
+        _lm_build()
+        id2ch = {i: t for t, i in proc.tokenizer.get_vocab().items()}
+        blank = proc.tokenizer.pad_token_id
     out = []
     for ch in _chunks(data16k, max_sec=15.0):
         if len(ch) < 1600:
@@ -216,7 +289,11 @@ def _mms_asr(data16k):
         inp = proc(ch, sampling_rate=16000, return_tensors="pt")
         with torch.no_grad():
             logits = model(**inp).logits
-        out.append(proc.decode(torch.argmax(logits, dim=-1)[0]).strip())
+        if use_lm:
+            lp = torch.log_softmax(logits, dim=-1)[0].tolist()
+            out.append(_beam_decode(lp, id2ch, blank))
+        else:
+            out.append(proc.decode(torch.argmax(logits, dim=-1)[0]).strip())
     return " ".join(p for p in out if p).strip()
 
 
@@ -237,6 +314,7 @@ def _prewarm():   # preload the primary Burmese engine at boot so the first requ
 @app.get("/")
 def health():
     return {"ok": True, "engine": "mms+dolphin+seamless", "my_engine": os.environ.get("SCRIBE_MY_ENGINE", "mms"),
+            "my_lm": os.environ.get("SCRIBE_MY_LM") == "1",
             "mms_loaded": STATE.get("mms") is not None, "dolphin_loaded": STATE["dolphin"] is not None}
 
 
