@@ -326,17 +326,26 @@ async def stream(ws: WebSocket):
     from starlette.concurrency import run_in_threadpool
     import numpy as np
     await ws.accept()
+    target = ws.query_params.get("target", "")   # facility/record language for translation (e.g. ja/en); "" = none
     SR = 16000
     THRESH = float(os.environ.get("SCRIBE_VAD_RMS", "0.008"))
     SIL = float(os.environ.get("SCRIBE_VAD_SIL", "0.6"))
     MINSP, MAXSEG = 0.4, 15.0
     seg = []; trailing = 0.0; started = False; last_partial = 0.0
-    async def do(samples):
-        return await run_in_threadpool(lambda: _postprocess_my(_mms_asr(np.asarray(samples, dtype=np.float32))))
+    async def do(samples, translate=False):
+        txt = await run_in_threadpool(lambda: _postprocess_my(_mms_asr(np.asarray(samples, dtype=np.float32))))
+        tr = ""
+        if translate and txt and target and target not in ("off", "my"):
+            try:
+                tr = await run_in_threadpool(lambda: _gtranslate(txt, "my", target))
+            except Exception:
+                tr = ""
+        return txt, tr
     async def flush():
         nonlocal seg, trailing, started, last_partial
         if len(seg) / SR >= MINSP:
-            await ws.send_json({"final": await do(seg)})
+            txt, tr = await do(seg, translate=True)
+            await ws.send_json({"final": txt, "translation": tr})
         seg = []; trailing = 0.0; started = False; last_partial = 0.0
     try:
         while True:
@@ -362,7 +371,7 @@ async def stream(ws: WebSocket):
                 await flush()
             elif started and cur - last_partial >= 1.5:   # occasional interim update while still speaking
                 last_partial = cur
-                await ws.send_json({"partial": await do(seg)})
+                await ws.send_json({"partial": (await do(seg))[0]})
     except Exception:
         pass
     try:

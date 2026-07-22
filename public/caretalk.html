@@ -941,8 +941,35 @@ $("langSel").addEventListener("change", async e=>{
 });
 
 /* マイク録音（ScriptProcessor）→ 無音で自動停止 → WAV/base64 → Scribe */
-let scCtx=null, scStream=null, scProc=null, scSrc=null, scBuf=[], scLen=0, recording=false, scSil=0, scHad=false;
+let scCtx=null, scStream=null, scProc=null, scSrc=null, scBuf=[], scLen=0, recording=false, scSil=0, scHad=false, scWS=null, scPartBubble=null;
 const SC_SIL_THRESH=0.008, SC_SIL_HOLD=0.8, SC_MIN_SEC=1.2, SC_MAX_SEC=16.0;
+function scOpenStream(){                                    // 緬：リアルタイム認識（/stream WebSocket、サーバ側VADで文ごとに確定）
+  try{
+    scWS=new WebSocket(SCRIBE_SPACE.replace(/^http/,"ws")+"/stream?target="+encodeURIComponent(REC_LANG||""));
+    scWS.binaryType="arraybuffer";
+    scWS.onmessage=(ev)=>{
+      let m; try{ m=JSON.parse(ev.data); }catch(_){ return; }
+      if(m.partial!==undefined){
+        if(m.partial){ if(!scPartBubble) scPartBubble=addBubble("listen",""); scPartBubble.textContent="… "+m.partial; }
+      }else if(m.final!==undefined){
+        if(scPartBubble){ scPartBubble.remove(); scPartBubble=null; }
+        const orig=(m.final||"").trim(), jp=(m.translation||"").trim();
+        if(!orig) return;
+        addBubble("user", orig + (jp?`\n🌐 ${jp}`:""));
+        voiceMode=true; noSpeech=0;
+        const forEngine=jp||orig; if(forEngine) process(forEngine);
+      }
+    };
+    scWS.onclose=()=>{ scWS=null; };
+    scWS.onerror=()=>{};
+  }catch(e){ scWS=null; }
+}
+function scSendChunk(d,sr){                                 // Float32 → 16kHz PCM16 → WS
+  if(!scWS||scWS.readyState!==1) return;
+  const ratio=sr/16000, n=Math.floor(d.length/ratio), pcm=new Int16Array(n);
+  for(let i=0;i<n;i++){ let s=Math.max(-1,Math.min(1,d[Math.floor(i*ratio)])); pcm[i]=s<0?s*0x8000:s*0x7fff; }
+  scWS.send(pcm.buffer);
+}
 async function startRecording(){
   if(recording) return;
   try{ scStream=await navigator.mediaDevices.getUserMedia({audio:true}); }
@@ -950,11 +977,14 @@ async function startRecording(){
   scCtx=new (window.AudioContext||window.webkitAudioContext)();
   try{ await scCtx.resume(); }catch(e){}
   scBuf=[]; scLen=0; scSil=0; scHad=false; recording=true;
+  const streaming=(inputLang==="my");                       // 緬はリアルタイムストリーミング／他言語は従来どおり録音→一括認識
+  if(streaming) scOpenStream();
   scSrc=scCtx.createMediaStreamSource(scStream);
   scProc=scCtx.createScriptProcessor(4096,1,1);
   scProc.onaudioprocess=(e)=>{
     if(!recording) return;
     const d=e.inputBuffer.getChannelData(0);
+    if(streaming){ scSendChunk(d, scCtx.sampleRate); return; }   // ストリーミング時は逐次送信（サーバVADが文を確定）
     scBuf.push(new Float32Array(d)); scLen+=d.length;
     let s=0; for(let i=0;i<d.length;i++) s+=d[i]*d[i];
     const rms=Math.sqrt(s/d.length), sr=scCtx.sampleRate;
@@ -965,11 +995,12 @@ async function startRecording(){
   };
   scSrc.connect(scProc); scProc.connect(scCtx.destination);
   $("mic").classList.add("rec");
-  listenBubble=addBubble("listen","🎤 録音中…（話し終えると自動で認識／もう一度タップで停止）");
+  listenBubble=addBubble("listen", streaming?"🎤 リアルタイム認識中…（話すと文ごとに認識／もう一度タップで停止）":"🎤 録音中…（話し終えると自動で認識／もう一度タップで停止）");
 }
 function stopRecording(){
   if(!recording) return;
   recording=false;
+  const streaming=!!scWS;
   const sr=scCtx?scCtx.sampleRate:48000;
   const merged=new Float32Array(scLen); let o=0; for(const b of scBuf){ merged.set(b,o); o+=b.length; }
   scBuf=[]; scLen=0;
@@ -980,7 +1011,11 @@ function stopRecording(){
   scProc=scSrc=scStream=scCtx=null;
   $("mic").classList.remove("rec");
   if(listenBubble){ listenBubble.remove(); listenBubble=null; }
-  if(scHad && merged.length>sr*0.3){ scTranscribe(merged,sr); }
+  if(streaming){                                            // 残り音声を確定させてからWSを閉じる
+    try{ if(scWS && scWS.readyState===1) scWS.send("end"); }catch(e){}
+    setTimeout(()=>{ try{ if(scWS) scWS.close(); }catch(e){} scWS=null; }, 8000);
+    if(scPartBubble){ scPartBubble.remove(); scPartBubble=null; }
+  }else if(scHad && merged.length>sr*0.3){ scTranscribe(merged,sr); }
   else{ noSpeech++; if(noSpeech>=2) addBubble("sys","音声が検出できませんでした。マイクをタップして再開できます。"); }
 }
 async function scTranscribe(samples,sr){
@@ -1805,8 +1840,35 @@ $("langSel").addEventListener("change", async e=>{
 });
 
 /* Mic recording (ScriptProcessor) -> auto-stop on pause -> WAV/base64 -> Scribe */
-let scCtx=null, scStream=null, scProc=null, scSrc=null, scBuf=[], scLen=0, recording=false, scSil=0, scHad=false;
+let scCtx=null, scStream=null, scProc=null, scSrc=null, scBuf=[], scLen=0, recording=false, scSil=0, scHad=false, scWS=null, scPartBubble=null;
 const SC_SIL_THRESH=0.008, SC_SIL_HOLD=0.8, SC_MIN_SEC=1.2, SC_MAX_SEC=16.0;
+function scOpenStream(){                                    // Burmese: real-time (/stream WebSocket; server-side VAD finalises per sentence)
+  try{
+    scWS=new WebSocket(SCRIBE_SPACE.replace(/^http/,"ws")+"/stream?target="+encodeURIComponent(REC_LANG||""));
+    scWS.binaryType="arraybuffer";
+    scWS.onmessage=(ev)=>{
+      let m; try{ m=JSON.parse(ev.data); }catch(_){ return; }
+      if(m.partial!==undefined){
+        if(m.partial){ if(!scPartBubble) scPartBubble=addBubble("listen",""); scPartBubble.textContent="… "+m.partial; }
+      }else if(m.final!==undefined){
+        if(scPartBubble){ scPartBubble.remove(); scPartBubble=null; }
+        const orig=(m.final||"").trim(), tr=(m.translation||"").trim();
+        if(!orig) return;
+        addBubble("user", orig + (tr?`\n🌐 ${tr}`:""));
+        voiceMode=true; noSpeech=0;
+        const forEngine=tr||orig; if(forEngine) process(forEngine);
+      }
+    };
+    scWS.onclose=()=>{ scWS=null; };
+    scWS.onerror=()=>{};
+  }catch(e){ scWS=null; }
+}
+function scSendChunk(d,sr){                                 // Float32 -> 16kHz PCM16 -> WS
+  if(!scWS||scWS.readyState!==1) return;
+  const ratio=sr/16000, n=Math.floor(d.length/ratio), pcm=new Int16Array(n);
+  for(let i=0;i<n;i++){ let s=Math.max(-1,Math.min(1,d[Math.floor(i*ratio)])); pcm[i]=s<0?s*0x8000:s*0x7fff; }
+  scWS.send(pcm.buffer);
+}
 async function startRecording(){
   if(recording) return;
   try{ scStream=await navigator.mediaDevices.getUserMedia({audio:true}); }
@@ -1814,11 +1876,14 @@ async function startRecording(){
   scCtx=new (window.AudioContext||window.webkitAudioContext)();
   try{ await scCtx.resume(); }catch(e){}
   scBuf=[]; scLen=0; scSil=0; scHad=false; recording=true;
+  const streaming=(inputLang==="my");                       // Burmese streams in real time; other langs keep record->one-shot
+  if(streaming) scOpenStream();
   scSrc=scCtx.createMediaStreamSource(scStream);
   scProc=scCtx.createScriptProcessor(4096,1,1);
   scProc.onaudioprocess=(e)=>{
     if(!recording) return;
     const d=e.inputBuffer.getChannelData(0);
+    if(streaming){ scSendChunk(d, scCtx.sampleRate); return; }   // stream chunks; server VAD finalises sentences
     scBuf.push(new Float32Array(d)); scLen+=d.length;
     let s=0; for(let i=0;i<d.length;i++) s+=d[i]*d[i];
     const rms=Math.sqrt(s/d.length), sr=scCtx.sampleRate;
@@ -1829,11 +1894,12 @@ async function startRecording(){
   };
   scSrc.connect(scProc); scProc.connect(scCtx.destination);
   $("mic").classList.add("rec");
-  listenBubble=addBubble("listen","🎤 Recording… (stops on a pause / tap again to stop)");
+  listenBubble=addBubble("listen", streaming?"🎤 Real-time… (each sentence appears as you speak / tap again to stop)":"🎤 Recording… (stops on a pause / tap again to stop)");
 }
 function stopRecording(){
   if(!recording) return;
   recording=false;
+  const streaming=!!scWS;
   const sr=scCtx?scCtx.sampleRate:48000;
   const merged=new Float32Array(scLen); let o=0; for(const b of scBuf){ merged.set(b,o); o+=b.length; }
   scBuf=[]; scLen=0;
@@ -1844,7 +1910,11 @@ function stopRecording(){
   scProc=scSrc=scStream=scCtx=null;
   $("mic").classList.remove("rec");
   if(listenBubble){ listenBubble.remove(); listenBubble=null; }
-  if(scHad && merged.length>sr*0.3){ scTranscribe(merged,sr); }
+  if(streaming){                                            // flush remaining audio, then close the WS
+    try{ if(scWS && scWS.readyState===1) scWS.send("end"); }catch(e){}
+    setTimeout(()=>{ try{ if(scWS) scWS.close(); }catch(e){} scWS=null; }, 8000);
+    if(scPartBubble){ scPartBubble.remove(); scPartBubble=null; }
+  }else if(scHad && merged.length>sr*0.3){ scTranscribe(merged,sr); }
   else{ noSpeech++; if(noSpeech>=2) addBubble("sys","No speech detected. Tap the mic to try again."); }
 }
 async function scTranscribe(samples,sr){
