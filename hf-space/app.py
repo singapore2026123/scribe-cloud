@@ -315,6 +315,57 @@ def _postprocess_my(transcript):
     return keep_native(transcript, "my")
 
 
+# --- Closed-vocab snapping: garbled ASR -> nearest KNOWN care phrase (care_phrases.json, from the matrix)
+#     -> its VERIFIED translation. Bypasses ASR garbling + MT errors for common care phrases; novel speech
+#     falls through to raw transcript + Google Translate. Disable with env SCRIBE_MY_SNAP=0. ---
+import json as _json
+_CARE = None
+_MYLET = re.compile(r'[က-႟]')
+def _my_only(s):
+    return "".join(c for c in unicodedata.normalize("NFC", str(s)) if _MYLET.match(c))
+def _sym_cer(a, b):
+    n, m = len(a), len(b)
+    if n == 0 and m == 0:
+        return 0.0
+    prev = list(range(m + 1))
+    for i in range(1, n + 1):
+        cur = [i] + [0] * m
+        ac = a[i - 1]
+        for j in range(1, m + 1):
+            cur[j] = min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (0 if ac == b[j - 1] else 1))
+        prev = cur
+    return prev[m] / max(n, m, 1)
+def _care_phrases():
+    global _CARE
+    if _CARE is None:
+        try:
+            _CARE = _json.load(io.open(os.path.join(os.path.dirname(__file__), "care_phrases.json"), encoding="utf-8"))
+        except Exception:
+            _CARE = []
+        for p in _CARE:
+            p["_my"] = _my_only(p.get("my", ""))
+    return _CARE
+def _snap_care(transcript, target, thresh=0.45):
+    """Return (clean_phrase, verified_translation) if the ASR is close to a known care phrase, else None."""
+    if os.environ.get("SCRIBE_MY_SNAP", "1") != "1":
+        return None
+    h = _my_only(transcript)
+    if len(h) < 6:
+        return None
+    best = None
+    for p in _care_phrases():
+        pm = p["_my"]
+        if not pm or abs(len(pm) - len(h)) > max(len(pm), len(h)) * 0.6:
+            continue
+        c = _sym_cer(pm, h)
+        if best is None or c < best[0]:
+            best = (c, p)
+    if best and best[0] <= thresh:
+        p = best[1]
+        return p.get("my", ""), (p.get(target) or p.get("ja") or p.get("en") or "")
+    return None
+
+
 # --- Real-time streaming: WebSocket /stream. Client sends raw PCM16LE mono 16kHz chunks (binary frames) as the
 #     mic captures them, and a text frame "end" to finish. Server does energy-VAD segmentation: when it hears a
 #     pause it transcribes that utterance with quantized MMS greedy and sends {"final": text}; a light interim
@@ -335,11 +386,15 @@ async def stream(ws: WebSocket):
     async def do(samples, translate=False):
         txt = await run_in_threadpool(lambda: _postprocess_my(_mms_asr(np.asarray(samples, dtype=np.float32))))
         tr = ""
-        if translate and txt and target and target not in ("off", "my"):
-            try:
-                tr = await run_in_threadpool(lambda: _gtranslate(txt, "my", target))
-            except Exception:
-                tr = ""
+        if translate and txt:
+            snap = _snap_care(txt, target)          # known care phrase -> verified clean text + translation
+            if snap:
+                txt, tr = snap[0], snap[1]
+            elif target and target not in ("off", "my"):
+                try:
+                    tr = await run_in_threadpool(lambda: _gtranslate(txt, "my", target))
+                except Exception:
+                    tr = ""
         return txt, tr
     async def flush():
         nonlocal seg, trailing, started, last_partial
@@ -431,6 +486,9 @@ async def transcribe(req: Request):
             transcript = apply_spoken_symbols(transcript, "my")   # "128 ကို 98" -> "128/98"
             transcript = keep_native(transcript, "my")            # drop any English-only sentences
         if transcript:
+            snap = _snap_care(transcript, target)   # known care phrase -> verified clean text + translation
+            if snap:
+                return {"transcript": snap[0], "translation": snap[1]}
             translation = ""
             if target and target != "off" and target != src:
                 try:

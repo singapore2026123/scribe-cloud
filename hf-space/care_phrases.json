@@ -1,0 +1,302 @@
+[
+{
+"my": "ကိုယ်အပူချိန် ၃၆.၆ ဒီဂရီ၊ သွေးပေါင်ချိန် ၁၂၈/၉၈၊ နှလုံးခုန်နှုန်း ၈၃၊ အောက်ဆီဂျင် ၉၉ ရာခိုင်နှုန်း။",
+"ja": "体温は36.6度、血圧は上が128、下が98、脈拍83、酸素飽和度99パーセントです。",
+"en": "Temperature 36.6°C, blood pressure 128/98, pulse 83, SpO2 99%."
+},
+{
+"my": "ကိုယ်အပူချိန် ၃၇ ဒီဂရီ၊ သွေးပေါင်ချိန် ၁၅၈/၁၀၀၊ နှလုံးခုန်နှုန်း ၇၆၊ အောက်ဆီဂျင် ၉၈ ရာခိုင်နှုန်း။",
+"ja": "体温37度、血圧158の100、脈拍76、酸素飽和度98パーセント。",
+"en": "Temp 37°C, BP 158/100, pulse 76, SpO2 98%."
+},
+{
+"my": "နေ့လယ်စာ (ပုံမှန်) အကုန်စားပြီးပါပြီ။ ထမင်း ၁၀၀%၊ ဟင်း ၁၀၀%၊ ဟင်းရည် ၁၀၀%၊ ရေ ၁၅၀ မီလီလီတာ။",
+"ja": "昼食は一般食で全量召し上がりました。主食10割、副食10割、汁物10割、水分150ミリリットル。",
+"en": "Lunch (general meal) fully eaten. Staple 100%, side 100%, soup 100%, fluids 150 ml."
+},
+{
+"my": "ထမင်း ၅၀%၊ ဟင်း ၃၀%၊ အစားအသောက် သိပ်မစားချင်ပုံရပါတယ်။",
+"ja": "主食5割、副食3割で、食欲があまりない様子です。",
+"en": "Staple 50%, side 30%; appears to have little appetite."
+},
+{
+"my": "ဒီနေ့ ပုံမှန်ရေချိုးပေးခဲ့ပါတယ်၊ အခြေအနေ ပြဿနာမရှိပါ။",
+"ja": "本日は一般浴を実施し、状態は問題ありません。",
+"en": "Gave a general bath today; condition no problem."
+},
+{
+"my": "ရေချိုးခြင်း ရပ်ဆိုင်းပြီး ကိုယ်သုတ်ပေးခဲ့ပါတယ်။",
+"ja": "入浴は中止し、清拭で対応しました。",
+"en": "Bathing was cancelled; gave a sponge-wipe instead."
+},
+{
+"my": "မနက်ပိုင်းဆေး သောက်ပြီးပါပြီ၊ မေ့မကျန်ပါ။",
+"ja": "朝の薬を服用していただきました。飲み忘れはありません。",
+"en": "Took the morning medication; no missed dose."
+},
+{
+"my": "နေ့လယ်စာပြီးနောက် သွေးပေါင်ကျဆေး တစ်လုံး သောက်ပါတယ်။",
+"ja": "降圧剤を1錠、昼食後に内服しました。",
+"en": "Took one antihypertensive tablet after lunch."
+},
+{
+"my": "အဆာပြေမုန့် (အဆာေပြမုန့်)အကုန်စားပါတယ်။",
+"ja": "おやつは全量召し上がりました。",
+"en": "Ate the full afternoon snack."
+},
+{
+"my": "အိမ်သာတက် ကူညီပေးခဲ့ပါတယ်၊ ဝမ်းသွားပြီး ပုံမှန်ပါ။",
+"ja": "トイレ介助を行いました。排便あり、普通便でした。",
+"en": "Assisted with toileting; had a normal bowel movement."
+},
+{
+"my": "ဆီးသွားခြင်း ပုံမှန်ပါ၊ ပမာဏလည်း ပုံမှန်ပါ။",
+"ja": "排尿は問題なく、量も普通でした。",
+"en": "Urination was normal, normal amount."
+},
+{
+"my": "ဘီးတပ်ကုလားထိုင်မှ ကုတင်ပေါ်သို့ ရွှေ့ပြောင်းကူညီပေးခဲ့ပါတယ်။",
+"ja": "車椅子からベッドへ移乗介助を行いました。",
+"en": "Assisted transfer from wheelchair to bed."
+},
+{
+"my": "လမ်းလျှောက်အကူ သုံးပြီး စင်္ကြံတွင် လမ်းလျှောက်လေ့ကျင့်ပါတယ်၊ ယိမ်းယိုင်မှုမရှိပါ။",
+"ja": "歩行器を使って廊下を歩く練習をしました。ふらつきはありません。",
+"en": "Practised walking the corridor with a walker; no unsteadiness."
+},
+{
+"my": "လွှဲပြောင်းချက်— ဦးအိုဂါကိ သွေးပေါင်ချိန်မြင့်နေသဖြင့် နေ့လယ်ခင်းတွင် ပြန်တိုင်းပေးပါ။",
+"ja": "申し送りです。大垣さんは血圧が高めなので、午後も再測定をお願いします。",
+"en": "Handover: Mr. Ogaki's blood pressure is on the high side—please re-measure in the afternoon."
+},
+{
+"my": "ဒေါ်အဲဂုချိ အစားနည်းခဲ့သဖြင့် ရေဓာတ်ဖြည့်တင်းမှုကို ဂရုစိုက်ပါ။",
+"ja": "江口さんは食事量が少なかったので、水分補給に注意してください。",
+"en": "Ms. Eguchi ate little, so please watch her hydration."
+},
+{
+"my": "ကုတင်ပေါ်မှ ဆင်းရန်ကြိုးစားရင်း လဲကျတော့မည့်အခြေအနေ ဖြစ်ခဲ့ပါတယ်၊ ဒဏ်ရာမရှိပါ။",
+"ja": "ベッドから降りようとして転倒しそうになりました。怪我はありません。",
+"en": "Nearly fell while trying to get out of bed; no injury (near-miss)."
+},
+{
+"my": "အစားစားနေစဉ် လည်ချောင်းဆို့ခဲ့ပါတယ်၊ အခြေအနေကို စောင့်ကြည့်နေပါတယ်။",
+"ja": "食事中にむせ込みがありました。様子を観察しています。",
+"en": "Choked/coughed during the meal; currently monitoring."
+},
+{
+"my": "အစားအသောက် သိပ်မစားချင်ပုံရပါတယ်၊ ပုံမှန်ထက် အားနည်းနေပါတယ်။",
+"ja": "食欲があまりない様子です。普段より元気がありません。",
+"en": "Appears to have little appetite; less energetic than usual."
+},
+{
+"my": "မနေ့ကထက် ချောင်းဆိုးများလာပြီး အသက်ရှူနည်းနေပုံရပါတယ်။",
+"ja": "昨日より咳が増えており、少し息苦しそうです。",
+"en": "More coughing than yesterday; looks a little short of breath."
+},
+{
+"my": "မိသားစုထံ ဒီနေ့ ကျန်းမာရေးအခြေအနေအကြောင်း ဖုန်းဖြင့် အကြောင်းကြားခဲ့ပါတယ်။",
+"ja": "ご家族へ、本日の体調について電話で連絡しました。",
+"en": "Phoned the family about today's condition."
+},
+{
+"my": "မိသားစုထံမှ ဆေးပြောင်းလဲခြင်းအကြောင်း တိုင်ပင်မေးမြန်းမှု ရှိခဲ့ပါတယ်။",
+"ja": "ご家族から、薬の変更について相談がありました。",
+"en": "The family raised a question about changing the medication."
+},
+{
+"my": "ရေဓာတ် ၃၀၀ မီလီလီတာ ညွှန်ကြားထားသည့်အနက် ၂၅၀ မီလီလီတာ သောက်သုံးခဲ့ပါတယ်။",
+"ja": "水分は300ミリリットルの指示に対し、250ミリリットル摂取されました。",
+"en": "Against an order of 300 ml of fluids, 250 ml was taken."
+},
+{
+"my": "ဆီးပမာဏ ၂၀၀ မီလီလီတာ၊ အရောင်ပုံမှန်ပါ။ ဝမ်းမှာ ပျော့ပါတယ်။",
+"ja": "尿量は200ミリリットルで、色は正常でした。便は軟便でした。",
+"en": "Urine output 200 ml, normal colour. Stool was soft."
+},
+{
+"my": "ညဆိုင်းအတွင်း ရေဓာတ်စုစုပေါင်း ၅၀၀ မီလီလီတာ သောက်သုံးပြီး ဆီးစုစုပေါင်း ၇၀၀ မီလီလီတာ ထွက်ခဲ့ပါတယ်။",
+"ja": "夜勤帯の水分摂取量は合計500ミリリットル、尿量は合計700ミリリットルでした。",
+"en": "During the night shift, total fluid intake was 500 ml and total urine output 700 ml."
+},
+{
+"my": "အစာအိမ်ပြွန် (NGT) ဖြင့် အာဟာရ ကျွေးမွေးခဲ့ပါတယ်၊ အာဟာရရည် ၃၀၀ မီလီလီတာ သွင်းပေးခဲ့ပါတယ်။",
+"ja": "経管栄養を実施しました。栄養剤を300ミリリットル注入しました。",
+"en": "Administered tube (NGT) feeding; infused 300 ml of formula."
+},
+{
+"my": "နေ့လယ် အစာအိမ်ပြွန်ဖြင့် ကျွေးမွေးပြီး  အစာအိမ်ကျန်ပမာဏ စစ်ဆေးခဲ့ပါတယ်၊ ပြန်တက်ခြင်းမရှိပါ။",
+"ja": "昼の経管栄養の前に、胃の残量を確認しました。逆流はありません。",
+"en": "Before the midday tube feeding, checked the gastric residual volume; no reflux."
+},
+{
+"my": "သွေးတွင်းသကြားဓာတ် တိုင်းတာခဲ့ပါတယ်၊ တန်ဖိုး ၁၄၅ ဖြစ်ပြီး အင်ဆူလင် ၄ ယူနစ် ထိုးပေးခဲ့ပါတယ်။",
+"ja": "血糖値を測定しました。値は145で、インスリンを4単位注射しました。",
+"en": "Measured blood sugar; value 145, injected 4 units of insulin."
+},
+{
+"my": "ညစာမစားမီ သွေးတွင်းသကြားဓာတ် ၆၈ နိမ့်နေသဖြင့် အပိုအစာ ကျွေးပြီး ပြန်တိုင်းခဲ့ပါတယ်။",
+"ja": "夕食前の血糖値が68と低かったため、補食を提供し再測定しました。",
+"en": "Pre-dinner blood sugar was low at 68, so a snack was given and it was re-measured."
+},
+{
+"my": "နှစ်နာရီတစ်ကြိမ် ကိုယ်နေဟန်ထား ပြောင်းလဲပေးခဲ့ပါတယ်၊ ညာဘက်စောင်းမှ ပက်လက်အနေအထားသို့ ပြောင်းခဲ့ပြီး အရေပြားတွင် နီရဲမှုမရှိပါ။",
+"ja": "2時間ごとの体位変換を実施しました。右側臥位から仰臥位へ変換し、皮膚に発赤はありません。",
+"en": "Repositioned every 2 hours; turned from right lateral to supine, no skin redness."
+},
+{
+"my": "ဘယ်ဘက်စောင်း အနေအထား ထိန်းထားပြီး ဖနောင့်နှင့် ခြေချင်းဝတ်တွင် ခေါင်းအုံးထောက်၍ ဖိအားလျှော့ချခဲ့ပါတယ်။",
+"ja": "左側臥位を保持し、踵とくるぶしにクッションを当てて除圧しました。",
+"en": "Maintained left lateral position; placed cushions at the heel and ankle to offload pressure."
+},
+{
+"my": "ချည်နှောင်ထားမှု အခြေအနေ စစ်ဆေးခဲ့ပါတယ်၊ အရေပြားအရောင် ပန်းရောင်၊ အရေပြားနွေးထွေးပြီး ချည်နှောင်မှုသည် စည်းမျဉ်းအတိုင်း သင့်တော်ပါတယ်။",
+"ja": "身体拘束の状態を確認しました。皮膚色はピンク、皮膚温は温かく、拘束は規定通り適切です。",
+"en": "Checked restraint status; skin colour pink, skin warm, restraint secure as per policy."
+},
+{
+"my": "နှစ်နာရီတစ်ကြိမ် ချည်နှောင်ကြိုး စစ်ဆေးရာတွင် ဘယ်လက်ကောက်ဝတ်၌ အနည်းငယ် နီရဲနေ၍ လျှော့ပြီး ပြန်တပ်ခဲ့ပါတယ်။",
+"ja": "2時間ごとの抑制帯の確認で、左手首に軽度の発赤があり、緩めて再固定しました。",
+"en": "On the 2-hourly restraint check, mild redness on the left wrist; loosened and re-secured."
+},
+{
+"my": "ခါးရိုးအောက်နေရာတွင် နီရဲမှု တွေ့ရပါတယ်၊ အနာကျက်ဒဏ်ရာ၏ အစောပိုင်းလက္ခဏာအဖြစ် ဆက်လက်စောင့်ကြည့်ပါမယ်။",
+"ja": "仙骨部に発赤が見られます。褥瘡の初期兆候として観察を続けます。",
+"en": "Redness seen at the sacrum; monitoring as an early sign of pressure injury."
+},
+{
+"my": "အနာကျက်ဒဏ်ရာ ပြုစုစောင့်ရှောက်မှုအစီအစဉ်အရ ခါးရိုးနေရာ ဒဏ်ရာကို ဆေးကြောပြီး ဒရက်ဆင်း လဲလှယ်ခဲ့ပါတယ်။",
+"ja": "褥瘡ケア計画に基づき、仙骨部の創部を洗浄し、ドレッシング材を交換しました。",
+"en": "Per the pressure-injury care plan, cleansed the sacral wound and changed the dressing."
+},
+{
+"my": "ဝမ်းသွားခဲ့ပါတယ်၊ Bristol အမျိုးအစား ၄၊ ပမာဏ အလတ်စားပါ။",
+"ja": "排便がありました。ブリストルスケールでタイプ4、量は中等量でした。",
+"en": "Had a bowel movement; Bristol type 4, moderate amount."
+},
+{
+"my": "သုံးရက်ကြာ ဝမ်းမသွားသဖြင့် သူနာပြု၏ ညွှန်ကြားချက်အရ ဝမ်းနုတ်ဆေး သုံးခဲ့ပါတယ်။",
+"ja": "3日間排便がなかったため、看護師の指示で下剤を使用しました。",
+"en": "No bowel movement for 3 days, so a laxative was given per the nurse's instruction."
+},
+{
+"my": "အမြဲတမ်းထားသော ဆီးပြွန် တပ်ဆင်ထားပါတယ်၊ ဆီးစီးဆင်းမှု ကောင်းမွန်ပါတယ်။",
+"ja": "留置カテーテルを挿入しています。尿の流出は良好です。",
+"en": "An indwelling catheter is in place; urine drainage is good."
+},
+{
+"my": "အမြဲတမ်းဆီးပြွန်မှ ဆီးသည် နောက်ကျိနေသဖြင့် ကူးစက်နိုင်ခြေအတွက် သူနာပြုထံ သတင်းပို့ခဲ့ပါတယ်။",
+"ja": "留置カテーテルの尿が混濁しており、感染の可能性があるため看護師へ報告しました。",
+"en": "Urine from the indwelling catheter was cloudy; reported to the nurse for possible infection."
+},
+{
+"my": "ခံတွင်းသန့်ရှင်းရေး ပြုလုပ်ပေးခဲ့ပါတယ်၊ ခံတွင်းအတွင်း ပုံမှန်မဟုတ်သည့်အရာ မရှိပါ။",
+"ja": "口腔ケアを実施しました。口腔内に異常はありません。",
+"en": "Provided oral care; no abnormality in the mouth."
+},
+{
+"my": "OHAT အကဲဖြတ်မှုတွင် ခံတွင်းခြောက်ခြင်းနှင့် အနည်းငယ် ရောင်ရမ်းမှု တွေ့ရသဖြင့် ခံတွင်းသန့်ရှင်းရေး အကြိမ်ရေ တိုးမြှင့်ခဲ့ပါတယ်။",
+"ja": "OHAT評価で口腔内に乾燥と軽度の炎症が見られたため、口腔ケアの回数を増やしました。",
+"en": "On the OHAT assessment, dryness and mild inflammation were seen, so oral-care frequency was increased."
+},
+{
+"my": "သိမြင်နိုင်စွမ်း (စိတ်) စစ်ဆေးမှု ပြုလုပ်ခဲ့ပါတယ်၊ နေရာ/အချိန် သိရှိမှုတွင် အနည်းငယ် ကျဆင်းမှု တွေ့ရပါတယ်။",
+"ja": "認知機能テストを実施しました。見当識に軽度の低下が見られます。",
+"en": "Conducted a cognitive (mental) test; mild decline in orientation observed."
+},
+{
+"my": "ညဘက်တွင် စိတ်ရှုပ်ထွေးမှု (delirium) တွေ့ရပြီး သိမြင်နိုင်စွမ်း အတက်အကျရှိသဖြင့် စောင့်ကြည့်မှု တိုးမြှင့်ထားပါတယ်။",
+"ja": "夜間にせん妄が見られ、認知機能の変動があるため、見守りを強化しています。",
+"en": "Delirium was seen at night with fluctuating cognition, so monitoring has been strengthened."
+},
+{
+"my": "လဲကျနိုင်ခြေ အကဲဖြတ်မှု ပြုလုပ်ခဲ့ပါတယ်၊ အန္တရာယ်များသဖြင့် ကုတင်မှဆင်းချိန် သတိပေးစက် တပ်ဆင်ထားပါတယ်။",
+"ja": "転倒リスク評価を行いました。リスクが高いため、離床センサーを設置しています。",
+"en": "Assessed fall risk; risk is high, so a bed-exit sensor has been installed."
+},
+{
+"my": "ညဘက်တွင် ကုတင်ပေါ်မှ ထရန်ကြိုးစားသဖြင့် ကုတင်မှဆင်းချိန်သတိပေးစက် အလုပ်လုပ်ပြီး ဝန်ထမ်းများ တုံ့ပြန်ခဲ့ပါတယ်။",
+"ja": "夜間にベッドから立ち上がろうとされ、離床センサーが作動し、職員が対応しました。",
+"en": "The resident tried to stand from the bed at night; the bed-exit sensor activated and staff responded."
+},
+{
+"my": "နေရာရွှေ့ပြောင်းခြင်းကို လူတစ်ဦး ကူညီ၍ ပြုလုပ်ခဲ့ပါတယ်၊ သွားလာရန် ဘီးတပ်ကုလားထိုင် အသုံးပြုပါတယ်။",
+"ja": "移乗は1名介助で行いました。移動には車椅子を使用しています。",
+"en": "Transfer was done with one-person assistance; a wheelchair is used for mobility."
+},
+{
+"my": "ချီပင့်စက် သုံးပြီး လူနှစ်ဦး ကူညီ၍ ကုတင်မှ ဘီးတပ်ကုလားထိုင်သို့ ရွှေ့ပြောင်းခဲ့ပါတယ်။",
+"ja": "リフトを使用して2名介助でベッドから車椅子へ移乗しました。",
+"en": "Transferred from bed to wheelchair using a hoist with two-person assistance."
+},
+{
+"my": "နိုးကြားမှုအဆင့် ကြည်လင်ပါတယ်၊ ရှုပ်ထွေးမှု သို့မဟုတ် အပြုအမူဆိုင်ရာ ပြဿနာ မရှိပါ။",
+"ja": "覚醒レベルは清明です。混乱や行動上の問題はありません。",
+"en": "Level of arousal is alert; no confusion or behavioural problems."
+},
+{
+"my": "မတည်မငြိမ်ဖြစ်ကာ အခြားနေထိုင်သူများအား အသံကျယ်စွာ ဟစ်အော်သည့် အခြေအနေရှိ၍ သူနာပြုက နှစ်သိမ့်စကားဖြင့် တုံ့ပြန်ခဲ့ပါတယ်။",
+"ja": "落ち着かず、他の利用者へ大声を出される場面があり、看護師が声かけで対応しました。",
+"en": "Was restless and shouted at other residents at times; the nurse responded with reassurance."
+},
+{
+"my": "ဒီနေ့ ကိုယ်အလေးချိန် ၅၅.၂ ကီလိုဂရမ် ဖြစ်ပါတယ်၊ ပြီးခဲ့သည့်လထက် ၁ ကီလို လျော့နည်းပါတယ်။",
+"ja": "本日の体重は55.2キログラムでした。先月より1キロ減少しています。",
+"en": "Today's weight was 55.2 kg, down 1 kg from last month."
+},
+{
+"my": "အာဟာရစစ်ဆေးမှုတွင် ကိုယ်အလေးချိန် ဆက်တိုက်လျော့နေသဖြင့် အာဟာရပညာရှင်နှင့် တိုင်ပင်ခဲ့ပါတယ်။",
+"ja": "栄養スクリーニングの結果、体重減少が続いているため、管理栄養士へ相談しました。",
+"en": "Nutritional screening showed continued weight loss, so consulted the dietitian."
+},
+{
+"my": "ဒီနေ့ ကျန်းမာရေး ဆိုးရွားလာသဖြင့် ဆေးရုံသို့ တက်ရောက်ခဲ့ပါတယ်၊ ဆေးရုံဆင်းအကျဉ်းချုပ် ရရှိမည်ဖြစ်ပါတယ်။",
+"ja": "本日、体調が悪化したため病院へ入院となりました。退院サマリーを受領予定です。",
+"en": "Admitted to hospital today due to worsening condition; discharge summary to follow."
+},
+{
+"my": "အဖျားတက်ခြင်းနှင့် အသက်ရှူကျပ်ခြင်းကြောင့် အရေးပေါ်ကားဖြင့် ပို့ဆောင်ခဲ့ပါတယ်၊ မိသားစုထံ အကြောင်းကြားပြီးပါပြီ။",
+"ja": "発熱と呼吸苦のため救急搬送となりました。家族へ連絡済みです。",
+"en": "Transferred by ambulance due to fever and breathing difficulty; family has been notified."
+},
+{
+"my": "မိသားစုနှင့်အတူ အပြင်ထွက်သွားခဲ့ပါတယ်၊ ညနေပိုင်းတွင် ဂေဟာသို့ ပြန်လာမည်ဖြစ်ပါတယ်။",
+"ja": "ご家族と外出されました。夕方に帰設される予定です。",
+"en": "Went out with family; expected to return to the facility in the evening."
+},
+{
+"my": "အိမ်တွင်အိပ်ခြင်းမှ ပြန်လာပါပြီ၊ ကျန်းမာရေး ပြောင်းလဲမှုမရှိပြီး ယူသွားသော သောက်ဆေးများကိုလည်း သောက်ပြီးပါပြီ။",
+"ja": "外泊から戻られました。体調に変化はなく、持ち帰りの内服薬も服用済みです。",
+"en": "Returned from home leave; no change in condition and took the medication sent along."
+},
+{
+"my": "နာကျင်မှု အကဲဖြတ်ခဲ့ပါတယ်၊ ဂဏန်းစကေးတွင် ၂ ဖြစ်ပြီး အကိုက်အခဲပျောက်ဆေးဖြင့် သက်သာလာပါတယ်။",
+"ja": "痛みの評価を行いました。ナンバリックスケールで2、鎮痛剤で軽減しています。",
+"en": "Assessed pain; 2 on the numeric scale, relieved with analgesics."
+},
+{
+"my": "ကျောပြင်တွင် အပြင်သုံးဆေး လိမ်းပေးပြီး မျက်လုံးနှစ်ဖက်စလုံးတွင် မျက်စဉ်းဆေး တစ်စက်စီ ခတ်ပေးခဲ့ပါတယ်။",
+"ja": "外用薬を背部に塗布し、両目に点眼薬を1滴ずつ点眼しました。",
+"en": "Applied topical medication to the back and instilled one drop of eye drops in each eye."
+},
+{
+"my": "Diaper လဲပေးခဲ့ပါတယ်၊ အရေပြားယားယံမှုမရှိဘဲ ဆီးပမာဏ ပုံမှန်ပါ။",
+"ja": "オムツ交換を行いました。皮膚のかぶれはなく、排尿量は普通でした。",
+"en": "Changed the diaper; no skin rash, urine amount normal."
+},
+{
+"my": "တစ်ကိုယ်လုံး အခြေအနေ ကောင်းမွန်ပြီး ညဘက် ကောင်းစွာ အနားယူနိုင်ကာ ရှေ့နောက်လက္ခဏာများလည်း တည်ငြိမ်ပါတယ်။",
+"ja": "全身状態は良好で、夜間はよく休まれ、バイタルも安定しています。",
+"en": "General condition is good; rested well overnight and vitals are stable."
+},
+{
+"my": "နေ့ဆိုင်းသို့ လွှဲပြောင်းချက်— ဦးတာနာကာ အစာအိမ်ပြွန်ကျွေးမွေးမှုနှင့် သွေးတွင်းသကြားတိုင်းတာမှု ဆက်လုပ်ပါ၊ နေ့လယ်ခင်းတွင် ကိုယ်နေဟန်ထား ပြောင်းပေးပါ။",
+"ja": "日勤への申し送りです。田中さんは経管栄養と血糖測定を継続、午後に体位変換をお願いします。",
+"en": "Handover to the day shift: continue Mr. Tanaka's tube feeding and blood-sugar checks; please reposition him in the afternoon."
+},
+{
+"my": "ကူးစက်ရောဂါ ကာကွယ်ရေးအတွက် စံ ကာကွယ်မှုများ ဆောင်ရွက်ပြီး ထိတွေ့ကာကွယ်မှုအတွက် မှတ်တမ်းတင်ခဲ့ပါတယ်။",
+"ja": "感染対策として標準予防策を実施し、接触予防策の対象として記録しました。",
+"en": "For infection control, implemented standard precautions and recorded the resident under contact precautions."
+}
+]
