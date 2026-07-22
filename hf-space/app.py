@@ -335,35 +335,167 @@ def _sym_cer(a, b):
             cur[j] = min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (0 if ac == b[j - 1] else 1))
         prev = cur
     return prev[m] / max(n, m, 1)
+def _load_json(name):
+    try:
+        return _json.load(io.open(os.path.join(os.path.dirname(__file__), name), encoding="utf-8"))
+    except Exception:
+        return []
 def _care_phrases():
+    """Unified snap candidates: verified care SENTENCES (care_phrases.json, from the matrix) +
+    the app's controlled care VOCABULARY (care_vocab.json, Zawgyi->Unicode). Each carries an
+    `is_vocab` flag so vocab (short terms) can be matched more conservatively than sentences."""
     global _CARE
     if _CARE is None:
-        try:
-            _CARE = _json.load(io.open(os.path.join(os.path.dirname(__file__), "care_phrases.json"), encoding="utf-8"))
-        except Exception:
-            _CARE = []
-        for p in _CARE:
-            p["_my"] = _my_only(p.get("my", ""))
+        _CARE = []
+        for p in _load_json("care_phrases.json"):
+            p = dict(p); p["_my"] = _my_only(p.get("my", "")); p["is_vocab"] = False
+            _CARE.append(p)
+        for v in _load_json("care_vocab.json"):
+            v = dict(v); v["_my"] = _my_only(v.get("my", "")); v["is_vocab"] = True
+            _CARE.append(v)
     return _CARE
-def _snap_care(transcript, target, thresh=0.45):
-    """Return (clean_phrase, verified_translation) if the ASR is close to a known care phrase, else None."""
+
+# --- Semantic tiers for snapping (used when char-CER can't match a garbled/paraphrased utterance) ---
+_TFIDF = None   # (vectorizer, matrix) over candidate _my strings; char-ngram cosine, no model needed
+def _tfidf():
+    global _TFIDF
+    if _TFIDF is None:
+        try:
+            from sklearn.feature_extraction.text import TfidfVectorizer
+            cands = [p["_my"] for p in _care_phrases()]
+            vec = TfidfVectorizer(analyzer="char_wb", ngram_range=(2, 4))
+            mat = vec.fit_transform(cands)
+            _TFIDF = (vec, mat)
+        except Exception:
+            _TFIDF = (None, None)
+    return _TFIDF
+
+_LABSE = None   # sentence-transformers LaBSE (multilingual incl. Burmese); embeds candidates once
+_LABSE_EMB = None
+def _labse():
+    global _LABSE, _LABSE_EMB
+    if _LABSE is None:
+        if os.environ.get("SCRIBE_MY_SEMANTIC", "1") != "1":
+            _LABSE = False; return None
+        try:
+            from sentence_transformers import SentenceTransformer
+            _LABSE = SentenceTransformer(os.environ.get("SCRIBE_LABSE_MODEL", "sentence-transformers/LaBSE"))
+            cands = [p["_my"] for p in _care_phrases()]
+            _LABSE_EMB = _LABSE.encode(cands, normalize_embeddings=True, batch_size=64)
+        except Exception:
+            _LABSE = False
+    return _LABSE or None
+
+def _snap_care(transcript, target):
+    """Snap garbled/paraphrased Burmese ASR to the nearest KNOWN care phrase and return
+    (clean_phrase, verified_translation), else None. Three tiers, tried most-precise first:
+      1. char-CER          (orthographic; catches garbled versions of a known phrase)
+      2. char-ngram TF-IDF (robust to reordering/partial garble)
+      3. LaBSE embeddings  (semantic; catches paraphrases in natural speech)
+    Vocab terms (short) use stricter thresholds than sentences to avoid coarse mismatches."""
     if os.environ.get("SCRIBE_MY_SNAP", "1") != "1":
         return None
     h = _my_only(transcript)
     if len(h) < 6:
         return None
+    cands = _care_phrases()
+
+    def ok_len(pm, tight):
+        lo, hi = (0.6, 1.7) if tight else (0.4, 2.5)
+        r = len(pm) / max(len(h), 1)
+        return lo <= r <= hi
+
+    def result(p):
+        return p.get("my", ""), (p.get(target) or p.get("ja") or p.get("en") or "")
+
+    # Tier 1: char-CER
     best = None
-    for p in _care_phrases():
+    for p in cands:
         pm = p["_my"]
-        if not pm or abs(len(pm) - len(h)) > max(len(pm), len(h)) * 0.6:
+        if not pm or not ok_len(pm, p["is_vocab"]):
             continue
         c = _sym_cer(pm, h)
         if best is None or c < best[0]:
             best = (c, p)
-    if best and best[0] <= thresh:
-        p = best[1]
-        return p.get("my", ""), (p.get(target) or p.get("ja") or p.get("en") or "")
+    if best:
+        thr = 0.33 if best[1]["is_vocab"] else 0.45
+        if best[0] <= thr:
+            return result(best[1])
+
+    # Tier 2: char-ngram TF-IDF cosine
+    vec, mat = _tfidf()
+    if vec is not None:
+        try:
+            import numpy as _np
+            q = vec.transform([h])
+            sims = (mat @ q.T).toarray().ravel()
+            order = sims.argsort()[::-1]
+            for idx in order[:5]:
+                p = cands[idx]
+                if not ok_len(p["_my"], p["is_vocab"]):
+                    continue
+                thr = 0.72 if p["is_vocab"] else 0.58
+                if sims[idx] >= thr:
+                    return result(p)
+                break
+        except Exception:
+            pass
+
+    # Tier 3: LaBSE semantic
+    model = _labse()
+    if model is not None and _LABSE_EMB is not None:
+        try:
+            import numpy as _np
+            qe = model.encode([h], normalize_embeddings=True)[0]
+            sims = _LABSE_EMB @ qe
+            order = sims.argsort()[::-1]
+            for idx in order[:5]:
+                p = cands[idx]
+                if not ok_len(p["_my"], p["is_vocab"]):
+                    continue
+                thr = 0.82 if p["is_vocab"] else 0.72
+                if sims[idx] >= thr:
+                    return result(p)
+                break
+        except Exception:
+            pass
     return None
+
+# --- Translation for Burmese when snapping misses: Gemini (robust to ASR noise) if a key is set,
+#     else Google Translate. Gemini reads THROUGH garbled ASR; enable by setting GEMINI_API_KEY. ---
+_GEMINI_LANG = {"ja": "Japanese", "en": "English", "zh": "Chinese", "ms": "Malay",
+                "ta": "Tamil", "hi": "Hindi", "vi": "Vietnamese", "my": "Burmese"}
+def _gemini_translate(text, target):
+    key = os.environ.get("GEMINI_API_KEY", "").strip()
+    if not key or not text:
+        return ""
+    try:
+        import requests
+        lang = _GEMINI_LANG.get(target, target)
+        model = os.environ.get("SCRIBE_GEMINI_MODEL", "gemini-flash-latest")
+        prompt = ("The following is Burmese text from a care-worker's spoken note, transcribed by a "
+                  "speech recognizer that may contain errors. Infer the intended meaning and translate "
+                  f"it into {lang}. It is about elderly care (vitals, meals, bathing, excretion, "
+                  "medication, mobility). Output ONLY the translation, no notes.\n\n" + text)
+        url = "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent" % model
+        r = requests.post(url, params={"key": key},
+                          json={"contents": [{"parts": [{"text": prompt}]}],
+                                "generationConfig": {"temperature": 0.2}}, timeout=20)
+        r.raise_for_status()
+        return r.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
+    except Exception:
+        return ""
+def _translate_my(text, target):
+    """Burmese->target: Gemini if GEMINI_API_KEY set (better on noisy ASR), else Google Translate."""
+    if not text or not target or target in ("off", "my"):
+        return ""
+    tr = _gemini_translate(text, target)
+    if tr:
+        return tr
+    try:
+        return _gtranslate(text, "my", target)
+    except Exception:
+        return ""
 
 
 # --- Real-time streaming: WebSocket /stream. Client sends raw PCM16LE mono 16kHz chunks (binary frames) as the
@@ -391,10 +523,7 @@ async def stream(ws: WebSocket):
             if snap:
                 txt, tr = snap[0], snap[1]
             elif target and target not in ("off", "my"):
-                try:
-                    tr = await run_in_threadpool(lambda: _gtranslate(txt, "my", target))
-                except Exception:
-                    tr = ""
+                tr = await run_in_threadpool(lambda: _translate_my(txt, target))
         return txt, tr
     async def flush():
         nonlocal seg, trailing, started, last_partial
@@ -454,6 +583,10 @@ def health():
     return {"ok": True, "engine": "mms+dolphin+seamless", "my_engine": os.environ.get("SCRIBE_MY_ENGINE", "mms"),
             "my_lm": os.environ.get("SCRIBE_MY_LM") == "1",
             "my_quant": os.environ.get("SCRIBE_MY_QUANT", "1") == "1",
+            "my_snap": os.environ.get("SCRIBE_MY_SNAP", "1") == "1",
+            "my_semantic": os.environ.get("SCRIBE_MY_SEMANTIC", "1") == "1",
+            "my_candidates": len(_care_phrases()),
+            "my_translate": "gemini" if os.environ.get("GEMINI_API_KEY", "").strip() else "google",
             "mms_loaded": STATE.get("mms") is not None, "dolphin_loaded": STATE["dolphin"] is not None}
 
 
@@ -491,10 +624,7 @@ async def transcribe(req: Request):
                 return {"transcript": snap[0], "translation": snap[1]}
             translation = ""
             if target and target != "off" and target != src:
-                try:
-                    translation = _gtranslate(transcript, src, target)
-                except Exception:
-                    translation = ""
+                translation = _translate_my(transcript, target)   # Gemini if GEMINI_API_KEY else Google
             return {"transcript": transcript, "translation": translation}
         # MMS unavailable/empty -> fall through to Dolphin (and then Seamless) below.
 
