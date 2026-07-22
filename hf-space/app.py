@@ -10,7 +10,7 @@ import base64, io, os, re, json, tempfile, unicodedata, urllib.parse, urllib.req
 import numpy as np
 import soundfile as sf
 import librosa
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 
 # SeamlessM4T ASR codes (fallback path only).
@@ -303,6 +303,72 @@ def _mms_asr(data16k):
         else:
             out.append(proc.decode(torch.argmax(logits, dim=-1)[0]).strip())
     return " ".join(p for p in out if p).strip()
+
+
+def _postprocess_my(transcript):
+    """Burmese post-processing shared by /transcribe and /stream: Zawgyi/NFC + glossary + numerals->ASCII
+    + spoken-symbols + keep-native."""
+    if not transcript:
+        return ""
+    transcript = apply_glossary_mm(burmese_numerals_to_ascii(normalize_burmese_unicode(transcript)))
+    transcript = apply_spoken_symbols(transcript, "my")
+    return keep_native(transcript, "my")
+
+
+# --- Real-time streaming: WebSocket /stream. Client sends raw PCM16LE mono 16kHz chunks (binary frames) as the
+#     mic captures them, and a text frame "end" to finish. Server does energy-VAD segmentation: when it hears a
+#     pause it transcribes that utterance with quantized MMS greedy and sends {"final": text}; a light interim
+#     {"partial": text} is emitted while speech continues. Utterance-level = bounded cost + phrase-by-phrase output
+#     (matches how care notes are spoken). Blocking MMS runs in a threadpool so the socket stays responsive.
+#     Tuning via env: SCRIBE_VAD_RMS (speech threshold), SCRIBE_VAD_SIL (pause secs). ---
+@app.websocket("/stream")
+async def stream(ws: WebSocket):
+    from starlette.concurrency import run_in_threadpool
+    import numpy as np
+    await ws.accept()
+    SR = 16000
+    THRESH = float(os.environ.get("SCRIBE_VAD_RMS", "0.008"))
+    SIL = float(os.environ.get("SCRIBE_VAD_SIL", "0.6"))
+    MINSP, MAXSEG = 0.4, 15.0
+    seg = []; trailing = 0.0; started = False; last_partial = 0.0
+    async def do(samples):
+        return await run_in_threadpool(lambda: _postprocess_my(_mms_asr(np.asarray(samples, dtype=np.float32))))
+    async def flush():
+        nonlocal seg, trailing, started, last_partial
+        if len(seg) / SR >= MINSP:
+            await ws.send_json({"final": await do(seg)})
+        seg = []; trailing = 0.0; started = False; last_partial = 0.0
+    try:
+        while True:
+            m = await ws.receive()
+            if m.get("type") == "websocket.disconnect":
+                break
+            if m.get("text") == "end":
+                await flush(); continue
+            b = m.get("bytes")
+            if not b:
+                continue
+            chunk = np.frombuffer(b, dtype=np.int16).astype(np.float32) / 32768.0
+            if not len(chunk):
+                continue
+            rms = float(np.sqrt(np.mean(chunk ** 2)))
+            dur = len(chunk) / SR
+            if rms > THRESH:
+                started = True; trailing = 0.0; seg.extend(chunk.tolist())
+            elif started:
+                seg.extend(chunk.tolist()); trailing += dur
+            cur = len(seg) / SR
+            if started and (trailing >= SIL or cur >= MAXSEG):
+                await flush()
+            elif started and cur - last_partial >= 1.5:   # occasional interim update while still speaking
+                last_partial = cur
+                await ws.send_json({"partial": await do(seg)})
+    except Exception:
+        pass
+    try:
+        await flush()
+    except Exception:
+        pass
 
 
 @app.on_event("startup")

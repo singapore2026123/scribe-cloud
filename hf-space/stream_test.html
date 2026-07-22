@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- Reference client for the /stream WebSocket (real-time Burmese ASR). Mic -> PCM16 16kHz -> WS;
+     shows partials live and appends finals. Integrate this loop into caretalk.html / the extension. -->
+<html><head><meta charset="utf-8"><title>Scribe streaming test</title>
+<style>body{font-family:sans-serif;margin:2rem}#live{color:#888}#finals{white-space:pre-wrap;font-size:1.2rem}
+button{font-size:1rem;padding:.5rem 1rem;margin-right:.5rem}</style></head>
+<body>
+<h3>Scribe — real-time Burmese (streaming)</h3>
+<button id="start">🎙 Start</button><button id="stop" disabled>⏹ Stop</button>
+<span id="status"></span>
+<p id="live"></p>
+<div id="finals"></div>
+<script>
+const WS_URL = "wss://singapore2026123-scribe-burmese-asr.hf.space/stream";  // Space; ws:// + host:port for local
+let ws, ctx, src, node, stream;
+const live=document.getElementById('live'), finals=document.getElementById('finals'), status=document.getElementById('status');
+document.getElementById('start').onclick = async () => {
+  ws = new WebSocket(WS_URL);
+  ws.binaryType = "arraybuffer";
+  ws.onopen  = () => status.textContent = "● connected";
+  ws.onclose = () => status.textContent = "○ closed";
+  ws.onmessage = e => {
+    const m = JSON.parse(e.data);
+    if (m.final !== undefined) { finals.textContent += m.final + "\n"; live.textContent = ""; }
+    else if (m.partial !== undefined) live.textContent = m.partial;
+  };
+  stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true } });
+  ctx = new AudioContext();
+  src = ctx.createMediaStreamSource(stream);
+  node = ctx.createScriptProcessor(4096, 1, 1);        // simple; AudioWorklet is the modern upgrade
+  src.connect(node); node.connect(ctx.destination);
+  const inRate = ctx.sampleRate;                        // usually 44100/48000 -> downsample to 16000
+  node.onaudioprocess = e => {
+    if (!ws || ws.readyState !== 1) return;
+    const f = e.inputBuffer.getChannelData(0);
+    const ratio = inRate / 16000, n = Math.floor(f.length / ratio);
+    const pcm = new Int16Array(n);
+    for (let i = 0; i < n; i++) { let s = Math.max(-1, Math.min(1, f[Math.floor(i * ratio)])); pcm[i] = s < 0 ? s * 0x8000 : s * 0x7fff; }
+    ws.send(pcm.buffer);
+  };
+  document.getElementById('start').disabled = true; document.getElementById('stop').disabled = false;
+};
+document.getElementById('stop').onclick = () => {
+  if (node) node.disconnect(); if (src) src.disconnect();
+  if (stream) stream.getTracks().forEach(t => t.stop());
+  if (ctx) ctx.close();
+  if (ws && ws.readyState === 1) ws.send("end");
+  document.getElementById('start').disabled = false; document.getElementById('stop').disabled = true;
+};
+</script></body></html>
