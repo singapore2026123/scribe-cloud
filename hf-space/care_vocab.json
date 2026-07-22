@@ -1,0 +1,4964 @@
+[
+{
+"my": "စီမံကိန်း",
+"ja": "計画",
+"en": "Plan",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "လက်တွေ့အကောင်အထည်ဖော်မှုမှတ်တမ်း",
+"ja": "実施記録",
+"en": "Log implementation",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "လက်တွေ့အကောင်အထည်ဖော်မှုမရှိခြင်းမှတ်တမ်း",
+"ja": "未実施記録",
+"en": "Log lack of implementation",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အချိန်ပြောင်းလဲခြင်း",
+"ja": "時間変更",
+"en": "Change time",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အစီအစဉ်ရေးဆွဲထားမှုမရှိခြင်း",
+"ja": "計画外",
+"en": "Unplanned",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အထပ်နှင့်အခန်း",
+"ja": "階居室",
+"en": "Floor and room",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အသုံးပြုသူအမည်",
+"ja": "利用者名",
+"en": "User name",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "မွတးတမး့ စစးဆေ့ျခငး့",
+"ja": "記録確認",
+"en": "Confirm log",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အဆောက်အဦရွေးချယ်ခြင်း",
+"ja": "施設を選択",
+"en": "Select facility",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အထပ်ရွေးချယ်ခြင်း",
+"ja": "階を選択",
+"en": "Select floor",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "နယ်မြေရွေးချယ်ခြင်း",
+"ja": "エリアを選択",
+"en": "Select area",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "ကနဦးတန်ဘိုးအဖြစ် သိမ်းထားခြင်း",
+"ja": "初期値として保存",
+"en": "Save as initial value",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အitioဆns ိုပါအျေခအနေအာ့အျေခခဵ၍ စီစစးျခငး့",
+"ja": "この条件で絞り込む",
+"en": "Narrow down with these conditions",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အျေခခဵအခ်ကးမ်ာ့",
+"ja": "基本項目",
+"en": "Basic item",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "ဝန်းထမ်း",
+"ja": "スタッフ",
+"en": "Staff",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အကောင်အထည်မဖော်ရသေးသည်များ (မှတ်တမ်းပြုလုပ်ထားသည်များသာ)",
+"ja": "未実施（記録のみ）",
+"en": "Not implemented (only logged)",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အစပြုချိန်",
+"ja": "開始時刻",
+"en": "Start time",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "လက်တွေ့အကောင်အထည်ဖော်ဆောင်ရွက်ချိန်",
+"ja": "実践時間",
+"en": "Time implemented",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အရေးပါမှုအဆင့်",
+"ja": "重要度",
+"en": "Level of importance",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အမှတ်အသား",
+"ja": "フラグ",
+"en": "Flag",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "လက်တွေ့အကောင်အထည်ဖော်မှုဆိုင်ရာ အသေးစိတ်အချက်များ",
+"ja": "実践内容",
+"en": "Implementation details",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အနီးကပ်စောင့်ကြည့်ခြင်းမှတ်တမ်း",
+"ja": "観察記録",
+"en": "Log observation",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အခြား",
+"ja": "その他",
+"en": "Other",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "မှတ်ချက်ပြုထားသော အသုံးအဆောင်များ",
+"ja": "特記事項",
+"en": "Items of note",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အစီအရင်ခံစာတွင် ပြန်လည်သုံးသပ်ခြင်း",
+"ja": "申し送りに反映",
+"en": "Reflect in report",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "မှတ်တမ်းပြုလုပ်သည့်အခြေအနေများကို စုပေါင်းပြီး သတ်မှတ်ခြင်း",
+"ja": "まとめて記録条件設定",
+"en": "Combine and set logging conditions",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အသုံးပြုသူအမည်ရွေးချယ်ခြင်း",
+"ja": "利用者選択",
+"en": "Select user name",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အများဆုံး ၅ ဦးအထိသာ တပြိုင်နက် မှတ်တမ်းသွင်းနိုင်သည်",
+"ja": "同時に記録できるのは最大5つまでです。",
+"en": "Up to 5 can be logged simultaneously.",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အထပ် အခန်း",
+"ja": "階 居室",
+"en": "Floor room",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အစီအစဉ်မရေးဆွဲထားသည်များကို စုစည်းပြီး မှတ်တမ်းပြုလုပ်ခြင်း",
+"ja": "まとめて記録　計画外",
+"en": "Combine and log  Unplanned",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အစီအစဉ်ရေးဆွဲထားသည်များကို စုစည်းပြီးမှတ်တမ်းပြုလုပ်ခြင်း",
+"ja": "計画済をまとめて記録",
+"en": "Combine and log planned XX",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "မှတ်တမ်းပြုလုပ်မှုအခြေအနေများကို စုပေါင်းပြီး သတ်မှတ်ခြင်း",
+"ja": "まとめて記録条件設定",
+"en": "Combine and set logging conditions",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "ဝန်ထမ်းရွေးချယ်ခြင်း",
+"ja": "スタッフ選択",
+"en": "Select staff",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အမှတ်အသားဖြည့်ထည့်ခြင်း",
+"ja": "フラグ追加",
+"en": "Add flag",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အစီအရင်ခံတင်ပြထားသောမှတ်တမ်း",
+"ja": "申し送りにした記録",
+"en": "Reported log",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "လက်တွေ့အကောင်အထည်မဖော်သည်များ(မှတ်တမ်းပြုလုပ်ထားသည်များသာ)",
+"ja": "未実施（記録のみ）",
+"en": "Not implemented (only logged)",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "ရက်စွဲနှင့်အချိန်",
+"ja": "日時",
+"en": "Date and time",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အသုံးပြုသူ",
+"ja": "利用者",
+"en": "User",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "ရုံး",
+"ja": "事業所",
+"en": "Office",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အမျိုးအစား",
+"ja": "種類",
+"en": "Type",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "ထည့်သွင်းသူအမည်",
+"ja": "入力者",
+"en": "Entered by",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "ထိန်းသိမ်းစောင့်ရှောက်မှုမှတ်တမ်းတစ်ခုဖန်တီးခြင်း (အစီအစဉ်ချမှတ်မထားသော)",
+"ja": "介護記録作成（計画外）",
+"en": "Create a care log (unplanned)",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "ထိန်းသိမ်းစောင့်ရှောက်မှုမှတ်တမ်းဖန်တီးခြင်း(အစီအစဉ်မရေးဆွဲထားသော)",
+"ja": "介護記録作成（計画）",
+"en": "Create a care log (planned)",
+"src": "M_MULTILINGUAL"
+},
+{
+"my": "အညစ်အကြေးစွန့်ခြင်း",
+"ja": "排泄",
+"en": "Excretion",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "သန့်ရှင်းရေး",
+"ja": "掃除",
+"en": "Cleaning",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "လျှော်ဖွတ်ခြင်း",
+"ja": "洗濯",
+"en": "Laundry",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အိပ်ယာပြင်ဆင်ခြင်း",
+"ja": "ベットメイク",
+"en": "Bed-making",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အဝတ်အစား/အဝတ်အစားဝတ်ဆင်ခြင်း",
+"ja": "衣類・被服",
+"en": "Clothing",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အစားအစာချက်ပြုတ်ပြင်ဆင်ခြင်းနှင့် တည်ခင်းခြင်း",
+"ja": "調理・配下膳",
+"en": "Meal preparation and service",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "ဈေးဝယ်ခြင်းနှင့် ဆေးဝါးကုသမှုခံယူခြင်း",
+"ja": "買物・薬の受取",
+"en": "Shopping and obtaining medication",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အခြေအနေအားအနီးကပ်စောင့်ကြည့်ခြင်း",
+"ja": "状態観察",
+"en": "Observation of status",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "လုံခြုံမှုရှိမရှိ စစ်ဆေးအတည်ပြုခြင်း",
+"ja": "安全確認",
+"en": "Safety check",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အဝတ်အစားလဲလှယ်ခြင်း",
+"ja": "衣類更衣",
+"en": "Changing clothing",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "ထောက်ပံ့မှုမှတ်တမ်း",
+"ja": "支援記録",
+"en": "Assistance logged",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "စားသောက်ခြင်း",
+"ja": "食事",
+"en": "Eating",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "ဆေးဘက်ဆိုင်ရာပြုစုကုသမှု",
+"ja": "医療処置",
+"en": "Medical treatment",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "လှုပ်ရှားဆောင်ရွက်မှုများ",
+"ja": "アクティビティ・活動",
+"en": "Activities",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "ပြန်လည်သန်စွမ်းရေး",
+"ja": "リハビリテーション",
+"en": "Rehabilitation",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အပန်းဖြေခြင်း",
+"ja": "レクリエーション",
+"en": "Recreation",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အပြင်ထွက်ခြင်း သို့မဟုတ် ညအိပ်ထွက်ခြင်း",
+"ja": "外出・外泊",
+"en": "Outing or sleep over",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "ညအိပ်ထွက်ခြင်း၊ အလည်အပတ်သွားရောက်ခြင်း စသည်",
+"ja": "外泊・面会等",
+"en": "Sleep over, visit, etc.",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "သူနာပြု စောင့်ရှောက်မှု",
+"ja": "看護ケア",
+"en": "Nursing care",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "သူနာပြုစောင့်ရှောက်မှုနှင့် အနီးကပ်စောင့်ကြည့်မှု",
+"ja": "看護・観察",
+"en": "Care and observation",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "စုပ်ယူခြင်း",
+"ja": "吸引",
+"en": "Aspiration",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "မကျေနပ်ချက်တစ်ရပ်ကို တုန့်ပြန်ဖြေရှင်းခြင်း",
+"ja": "苦情対応",
+"en": "Responding to a complaint",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "ရေဓါတ်",
+"ja": "水分",
+"en": "Liquids",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အခမ်းအနား/ပွဲ",
+"ja": "行事",
+"en": "Event",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "မတော်တဆထိခိုက်မှု၊ အရေးပေါ်အခြေအနေအား တုန့်ပြန်ဖြေရှင်းခြင်း",
+"ja": "事故・緊急時対応",
+"en": "Responding to an accident or emergency",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "ဆေးရုံတက်ခြင်းနှင့် ဆေးရုံဆင်းခြင်း",
+"ja": "入院・退院",
+"en": "Admission and discharge",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "ဆေးရုံ",
+"ja": "病院",
+"en": "Hospital",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အိမ်တိုင်ယာရောက်သွားရောက်၍ဆေးစစ်ပေးခြင်း",
+"ja": "往診",
+"en": "House call",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အစာအာဟာရ စီမံခန့်ခွဲမှုပုံစံ",
+"ja": "栄養管理方法",
+"en": "Form of nutrition management",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အစာအာဟာရ စီမံခန့်ခွဲမှုအခြေအနေ",
+"ja": "栄養管理状態",
+"en": "Status of nutrition management",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "ပြောင်းလဲလာသောအခြေအနေပေါ်မူတည်၍ တုန့်ပြန်ဖြေရှင်းခြင်း",
+"ja": "状態変化対応",
+"en": "Response to a change in status",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "ရေချိုးခြင်း",
+"ja": "入浴",
+"en": "Bathing",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "တစ်ကိုယ်ရေသန့်ရှင်းမှုနှင့်အပြင်အဆင်",
+"ja": "身体整容",
+"en": "Grooming",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "နေရာအပြောင်းအလဲ၊ အရွှေ့အပြောင်းနှင့်ဆိုင်သော အကူအညီ",
+"ja": "移乗・移動介助",
+"en": "Assistance transferring to a chair, bed, etc.",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "ဆေးသောက်ခြင်း",
+"ja": "服薬",
+"en": "Taking medication",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အရေးပါသော လက္ခဏာများ",
+"ja": "バイタル",
+"en": "Vital signs",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "အိပ်ယာထခြင်းနှင့် အိပ်ယာဝင်ခြင်း",
+"ja": "起床・就寝",
+"en": "Waking up and going to bed",
+"src": "SST_M_CATEGORY"
+},
+{
+"my": "နည်းလမ်း",
+"ja": "方法",
+"en": "Method",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အဓိကဟင်းပွဲ",
+"ja": "主食",
+"en": "Main dish",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အသေးစိတ်အချက်များ",
+"ja": "内容",
+"en": "Details",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အခြေအနေ",
+"ja": "状況",
+"en": "Situation",
+"src": "SST_M_ITEM"
+},
+{
+"my": "စတင်ခြင်း",
+"ja": "開始",
+"en": "Start",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ပြီးဆုံးခြင်း",
+"ja": "終了",
+"en": "End",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ရွှေ့ပြောင်းခြင်း",
+"ja": "移動",
+"en": "Movement",
+"src": "SST_M_ITEM"
+},
+{
+"my": "တစ်ဦးချင်း ပြန်လည်ထူထောင်ရေး",
+"ja": "個別リハ",
+"en": "Individual rehabilitation",
+"src": "SST_M_ITEM"
+},
+{
+"my": "လေ့ကျင့်ခန်းကုထုံး",
+"ja": "運動療法",
+"en": "Exercise therapy",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အရန်ဟင်းပွဲ",
+"ja": "副食",
+"en": "Side dish",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ရုပ်ခန္ဓာဆိုင်ရာကုထုံး",
+"ja": "物理療法",
+"en": "Physical therapy",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဖျက်သိမ်းခြင်း",
+"ja": "キャンセル",
+"en": "Cancel",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ထွက်ခွာခြင်း",
+"ja": "出発",
+"en": "Departure",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အိမ်ပြန်ခြင်း",
+"ja": "帰館",
+"en": "Return to facility",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အဝတ်အစားလဲလှယ်ခြင်း - အချက်များ",
+"ja": "更衣-内容",
+"en": "Changing clothing - Details",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အဝတ်အစားလဲလှယ်ခြင်း - ကူညီခြင်း",
+"ja": "更衣-介助",
+"en": "Changing clothing - Assistance",
+"src": "SST_M_ITEM"
+},
+{
+"my": "လူနာဧည့်သည်ဆီသို့သွားရောက်တွေ့ဆုံခြင်း",
+"ja": "面会",
+"en": "Visit",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အဓိကဟင်းပွဲအရွယ်အစား",
+"ja": "主食量",
+"en": "Size of main dish",
+"src": "SST_M_ITEM"
+},
+{
+"my": "တည်ရှိရာနေရာ",
+"ja": "所在",
+"en": "Location",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အာဟာရ",
+"ja": "栄養",
+"en": "Nutrition",
+"src": "SST_M_ITEM"
+},
+{
+"my": "သောက်ရန်ဆေးပေးခြင်း",
+"ja": "与薬",
+"en": "Administration of medication",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ပြုစုကုသမှု",
+"ja": "処置",
+"en": "Treatment",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အထွေထွေ",
+"ja": "一般",
+"en": "General",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဒေသတွင်း",
+"ja": "局所",
+"en": "Local",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ရေချိုးရန်လို/မလို ဆုံးဖြတ်ခြင်း",
+"ja": "入浴判断",
+"en": "Determining if a bath is needed",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အရံဟင်းပွဲ အရွယ်အစား",
+"ja": "副食量",
+"en": "Size of side dish",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အခြေအနေ (အိပ်ရာထဲရှိချိန်)",
+"ja": "状態(就寝)",
+"en": "Status (in bed)",
+"src": "SST_M_ITEM"
+},
+{
+"my": "တုန့်ပြန်ဖြေရှင်းမှု",
+"ja": "対応",
+"en": "Response",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ချွဲသလိပ်အခြေအနေ",
+"ja": "痰の状態",
+"en": "Status of sputum",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဖြစ်ပွားမှု (တုန့်ပြန်မှု)၏ နေ့ရက်နှင့်အချိန်",
+"ja": "発生（対応）日時",
+"en": "Date and time of occurrence (response)",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အသနားခံတင်ပြသူ",
+"ja": "申し立て者",
+"en": "Petitioner",
+"src": "SST_M_ITEM"
+},
+{
+"my": "လစဉ်ကျင်းပသည့်ပွဲ",
+"ja": "月単位行事",
+"en": "Monthly event",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ရာသီပွဲတော်",
+"ja": "季節行事",
+"en": "Seasonal event",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အာဟာရဆိုင်ရာပံ့ပိူးမှုပမာဏ",
+"ja": "栄養補給量",
+"en": "Amount of nutritional support",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဖြစ်ပွားသည့်နေ့ရက်နှင့်အချိန်",
+"ja": "発生日時",
+"en": "Date and time of occurrence",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အမျိုးအစားခွဲခြားခြင်း",
+"ja": "分類",
+"en": "Category",
+"src": "SST_M_ITEM"
+},
+{
+"my": "တုန့်ပြန်ဖြေရှင်းမှု (၁)",
+"ja": "対応①",
+"en": "Response①",
+"src": "SST_M_ITEM"
+},
+{
+"my": "တုန့်ပြန်ဖြေရှင်းမှု (၂)",
+"ja": "対応②",
+"en": "Response②",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ကြိုတင်မြင်နိုင်မှု ဖြစ်နိုင်ချေအလားအလာ",
+"ja": "予見可能性",
+"en": "Foreseeability",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဖြစ်ပွားသည့်အကြောင်းရင်း",
+"ja": "発生要因",
+"en": "Cause",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဆေးရုံတက်ခြင်း သို့မဟုတ် ဆင်းခြင်း",
+"ja": "入退院",
+"en": "Admission or discharge",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အဓိကလက္ခဏာ",
+"ja": "主症状",
+"en": "Cardinal symptoms",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အခကြေးငွေပေးရသည့်ဝန်ဆောင်မှု",
+"ja": "有料サービス",
+"en": "Pay service",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အခြေအနေကိုမှတ်ချက်ပေးခြင်း",
+"ja": "状態コメント",
+"en": "Comments on status",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ကုသမှုခံယူခြင်း - အသေးစိတ်အချက်များ",
+"ja": "受診－内容",
+"en": "Seen at medical facility - Details",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဆေးရုံတက်ခြင်း - အသေးစိတ်အချက်များ",
+"ja": "入院－内容",
+"en": "Admission - Details",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဆေးရုံတက်ခြင်း - အခြား",
+"ja": "入院－その他",
+"en": "Admission - Other",
+"src": "SST_M_ITEM"
+},
+{
+"my": "စတင်ချိန်",
+"ja": "開始時間",
+"en": "Start time",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ပြီးဆုံးချိန်",
+"ja": "終了時間",
+"en": "End time",
+"src": "SST_M_ITEM"
+},
+{
+"my": "နောက်တစ်ကြိမ်တွေ့ဆုံရန်ချိန်းဆိုမှု",
+"ja": "次回予約",
+"en": "Next appointment",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဆေးစစ်ရမည့်ဌာန",
+"ja": "受診科目",
+"en": "Seen by (department)",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အသိပေးထားသော မကျေနပ်ချက်",
+"ja": "インフォームド？コンセント",
+"en": "Informed consent",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အိမ်တိုင်ရာရောက်ကုသသည့်ဆရာဝန်",
+"ja": "往診医",
+"en": "Visiting physician",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဆေးစာ",
+"ja": "処方",
+"en": "Prescription",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဆေးဝါးနှင့်သက်ဆိုင်သော",
+"ja": "薬剤関連",
+"en": "Medication-related",
+"src": "SST_M_ITEM"
+},
+{
+"my": "နည်းလမ်း/နည်း",
+"ja": "方法",
+"en": "Method",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ပမာဏ",
+"ja": "量",
+"en": "Amount",
+"src": "SST_M_ITEM"
+},
+{
+"my": "စားသုံးသည့်ကယ်လိုရီ",
+"ja": "摂取カロリー",
+"en": "Caloric intake",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ကိုယ်အနေအထားပြောင်းခြင်း",
+"ja": "体位交換",
+"en": "Changing body position",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အခြားအရာ",
+"ja": "その他",
+"en": "Other",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ရေဓာတ်ဖြည့်စွက်ပေးခြင်း",
+"ja": "水分補給",
+"en": "Replenishing fluids",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ခေါင်းလျှော်ခြင်း",
+"ja": "洗髪",
+"en": "Shampooing",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အဝတ်ဝတ်ခြင်းနှင့်  အဝတ်အစားချွတ်ခြင်း",
+"ja": "着脱衣",
+"en": "Dressing and undressing",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ရေဓါတ်ဖြည့်စွက်ပေးခြင်း",
+"ja": "水分補給",
+"en": "Replenishing fluids",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အရေပြားအခြေအနေ",
+"ja": "皮膚の状態",
+"en": "Status of skin",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အသိစိတ်အခြေအနေ",
+"ja": "意識の状態",
+"en": "Alertness",
+"src": "SST_M_ITEM"
+},
+{
+"my": "တစ်ကိုယ်ရေသန့်ရှင်းရေးနှင့်ဆိုင်သောအချက်များ",
+"ja": "整容項目",
+"en": "Aspects of appearance",
+"src": "SST_M_ITEM"
+},
+{
+"my": "မျက်နှာအသားအရောင်",
+"ja": "顔色",
+"en": "Complexion",
+"src": "SST_M_ITEM"
+},
+{
+"my": "မျက်စေ့",
+"ja": "目",
+"en": "Eyes",
+"src": "SST_M_ITEM"
+},
+{
+"my": "နှာခေါင်း",
+"ja": "鼻",
+"en": "Nose",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဆီးသွားခြင်း",
+"ja": "排尿",
+"en": "Urination",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဦးရေပြားနှင့် ဆံပင်",
+"ja": "頭皮頭髪",
+"en": "Scalp and hair",
+"src": "SST_M_ITEM"
+},
+{
+"my": "နားရွက်များ",
+"ja": "耳",
+"en": "Ears",
+"src": "SST_M_ITEM"
+},
+{
+"my": "လက်သည်းခြေသည်း",
+"ja": "爪",
+"en": "Nails",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ကူညီစောင့်ရှောက်ပေးခြင်း",
+"ja": "介助",
+"en": "Assistance",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ှုကူညီစောင့်ရှောက်ပေးခြင်း- အသေးစိတ်အချက်များ",
+"ja": "介助内容",
+"en": "Details on assistance",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဆီးသွားမှု (အခြေအနေ)",
+"ja": "排尿（状態）",
+"en": "Urination (status)",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ကိုယ်အပူချိန်",
+"ja": "体温",
+"en": "Temperature",
+"src": "SST_M_ITEM"
+},
+{
+"my": "သွေးဖိအား (အပေါ်)",
+"ja": "血圧（上）",
+"en": "Blood pressure (up)",
+"src": "SST_M_ITEM"
+},
+{
+"my": "သွေးဖိအား (အောက်)",
+"ja": "血圧（下）",
+"en": "Blood pressure (down)",
+"src": "SST_M_ITEM"
+},
+{
+"my": "နှလုံးခုန်နှုန်း",
+"ja": "脈拍",
+"en": "Pulse",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အောက်ဆီဂျင် သိပ်သည်းဆ",
+"ja": "酸素飽和度",
+"en": "Oxygen saturation",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အသက်ရှုအကြိမ်အရေအတွက်",
+"ja": "呼吸数",
+"en": "Respiratory rate",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အရပ်အမြင့်",
+"ja": "身長",
+"en": "Height",
+"src": "SST_M_ITEM"
+},
+{
+"my": "မစင်စွန့်ခြင်း",
+"ja": "排便",
+"en": "Defecation",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ကိုယ်အလေးချိန်",
+"ja": "体重",
+"en": "Weight",
+"src": "SST_M_ITEM"
+},
+{
+"my": "တည်နေရာ",
+"ja": "場所",
+"en": "Location",
+"src": "SST_M_ITEM"
+},
+{
+"my": "မှတ်ချက်များ",
+"ja": "特記",
+"en": "Notes",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အဝတ်အစားလဲခြင်း - အသေးစိတ်အချက်များ",
+"ja": "更衣-内容",
+"en": "Changing clothing - Details",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အဝတ်အစားလဲလှယ်ခြင်း - ကူညီဆောင်ရွက်ခြင်း",
+"ja": "更衣-介助",
+"en": "Changing clothing - Assistance",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အာခံတွင်းဆိုင်ရာ - အသေးစိတ်အချက်များ",
+"ja": "口腔-内容",
+"en": "Oral-Detail",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အာခံတွင်းဆိုင်ရာ - ကူညီဆောင်ရွက်ခြင်း",
+"ja": "口腔-介助",
+"en": "Oral-Assistance",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဝမ်း (ပုံစံ)",
+"ja": "排便（性状）",
+"en": "Stool (type)",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အညစ်အကြေးစွန့်ခြင်း - အမျိုးအစား",
+"ja": "排泄-種類",
+"en": "Excretion - Type",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အညစ်အကြေးစွန့်ခြင်း- နေရာ",
+"ja": "排泄-場所",
+"en": "Excretion - Locaiton",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အညစ်အကြေးစွန့်ခြင်း-  ကိရိယာ",
+"ja": "排泄-用具",
+"en": "Excretion - Tool",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အညစ်အကြေးစွန့်ခြင်း - အထောက်အကူ",
+"ja": "排泄-介助",
+"en": "Excretion - Assistance",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဆီး မထိန်းနိုင်ခြင်း",
+"ja": "尿失禁",
+"en": "Urinary incontinence",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဝမ်း မထိန်းနိုင်ခြင်း",
+"ja": "便失禁",
+"en": "Fecal incontinence",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အညစ်အကြေးစွန့်ခြင်း - အခြား",
+"ja": "排泄-その他",
+"en": "Excretion - Other",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဆီးသွားမှုအခြေအနေ",
+"ja": "排尿状態",
+"en": "Status of urination",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဝမ်းသွားခြင်း",
+"ja": "排便",
+"en": "Defecation",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဆီးဝမ်းမထိန်းနိုင်ခြင်း",
+"ja": "失禁",
+"en": "Incontinence",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဝမ်းအမျိုးအစား (ဝမ်းမာကျောမှုအဆင့်)",
+"ja": "排便形状（ブリストルスケール）",
+"en": "Type of stool (Bristol stool scale)",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ဝမ်းသွားပြီးနောက် အခြေအနေကိုစစ်ဆေးခြင်း",
+"ja": "排泄後の状態確認",
+"en": "Status check after excretion",
+"src": "SST_M_ITEM"
+},
+{
+"my": "တစ်ကိုယ်ရေသန့်ရှင်းရေးနှင့်အပြင်အဆင်- အသေးစိတ်",
+"ja": "整容-内容",
+"en": "Grooming-Details",
+"src": "SST_M_ITEM"
+},
+{
+"my": "တစ်ကိုယ်ရေသန့်ရှင်းရေးနှင့်အပြင်အဆင်- အထောက်အကူ",
+"ja": "整容-介助",
+"en": "Grooming-Assistance",
+"src": "SST_M_ITEM"
+},
+{
+"my": "နေရာ",
+"ja": "場所",
+"en": "Location",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အခကြေးငွေပေးရသည့် ဝန်ဆောင်မှု",
+"ja": "有料サービス",
+"en": "Pay service",
+"src": "SST_M_ITEM"
+},
+{
+"my": "စပေါ်ပေးသွင်းငွေ",
+"ja": "預り金",
+"en": "Deposit",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အသုံးပြုသည့်ငွေ",
+"ja": "使用金",
+"en": "Amount spent",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ပြန်အမ်းငွေ",
+"ja": "おつり",
+"en": "Change",
+"src": "SST_M_ITEM"
+},
+{
+"my": "စိတ်နေသဘောထား",
+"ja": "気分",
+"en": "Mood",
+"src": "SST_M_ITEM"
+},
+{
+"my": "စုပ်ယူခြင်း (အခြေအနေ)",
+"ja": "吸引（状態）",
+"en": "Aspiration (status)",
+"src": "SST_M_ITEM"
+},
+{
+"my": "စုပ်ယူခြင်း (ပမာဏ)",
+"ja": "吸引（量）",
+"en": "Aspiration (amount)",
+"src": "SST_M_ITEM"
+},
+{
+"my": "ပြုစုကုသခြင်း",
+"ja": "処置",
+"en": "Treatment",
+"src": "SST_M_ITEM"
+},
+{
+"my": "အိမ်သာ",
+"ja": "トイレ",
+"en": "Toilet",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မရှိ",
+"ja": "なし",
+"en": "No",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၆၀ ရာခိုင်နှုန်း",
+"ja": "6割",
+"en": "0.6",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၅၀ ရာခိုင်နှုန်း",
+"ja": "5割",
+"en": "0.5",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၄၀ ရာခိုင်နှုန်း",
+"ja": "4割",
+"en": "0.4",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၃၀ ရာခိုင်နှုန်း",
+"ja": "3割",
+"en": "0.3",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၂၀ ရာခိုင်နှုန်း",
+"ja": "2割",
+"en": "0.2",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၁၀ ရာခိုင်နှုန်း",
+"ja": "1割",
+"en": "0.1",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သုည ရာခိုင်နှုန်း",
+"ja": "0割",
+"en": "",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာမစားဘဲနေခြင်း",
+"ja": "絶食",
+"en": "Fasting",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာစားချင်စိတ်ရှိခြင်း",
+"ja": "食欲あり",
+"en": "Has appetite",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံမှန်",
+"ja": "普通",
+"en": "Normal",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိန်းဂဏန်းရေးထည့်ပါ(စီစီ)",
+"ja": "数値入力（cc）",
+"en": "Enter numerical value (cc)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာစားချင်စိတ်မရှိခြင်း",
+"ja": "食欲不振",
+"en": "Anorexia",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆာလောင်သည့်စိတ်",
+"ja": "空腹感",
+"en": "Hunger",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မောပန်းနွမ်းနယ်ခြင်း",
+"ja": "倦怠感",
+"en": "Malaise",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အော့အန်ခြင်း",
+"ja": "嘔吐",
+"en": "Vomiting",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အသက်ရှူသံ တရွှီးရွှီးထွက်ခြင်း",
+"ja": "喘鳴",
+"en": "Wheezing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မျိုရခက်ခဲသော",
+"ja": "嚥下困難",
+"en": "Dysphagia",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အခြား ပုံမှန်မဟုတ်သောအခြေအနေများ",
+"ja": "その他異常",
+"en": "Other abnormalities",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာနင်ခြင်း",
+"ja": "むせ込み",
+"en": "Choking",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စုဆောင်းခြင်း",
+"ja": "ため込み",
+"en": "Hoarding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်ဖက်ရည်/လက်ဖက်ခြောက်",
+"ja": "お茶",
+"en": "Tea",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပမာဏများသော",
+"ja": "多量",
+"en": "Extensive amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေနွေးဖြူ",
+"ja": "白湯",
+"en": "Hot water",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေ",
+"ja": "水",
+"en": "Water",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကော်ဖီ",
+"ja": "珈琲",
+"en": "Coffee",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်ဖက်ရည်",
+"ja": "紅茶",
+"en": "Black tea",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဖျော်ရည်",
+"ja": "ジュース",
+"en": "Juice",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကျောက်ကျော",
+"ja": "ゼリー",
+"en": "Jelly",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အနည်းဆုံးပမာဏ",
+"ja": "極少量",
+"en": "Minimal amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၅၀ စီစီခန့်",
+"ja": "50ｃｃ程度",
+"en": "About 50 cc",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၁၀ဝ စီစီခန့်",
+"ja": "100ｃｃ程度",
+"en": "About 100 cc",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၁၅၀ စီစီခန့်",
+"ja": "150ｃｃ程度",
+"en": "About 150 cc",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၂၀ဝ စီစီခန့်",
+"ja": "200ｃｃ程度",
+"en": "About 200 cc",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၂၅၀ စီစီခန့်",
+"ja": "250ｃｃ程度",
+"en": "About 250 cc",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၃၀ဝ စီစီခန့်",
+"ja": "300ｃｃ程度",
+"en": "About 300 cc",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၃၅၀ စီစီခန့် သို့မဟုတ် ထို့ထက်ပို၍",
+"ja": "350cc以上",
+"en": "350 cc or more",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိန်းဂဏန်းရေးထည့်ပါ (စီစီ)",
+"ja": "数値入力(cc)",
+"en": "Enter numerical value (cc)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကောင်းသည်",
+"ja": "良い",
+"en": "Good",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အနည်းငယ်သောပမာဏ",
+"ja": "少量",
+"en": "Small amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မျိုရခက်သော",
+"ja": "嚥下困難",
+"en": "Dysphagia",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အခြားပုံမှန်မဟုတ်သည်များ",
+"ja": "その他異常",
+"en": "Other abnormalities",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ကိုယ်လုံးရေချိုးခြင်း",
+"ja": "全身浴",
+"en": "Full bath",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်ကိုဆေးကြောခြင်း",
+"ja": "手浴",
+"en": "Hand bath",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခြေထောက်ကိုဆေးကြောခြင်း",
+"ja": "足浴",
+"en": "Foot bath",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေပန်းချိုးခြင်း",
+"ja": "シャワー浴",
+"en": "Shower",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ကိုယ်လုံး ရေပတ်တိုက်ခြင်း",
+"ja": "全身清拭",
+"en": "Complete bed bath",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိုယ်ခန္ဓာအပေါ်ပိုင်း ရေပတ်တိုက်ခြင်း",
+"ja": "上半身清拭",
+"en": "Upper body sponge bath",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိုယ်ခန္ဓာအောက်ပိုင်း ရေပတ်တိုက်ခြင်း",
+"ja": "下肢清拭",
+"en": "Lower body sponge bath",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သာမန်ရေချိုးခြင်း",
+"ja": "一般浴",
+"en": "Normal bathing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အကူအညီဖြင့်ရေချိုးခြင်း",
+"ja": "機械浴",
+"en": "Assisted bathing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေဆက်ချိုးခွင့်မရ",
+"ja": "入浴中止",
+"en": "Bathing discontinued",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ဦးချင်းရေချိုးခြင်း",
+"ja": "個浴",
+"en": "Individual bathing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မိမိဘာသာလုပ်နိုင်ခြင်း",
+"ja": "自立",
+"en": "Independence",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စောင့်ကြည့်ခြင်း",
+"ja": "見守り",
+"en": "Monitoring",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်စိတ်တစ်ပိုင်းပံ့ပိုးကူညီခြင်း",
+"ja": "一部介助",
+"en": "Partial assistance",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အပြည့်အဝပံ့ပိုးကူညီခြင်း",
+"ja": "全介助",
+"en": "Complete assistance",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပျစ်သော၊ စူးစိုက်သော",
+"ja": "濃縮",
+"en": "Concentration",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရှိ",
+"ja": "あり",
+"en": "Yes",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နောက်ကျိခြင်း၊ ညစ်ပတ်ခြင်း",
+"ja": "混濁",
+"en": "Turbidity",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြဿနာမရှိ",
+"ja": "問題なし",
+"en": "No problem",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဒဏ်ရာ",
+"ja": "創傷",
+"en": "Wound",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိပ်ရာထဲတွင် ကြာရှည်လဲလျောင်းသောအခါ ဖြစ်ပေါ်လာသည့်အနာ",
+"ja": "褥瘡",
+"en": "Pressure ulcer",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပွန်းပဲ့အနာ",
+"ja": "擦過傷",
+"en": "Abrasion",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဖောယောင်ခြင်း",
+"ja": "浮腫",
+"en": "Edema",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစိုင်အခဲ/အကြိတ်",
+"ja": "腫瘤",
+"en": "Tumor",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နီလာခြင်း",
+"ja": "発赤",
+"en": "Redness",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အရေပြားကွာခြင်း",
+"ja": "皮膚剥離",
+"en": "Skin peeling",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အခြား ထူးခြားသော",
+"ja": "その他異常",
+"en": "Other abnormalities",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆီးထဲသွေးပါခြင်း",
+"ja": "血尿",
+"en": "Hematuria",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မူမမှန်ခြင်း",
+"ja": "異常あり",
+"en": "Abnormal",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မျက်နှာသစ်ခြင်း",
+"ja": "洗面",
+"en": "Washing the face",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွားတိုက်ခြင်း",
+"ja": "歯磨き",
+"en": "Toothbrushing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်သည်းညှပ်ခြင်း",
+"ja": "手爪切り",
+"en": "Trimming the fingernails",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခြေသည်းညှပ်ခြင်း",
+"ja": "足爪切り",
+"en": "Trimming the toenails",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နားသန့်ရှင်းရေး",
+"ja": "耳掃除",
+"en": "Ear cleaning",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မုတ်ဆိတ်ရိတ်ခြင်း",
+"ja": "髭剃り",
+"en": "Shaving",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆံပင်ဖီးခြင်း/ပြင်ဆင်ခြင်း",
+"ja": "髪の手入れ",
+"en": "Hair care",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အလှပြင်ခြင်း",
+"ja": "化粧",
+"en": "Makeup",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိန်းဂဏန်းတန်ဖိုးရေးထည့်ခြင်း",
+"ja": "数値入力（cc）",
+"en": "Enter numerical value (cc)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခံတွင်းသန့်ရှင်းရေး",
+"ja": "口腔清拭",
+"en": "Oral cleaning",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွားတုသန့်ရှင်းရေး",
+"ja": "義歯洗浄",
+"en": "Denture cleaning",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အာခေါင်ဆေးခြင်း",
+"ja": "うがい",
+"en": "Gargling",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဝတ်လဲခြင်း",
+"ja": "更衣",
+"en": "Changing clothing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကောင်းသော",
+"ja": "良",
+"en": "Good",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အသားဝါ",
+"ja": "黄だんあり",
+"en": "Jaundiced",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မျက်နှာဖြူဖတ်ဖြူလျော်ဖြစ်သော",
+"ja": "顔面蒼白",
+"en": "Pale",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နီရဲလာခြင်း",
+"ja": "紅潮",
+"en": "Flushing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရွှေ့ပြောင်းသယ်ယူနိုင်သော",
+"ja": "ポータブル",
+"en": "Portable",
+"src": "SST_M_VALUE"
+},
+{
+"my": "များစွာသောပမာဏ",
+"ja": "多量",
+"en": "Extensive amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မျက်ဝတ် ပုံမှန်မဟုတ်ခြင်း",
+"ja": "目脂に異常あり",
+"en": "Abnormal ocular discharge",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မျက်ရည်ဝိုင်းသောမျက်လုံး",
+"ja": "涙目",
+"en": "Watery eyes",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ငိုနေသည်",
+"ja": "涙流している",
+"en": "Excessive tearing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နှာရည် ပုံမှန်မဟုတ်ခြင်း",
+"ja": "鼻汁に異常あり",
+"en": "Abnormal nasal discharge",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နှာခေါင်းသွေး",
+"ja": "鼻血",
+"en": "Epistaxis",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကြာရှည်လဲလျောင်းသောအခါ ဦးရေတွင်ဖြစ်ပေါ်လာသောအနာ",
+"ja": "頭皮褥瘡あり",
+"en": "Pressure ulcer of the scalp",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဦးရေနီလာခြင်း",
+"ja": "頭皮発赤あり",
+"en": "Redness of the scalp",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဦးခေါင်းတွင်ဂျွတ်တက်ခြင်း",
+"ja": "頭皮痂皮あり",
+"en": "Crusty scalp",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အများအားဖြင့်",
+"ja": "普通",
+"en": "Normal",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆံပင်ကျွတ်များခြင်း",
+"ja": "脱毛が多い",
+"en": "Extensive amount alopecia",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ယားယံသလိုဖြစ်ခြင်း",
+"ja": "掻痒感あり",
+"en": "Pruritis",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစိုင်အခဲ အကြိတ်ရှိခြင်း",
+"ja": "腫瘤あり",
+"en": "Tumor present",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နားဖာချေးများခြင်း",
+"ja": "耳垢が多い",
+"en": "Extensive amount ear wax",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နားဖာချေးနည်းခြင်း",
+"ja": "耳垢が少ない",
+"en": "Minimal amount ear wax",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေဝဲစားခြင်း",
+"ja": "水虫",
+"en": "Athlete's foot",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်သည်းထူခြင်း",
+"ja": "深爪",
+"en": "Clipping nails too short",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစိုင်အခဲ အကြိတ်",
+"ja": "浮腫",
+"en": "Edema",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လွှဲပြောင်းခြင်း ရွှေ့ပြောင်းခြင်း",
+"ja": "移乗",
+"en": "Chair transfer",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိုယ်အနေအထားပြောင်းလဲခြင်း",
+"ja": "体位変換",
+"en": "Changing body position",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိုယ့်ဘာသာလုပ်နိုင်ခြင်း",
+"ja": "自立",
+"en": "Independence",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သက်တောင့်သက်သာရှိခြင်း",
+"ja": "安楽",
+"en": "Comfort",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခေါင်းမူးခြင်း",
+"ja": "めまいあり",
+"en": "Dizzy",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နာကျင်မှုရှိခြင်း",
+"ja": "痛みあり",
+"en": "Painful",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာမစားမီ",
+"ja": "食前",
+"en": "Before meal",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာစားနေချိန်",
+"ja": "食間",
+"en": "During meal",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာစားပြီးနောက်",
+"ja": "食後",
+"en": "After meal",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ညမအိပ်မီ",
+"ja": "就寝前",
+"en": "Before bedtime",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေချိုးစဉ်",
+"ja": "入浴時",
+"en": "While bathing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အညစ်အကြေးစွန့်ချိန်",
+"ja": "排泄時",
+"en": "During toileting",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မျက်စဉ်းခပ်ခြင်း",
+"ja": "点眼",
+"en": "Eye drops",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးပလာစတာ",
+"ja": "湿布",
+"en": "Compress",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လိမ်းဆေး",
+"ja": "軟膏",
+"en": "Ointment",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံစံ အေ (စမြင်းလုံးဝမ်း)",
+"ja": "タイプA（コロコロ便）",
+"en": "Type A Separate hard lumps)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စအိုတွင်းထည့်သည့်ဆေး",
+"ja": "坐剤",
+"en": "Suppository",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကပ်ဆေး",
+"ja": "貼薬",
+"en": "Plaster",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွင်းခြင်း/ထိုးခြင်း(သောက်ဆေး)",
+"ja": "注入（経口）",
+"en": "Infusion (oral)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွင်းခြင်း/ထိုးခြင်း(နှာခေါင်း)",
+"ja": "注入（経鼻）",
+"en": "Infusion (nasogastric tube)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွင်းခြင်း/ထိုးခြင်း(အစာအိမ်သို့ တိုက်ရိုက်အစာသွင်းခြင်း)",
+"ja": "注入（胃ろう）",
+"en": "Infusion (gastrostomy tube)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြင်ဆင်မှု",
+"ja": "準備",
+"en": "Preparation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပါဝင်သည့်အရာကိုစစ်ဆေးအတည်ပြုခြင်း",
+"ja": "内容確認",
+"en": "Checking details",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပံ့ပိုးကူညီခြင်း",
+"ja": "介助",
+"en": "Assistance",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံစံ ဘီ (မာသောဝမ်း)",
+"ja": "タイプB（硬い便）",
+"en": "TypeB(Sausage-shaped)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ထွေးထုတ်ခြင်း",
+"ja": "吐き出し",
+"en": "Expectoration",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ငြင်းဆိုခြင်း",
+"ja": "拒否",
+"en": "Refusal",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိန်းဂဏန်းတန်ဖိုးရေးထည့်ခြင်း（℃）",
+"ja": "数値入力（℃）",
+"en": "Enter numerical value (ºC)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိန်းဂဏန်းတန်ဖိုးရေးထည့်ခြင်း (မီလီမီတာ မာကျူရီ)",
+"ja": "数値入力(mmHg)",
+"en": "Enter numerical value (mmHg)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံစံ စီ (အနည်းငယ်မာသောဝမ်း)",
+"ja": "タイプC（やや硬い便）",
+"en": "TypeC(Like a sausage but with surface cracks)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိန်းဂဏန်းတန်ဖိုးရေးထည့်ခြင်း (အ=ကိမ်။ မိနစ်)",
+"ja": "数値入力（回/分）",
+"en": "Enter numerical value (beats/min.)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိန်းဂဏန်းတန်ဖိုးရေးထည့်ခြင်း (ရာခိုင်နှုန်း)",
+"ja": "数値入力（％）",
+"en": "Enter numerical value (%)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိန်းဂဏန်းတန်ဖိုးရေးထည့်ခြင်း (အကြိမ်/မိနစ်)",
+"ja": "数値入力(回/分)",
+"en": "Enter numerical value (beats/min.)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိန်းဂဏန်းတန်ဖိုးရေးထည့်ခြင်း (စင်တီမီတာ)",
+"ja": "数値入力(cm)",
+"en": "Enter numerical value (cm)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိန်းဂဏန်းတန်ဖိုးရေးထည့်ခြင်း (ကီလိုမီတာ)",
+"ja": "数値入力(Kg)",
+"en": "Enter numerical value (Kg)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိပ်ယာထခြင်း",
+"ja": "起床",
+"en": "Waking up",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိပ်ယာဝင်ခြင်း",
+"ja": "就寝",
+"en": "Waking up",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံစံ ဒီ (ပုံမှန်ဝမ်း)",
+"ja": "タイプD（普通便）",
+"en": "TypeD(Smooth and soft)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကုတင်",
+"ja": "ベット",
+"en": "Bed",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ထိုင်ခုံ",
+"ja": "イス",
+"en": "Chair",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဂွမ်းကပ်အခင်း",
+"ja": "布団",
+"en": "Bedding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကောင်းကောင်းအိပ်ပျော်ခြင်း",
+"ja": "寝つきが良い",
+"en": "Sound sleep",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကောင်းကောင်းအိပ်မပျော်ခြင်း",
+"ja": "寝つきが悪い",
+"en": "Wakeful",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လန်းလန်းဆန်းဆန်းအိပ်ယာနိုးခြင်း",
+"ja": "寝起きが良い",
+"en": "Waking up in a good mood",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံစံ အီး (အနည်းငယ်ပျော့သောဝမ်း)",
+"ja": "タイプE（やや軟らかい便）",
+"en": "TypeE(Soft blobs)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိပ်ယာနိုးချိန်လန်းဆန်းမှုမရှိခြင်း/မအီမသာဖြစ်ခြင်း",
+"ja": "寝起きが悪い",
+"en": "Waking up in a foul mood",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဂွမ်းကပ်အခင်းခင်းခြင်း",
+"ja": "布団を敷く",
+"en": "Laying out bedding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဂွမ်းကပ်အခင်းခေါက်ခြင်း",
+"ja": "布団をたたむ",
+"en": "Putting away bedding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံမှန်အဝတ်အစား → ညအိပ်အဝတ်အစား",
+"ja": "洋服→寝巻",
+"en": "Outfit→Pajamas",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ညအိပ်အဝတ်အစား → ပုံမှန်အဝတ်အစား",
+"ja": "寝巻→洋服",
+"en": "Pajamas→Outfit",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံမှန်အဝတ်အစား → ပုံမှန်အဝတ်အစား",
+"ja": "洋服→洋服",
+"en": "Outfit→Outfit",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ညအိပ်အဝတ်အစား → ညအိပ်အဝတ်အစား",
+"ja": "寝巻→寝巻",
+"en": "Pajamas→Pajamas",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဝတ်အစားကို အဆင်ပြေအောင်ဝတ်ဆင်ခြင်း",
+"ja": "衣類調整",
+"en": "Coordinating clothing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်တွေ့အကောင်အထည်မဖော်ရသေးခြင်း (အတည်မပြုခြင်း)",
+"ja": "未実施（未確認）",
+"en": "Not implemented (not checked)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံစံ အက်ဖ် (စေးပိုင်သောဝမ်း)",
+"ja": "タイプF（泥状便）",
+"en": "TypeF(Fluffy pieces)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အသံပြုခြင်း",
+"ja": "声かけ",
+"en": "Verbal address",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စောင့်ကြည့်ခြင်းနှင့် အတည်ပြုခြင်း",
+"ja": "見守り？確認",
+"en": "Monitoring and checking",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွားပွတ်တံ",
+"ja": "歯ブラシ",
+"en": "Toothbrushing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဖော့ဘရပ်ရှ်",
+"ja": "スポンジブラシ",
+"en": "Sponge swab",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ခါသုံး မစင်ခံ စက္ကူဘောင်းဘီ",
+"ja": "紙おむつ",
+"en": "Disposable diaper",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံစံ ဂျီ (ဝမ်းအရည်)",
+"ja": "タイプG(水様便)",
+"en": "TypeG(Watery)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အပြည့်အဝပံ့ပိုကူညီခြင်း",
+"ja": "全介助",
+"en": "Complete assistance",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မိမိဆန္ဒအလျောက်ပြုလုပ်ခြင်း",
+"ja": "自発的行為",
+"en": "Voluntary actions",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အခါအားလျော်စွာ လှုံ့ဆော်ခြင်း",
+"ja": "随時誘導",
+"en": "Occasionally prompted toileting",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သတ်မှတ်ချိန် လှုံ့ဆော်ခြင်း",
+"ja": "定時誘導",
+"en": "Regularly prompted toileting",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သယ်ဆောင်ရလွယ်ကူသော",
+"ja": "ポータブル",
+"en": "Portable",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကုတင်ပေါ်",
+"ja": "ベッド上",
+"en": "In bed",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အသုံးမပြုခြင်း",
+"ja": "不使用",
+"en": "Not used",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆီးဝမ်းမထိန်းနိုင်သည့်အခါ အသုံးပြုသည့် ဘောင်းဘီ",
+"ja": "失禁用パンツ",
+"en": "Incontinence underwear",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ခါသုံး မစင်ခံ ဘောင်းဘီ",
+"ja": "おむつ",
+"en": "Diaper",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စက္ကူဘောင်းဘီ",
+"ja": "紙パンツ",
+"en": "Disposable underwear",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အမျိုးသမီးလစဉ်သုံးပစ္စည်း",
+"ja": "パット",
+"en": "Pad",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆီးအိုး",
+"ja": "尿器",
+"en": "Bedpan",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဘော်လုံး",
+"ja": "バルーン",
+"en": "Balloon",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နံနက်",
+"ja": "朝",
+"en": "Morning",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဝတ်ထားသည့်အဝတ်အားလုံးလဲလှယ်ခြင်း",
+"ja": "衣類全更衣",
+"en": "Complete change of clothing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဘောင်းဘီသာလဲလှယ်ခြင်း",
+"ja": "ズボンのみ更衣",
+"en": "Changing pants alone",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နေ့လည်",
+"ja": "昼",
+"en": "Day",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိပ်ယာအသုံးအဆောင်လဲလှယ်ခြင်း",
+"ja": "リネン類交換",
+"en": "Changing linen",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အလွန့် အလွန်နည်းသောပမာဏ",
+"ja": "微量",
+"en": "Minimal amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အတည်မပြုရသေးသော",
+"ja": "未確認",
+"en": "Not checked",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နောက်ကျိနေသောဆီး",
+"ja": "混濁尿",
+"en": "Cloudy white urine",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ည",
+"ja": "夜",
+"en": "Night",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အညိုရောင်ဆီး",
+"ja": "茶褐色尿",
+"en": "Brown urine",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အနက်ရောင်ဆီး",
+"ja": "黒色尿",
+"en": "Black urine",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြစ်နေသောဆီး",
+"ja": "濃尿",
+"en": "Dark urine",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွေးပါသောဆီး",
+"ja": "血尿",
+"en": "Hematuria",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အလွန့်အလွန်နည်းသောပမာဏ",
+"ja": "微量",
+"en": "Minimal amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သရေစာ",
+"ja": "おやつ",
+"en": "Treats",
+"src": "SST_M_VALUE"
+},
+{
+"my": "(၁) စမြင်းလုံးဝမ်း",
+"ja": "①コロコロ便",
+"en": "①Separate hard lumps",
+"src": "SST_M_VALUE"
+},
+{
+"my": "(၂) မာသောဝမ်း",
+"ja": "②硬い便",
+"en": "②Sausage-shaped",
+"src": "SST_M_VALUE"
+},
+{
+"my": "(၃) အနည်းငယ်မာသောဝမ်း",
+"ja": "③やや硬い便",
+"en": "③Like a sausage but with surface cracks",
+"src": "SST_M_VALUE"
+},
+{
+"my": "(၄) ပုံမှန်ဝမ်း",
+"ja": "④普通便",
+"en": "④Smooth and soft",
+"src": "SST_M_VALUE"
+},
+{
+"my": "(၅) အနည်းငယ်ပျော့သောဝမ်း",
+"ja": "⑤やや軟らかい便",
+"en": "⑤Soft blobs",
+"src": "SST_M_VALUE"
+},
+{
+"my": "(၆) စေးကပ်သောဝမ်း",
+"ja": "⑥泥状便",
+"en": "⑥Fluffy pieces",
+"src": "SST_M_VALUE"
+},
+{
+"my": "(၇) အရည်ကျဲသောဝမ်း",
+"ja": "⑦水様便",
+"en": "⑦Watery",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြဿနာရှိ",
+"ja": "問題あり",
+"en": "Abnormal",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အာဟာရဖြည့်စွက်ခြင်း",
+"ja": "栄養補給",
+"en": "Nutritional support",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆံပင်ဖီးပြင်ဆင်ခြင်း",
+"ja": "髪の手入れ",
+"en": "Hair care",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပိုက်ဖြင့်သွင်းသည့်အစာ",
+"ja": "注入食",
+"en": "Enteral formula",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လမ်းလျှောက်သည့်အကွာအဝေး",
+"ja": "歩行距離",
+"en": "Distance walked",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မိမိဘာသာလမ်းလျှောက်ခြင်း",
+"ja": "自立歩行",
+"en": "Walking unassisted",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လူနှင့်တွဲလျှောက်ခြင်း",
+"ja": "手引き歩行",
+"en": "Guided walking",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဂျိုင်းထောက်ဖြင့်လျှောက်ခြင်း",
+"ja": "杖歩行",
+"en": "Walking with a cane",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လမ်းလျှောက်ရာတွင်အသုံးပြုသည့်ကိရိယာ",
+"ja": "歩行器",
+"en": "Walker",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဘီးတပ်ကုလားထိုင်ဖြင့် မိမိဘာသာသွားခြင်း",
+"ja": "車椅子自走",
+"en": "Independent wheelchair use",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဘီးတပ်ကုလားထိုင်ဖြင့် ကူညီပံ့ပိုးခြင်း",
+"ja": "車椅子介助",
+"en": "Wheelchair assistance",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အမှိုက်စွန့်ပစ်ခြင်း",
+"ja": "ゴミ出し",
+"en": "Taking out trash",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေခဲသေတ္တာစစ်ဆေးခြင်း",
+"ja": "冷蔵庫チェック",
+"en": "Checking the refrigerator",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လေအေးပေးစက်သန့်ရှင်းရေး",
+"ja": "エアコン掃除",
+"en": "Cleaning the air conditioner",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အပူပေးစက်သန့်ရှင်းရေး",
+"ja": "加湿器掃除",
+"en": "Cleaning a humidifier",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဧည့်ခန်း",
+"ja": "居間",
+"en": "Living room",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိပ်ခန်း",
+"ja": "寝室",
+"en": "Bedroom",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆီးအိတ်",
+"ja": "尿パット",
+"en": "Absorbent pad",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မီးဖို",
+"ja": "台所",
+"en": "Kitchen",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိမ်အဝင်ဝ",
+"ja": "玄関",
+"en": "Entrance",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေချိုးခန်း",
+"ja": "風呂",
+"en": "Bath",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အခန်း",
+"ja": "居室",
+"en": "Room",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အလွန်ညစ်ပေသော",
+"ja": "汚れがひどい",
+"en": "Extremely dirty",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံမှန်အစားအသောက်",
+"ja": "普通食",
+"en": "Regular meal",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သိပ်မညစ်ပတ်သော",
+"ja": "汚れがあまりない",
+"en": "Slightly dirty",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဝတ်လျှော်စက်",
+"ja": "洗濯機",
+"en": "Washing machine",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်ဆေးကြောသန့်စင်ခြင်း",
+"ja": "手洗い",
+"en": "Hand washing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဝတ်လှမ်းသည့်တန်း",
+"ja": "物干し",
+"en": "Laundry drying",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အခြောက်ခံစက်",
+"ja": "乾燥機",
+"en": "Drier",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လှမ်းထားသည့်အဝတ်သိမ်းခြင်း",
+"ja": "取り込み",
+"en": "Bringing in",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆန်ပြုတ်",
+"ja": "粥食",
+"en": "Rice porridge",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တာတာမိ ဂျပန်ဖျာ",
+"ja": "たたみ",
+"en": "Fold clothes",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မီးပူတိုက်ခြင်း",
+"ja": "アイロンがけ",
+"en": "Ironing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သိုလှောင်ခြင်း",
+"ja": "収納",
+"en": "Putting away clothes",
+"src": "SST_M_VALUE"
+},
+{
+"my": "များသောပမာဏ",
+"ja": "多い",
+"en": "A large amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နည်းသောပမာဏ",
+"ja": "少ない",
+"en": "A small amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သာမန်အဝတ်အစား",
+"ja": "一般衣類",
+"en": "Usual clothing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆီးဝမ်းမထိန်းနိုင်သည့်အခါ ဝတ်ဆင်သည့်အဝတ်",
+"ja": "失禁衣類",
+"en": "Incontinence wear",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ထမင်းပျော့",
+"ja": "軟飯",
+"en": "Moistened rice",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဂွမ်းကပ်အခင်းအဖုံး လဲလှယ်ခြင်း",
+"ja": "布団カバー交換",
+"en": "Changing a quilt cover",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိပ်ယာခင်းလဲလှယ်ခြင်း",
+"ja": "シーツ交換",
+"en": "Changing sheets",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဂွမ်းကပ်အခင်း နေလှန်းခြင်း",
+"ja": "布団干し",
+"en": "Airing out bedding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နေလှန်းထားသည့် ဂွမ်းကပ်အခင်း သိမ်းခြင်း",
+"ja": "布団取込",
+"en": "Bringing in bedding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ညစ်ပေသည့်အခါ အိပ်ယာခင်းလဲလှယ်ခြင်း",
+"ja": "汚染時シーツ交換",
+"en": "Changing soiled sheets",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဂွမ်းကပ်အိပ်ယာခင်းခြောက်သွေ့ခြင်း",
+"ja": "布団乾燥",
+"en": "Drying bedding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဝတ်အစား အစီအစဉ်တကျထားသိုခြင်း",
+"ja": "衣類整理",
+"en": "Laying out clothes",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နွေရာသီ သို့မဟုတ် ဆောင်းရာသီ အဝတ်လဲလှယ်ပြင်ဆင်ခြင်း",
+"ja": "夏？冬物入替",
+"en": "Switching to summer or winter clothing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကြယ်သီးတပ်ဆင်ခြင်း",
+"ja": "ボタン付け",
+"en": "Sewing buttons",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နုတ်နုတ်စင်းထားသည့်အစာ",
+"ja": "刻み食",
+"en": "Mincing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စုတ်ပြဲသည့်အဝတ်ကိုချုပ်သည်",
+"ja": "破れ補修",
+"en": "Mending",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အမည်ရေးသွင်းခြင်း",
+"ja": "名前記入",
+"en": "Writing one's name",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ချက်ပြုတ်ခြင်း",
+"ja": "調理",
+"en": "Meal preparation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စားပွဲခင်းကျင်းပြင်ဆင်",
+"ja": "配膳",
+"en": "Meal service",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရှင်းလင်းသိမ်းဆည်းခြင်း",
+"ja": "後片付け",
+"en": "Cleanup",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဈေးဝယ်ခြင်း",
+"ja": "買い物",
+"en": "Shopping",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးလက်ခံယူခြင်း",
+"ja": "薬の受取",
+"en": "Obtaining medication",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကြိတ်စက်ဖြင့်ကြိတ်ထားသောအစာ",
+"ja": "ミキサー食",
+"en": "Blenderized food",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိန်းဂဏန်းတန်ဖိုးရေးထည့်ခြင်း (ယန်း)",
+"ja": "数字入力（円）",
+"en": "Enter numerical value (yen)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "များသောအားဖြင့်",
+"ja": "普通",
+"en": "Normal",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မကောင်းသော",
+"ja": "悪い",
+"en": "Bad",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လှည့်ပတ်ခြင်း",
+"ja": "巡回",
+"en": "Rounds",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အခန်းအလည်သွားခြင်း",
+"ja": "訪室",
+"en": "Visit to a room",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သူနာပြုခေါ်ယူခြင်း",
+"ja": "ナースコール",
+"en": "Nurse notified",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိပ်စက်ခြင်း",
+"ja": "入眠",
+"en": "Falling asleep",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သတိပြန်ရခြင်း",
+"ja": "覚醒",
+"en": "Awake",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စိတ်မသက်မသာဖြစ်သော",
+"ja": "不穏",
+"en": "Agitation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လျှောက်သွားသည်",
+"ja": "徘徊",
+"en": "Wandering",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိမ်ပြန်လိုသောဆန္ဒ",
+"ja": "帰宅願望",
+"en": "Desire to return home",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြန်ပြင်ထိုင်ခြင်း",
+"ja": "座りなおし",
+"en": "Repositioning",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပေါင်မုန့်(ရိုးရိုး)",
+"ja": "パン（普通）",
+"en": "Bread (normal)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကျောပြင်အားအိပ်ရာမှခေတ္တခွာစေခြင်း",
+"ja": "背抜き",
+"en": "Relieving pressure on the back",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဖိထားခြင်း",
+"ja": "除圧",
+"en": "Decompression",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ညအိပ်ဝတ်စုံလဲလှယ်ခြင်း",
+"ja": "寝衣更衣",
+"en": "Changing into pajamas",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နေ့စဉ်အဝတ်လဲလှယ်ခြင်း",
+"ja": "日常着更衣",
+"en": "Changing into everyday clothing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အပေါ်ဝတ်အင်္ကျီလဲလှယ်ခြင်း (ညစ်ပေခြင်း)",
+"ja": "上着更衣(汚染)",
+"en": "Changing (soiled) outerwear",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အောက်ခံအဝတ်လဲလှယ်ခြင်း (ညစ်ပေခြင်း)",
+"ja": "下着更衣(汚染)",
+"en": "Changing underwear",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဝတ်အားလုံးလဲလှယ်ခြင်း (ညစ်ပေခြင်း)",
+"ja": "全更衣(汚染)",
+"en": "Complete change of clothing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပေါင်မုန့်(တစ်လုတ်စာအကြီး)",
+"ja": "パン（一口大）",
+"en": "Bread (bite-sized)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အလည်အပတ်သွားခြင်း",
+"ja": "訪問",
+"en": "Visit",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အလည်အပတ်လာခြင်း",
+"ja": "来訪",
+"en": "Visit",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တယ်လီဖုန်း",
+"ja": "電話",
+"en": "Telephone",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ထိုးဖောက်မြင်ရသော",
+"ja": "透明",
+"en": "Translucent",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဖြူ",
+"ja": "白",
+"en": "White",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစိမ်း",
+"ja": "緑",
+"en": "Green",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဝါ",
+"ja": "黄",
+"en": "Yellow",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပေါင်မုန့်(ဆန်ပြုတ်)",
+"ja": "パン（粥）",
+"en": "Bread (porridge)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စေးကပ်",
+"ja": "粘チョウ",
+"en": "Viscous",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ချောမွေ့သော",
+"ja": "サラサラ",
+"en": "Fluid",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အလယ်အလတ်ပမာဏ",
+"ja": "中等量",
+"en": "Intermediate amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပိုးသတ်ခြင်း",
+"ja": "消毒",
+"en": "Disinfection",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပတ်တီးဖြင့် ကာကွယ်ခြင်း",
+"ja": "ガーゼ保護",
+"en": "Covered with gauze",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အအေးဓာတ်ဖြင့်ကုသနည်း",
+"ja": "冷罨法",
+"en": "Cold compress",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အနွေးဓာတ်ဖြင့်ကုသနည်း",
+"ja": "温罨法",
+"en": "Warm compress",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ခါသုံး မစင်ခံ စက္ကူ ဘောင်းဘီ၊ ဆီးအိတ်",
+"ja": "紙おむつ+尿パット",
+"en": "Disposable diaper+Absorbent pad",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ထမင်း",
+"ja": "米飯",
+"en": "Cooked rice",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လိမ်းဆေးလိမ်းခြင်း",
+"ja": "軟膏塗布",
+"en": "Application of ointment",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေဆေးခြင်း",
+"ja": "洗浄",
+"en": "Irrigation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၀မ်းချူခြင်း",
+"ja": "浣腸",
+"en": "Enema",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခန္ဓာကိုယ်တွင်းထည့်သည့်ဆေး",
+"ja": "坐剤",
+"en": "Suppository",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အင်ဆူလင်",
+"ja": "インスリン",
+"en": "Insulin",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လေပြွန်ဖောက်ခြင်း",
+"ja": "気管切開",
+"en": "Tracheotomy",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာအိမ်သို့တိုက်ရိုက်အစာသွင်းခြင်း",
+"ja": "胃ろう",
+"en": "Gastrostomy tube",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆီးအိမ်ဖောက်ထားခြင်း",
+"ja": "膀胱ろう",
+"en": "Cystostomy",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာအိမ်",
+"ja": "ストーマ",
+"en": "Stoma",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကျောက်ကပ်ဖောက်ထားခြင်း",
+"ja": "腎ろう",
+"en": "Nephrostomy",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကြိတ်စက်ဖြင့် ကြိတ်ထားသောဆန်ပြုတ်",
+"ja": "ミキサー粥",
+"en": "Blenderized porridge",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပင်မသွေးပြန်ကြောအစာအာဟာရ",
+"ja": "中心静脈栄養",
+"en": "Parenteral nutrition",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဝမ်းဗိုက်အတွင်းအင်္ဂါကိုဖုံးအုပ်ထားသည့်အမြှေးပါးကို ဆေးဖြင့်ဆေးကြောခြင်း",
+"ja": "腹膜透析",
+"en": "Peritoneal dialysis",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကင်ဆာဆေး",
+"ja": "抗癌剤",
+"en": "Anticancer agent",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွေးထွက်ခြင်း",
+"ja": "出血",
+"en": "Bleeding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ယောင်ယမ်းခြင်း",
+"ja": "腫脹",
+"en": "Swelling",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ထိရှမိသည့်အနာ",
+"ja": "切傷",
+"en": "Cut",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တိုက်စားခြင်း",
+"ja": "糜爛",
+"en": "Erosion",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခရမ်းရောင်အကွက်",
+"ja": "紫斑",
+"en": "Purpura",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ထမင်းဆုပ်",
+"ja": "おにぎり",
+"en": "Rice balls",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ညစ်ညမ်းခြင်း",
+"ja": "汚染",
+"en": "Infection",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နာကျင်ခြင်း",
+"ja": "疼痛",
+"en": "Pain",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ထုံကျင်ခြင်း",
+"ja": "痺れ",
+"en": "Numbness",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပွဲ",
+"ja": "イベント",
+"en": "Event",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လှုပ်ရှားမှု",
+"ja": "アクティビティ",
+"en": "Activity",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အလှပြင်ဆိုင်",
+"ja": "サロン",
+"en": "Salon",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ဦးချင်းစီ ဆောင်ရွက်ပေးခြင်း",
+"ja": "個別対応",
+"en": "Personalized",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိုယ်လက်လှုပ်ရှားလေ့ကျင့်ခန်း",
+"ja": "体操",
+"en": "Physical exercises",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြန်လည်ထူထောင်ရေး လုပ်ဆောင်ချက်",
+"ja": "機能リハビリ",
+"en": "Functional rehabilitation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နေထိုင်စားသောက်မှုဆိုင်ရာ ပြန်လည်ထူထောင်ရေး",
+"ja": "生活リハビリ",
+"en": "Rehabilitation to return to everyday activities",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အားကစား",
+"ja": "運動",
+"en": "Exercise",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေနွေးကြမ်းသောက်ရင်းစကားပြောဆိုခြင်း",
+"ja": "茶話会",
+"en": "Tea party",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မွေးနေ့ပွဲ",
+"ja": "誕生会",
+"en": "Birthday party",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဖျော်ဖြေပွဲ",
+"ja": "演奏会",
+"en": "Concert",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပန်းအလှပြင်ခြင်း",
+"ja": "生け花",
+"en": "Japanese flower arrangement",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စုတ်တံဖြင့်စာရေးခြင်း",
+"ja": "書道",
+"en": "Calligraphy",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရုပ်ရှင်",
+"ja": "映画",
+"en": "Movies",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကာရာအိုကေ",
+"ja": "カラオケ",
+"en": "Karaoke",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပါဝင်ဆင်နွှဲခြင်း",
+"ja": "参加",
+"en": "Participating",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မပါဝင်ခြင်း",
+"ja": "不参加",
+"en": "Not participating",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ဝက်တစ်ပျက် ပါဝင်ဆင်နွှဲခြင်း",
+"ja": "途中参加（一部実施）",
+"en": "Partial participation (partial implementation)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ဝက်တစ်ပျက်မှ ထွက်သွားခြင်း",
+"ja": "途中退出",
+"en": "Dropout midway",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နာရီ",
+"ja": "時",
+"en": "Hour",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မိနစ်",
+"ja": "分",
+"en": "Minute",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကြိတ်စက်ဖြင့်ချေထားသည့်အစာ",
+"ja": "ミキサー食",
+"en": "Blenderized food",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ဦးချင်းဆီ ပြန်လည်သန်စွမ်းရေး",
+"ja": "個別リハビリ",
+"en": "Individual rehabilitation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နေ့စဉ်ဆောင်ရွက်မှုများပြန်လုပ်နိုင်ရန် ပြန်လည်သန်စွမ်းရေး",
+"ja": "生活リハビリ",
+"en": "Rehabilitation to return to everyday activities",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဆစ်နေရာပြန်လည်လှုပ်ရှားနိုင်ရန်လေ့ကျင့်ခြင်း",
+"ja": "関節可動域訓練",
+"en": "Range of motion exercises",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်လုတ်စာအရွယ်အစား",
+"ja": "一口大",
+"en": "Bite-sized",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကြွက်သားသန်မာရန်လေ့ကျင့်ခြင်း",
+"ja": "筋力トレーニング",
+"en": "Strength training",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အခြေခံလှုပ်ရှားမှုလေ့ကျင့်ခြင်း",
+"ja": "基本動作訓練",
+"en": "Basic activity training",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တုန့်ပြန်မှုပေးနိုင်ရန်လေ့ကျင့်ခြင်း",
+"ja": "促通訓練",
+"en": "Neuromuscular facilitation training",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လမ်းလျှောက်လေ့ကျင့်ခြင်း",
+"ja": "歩行訓練",
+"en": "Gait training",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဘီးတပ်ကုလားထိုင်ဖြင့်သွားလာနိုင်ရန်လေ့ကျင့်ခြင်း",
+"ja": "車椅子駆動訓練",
+"en": "Wheelchair use training",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ADL လေ့ကျင့်ခြင်း",
+"ja": "ＡＤＬ訓練",
+"en": "ADL training",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လေ့ကျင့်ခန်းအသုံးအဆောင်များသုံးပြီး ပြန်လည်ထူထောင်စေခြင်း",
+"ja": "パワーリハ",
+"en": "Rehabilitation using exercise equipment",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လှေကားထစ် အတက်အဆင်း လေ့ကျင့်ခြင်း",
+"ja": "階段昇降訓練",
+"en": "Stairs training",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိမ်ပြင်ပလမ်းလျှောက်လေ့ကျင့်ခြင်း",
+"ja": "屋外歩行訓練",
+"en": "Walking outdoors",
+"src": "SST_M_VALUE"
+},
+{
+"my": "SSP",
+"ja": "ＳＳＰ",
+"en": "SSP",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အပူအိတ်",
+"ja": "ホットパック",
+"en": "Heat pack",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နှိပ်ခြင်း",
+"ja": "マッサージ",
+"en": "Massage",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေကိုအသုံးပြု နှိပ်ခြင်း",
+"ja": "アクアシエスタ",
+"en": "Hydro massage bed",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခန္ဓာကိုယ်အစိတ်အပိုင်းတစ်နေရာကို စက်ဖြင့်ဆွဲခြင်း",
+"ja": "介達牽引",
+"en": "Indirect traction",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လေဖိအားဖြင့် ခြေထောက်နှိပ်ခြင်း",
+"ja": "メドマ",
+"en": "Air compression leg massage",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မိုက်ခရိုဝေ့ အသုံးပြုကုသခြင်း",
+"ja": "マイクロ波",
+"en": "Microwave diathermy",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေခဲအုပ်ခြင်း",
+"ja": "アイシング",
+"en": "Icing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကာယကံရှင်၏ အဆင်ပြေမှု မပြေမှု",
+"ja": "本人の都合",
+"en": "At the individual's convenience",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အမြှုပ်ထွက်အောင်ပြုလုပ်ခြင်း",
+"ja": "ムース",
+"en": "Pureed food",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နေထိုင်မကောင်းခြင်း",
+"ja": "体調不良",
+"en": "Ill health",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြင်ပလှုပ်ရှားမှု",
+"ja": "園外活動",
+"en": "Off-site activities",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သီချင်း",
+"ja": "歌",
+"en": "Singing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အသံထုတ်အော်လေ့ကျင်ခန်း",
+"ja": "発声練習",
+"en": "Vocal exercises",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခံတွင်းလှုပ်ရှားမှုလေ့ကျင့်ခြင်း",
+"ja": "口腔体操",
+"en": "Oral cavity exercises",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လမ်းလျှောက်ခြင်း",
+"ja": "散歩",
+"en": "Walking",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စိုက်ခင်းအလုပ်",
+"ja": "畑仕事",
+"en": "Gardening",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဦးနှောက်လေ့ကျင့်ခန်း",
+"ja": "脳トレ",
+"en": "Mental workouts",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကော်",
+"ja": "ペースト",
+"en": "Liquefied food",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကတ်ကစားခြင်း",
+"ja": "カードゲーム",
+"en": "Card games",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြက္ခဒိန်",
+"ja": "カレンダー",
+"en": "Calendar",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြက္ခဒိန်အကြီး",
+"ja": "大カレンダー",
+"en": "Giant calendar",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကျားကွက်ကစားခြင်း/ကျားထိုးကစားခြင်း",
+"ja": "将棋",
+"en": "Japanese chess",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဂိုကစားခြင်း",
+"ja": "囲碁",
+"en": "Go",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဖောင်တိန်ဖြင့်စာရေးခြင်း",
+"ja": "ペン習字",
+"en": "Penmanship",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံပါသောပို့စကတ်",
+"ja": "絵手紙",
+"en": "Hand-drawn postcards",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပါဇယ်လ်ကစားခြင်း",
+"ja": "パズル",
+"en": "Puzzles",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပမာဏအားလုံး",
+"ja": "全量",
+"en": "Total amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခါရုတာကတ်ကစားခြင်း",
+"ja": "カルタ",
+"en": "Japanese playing cards",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သီချင်းပါသောခါရုတာကတ်",
+"ja": "歌カルタ",
+"en": "Poetry playing cards",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဘော်လုံးဂိမ်း",
+"ja": "ボールレク",
+"en": "Ball games",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လျှော်ဖွတ်ထားသည့်အဝတ်ကိုခေါက်ခြင်း",
+"ja": "洗濯物たたみ",
+"en": "Folding laundry",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လျှော်ဖွတ်ထားသည့်အဝတ်ကိုနေလှန်းခြင်း",
+"ja": "洗濯物干し",
+"en": "Airing out laundry",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်သုပ်အဝတ်ခေါက်လိပ်ခြင်း",
+"ja": "おしぼり巻き",
+"en": "Rolling hand towels",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကျန်းမာရေးစီမံခန့်ခွဲသည့်ဇယား",
+"ja": "健康管理表",
+"en": "Health management chart",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သေးငယ်သောအသုံးအဆောင်ပစ္စည်းပြုလုပ်ခြင်း",
+"ja": "小物作り",
+"en": "Arts and crafts",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မုန့်ပြုလုပ်ခြင်း",
+"ja": "おやつ作り",
+"en": "Making snacks",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၃ပုံ၂ပုံ",
+"ja": "３分の２",
+"en": "2/3",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကဗျာရွတ်ဆိုပွဲ",
+"ja": "詩吟",
+"en": "Poem recitation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စက္ကူအရုပ်ချိုးခြင်း",
+"ja": "折り紙",
+"en": "Origami",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရုပ်ပုံစာအုပ်ဆေးချယ်ခြင်း",
+"ja": "塗り絵",
+"en": "Adult coloring books",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရာသီအလိုက်ပွဲတော်",
+"ja": "季節イベント",
+"en": "Seasonal event",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အပြင်ထွက်ခြင်း",
+"ja": "外出",
+"en": "Outing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အပျော်ကားမောင်းခြင်း",
+"ja": "ドライブ",
+"en": "Driving",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ညအိပ်အပြင်ထွက်ခြင်း",
+"ja": "外泊",
+"en": "Sleep over",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၂ပုံ၁ပုံ",
+"ja": "２分の１",
+"en": "1/2",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နေ့",
+"ja": "日",
+"en": "Day",
+"src": "SST_M_VALUE"
+},
+{
+"my": "→အပြင်သွားသည့်အခါဝတ်သည့် အဝတ်အစား",
+"ja": "→外出着",
+"en": "→Street clothes",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၃ပုံ၁ပုံ",
+"ja": "３分の１",
+"en": "1/3",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မိမိဘာသာလုပ်ကိုင်နိုင်ခြင်း",
+"ja": "自立",
+"en": "Independence",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သား",
+"ja": "息子",
+"en": "Son",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သမီး",
+"ja": "娘",
+"en": "Daughter",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မိသားစု",
+"ja": "家族",
+"en": "Family",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အနည်းဆုံးသောပမာဏ",
+"ja": "極少量",
+"en": "Minimal amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆွေမျိုး",
+"ja": "親戚",
+"en": "Relative",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မိတ်ဆွေ",
+"ja": "友人",
+"en": "Friend",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စမ်းသပ်မှုခံယူခြင်း",
+"ja": "受診",
+"en": "Seen by medical facility",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးရုံတက်ခြင်း",
+"ja": "入院",
+"en": "Admission",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြွန်ဖြင့်အစာထည့်ခြင်း",
+"ja": "経管栄養",
+"en": "Tube feeding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နှာခေါင်းမှအစာထည့်ခြင်း",
+"ja": "経鼻栄養",
+"en": "Nasogastric feeding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာစားရာတွင်ကူညီပေးခြင်း",
+"ja": "摂食介助",
+"en": "Assistance eating",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာမျိုချခြင်းလေ့ကျင့်ခန်း",
+"ja": "摂食嚥下訓練",
+"en": "Swallowing training",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လိုအပ်သည့်အခါဆေးပေးခြင်း",
+"ja": "臨時与薬",
+"en": "Provisionally administered medication",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သတ်မှတ်ထားသည့်အချိန်ဆေးပေးခြင်း",
+"ja": "定時与薬",
+"en": "Regularly administered medication",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အင်ဆူလင်ထိုးခြင်း",
+"ja": "インスリン注射",
+"en": "Insulin injection",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဂလူးကို့စ်သောက်ခြင်း",
+"ja": "ブドウ糖服用",
+"en": "Taking glucose",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မူးယစ်ဆေး",
+"ja": "麻薬",
+"en": "Narcotic",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နှာခေါင်းမှဆေးအစက်ချခြင်း",
+"ja": "点鼻",
+"en": "Nasal drops",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရှူသွင်းခြင်း",
+"ja": "吸入",
+"en": "Inhalation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အောက်ဆီဂျင်",
+"ja": "酸素",
+"en": "Oxygen",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိမ်မှာအောက်ဆီဂျင်ပေးခြင်း",
+"ja": "在宅酸素",
+"en": "Home oxygen",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ချွဲအဖြူရောင်",
+"ja": "白色痰",
+"en": "White phlegm",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ချွဲအဝါရောင်",
+"ja": "黄色痰",
+"en": "Yellow phlegm",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ချွဲအစိမ်းရောင်",
+"ja": "緑色痰",
+"en": "Green phlegm",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၉၀ ရာခိုင်နှုန်း",
+"ja": "9割",
+"en": "0.9",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ချွဲအဖြူအကြည်",
+"ja": "透明な痰",
+"en": "Clear sputum",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အရည်ကျဲသောတံတွေး",
+"ja": "水様？唾液",
+"en": "Watery saliva",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြစ်သောချွဲသလိပ်",
+"ja": "粘ちょう痰",
+"en": "Viscous phlegm",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မနည်းမများပမာဏ",
+"ja": "中等量",
+"en": "Intermediate amount",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေနွေးဖြင့်ကုသနည်း",
+"ja": "温罨法",
+"en": "Warm compress",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အအေးဓါတ်ဖြင့်ကုသနည်း",
+"ja": "クーリング",
+"en": "Cooling",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခန္ဓာကိုယ်အောက်ပိုင်းနှိပ်ခြင်း",
+"ja": "下肢リンパマッサージ",
+"en": "Lymphatic drainage massage of the legs",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၈၀ ရာခိုင်နှုန်း",
+"ja": "8割",
+"en": "0.8",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကျုံ့နိုင်ဆန့်နိုင်သောပတ်တီးအသုံးပြုခြင်း",
+"ja": "弾性包帯ケア",
+"en": "Elastic bandage application",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဂရုတစိုက်နားထောင်ခြင်း",
+"ja": "傾聴",
+"en": "Attentive listening",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မိမိဘာသာ အင်ဆူလင်ဆေးထိုးရန်သင်ပေးခြင်း",
+"ja": "インスリン自己注射指導",
+"en": "Instructions on how to self-inject insulin",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံမှန်ကုသမှု",
+"ja": "定期処置",
+"en": "Regular treatment",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရှေးဦးသူနာပြုကုသမှု",
+"ja": "応急処置",
+"en": "First aid",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ထိခိုက်ရှနာများအတွက် ကုသမှု",
+"ja": "カット判処置",
+"en": "Antiseptic for cuts and scrapes",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပတ်တီးပိတ်ပါးသုံးကုသခြင်း",
+"ja": "ガーゼ処置",
+"en": "Application of gauze",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လိမ်းဆေးခြင့်ကုသခြင်း",
+"ja": "軟膏処置",
+"en": "Application of an ointment",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၇၀ ရာခိုင်နှုန်း",
+"ja": "7割",
+"en": "0.7",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အနာကိုဆေးထည့်ပတ်တီးစည်းကုသပေးခြင်း",
+"ja": "ドレッシング剤処置",
+"en": "Application of a dressing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်ဖြင့်ဝမ်းချူခြင်း",
+"ja": "摘便",
+"en": "Disimpaction",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဘော်လုံးလဲခြင်း",
+"ja": "バルン交換",
+"en": "Balloon replacement",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆီးပိုက်ထည့်ခြင်း",
+"ja": "導尿",
+"en": "Catheterization",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဗိုက်ကိုနှိပ်နယ်ခြင်း",
+"ja": "腹部マッサージ",
+"en": "Abdominal massage",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆီးအိမ်ကိုဆေးခြင်း",
+"ja": "膀胱洗浄",
+"en": "Bladder irrigation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နို့ညှစ်ခြင်း",
+"ja": "ミルキング",
+"en": "Milking",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သန့်ရှင်းရေးလုပ်ပေးခြင်း",
+"ja": "清拭",
+"en": "Sponge bath",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခြေထောက်ဆေးကြောသန့်စင်ခြင်း",
+"ja": "足浴",
+"en": "Foot bath",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွေးထဲတွင်သကြားဓါတ်နည်းခြင်းမဖြစ်ပေါ်",
+"ja": "低血糖発作なし",
+"en": "No hypoglycemic episodes",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွေးထဲတွင်သကြားဓါတ်နည်းခြင်းဖြစ်ပေါ်",
+"ja": "低血糖発作あり",
+"en": "Hypoglycemic episodes",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဖြစ်ဖူးသောရောဂါမေးမြန်းခြင်း",
+"ja": "病歴聞き取り",
+"en": "Interview a medical history",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးဝါးမှတ်တမ်းအတည်ပြုခြင်း",
+"ja": "薬情報確認",
+"en": "Checking medication information",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မိသားစုအားမေးမြန်းခြင်း",
+"ja": "家族聞きとり",
+"en": "Family interview",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နာကျင်မှု မရှိ",
+"ja": "痛みなし",
+"en": "No pain",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နာကျင်မှု ရှိ",
+"ja": "痛みあり",
+"en": "Painful",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လှုပ်ရှားမှု ပြုလုပ်စဉ်နာကျင်မှု မရှိ",
+"ja": "可動時疼痛なし",
+"en": "No pain during motion",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လှုပ်ရှားမှု ပြုလုပ်စဉ်နာကျင်မှု ရှိ",
+"ja": "可動時疼痛あり",
+"en": "Pain during motion",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွေးထွက်ခြင်းမရှိ",
+"ja": "出血なし",
+"en": "No bleeding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွေးထွက်ခြင်းရှိ",
+"ja": "出血あり",
+"en": "Bleeding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လှုပ်ရှားမှုအကန့်အသတ်ရှိ",
+"ja": "可動制限あり",
+"en": "Restricted motion",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မလှုပ်ရှားနိုင်",
+"ja": "可動不可",
+"en": "Unable to move",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မတ်တပ်ရပ်နိုင်",
+"ja": "立位可",
+"en": "Able to stand",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မတ်တပ်မရပ်နိုင်",
+"ja": "立位不可",
+"en": "Unable to stand",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေချိုးမရပါ၊ ရေချိုးခွင့်မပြု",
+"ja": "入浴不可",
+"en": "Bathing not possible",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေပန်းချိုးခြင်းသို့ပြောင်းလဲခြင်း",
+"ja": "シャワー浴に変更",
+"en": "Changed to a shower",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေပတ်တိုက်သည့်အဆင့်သို့ပြောင်းလဲခြင်း",
+"ja": "清拭に変更",
+"en": "Changed to a sponge bath",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ချွဲသလိပ်သံ",
+"ja": "ゴロ音",
+"en": "Rumbling or rattling sounds",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာနင်ခြင်း၊ အစာလမ်းကြောင်းမှားခြင်း",
+"ja": "誤嚥",
+"en": "Aspiration",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အသက်ရှုကြပ်ခြင်း",
+"ja": "窒息",
+"en": "Asphyxia",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သလိပ်ကိုစုပ်ထုတ်ခြင်း",
+"ja": "吸痰",
+"en": "Aspirated sputum",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်ဖြင့်ပုတ်ပေးခြင်း",
+"ja": "タッピング",
+"en": "Tapping",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စက်ဖြင့်ရှူရသည့် ရှူဆေး",
+"ja": "ネブライザー",
+"en": "Nebulizer",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဖြစ်ပေါ်သည့်အချိန်အစီအရင်ခံခြင်း",
+"ja": "発生時報告",
+"en": "Initial report",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တိုးတက်မှုအခြေအနေအစီအရင်ခံခြင်း",
+"ja": "経過報告",
+"en": "Progress report",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နောက်ဆုံးသတင်းပို့ခြင်း",
+"ja": "最終報告",
+"en": "Final report",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လ",
+"ja": "月",
+"en": "Month",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရက်",
+"ja": "日",
+"en": "Day",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကာယကံရှင်",
+"ja": "本人",
+"en": "The individual",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပန်းထိုးခြင်း",
+"ja": "生け花",
+"en": "Japanese flower arrangement",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်ဖက်ရည်သောက်ခြင်း",
+"ja": "喫茶",
+"en": "Tea drinking",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အလှအတွက်ပြုလုပ်ခြင်း",
+"ja": "エステ",
+"en": "Beauty salon treatment",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နှစ်သစ်ကိုဂုဏ်ပြုခြင်း",
+"ja": "新年のお祝い",
+"en": "New Year's celebrations",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နှစ်သစ်မှာ ပထမဦးဆုံး ဘုရားကျောင်းသို့ သွားရောက်ကန်တော့ခြင်း",
+"ja": "初詣",
+"en": "A temple visit at the beginning of the New Year",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆယ်ဆုဘွန်း နွေဦးရာသီမရောက်မီပြုလုပ်သည့်ပဲစေ့ကြဲသည့်ပွဲ",
+"ja": "節分",
+"en": "The last day of winter",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အရုပ်ပွဲတော်",
+"ja": "ひなまつり",
+"en": "Doll festival",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မက်မုံပန်းကြည့်သည့်ပွဲတော်",
+"ja": "梅花見",
+"en": "Plum blossom viewing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ချယ်ရီပန်းကြည့်သည့်ပွဲတော်",
+"ja": "桜花見",
+"en": "Cherry blossom viewing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သက်ကြီး ဂေါက်ရိုက်ပွဲ",
+"ja": "グランドゴルフ",
+"en": "Elderly Ground Golf",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိုင်းရစ်ပန်းကြည့်သည့်ပွဲတော်",
+"ja": "菖蒲花見",
+"en": "Iris blossom viewing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကြယ်ပွဲတော်",
+"ja": "七夕",
+"en": "Star festival",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဒိုရောအုရှိ နေ့",
+"ja": "土用丑の日",
+"en": "Midsummer Day of the Ox",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိုဘွန်းပွဲတော်အက",
+"ja": "盆踊り",
+"en": "Obon dance festival",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နွေရာသီပွဲတော်",
+"ja": "夏祭り",
+"en": "Summer festival",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သက်ကြီးရွယ်အိုများကိုလေးစားဂုဏ်ပြုသည့်ပွဲ",
+"ja": "敬老会",
+"en": "Event for senior citizens",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အားကစားပွဲ",
+"ja": "運動会",
+"en": "Sports day",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာမစားခြင်း",
+"ja": "絶食",
+"en": "Fasting",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ညအိပ်ခရီးသွားခြင်း",
+"ja": "一泊旅行",
+"en": "Overnight trip",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နေ့ချင်းပြန်ခရီးသွားခြင်း",
+"ja": "日帰り旅行",
+"en": "Day trip",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စားပွဲ",
+"ja": "食事会",
+"en": "Dinner party",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခရစ်စမတ်ပွဲတော်",
+"ja": "クリスマス会",
+"en": "Christmas party",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကောက်ညှင်းထောင်းခြင်း",
+"ja": "もちつき",
+"en": "Rice-cake making",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လုပ်ဆောင်ချက်အလိုက်လေ့ကျင့်ခြင်း",
+"ja": "機能訓練",
+"en": "Functional training",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စည်းချက်နှင့်အညီ ပြုလုပ်သည့် ကိုယ်လက်လှုပ်ရှားအားကစား",
+"ja": "リズム体操",
+"en": "Rhythm exercises",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေဒီယို ကိုယ်လက်လှုပ်ရှားအားကစား",
+"ja": "ラジオ体操",
+"en": "Radio exercises",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နှိပ်နယ်ခြင်း",
+"ja": "マッサージ",
+"en": "Massage",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဆစ်အမြစ်များလှုပ်ရှားနိုင်ရန်လေ့ကျင့်ပေးခြင်း",
+"ja": "関節可動域訓練",
+"en": "Range of motion exercises",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကနဦးအစီအရင်ခံခြင်း",
+"ja": "発生時報告",
+"en": "Initial report",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မတော်တဆထိခိုက်မှု",
+"ja": "事故",
+"en": "Accident",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးကုသမှုမှားယွင်းခြင်း",
+"ja": "ヒヤリハット",
+"en": "Nearly a collision",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အရေးပေါ်ကုသမှုနှင့်ပတ်သက်ပြီး တုန့်ပြန်ဆောင်ရွက်မှု",
+"ja": "緊急時対応",
+"en": "Responding to an emergency",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကူးစက်ရောဂါနှင့်ပတ်သက်ပြီး တုန့်ပြန်ဆောင်ရွက်မှု",
+"ja": "感染症対応",
+"en": "Responding to an infection",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ချော်လဲခြင်း/လဲကျခြင်း",
+"ja": "転倒？転落",
+"en": "Toppling over /Fall",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စိတ်ဒဏ်ရာ",
+"ja": "外傷",
+"en": "Trauma",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခန္ဓာကိုယ်တွင်းသွေးယိုစီးခြင်း",
+"ja": "内出血",
+"en": "Internal bleeding",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဖျားတက်ခြင်း",
+"ja": "発熱",
+"en": "Fever",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးမှားခြင်း",
+"ja": "誤薬",
+"en": "Administration of wrong medication",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးသောက်သုံးမှုလက်လွတ်သွားခြင်း",
+"ja": "落薬",
+"en": "Missed administration medication",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အရေးကြီးသော ပုံမှန်မဟုတ်သည့် လက္ခဏာများ",
+"ja": "バイタル値異常",
+"en": "Abnormal vital signs",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၂ပုံ ၁ပုံ",
+"ja": "２分の１",
+"en": "1/2",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သက်ဆိုင်ရာဒါရိုက်တာ၏အစီအရင်ခံစာ",
+"ja": "ホーム長報告",
+"en": "Report by facility director",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြုစုမှုကိုတောင်းဆိုခြင်း (အစီရင်ခံခြင်း)",
+"ja": "看護対応依頼（報告）",
+"en": "Requested care (report)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆရာဝန်ကိုခေါ်ခြင်း",
+"ja": "Drコール",
+"en": "Physician notified",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အာမခံသူ သို့မဟုတ် ဆက်သွယ်ရမည့်အိမ်သား",
+"ja": "身元引受人？家族連絡",
+"en": "Guarantor or family contact",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တိုးတက်မှုအားအနီးကပ်စောင့်ကြည့်ခြင်း",
+"ja": "経過観察",
+"en": "Follow-up",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၃ပုံ ၁ပုံ",
+"ja": "３分の１",
+"en": "1/3",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လိုအပ်သည့်အချိန် အိမ်တိုင်ရာရောက်ကုသခြင်း",
+"ja": "臨時往診",
+"en": "Interim house call",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တိုးတက်မှုအားအနီးကပ်စောင့်ကြည့်ပြီးနောက်",
+"ja": "経過観察後受診",
+"en": "Seen by a medical facility after follow-up",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အရေးပေါ်ပို့ဆောင်ခြင်း",
+"ja": "救急搬送",
+"en": "Emergency transport",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မျှော်မှန်းချက်",
+"ja": "吸引",
+"en": "Aspiration",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အသက်ရှူစက်",
+"ja": "人工呼吸",
+"en": "Mechanical ventilation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လေပြွန်ပွင့်အောင်ပြုလုပ်ခြင်း",
+"ja": "気道確保",
+"en": "Maintaining an airway",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နှလုံးဖိနှိပ်ပေးခြင်း",
+"ja": "心臓マッサージ",
+"en": "Heart massage",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လက်တွေ့အကောင်အထည်ဖော်ပြီးသော အစီအစဉ်များ",
+"ja": "対策実施済",
+"en": "Response measures have been implemented",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ထည့်သွင်းစဉ်းစားခြင်းပင်မပြုရသေးသော",
+"ja": "対策検討も未実施",
+"en": "Response measures have not been considered",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကြိုတင်ခန့်မှန်းထားသောလည်း အစီအစဉ်မဆွဲရသေးခြင်း",
+"ja": "予測していたが対策未検討",
+"en": "Predicted but response measures still under consideration",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကြိုတင်မှန်းမရသော",
+"ja": "予測できなかった",
+"en": "Unpredictable",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရုပ်ပိုင်းဆိုင်ရာ အကြောင်းအချက်",
+"ja": "身体的要因",
+"en": "Physical factors",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စိတ်ပိုင်းဆိုင်ရာ အကြောင်းအချက်",
+"ja": "心理的要因",
+"en": "Psychological factors",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပတ်ဝန်းကျင်ဆိုင်ရာ အကြောင်းအချက်",
+"ja": "環境的要因",
+"en": "Environmental factors",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပညာပေးရေးဆိုင်ရာ အကြောင်းအချက်",
+"ja": "教育的要因",
+"en": "Educational factors",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးရုံမှဆင်းခြင်း",
+"ja": "退院",
+"en": "Discharge",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နမိုးနီးယား",
+"ja": "肺炎",
+"en": "Pneumonia",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆီးလမ်းကြောင်းပိုးဝင်ခြင်း",
+"ja": "尿路感染",
+"en": "Urinary tract infection",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အာဟာရဓာတ်နည်းခြင်း",
+"ja": "栄養低下",
+"en": "Undernutrition",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဖျားရှိခြင်း",
+"ja": "発熱",
+"en": "Fever",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေဓါတ်ခမ်းခြောက်ခြင်း",
+"ja": "脱水",
+"en": "Dehydration",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးရံုံတက်ခြင်း",
+"ja": "入院",
+"en": "Admission",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကျန်းမာရေးဆေးစစ်ခြင်း",
+"ja": "健康診断",
+"en": "Medical checkup",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၁၀ဝ% ရာခိုင်နှုန်း",
+"ja": "10割",
+"en": "1.0",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အထူး အချိန်",
+"ja": "臨時",
+"en": "Provisional",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စစ်ဆေးမှု",
+"ja": "検査",
+"en": "Examination",
+"src": "SST_M_VALUE"
+},
+{
+"my": "PEG ပိုက်လဲလှယ်ခြင်း",
+"ja": "ＰＥＧ交換",
+"en": "Changing a PEG tube dressing",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကုသမှု",
+"ja": "治療",
+"en": "Treatment",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပြုစုကုသမှုအကျဉ်းချုပ်တင်ပြမှု",
+"ja": "看護サマリー提供",
+"en": "Providing a care summary",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သတင်းအချက်အလက်ပေးခြင်း",
+"ja": "情報提供",
+"en": "Providing information",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သတင်းအချက်အလက်စုဆောင်းခြင်း",
+"ja": "情報収集",
+"en": "Gathering information",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးရုံဆင်းရန်ပြင်ဆင်ခြင်း",
+"ja": "退院受け入れ準備訪問",
+"en": "Visit in preparation for acceptance after discharge",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးရုံမဆင်းမီ ကွန်ဖရင့်ဆွေးနွေးခြင်း",
+"ja": "退院前カンファレンス",
+"en": "Pre-discharge conference",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခန္ဓာကိုယ်အတွင်းပိုင်းရောဂါကုဌာန",
+"ja": "内科",
+"en": "Internal Medicine",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အရိုးကုသခြင်း",
+"ja": "整形",
+"en": "Orthopedics",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မျက်စေ့ဌာန",
+"ja": "眼科",
+"en": "Ophthalmology",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သားဖွားမီးယပ်ဌာန",
+"ja": "婦人科",
+"en": "Gynecology",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဦးနှောက်နှင့်အာရုံကြော(အတွင်းခွဲစိတ်)",
+"ja": "脳神経(内？外)",
+"en": "Neurology/Neurosurgery",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အရေပြားဌာန",
+"ja": "皮膚科",
+"en": "Dermatology",
+"src": "SST_M_VALUE"
+},
+{
+"my": "တစ်ဦးချင်းဆီ သွားရောက်ကုသခြင်း",
+"ja": "個別往診",
+"en": "Private house call",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အထူးအချိန်သွားရောက်ကုသခြင်း",
+"ja": "臨時往診",
+"en": "Interim house call",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အဖွဲ့အစည်းအလိုက် သွားရောက်ကုသခြင်း",
+"ja": "集団往診",
+"en": "Facility visit",
+"src": "SST_M_VALUE"
+},
+{
+"my": "နေ့ရက်အလိုက်ကုသမည့် ဆရာဝန်အကြောင်း ရှင်းပြခြင်း",
+"ja": "医師情報提供",
+"en": "Provision of physician information",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သောက်ရမည့်ဆေးကိုညွှန်ကြားခြင်း",
+"ja": "薬剤指示",
+"en": "Ordered medication",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သူနာပြု၏ညွှန်ကြားချက်များ",
+"ja": "看護師指示",
+"en": "Nurses' orders",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကာယကံရှင်ကိုရှင်းပြခြင်းနှင့် ညွှန်ကြားခြင်း",
+"ja": "本人説明？指示",
+"en": "Explanation and orders given to the individual",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အကြောဆေးသွင်းခြင်း",
+"ja": "点滴",
+"en": "Intravenous infusion",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွေးဖောက်ယူခြင်း",
+"ja": "採血",
+"en": "Taking blood",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကာကွယ်ဆေးထိုးခြင်း",
+"ja": "予防接種",
+"en": "Vaccination",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အာမခံသူ",
+"ja": "身元引受人",
+"en": "Guarantor",
+"src": "SST_M_VALUE"
+},
+{
+"my": "မိသားစုဆရာဝန်၊ အမြဲပြသသည့်ဆရာဝန်",
+"ja": "かかりつけ医",
+"en": "Primary physician",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွားရောက်ကုသသည့်သွားဆရာဝန်",
+"ja": "協力訪問歯科",
+"en": "Coordinated visit by dentist",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံမှန် ဆေးစာ",
+"ja": "定期処方",
+"en": "Regularly prescribed",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အထူး ဆေးစာ",
+"ja": "臨時処方",
+"en": "Prescribed provisionally",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဆေးစာပြောင်းလဲခြင်း",
+"ja": "処方変更",
+"en": "Change in a prescription",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သောက်ရမည့်ဆေးအကြောင်းရှင်းပြခြင်းနှင့် ဆေးသောက်ပုံကိုရှင်းပြခြင်း (ဆေးရောင်းသူ)",
+"ja": "薬剤説明？服薬指導（薬剤師）",
+"en": "Explanation of medication and instruction in taking it (pharmacist)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပါးစပ်မှ ဆေးသောက်ခြင်း",
+"ja": "経口摂取",
+"en": "Oral intake",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာပိုက်မှ အစာထည့်ပေးခြင်း (အစာအိမ်ဖောက်ပြီးထည့်ထားသောပိုက်)",
+"ja": "経管栄養（胃ろう）",
+"en": "Tube feeding (gastrostomy tube)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စာရင်းသွင်းသောပမာဏ",
+"ja": "数字入力量",
+"en": "Amount entered",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စားသုံးသောကယ်လိုရီ စာရင်းသွင်းခြင်း",
+"ja": "数字入力摂取カロリー",
+"en": "Caloric intake entered",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အစာအိမ်ဖောက်ပြီးထည့်ထားသောပိုက် ယိုစိမ့်ခြင်း",
+"ja": "胃ろう漏れあり",
+"en": "Gastrostomy tube leakage",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပုံမှန် လှည့်ပတ်ခြင်း",
+"ja": "定時巡視",
+"en": "Regular checks",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သူနာပြုခေါ်ခြင်း",
+"ja": "ナースコール",
+"en": "Nurse notified",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သူနာပြုခေါ်ရန် အသံပြုစက်ပါသည့်ဖျာ",
+"ja": "コールマット",
+"en": "Nurse call mat",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကျန်းမာရေးနှင့် ဖူလုံရေးစစ်ဆေးမှု",
+"ja": "様子確認",
+"en": "Health and welfare check",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိပ်ပျော်ခြင်း",
+"ja": "入眠",
+"en": "Falling asleep",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အိပ်ယာ (သတိရလာခြင်း)",
+"ja": "臥床（覚醒）",
+"en": "Bedbound (awake)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရွေ့လျားမှု (လှုပ်ရှားမှု)",
+"ja": "離床（活動）",
+"en": "Mobile (active)",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ညာဖက်စောင်းလှဲခြင်း",
+"ja": "右側臥位",
+"en": "Right lateral position",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဘယ်ဖက်စောင်းလှဲခြင်း",
+"ja": "左側臥位",
+"en": "Left lateral position",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ပက်လက်လှန်လှဲခြင်း",
+"ja": "仰臥位",
+"en": "Supine position",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခြေထောက် မြှောက်ခြင်း",
+"ja": "下肢挙上",
+"en": "Legs elevated",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဦးခေါင်း မြှင့်ခြင်း",
+"ja": "頭部挙上",
+"en": "Head elevated",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အခန်းတွင်းအပူချိန်ညှိခြင်း",
+"ja": "室温調整",
+"en": "Room temperature adjusted",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အခန်းတွင်း စိုထိုင်းမှု ညှိခြင်း",
+"ja": "湿度調整",
+"en": "Humidity adjusted",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အလင်းရောင်အတိုးအလျော့လုပ်ပေးခြင်း",
+"ja": "照度調整",
+"en": "Lighting adjusted",
+"src": "SST_M_VALUE"
+},
+{
+"my": "လေဝင်လေထွက်",
+"ja": "換気",
+"en": "Ventilation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ခေါင်းကိုက်ခြင်း",
+"ja": "頭痛",
+"en": "Headaches",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရင်အောင့်ခြင်း",
+"ja": "胸痛",
+"en": "Chest pain",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဗိုက်နာခြင်း",
+"ja": "腹痛",
+"en": "Abdominal pain",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အန်ချင်စိတ်",
+"ja": "嘔気",
+"en": "Nausea",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အသက်ရှူကြပ်ခြင်း",
+"ja": "窒息",
+"en": "Asphyxia",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သတိလစ်ခြင်း",
+"ja": "意識消失",
+"en": "Loss of consciousness",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဝမ်းချုပ်ခြင်း",
+"ja": "便秘",
+"en": "Constipation",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဝမ်းလျှောခြင်း",
+"ja": "下痢",
+"en": "Diarrhea",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ချွေးထွက်ခြင်း",
+"ja": "発汗",
+"en": "Sweating",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ကိုယ်အပူချိန် တိုင်းခြင်း",
+"ja": "体温測定",
+"en": "Temperature taken",
+"src": "SST_M_VALUE"
+},
+{
+"my": "သွေးဖိအားတိုင်းခြင်း",
+"ja": "血圧測定",
+"en": "Blood pressure checked",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အရေးကြီးလက္ခဏာရပ်များကို စစ်ဆေးခြင်း",
+"ja": "バイタル測定",
+"en": "Vital signs checked",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ဝမ်းဗိုက် နှိပ်နယ်ခြင်း",
+"ja": "腹部マッサージ",
+"en": "Abdominal massage",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေပတ်တိုက်ခြင်း",
+"ja": "清拭",
+"en": "Sponge bath",
+"src": "SST_M_VALUE"
+},
+{
+"my": "ရေဓာတ်ဖြည့်စွက်ခြင်း",
+"ja": "水分補給",
+"en": "Replenishing liquids",
+"src": "SST_M_VALUE"
+},
+{
+"my": "စစ်ဆေးမှုခံယူခြင်း",
+"ja": "受診",
+"en": "Seen by medical facility",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အသက်ရှူအထောက်အကူ",
+"ja": "アンビュー",
+"en": "Bag valve mask",
+"src": "SST_M_VALUE"
+},
+{
+"my": "အရေးပေါ်သယ်ယူပို့ဆောင်ခြင်း",
+"ja": "救急搬送",
+"en": "Emergency transport",
+"src": "SST_M_VALUE"
+},
+{
+"my": "၁၀ဝ ရာခိုင်နှုန်း",
+"ja": "10割",
+"en": "1.0",
+"src": "SST_M_VALUE"
+}
+]
