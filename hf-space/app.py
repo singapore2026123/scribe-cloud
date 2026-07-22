@@ -1,6 +1,8 @@
 """Scribe Burmese + Tamil + Chinese ASR microservice.
-Primary: Dolphin-small (DataoceanAI) — language-specialised ASR for Burmese (my/MM), Tamil (ta/IN) and
-Chinese Mandarin (zh/CN; Dolphin is a Chinese-specialist model). Fallback: SeamlessM4T v2 if Dolphin can't load/run.
+Burmese (my): MMS (facebook/mms-1b-all, 'mya' adapter) is PRIMARY — benchmarked on real KWSH care speech at
+74.4% char / 51.4% digit accuracy, beating Dolphin (56.1% / 37.1%) and Whisper (~0%). Dolphin-small then
+SeamlessM4T v2 are fallbacks. Set env SCRIBE_MY_ENGINE=dolphin to revert Burmese to Dolphin-primary.
+Tamil (ta/IN) and Chinese (zh/CN, Cantonese, Hokkien): Dolphin-small (language-specialised) -> SeamlessM4T v2.
 Translation via Google Translate (free, no budget). Other languages are handled by Cloudflare Whisper, not here.
 POST /transcribe  {audio: <base64 WAV>, src: "my"|"ta", target: "en"}  ->  {transcript, translation}
 """
@@ -142,7 +144,7 @@ def apply_spoken_symbols(text, lang):
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
-STATE = {"proc": None, "model": None, "dolphin": None}
+STATE = {"proc": None, "model": None, "dolphin": None, "mms": None}
 DTOK = re.compile(r"<[^>]*>")   # strip Dolphin control tokens like <my><MM><asr><notimestamp>
 def _native_ok(s, lang):   # keep sentence if it has native script (Tamil 0x0B80-0x0BFF / Burmese 0x1000-0x109F) or no Latin letters
     lo, hi = (0x0B80, 0x0BFF) if lang == "ta" else (0x1000, 0x109F)
@@ -187,12 +189,46 @@ def _chunks(a, sr=16000, max_sec=18.0):
     return [a] if len(a) <= n else [a[i:i + n] for i in range(0, len(a), n)]
 
 
+# --- MMS (facebook/mms-1b-all + Burmese 'mya' adapter). Benchmarked on real KWSH care speech (Recording 17):
+#     MMS 74.4% char / 51.4% digit accuracy, vs Dolphin 56.1% / 37.1% and Whisper ~0%. -> MMS is the primary
+#     Burmese engine; Dolphin + SeamlessM4T stay as fallbacks. Revert with env SCRIBE_MY_ENGINE=dolphin.
+#     MMS emits Burmese numerals directly (၃၆) -> map to ASCII digits; it does NOT use the Dolphin number-WORD parser. ---
+_MM2ASCII = {0x1040 + k: ord(str(k)) for k in range(10)}   # Myanmar digits U+1040-1049 -> "0".."9"
+def burmese_numerals_to_ascii(t):
+    return t.translate(_MM2ASCII) if t else t
+def _mms_model():
+    if STATE.get("mms") is None:
+        from transformers import Wav2Vec2ForCTC, AutoProcessor
+        proc = AutoProcessor.from_pretrained("facebook/mms-1b-all")
+        model = Wav2Vec2ForCTC.from_pretrained("facebook/mms-1b-all")
+        proc.tokenizer.set_target_lang("mya")   # Burmese ISO-639-3
+        model.load_adapter("mya")
+        model.eval()
+        STATE["mms"] = (proc, model)
+    return STATE["mms"]
+def _mms_asr(data16k):
+    import torch
+    proc, model = _mms_model()
+    out = []
+    for ch in _chunks(data16k, max_sec=15.0):
+        if len(ch) < 1600:
+            continue
+        inp = proc(ch, sampling_rate=16000, return_tensors="pt")
+        with torch.no_grad():
+            logits = model(**inp).logits
+        out.append(proc.decode(torch.argmax(logits, dim=-1)[0]).strip())
+    return " ".join(p for p in out if p).strip()
+
+
 @app.on_event("startup")
-def _prewarm():   # load Dolphin in the background at boot so the first request isn't blocked by the ~1.4GB load
+def _prewarm():   # preload the primary Burmese engine at boot so the first request isn't blocked by the model load
     import threading
     def _load():
         try:
-            _dolphin_model()
+            if os.environ.get("SCRIBE_MY_ENGINE", "mms") == "mms":
+                _mms_model()      # ~1GB, primary for Burmese
+            else:
+                _dolphin_model()  # ~1.4GB
         except Exception:
             pass
     threading.Thread(target=_load, daemon=True).start()
@@ -200,7 +236,8 @@ def _prewarm():   # load Dolphin in the background at boot so the first request 
 
 @app.get("/")
 def health():
-    return {"ok": True, "engine": "dolphin+seamless", "dolphin_loaded": STATE["dolphin"] is not None}
+    return {"ok": True, "engine": "mms+dolphin+seamless", "my_engine": os.environ.get("SCRIBE_MY_ENGINE", "mms"),
+            "mms_loaded": STATE.get("mms") is not None, "dolphin_loaded": STATE["dolphin"] is not None}
 
 
 @app.post("/transcribe")
@@ -218,7 +255,30 @@ async def transcribe(req: Request):
         data = librosa.resample(data, orig_sr=sr, target_sr=16000)
     data = data.astype(np.float32)
 
-    # Burmese, Tamil & Chinese -> Dolphin (primary, language-specialised) + Google Translate; falls back to SeamlessM4T.
+    # Burmese: MMS primary (benchmarked best on KWSH care speech), then Dolphin, then SeamlessM4T. Toggle off
+    # with env SCRIBE_MY_ENGINE=dolphin. Other langs are unchanged (Dolphin -> Seamless).
+    if src == "my" and os.environ.get("SCRIBE_MY_ENGINE", "mms") == "mms":
+        transcript = ""
+        try:
+            transcript = _mms_asr(data)
+        except Exception:
+            transcript = ""
+        if transcript:
+            # MMS emits Burmese numerals directly -> ASCII digits (NOT the Dolphin number-word parser).
+            transcript = apply_glossary_mm(burmese_numerals_to_ascii(normalize_burmese_unicode(transcript)))
+            transcript = apply_spoken_symbols(transcript, "my")   # "128 ကို 98" -> "128/98"
+            transcript = keep_native(transcript, "my")            # drop any English-only sentences
+        if transcript:
+            translation = ""
+            if target and target != "off" and target != src:
+                try:
+                    translation = _gtranslate(transcript, src, target)
+                except Exception:
+                    translation = ""
+            return {"transcript": transcript, "translation": translation}
+        # MMS unavailable/empty -> fall through to Dolphin (and then Seamless) below.
+
+    # Burmese, Tamil & Chinese -> Dolphin (language-specialised) + Google Translate; falls back to SeamlessM4T.
     # Dolphin two-level tokens: Cantonese = ct/HK, Hokkien (Min Nan) = zh/MINNAN (both in the model's languages.md).
     _LR = {"my": ("my", "MM"), "ta": ("ta", "IN"), "zh": ("zh", "CN"), "zh-CN": ("zh", "CN"),
            "yue": ("ct", "HK"), "nan": ("zh", "MINNAN")}
