@@ -298,5 +298,60 @@
 "my": "ကူးစက်ရောဂါ ကာကွယ်ရေးအတွက် စံ ကာကွယ်မှုများ ဆောင်ရွက်ပြီး ထိတွေ့ကာကွယ်မှုအတွက် မှတ်တမ်းတင်ခဲ့ပါတယ်။",
 "ja": "感染対策として標準予防策を実施し、接触予防策の対象として記録しました。",
 "en": "For infection control, implemented standard precautions and recorded the resident under contact precautions."
+},
+{
+"my": "သင် ဘယ်တိုင်းဒေသကြီး/မြို့နယ်ကနေလာပါသလဲ။",
+"ja": "",
+"en": "Karen State (ကရင်ပြည်နယ်). From the Karen region of Myanmar. [rec18–19]"
+},
+{
+"my": "ဘယ်ဗမာစကားကွဲလဲ?",
+"ja": "",
+"en": "Native KAREN speaker; speaks Burmese as a second language (Karen-accented). Note: Karen is a distinct language, not a Burmese dialect — relevant to ASR. [rec18–19]"
+},
+{
+"my": "ကျန်းမာရေး တိုင်းတာချက် (vital sign) ဒါမှမဟုတ် ဂဏန်းတစ်ခုကို ပြောတဲ့အခါ သဘာဝအလျောက် ဂဏန်း (digits) အဖြစ် ပြောပါသလား၊ ဒါမှမဟုတ် စကားလုံးအဖြစ် ပြောပါသလဲ။",
+"ja": "",
+"en": "Says/enters vital signs as DIGITS (numbers), typed in English. [rec20]"
+},
+{
+"my": "သင် vital sign သို့မဟုတ် နံပါတ်တစ်ခုကို ပြောတဲ့အခါ သဘာဝအတိုင်း ဂဏန်းအဖြစ် ပြောပါသလား၊ ဒါမှမဟုတ် စကားလုံးအဖြစ် ပြောပါသလား။",
+"ja": "",
+"en": "Says/enters vital signs as DIGITS (numbers), typed in English. [rec20]"
+},
+{
+"my": "လက်ရှိတွင် အခြားဝန်ထမ်းများနှင့် မည်သို့ ဆက်သွယ်ပြီး လူနာအချက်အလက်များကို မည်သို့ မှတ်တမ်းတင်ပါသလဲ။",
+"ja": "",
+"en": "Records patient info as progress notes on a COMPUTER, typed in ENGLISH; ~3 minutes per record; fills in forms/documents; short entries, no long sentences. [rec19–20]"
+},
+{
+"my": "သင့်အလုပ်တာဝန်တွေ ဘာတွေလဲ?",
+"ja": "",
+"en": "Documentation of patient care logs / progress notes on the computer. [rec19–20]"
+},
+{
+"my": "ဘာသာစကားမကိုက်ညီမှုကြောင့် သင်ကြုံတွေ့ရသော အခက်အခဲများက ဘာတွေလဲ?",
+"ja": "",
+"en": "Language mismatch causes difficulty; unsure of some care terms across Burmese/English; hard to understand residents who speak Chinese/Malay. [rec19–20]"
+},
+{
+"my": "ဘယ်လိုစောင့်ရှောက်မှုအခြေအနေတွေက အခက်ဆုံးလဲ?",
+"ja": "",
+"en": "Not clearly answered — general difficulty communicating with non-English-speaking (Chinese/Malay) residents. [rec20]"
+},
+{
+"my": "မြန်မာစကား၏ ဒိုင်ယာလက်အမျိုးမျိုးကြားတွင် စာသားများ/စာရေးပုံများ တူညီပါသလား။ စံချိန်ထားပါသလား။",
+"ja": "",
+"en": "Burmese script is standardized — one standard writing style everyone can read. [rec19]"
+},
+{
+"my": "ဖုန်း သို့မဟုတ် ကွန်ပျူတာပေါ်မှာ ဗမာစာ ရိုက်တဲ့အခါ Zawgyi သုံးပါသလား၊ Unicode သုံးပါသလား? (ဒါမှမဟုတ် ဘယ်ဟာသုံးရမှန်း မသိပါသလား?)",
+"ja": "",
+"en": "Uses UNICODE (ယူနီကုဒ်). [rec19]"
+},
+{
+"my": "စံချိန်ပြည့်မြန်မာစာလုံးစနစ်ဖြင့် ဖတ်နိုင်ပါသလား၊ ရေးနိုင်ပါသလား။",
+"ja": "",
+"en": "Yes — can read and write standardized Burmese (ဖတ်နိုင်၊ ရေးလည်း ရေးနိုင်ပါတယ်). [rec19]"
 }
 ]
