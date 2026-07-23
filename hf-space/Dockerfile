@@ -1,7 +1,14 @@
 FROM python:3.11-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-      libsndfile1 ffmpeg build-essential cmake && rm -rf /var/lib/apt/lists/*
+      libsndfile1 ffmpeg build-essential cmake git && rm -rf /var/lib/apt/lists/*
+
+# Build kenlm CLI tools (lmplz, build_binary) from source — pip only installs the Python bindings.
+RUN git clone --depth 1 https://github.com/kpu/kenlm.git /tmp/kenlm && \
+    cd /tmp/kenlm && mkdir build && cd build && \
+    cmake .. -DCMAKE_BUILD_TYPE=Release && make -j$(nproc) && \
+    cp bin/lmplz bin/build_binary /usr/local/bin/ && \
+    rm -rf /tmp/kenlm
 
 # CPU-only torch AND torchaudio from the SAME index -> matching ABI (mismatched torchaudio was the earlier crash).
 RUN pip install --no-cache-dir torch torchaudio --index-url https://download.pytorch.org/whl/cpu
@@ -22,7 +29,7 @@ RUN python -c "import dolphin; dolphin.load_model('small', device='cpu')" || tru
 COPY app.py care_phrases.json care_vocab.json burmese_lm_corpus.txt build_lm.py ./
 
 # Build the kenlm ARPA model from the Burmese corpus (character-level 5-gram).
-# lmplz is installed by the kenlm pip package. If it fails, the app falls back to the pure-Python LM.
+# lmplz was built from source above. If it fails, the app falls back to the pure-Python LM.
 RUN python build_lm.py || true
 
 EXPOSE 7860
