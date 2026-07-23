@@ -485,11 +485,35 @@ def _gemini_translate(text, target):
         return r.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
     except Exception:
         return ""
+_OPENAI_LANG = _GEMINI_LANG
+def _openai_translate(text, target):
+    key = os.environ.get("OPENAI_API_KEY", "").strip()
+    if not key or not text:
+        return ""
+    try:
+        import requests
+        lang = _OPENAI_LANG.get(target, target)
+        model = os.environ.get("SCRIBE_OPENAI_MODEL", "gpt-4o-mini")
+        prompt = ("The following is Burmese text from a care-worker's spoken note, transcribed by a "
+                  "speech recognizer that may contain errors. Infer the intended meaning and translate "
+                  f"it into {lang}. It is about elderly care (vitals, meals, bathing, excretion, "
+                  "medication, mobility). Output ONLY the translation, no notes.\n\n" + text)
+        r = requests.post("https://api.openai.com/v1/chat/completions",
+                          headers={"Authorization": "Bearer " + key},
+                          json={"model": model, "temperature": 0.2,
+                                "messages": [{"role": "user", "content": prompt}]}, timeout=20)
+        r.raise_for_status()
+        return r.json()["choices"][0]["message"]["content"].strip()
+    except Exception:
+        return ""
 def _translate_my(text, target):
-    """Burmese->target: Gemini if GEMINI_API_KEY set (better on noisy ASR), else Google Translate."""
+    """Burmese->target: Gemini -> OpenAI -> Google Translate (first available key wins)."""
     if not text or not target or target in ("off", "my"):
         return ""
     tr = _gemini_translate(text, target)
+    if tr:
+        return tr
+    tr = _openai_translate(text, target)
     if tr:
         return tr
     try:
@@ -586,7 +610,7 @@ def health():
             "my_snap": os.environ.get("SCRIBE_MY_SNAP", "1") == "1",
             "my_semantic": os.environ.get("SCRIBE_MY_SEMANTIC", "1") == "1",
             "my_candidates": len(_care_phrases()),
-            "my_translate": "gemini" if os.environ.get("GEMINI_API_KEY", "").strip() else "google",
+            "my_translate": "gemini" if os.environ.get("GEMINI_API_KEY", "").strip() else ("openai" if os.environ.get("OPENAI_API_KEY", "").strip() else "google"),
             "mms_loaded": STATE.get("mms") is not None, "dolphin_loaded": STATE["dolphin"] is not None}
 
 
