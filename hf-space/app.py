@@ -297,7 +297,8 @@ def _kenlm_decoder():
         labels = [k for k, _ in sorted(vocab.items(), key=lambda x: x[1])]
         _KENLM_DECODER = build_ctcdecoder(labels, kenlm_model_path=arpa, alpha=0.5, beta=1.0)
         return _KENLM_DECODER
-    except Exception:
+    except Exception as e:
+        import traceback; traceback.print_exc()
         _KENLM_DECODER = False; return None
 
 def _mms_asr(data16k):
