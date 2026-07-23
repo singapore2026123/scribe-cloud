@@ -214,11 +214,9 @@ def _mms_model():
                 pass
         STATE["mms"] = (proc, model)
     return STATE["mms"]
-# --- Optional char-n-gram LM decoding for Burmese (shallow-fusion CTC beam search). Enable with SCRIBE_MY_LM=1.
-#     Prototype: rec-17 CER 25.7% (greedy) -> 24.8% (beam+LM), +0.9pt, NO acoustic retraining, from the care glossary.
-#     Char-level (correct for space-less Burmese) + pure Python (no kenlm/C++ build; portable & testable). Adds CPU
-#     latency per utterance, so it's off by default. Corpus: hf-space/burmese_lm_corpus.txt (glossary; expand for
-#     more gain). SPEED NOTE: on the Space you can swap the Python n-gram below for a char-level kenlm backend. ---
+# --- Optional LM decoding for Burmese CTC beam search. Enable with SCRIBE_MY_LM=1.
+#     Two backends: kenlm (fast C++, built at Docker time from burmese_char.arpa) or pure-Python char n-gram (slow).
+#     kenlm is preferred on the Space (Linux); pure-Python fallback for Windows/testing. ---
 import math
 from collections import defaultdict
 _LM = {}
@@ -282,11 +280,32 @@ def _beam_decode(logp, id2ch, blank, alpha=0.4, beam=12, topk=12):
     best = max(beams.items(), key=lambda kv: lse(kv[1][0], kv[1][1]))[0]
     return "".join(id2ch.get(i, "") for i in best if id2ch.get(i, "") not in ("<pad>", "<s>", "</s>", "<unk>", "|"))
 
+_KENLM_DECODER = None
+def _kenlm_decoder():
+    """Build a pyctcdecode BeamSearchDecoderCTC backed by the kenlm ARPA model (character-level).
+    Returns the decoder or None if kenlm/pyctcdecode unavailable or ARPA missing."""
+    global _KENLM_DECODER
+    if _KENLM_DECODER is not None:
+        return _KENLM_DECODER if _KENLM_DECODER else None
+    arpa = os.path.join(os.path.dirname(__file__), "burmese_char.arpa")
+    if not os.path.exists(arpa):
+        _KENLM_DECODER = False; return None
+    try:
+        from pyctcdecode import build_ctcdecoder
+        proc, _ = _mms_model()
+        vocab = proc.tokenizer.get_vocab()
+        labels = [k for k, _ in sorted(vocab.items(), key=lambda x: x[1])]
+        _KENLM_DECODER = build_ctcdecoder(labels, kenlm_model_path=arpa, alpha=0.5, beta=1.0)
+        return _KENLM_DECODER
+    except Exception:
+        _KENLM_DECODER = False; return None
+
 def _mms_asr(data16k):
     import torch
     proc, model = _mms_model()
     use_lm = os.environ.get("SCRIBE_MY_LM") == "1"
-    if use_lm:
+    kenlm_dec = _kenlm_decoder() if use_lm else None
+    if use_lm and not kenlm_dec:
         _lm_build()
         id2ch = {i: t for t, i in proc.tokenizer.get_vocab().items()}
         blank = proc.tokenizer.pad_token_id
@@ -297,7 +316,10 @@ def _mms_asr(data16k):
         inp = proc(ch, sampling_rate=16000, return_tensors="pt")
         with torch.no_grad():
             logits = model(**inp).logits
-        if use_lm:
+        if kenlm_dec:
+            lp = torch.log_softmax(logits, dim=-1)[0].cpu().numpy()
+            out.append(kenlm_dec.decode(lp, beam_width=16))
+        elif use_lm:
             lp = torch.log_softmax(logits, dim=-1)[0].tolist()
             out.append(_beam_decode(lp, id2ch, blank))
         else:
@@ -606,6 +628,7 @@ def _prewarm():   # preload the primary Burmese engine at boot so the first requ
 def health():
     return {"ok": True, "engine": "mms+dolphin+seamless", "my_engine": os.environ.get("SCRIBE_MY_ENGINE", "mms"),
             "my_lm": os.environ.get("SCRIBE_MY_LM") == "1",
+            "my_lm_backend": "kenlm" if (_kenlm_decoder() if os.environ.get("SCRIBE_MY_LM") == "1" else None) else "python",
             "my_quant": os.environ.get("SCRIBE_MY_QUANT", "1") == "1",
             "my_snap": os.environ.get("SCRIBE_MY_SNAP", "1") == "1",
             "my_semantic": os.environ.get("SCRIBE_MY_SEMANTIC", "1") == "1",

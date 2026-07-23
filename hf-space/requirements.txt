@@ -11,3 +11,5 @@ dataoceanai-dolphin
 scikit-learn
 sentence-transformers
 requests
+kenlm
+pyctcdecode
