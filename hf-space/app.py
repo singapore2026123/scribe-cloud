@@ -378,6 +378,32 @@ def _care_phrases():
             _CARE.append(v)
     return _CARE
 
+_CONFUSABLES = None
+def _confusable_set():
+    """Build a set of candidate indices that have a near-identical Burmese partner with DIFFERENT
+    meaning. When snapping hits one of these, require a wider margin vs the partner to snap."""
+    global _CONFUSABLES
+    if _CONFUSABLES is not None:
+        return _CONFUSABLES
+    cands = _care_phrases()
+    pairs = {}  # idx -> list of confusable partner indices
+    for i in range(len(cands)):
+        mi = cands[i]["_my"]
+        if not mi or len(mi) < 4:
+            continue
+        for j in range(i + 1, len(cands)):
+            mj = cands[j]["_my"]
+            if not mj or abs(len(mi) - len(mj)) > 5:
+                continue
+            cer = _sym_cer(mi, mj)
+            ja_i = cands[i].get("ja", "")
+            ja_j = cands[j].get("ja", "")
+            if 0 < cer < 0.20 and ja_i != ja_j:
+                pairs.setdefault(i, []).append(j)
+                pairs.setdefault(j, []).append(i)
+    _CONFUSABLES = pairs
+    return _CONFUSABLES
+
 # --- Semantic tiers for snapping (used when char-CER can't match a garbled/paraphrased utterance) ---
 _TFIDF = None   # (vectorizer, matrix) over candidate _my strings; char-ngram cosine, no model needed
 def _tfidf():
@@ -431,19 +457,37 @@ def _snap_care(transcript, target):
     def result(p):
         return p.get("my", ""), (p.get(target) or p.get("ja") or p.get("en") or "")
 
+    confusables = _confusable_set()
+
+    def _confusable_ambiguous(best_idx, best_score, scores_fn, margin):
+        """Return True if a confusable partner scores within `margin` of the best — too close to snap."""
+        partners = confusables.get(best_idx, [])
+        if not partners:
+            return False
+        for pi in partners:
+            ps = scores_fn(pi)
+            if abs(best_score - ps) < margin:
+                return True
+        return False
+
     # Tier 1: char-CER
     best = None
-    for p in cands:
+    best_idx = -1
+    cer_cache = {}
+    for i, p in enumerate(cands):
         pm = p["_my"]
         if not pm or not ok_len(pm, p["is_vocab"]):
             continue
         c = _sym_cer(pm, h)
+        cer_cache[i] = c
         if best is None or c < best[0]:
             best = (c, p)
+            best_idx = i
     if best:
         thr = 0.33 if best[1]["is_vocab"] else 0.45
         if best[0] <= thr:
-            return result(best[1])
+            if not _confusable_ambiguous(best_idx, best[0], lambda i: cer_cache.get(i, 1.0), 0.10):
+                return result(best[1])
 
     # Tier 2: char-ngram TF-IDF cosine
     vec, mat = _tfidf()
@@ -459,7 +503,8 @@ def _snap_care(transcript, target):
                     continue
                 thr = 0.72 if p["is_vocab"] else 0.58
                 if sims[idx] >= thr:
-                    return result(p)
+                    if not _confusable_ambiguous(idx, sims[idx], lambda i: sims[i], 0.08):
+                        return result(p)
                 break
         except Exception:
             pass
@@ -478,7 +523,8 @@ def _snap_care(transcript, target):
                     continue
                 thr = 0.82 if p["is_vocab"] else 0.72
                 if sims[idx] >= thr:
-                    return result(p)
+                    if not _confusable_ambiguous(idx, sims[idx], lambda i: sims[i], 0.06):
+                        return result(p)
                 break
         except Exception:
             pass
