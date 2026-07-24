@@ -678,6 +678,102 @@ async def stream(ws: WebSocket):
         pass
 
 
+# --- KikuyakuNote-compatible STT WebSocket. Speaks the same protocol as KikuyakuNote's /stt endpoint
+#     so it can be used as a drop-in engine. Client sends binary PCM16LE mono 16kHz; server responds with
+#     {type:"transcript", source, translation, isFinal, seq} messages. ---
+@app.websocket("/stt-compat")
+async def stt_compat(ws: WebSocket):
+    from starlette.concurrency import run_in_threadpool
+    import numpy as np
+    await ws.accept()
+    src = ws.query_params.get("sourceLanguageCode", "my")
+    target = ws.query_params.get("targetLanguageCode", "ja")
+    await ws.send_json({"type": "setupComplete"})
+    SR = 16000
+    THRESH = float(os.environ.get("SCRIBE_VAD_RMS", "0.008"))
+    SIL = float(os.environ.get("SCRIBE_VAD_SIL", "0.6"))
+    MINSP, MAXSEG = 0.4, 15.0
+    seg = []; trailing = 0.0; started = False; last_partial = 0.0; seq = 0
+
+    async def do(samples, translate=False):
+        if src == "my" and os.environ.get("SCRIBE_MY_ENGINE", "mms") == "mms":
+            raw, conf = await run_in_threadpool(lambda: _mms_asr(np.asarray(samples, dtype=np.float32)))
+            txt = _postprocess_my(raw)
+        else:
+            txt = ""
+            try:
+                txt = await run_in_threadpool(lambda: _dolphin_asr(np.asarray(samples, dtype=np.float32),
+                    *{"my": ("my", "MM"), "ta": ("ta", "IN"), "zh": ("zh", "CN")}.get(src, ("my", "MM"))))
+            except Exception:
+                pass
+            conf = 0.0
+        tr = ""
+        if translate and txt:
+            dur = len(samples) / SR
+            snap = _snap_care(txt, target, dur, conf)
+            if snap:
+                txt, tr = snap[0], snap[1]
+            elif target and target not in ("off", src):
+                tr = await run_in_threadpool(lambda: _translate_my(txt, target))
+        return txt, tr
+
+    async def flush():
+        nonlocal seg, trailing, started, last_partial, seq
+        if len(seg) / SR >= MINSP:
+            txt, tr = await do(seg, translate=True)
+            if txt:
+                seq += 1
+                await ws.send_json({"type": "transcript", "source": txt, "translation": tr, "isFinal": True, "seq": seq})
+        seg = []; trailing = 0.0; started = False; last_partial = 0.0
+
+    try:
+        while True:
+            m = await ws.receive()
+            if m.get("type") == "websocket.disconnect":
+                break
+            text = m.get("text")
+            if text:
+                try:
+                    ctrl = __import__("json").loads(text)
+                    if ctrl.get("type") == "end":
+                        await flush()
+                        await ws.send_json({"type": "speech_end"})
+                        continue
+                except Exception:
+                    pass
+                if text == "end":
+                    await flush()
+                    await ws.send_json({"type": "speech_end"})
+                    continue
+            b = m.get("bytes")
+            if not b:
+                continue
+            chunk = np.frombuffer(b, dtype=np.int16).astype(np.float32) / 32768.0
+            if not len(chunk):
+                continue
+            rms = float(np.sqrt(np.mean(chunk ** 2)))
+            dur = len(chunk) / SR
+            if rms > THRESH:
+                started = True; trailing = 0.0; seg.extend(chunk.tolist())
+            elif started:
+                seg.extend(chunk.tolist()); trailing += dur
+            cur = len(seg) / SR
+            if started and (trailing >= SIL or cur >= MAXSEG):
+                await flush()
+            elif started and cur - last_partial >= 1.5:
+                last_partial = cur
+                txt, _ = await do(seg)
+                if txt:
+                    seq += 1
+                    await ws.send_json({"type": "transcript", "source": txt, "translation": "", "isFinal": False, "seq": seq})
+    except Exception:
+        pass
+    try:
+        await flush()
+    except Exception:
+        pass
+
+
 @app.on_event("startup")
 def _prewarm():   # preload the primary Burmese engine at boot so the first request isn't blocked by the model load
     import threading
