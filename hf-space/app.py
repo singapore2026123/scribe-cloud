@@ -343,6 +343,31 @@ def _postprocess_my(transcript):
     return keep_native(transcript, "my")
 
 
+def _burmese_ratio(text):
+    if not text:
+        return 0.0
+    chars = [c for c in text if not c.isspace()]
+    if not chars:
+        return 0.0
+    my_chars = sum(1 for c in chars if 'က' <= c <= '႟')
+    return my_chars / len(chars)
+
+def _code_switch_english(data16k):
+    """Second-pass English ASR via SeamlessM4T when MMS Burmese output looks like code-switched speech."""
+    try:
+        proc, model = _seamless()
+        transcript_parts = []
+        for ch in _chunks(data16k):
+            inp = proc(audio=ch, sampling_rate=16000, return_tensors="pt")
+            asr = model.generate(**inp, tgt_lang="eng", generate_speech=False, **GEN)
+            part = proc.decode(asr[0].tolist()[0], skip_special_tokens=True).strip()
+            if part:
+                transcript_parts.append(part)
+        return " ".join(transcript_parts).strip()
+    except Exception:
+        return ""
+
+
 # --- Closed-vocab snapping: garbled ASR -> nearest KNOWN care phrase (care_phrases.json, from the matrix)
 #     -> its VERIFIED translation. Bypasses ASR garbling + MT errors for common care phrases; novel speech
 #     falls through to raw transcript + Google Translate. Disable with env SCRIBE_MY_SNAP=0. ---
@@ -834,6 +859,20 @@ async def transcribe(req: Request):
             transcript = apply_spoken_symbols(transcript, "my")   # "128 ကို 98" -> "128/98"
             transcript = keep_native(transcript, "my")            # drop any English-only sentences
         if transcript:
+            my_ratio = _burmese_ratio(transcript)
+            if asr_confidence < -0.7 and my_ratio < 0.3:
+                en_text = _code_switch_english(data)
+                if en_text and len(en_text) > 5:
+                    translation = ""
+                    if target and target != "off" and target != "en":
+                        try:
+                            translation = _gtranslate(en_text, "en", target)
+                        except Exception:
+                            translation = ""
+                    resp = {"transcript": en_text, "translation": translation, "code_switched": True}
+                    if audio_duration > 60.0:
+                        resp["recommend_streaming"] = True
+                    return resp
             snap = _snap_care(transcript, target, audio_duration, asr_confidence)
             if snap:
                 resp = {"transcript": snap[0], "translation": snap[1]}
