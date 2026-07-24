@@ -302,6 +302,8 @@ def _kenlm_decoder():
         _KENLM_DECODER = False; return None
 
 def _mms_asr(data16k):
+    """Returns (transcript, confidence). Confidence = mean of per-frame max log-softmax;
+    closer to 0 = confident, below -0.5 = uncertain, below -1.0 = unreliable."""
     import torch
     proc, model = _mms_model()
     use_lm = os.environ.get("SCRIBE_MY_LM") == "1"
@@ -311,21 +313,24 @@ def _mms_asr(data16k):
         id2ch = {i: t for t, i in proc.tokenizer.get_vocab().items()}
         blank = proc.tokenizer.pad_token_id
     out = []
+    conf_scores = []
     for ch in _chunks(data16k, max_sec=15.0):
         if len(ch) < 1600:
             continue
         inp = proc(ch, sampling_rate=16000, return_tensors="pt")
         with torch.no_grad():
             logits = model(**inp).logits
+        lsm = torch.log_softmax(logits, dim=-1)[0]
+        conf_scores.append(float(lsm.max(dim=-1).values.mean()))
         if kenlm_dec:
-            lp = torch.log_softmax(logits, dim=-1)[0].cpu().numpy()
-            out.append(kenlm_dec.decode(lp, beam_width=16))
+            out.append(kenlm_dec.decode(lsm.cpu().numpy(), beam_width=16))
         elif use_lm:
-            lp = torch.log_softmax(logits, dim=-1)[0].tolist()
-            out.append(_beam_decode(lp, id2ch, blank))
+            out.append(_beam_decode(lsm.tolist(), id2ch, blank))
         else:
             out.append(proc.decode(torch.argmax(logits, dim=-1)[0]).strip())
-    return " ".join(p for p in out if p).strip()
+    text = " ".join(p for p in out if p).strip()
+    confidence = sum(conf_scores) / len(conf_scores) if conf_scores else 0.0
+    return text, confidence
 
 
 def _postprocess_my(transcript):
@@ -435,22 +440,37 @@ def _labse():
             _LABSE = False
     return _LABSE or None
 
-def _snap_care(transcript, target):
+def _snap_care(transcript, target, audio_duration=0.0, asr_confidence=0.0):
     """Snap garbled/paraphrased Burmese ASR to the nearest KNOWN care phrase and return
     (clean_phrase, verified_translation), else None. Three tiers, tried most-precise first:
       1. char-CER          (orthographic; catches garbled versions of a known phrase)
       2. char-ngram TF-IDF (robust to reordering/partial garble)
       3. LaBSE embeddings  (semantic; catches paraphrases in natural speech)
-    Vocab terms (short) use stricter thresholds than sentences to avoid coarse mismatches."""
+    Vocab terms (short) use stricter thresholds than sentences to avoid coarse mismatches.
+    False-snap prevention: skip/tighten when ASR confidence is low or transcript is sparse
+    relative to audio length (short text from long recording = likely coincidental match)."""
     if os.environ.get("SCRIBE_MY_SNAP", "1") != "1":
         return None
     h = _my_only(transcript)
     if len(h) < 6:
         return None
+
+    if asr_confidence < -1.0:
+        return None
+    strict = asr_confidence < -0.5
+    if audio_duration > 30.0:
+        density = len(h) / audio_duration
+        if density < 0.5:
+            return None
+        if density < 1.5:
+            strict = True
+
     cands = _care_phrases()
 
     def ok_len(pm, tight):
         lo, hi = (0.6, 1.7) if tight else (0.4, 2.5)
+        if strict:
+            lo, hi = (0.7, 1.5) if tight else (0.5, 2.0)
         r = len(pm) / max(len(h), 1)
         return lo <= r <= hi
 
@@ -484,7 +504,7 @@ def _snap_care(transcript, target):
             best = (c, p)
             best_idx = i
     if best:
-        thr = 0.33 if best[1]["is_vocab"] else 0.45
+        thr = (0.20 if best[1]["is_vocab"] else 0.30) if strict else (0.33 if best[1]["is_vocab"] else 0.45)
         if best[0] <= thr:
             if not _confusable_ambiguous(best_idx, best[0], lambda i: cer_cache.get(i, 1.0), 0.10):
                 return result(best[1])
@@ -501,7 +521,7 @@ def _snap_care(transcript, target):
                 p = cands[idx]
                 if not ok_len(p["_my"], p["is_vocab"]):
                     continue
-                thr = 0.72 if p["is_vocab"] else 0.58
+                thr = (0.82 if p["is_vocab"] else 0.70) if strict else (0.72 if p["is_vocab"] else 0.58)
                 if sims[idx] >= thr:
                     if not _confusable_ambiguous(idx, sims[idx], lambda i: sims[i], 0.08):
                         return result(p)
@@ -521,7 +541,7 @@ def _snap_care(transcript, target):
                 p = cands[idx]
                 if not ok_len(p["_my"], p["is_vocab"]):
                     continue
-                thr = 0.82 if p["is_vocab"] else 0.72
+                thr = (0.90 if p["is_vocab"] else 0.82) if strict else (0.82 if p["is_vocab"] else 0.72)
                 if sims[idx] >= thr:
                     if not _confusable_ambiguous(idx, sims[idx], lambda i: sims[i], 0.06):
                         return result(p)
@@ -609,7 +629,8 @@ async def stream(ws: WebSocket):
     MINSP, MAXSEG = 0.4, 15.0
     seg = []; trailing = 0.0; started = False; last_partial = 0.0
     async def do(samples, translate=False):
-        txt = await run_in_threadpool(lambda: _postprocess_my(_mms_asr(np.asarray(samples, dtype=np.float32))))
+        raw, _ = await run_in_threadpool(lambda: _mms_asr(np.asarray(samples, dtype=np.float32)))
+        txt = _postprocess_my(raw)
         tr = ""
         if translate and txt:
             snap = _snap_care(txt, target)          # known care phrase -> verified clean text + translation
@@ -678,6 +699,7 @@ def health():
             "my_lm_backend": "kenlm" if (_kenlm_decoder() if os.environ.get("SCRIBE_MY_LM") == "1" else None) else "python",
             "my_quant": os.environ.get("SCRIBE_MY_QUANT", "1") == "1",
             "my_snap": os.environ.get("SCRIBE_MY_SNAP", "1") == "1",
+            "my_snap_guards": "confidence+density+confusable",
             "my_semantic": os.environ.get("SCRIBE_MY_SEMANTIC", "1") == "1",
             "my_candidates": len(_care_phrases()),
             "my_translate": "gemini" if os.environ.get("GEMINI_API_KEY", "").strip() else ("openai" if os.environ.get("OPENAI_API_KEY", "").strip() else "google"),
@@ -701,10 +723,13 @@ async def transcribe(req: Request):
 
     # Burmese: MMS primary (benchmarked best on KWSH care speech), then Dolphin, then SeamlessM4T. Toggle off
     # with env SCRIBE_MY_ENGINE=dolphin. Other langs are unchanged (Dolphin -> Seamless).
+    audio_duration = len(data) / 16000.0
+
     if src == "my" and os.environ.get("SCRIBE_MY_ENGINE", "mms") == "mms":
         transcript = ""
+        asr_confidence = 0.0
         try:
-            transcript = _mms_asr(data)
+            transcript, asr_confidence = _mms_asr(data)
         except Exception:
             transcript = ""
         if transcript:
@@ -713,13 +738,19 @@ async def transcribe(req: Request):
             transcript = apply_spoken_symbols(transcript, "my")   # "128 ကို 98" -> "128/98"
             transcript = keep_native(transcript, "my")            # drop any English-only sentences
         if transcript:
-            snap = _snap_care(transcript, target)   # known care phrase -> verified clean text + translation
+            snap = _snap_care(transcript, target, audio_duration, asr_confidence)
             if snap:
-                return {"transcript": snap[0], "translation": snap[1]}
+                resp = {"transcript": snap[0], "translation": snap[1]}
+                if audio_duration > 60.0:
+                    resp["recommend_streaming"] = True
+                return resp
             translation = ""
             if target and target != "off" and target != src:
                 translation = _translate_my(transcript, target)   # Gemini if GEMINI_API_KEY else Google
-            return {"transcript": transcript, "translation": translation}
+            resp = {"transcript": transcript, "translation": translation}
+            if audio_duration > 60.0:
+                resp["recommend_streaming"] = True
+            return resp
         # MMS unavailable/empty -> fall through to Dolphin (and then Seamless) below.
 
     # Burmese, Tamil & Chinese -> Dolphin (language-specialised) + Google Translate; falls back to SeamlessM4T.
